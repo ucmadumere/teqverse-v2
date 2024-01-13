@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt')
 // const PasswordHasher = ('@fntools/password');
 // const password = new PassordHasher(10);
 
