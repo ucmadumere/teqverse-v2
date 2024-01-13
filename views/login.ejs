@@ -7,42 +7,42 @@
     <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
-
-    <div class="container right-panel-active">
-        <!-- Sign Up -->
-        <div class="container__form container--signup">
-            <form action="#" class="form" id="form1">
-                <h2 class="form__title">Sign Up</h2>
-                <input type="text" placeholder="User" class="input" />
-                <input type="email" placeholder="Email" class="input" />
-                <input type="password" placeholder="Password" class="input" />
-                <button class="btn">Sign Up</button>
+    <div id="wrapper">
+        <div id="left">
+          <div id="signin">
+            <form>
+              <div>
+                <label>Email or username</label>
+                <input type="text" class="text-input" />
+              </div>
+              <div>
+                <label>Password</label>
+                <input type="password" class="text-input" />
+              </div>
+              <button type="submit" class="primary-btn">Sign In</button>
             </form>
-        </div>
-    
-        <!-- Sign In -->
-        <div class="container__form container--signin">
-            <form action="#" class="form" id="form2">
-                <h2 class="form__title">Sign In</h2>
-                <input type="email" placeholder="Email" class="input" />
-                <input type="password" placeholder="Password" class="input" />
-                <a href="#" class="link">Forgot your password?</a>
-                <button class="btn">Sign In</button>
-            </form>
-        </div>
-    
-        <!-- Overlay -->
-        <div class="container__overlay">
-            <div class="overlay">
-                <div class="overlay__panel overlay--left">
-                    <button class="btn" id="signIn">Sign In</button>
-                </div>
-                <div class="overlay__panel overlay--right">
-                    <button class="btn" id="signUp">Sign Up</button>
-                </div>
+            <div class="links">
+              <a href="#">Forgot Password</a>
             </div>
+            <div class="or">
+              <hr class="bar" />
+              <span>OR</span>
+              <hr class="bar" />
+            </div>
+            <a href="#" class="secondary-btn">Create an account</a>
+          </div>
         </div>
-    </div>
+        <div id="right">
+          <div id="showcase">
+            <div class="showcase-content">
+              <h1 class="showcase-text">
+                Let's create the future <strong>together</strong>
+              </h1>
+              <a href="#" class="secondary-btn">Sign Up for Free</a>
+            </div>
+          </div>
+        </div>
+      </div>
     
 </body>
 </html>

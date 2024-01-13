@@ -1,212 +1,236 @@
-:root {
-	/* COLORS */
-	--white: #e9e9e9;
-	--gray: #333;
-	--blue: #0367a6;
-	--lightblue: #008997;
+@import url('https://fonts.googleapis.com/css?family=Roboto:300');
 
-	/* RADII */
-	--button-radius: 0.7rem;
-
-	/* SIZES */
-	--max-width: 758px;
-	--max-height: 420px;
-
-	font-size: 16px;
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-		Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+* {
+  box-sizing: border-box;
 }
 
 body {
-	align-items: center;
-	background-color: var(--white);
-	background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
-	background-attachment: fixed;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	display: grid;
-	height: 100vh;
-	place-items: center;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 300;
+  background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
+  color: #fff;
+  overflow: hidden;
 }
 
-.form__title {
-	font-weight: 300;
-	margin: 0;
-	margin-bottom: 1.25rem;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
 }
 
-.link {
-	color: var(--gray);
-	font-size: 0.9rem;
-	margin: 1.5rem 0;
-	text-decoration: none;
+#wrapper {
+  display: flex;
+  flex-direction: row;
 }
 
-.container {
-	background-color: var(--white);
-	border-radius: var(--button-radius);
-	box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25),
-		0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
-	height: var(--max-height);
-	max-width: var(--max-width);
-	overflow: hidden;
-	position: relative;
-	width: 100%;
+#left {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-.container__form {
-	height: 100%;
-	position: absolute;
-	top: 0;
-	transition: all 0.6s ease-in-out;
+#right {
+  flex: 1;
 }
 
-.container--signin {
-	left: 0;
-	width: 50%;
-	z-index: 2;
+/* Sign In */
+#signin {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  padding-bottom: 1rem;
+  padding-top: 40px;
 }
 
-.container.right-panel-active .container--signin {
-	transform: translateX(100%);
+#signin form {
+  width: 80%;
+  padding-bottom: 3rem;
 }
 
-.container--signup {
-	left: 0;
-	opacity: 0;
-	width: 50%;
-	z-index: 1;
+#signin .logo {
+  margin-bottom: 8vh;
 }
 
-.container.right-panel-active .container--signup {
-	animation: show 0.6s;
-	opacity: 1;
-	transform: translateX(100%);
-	z-index: 5;
+#signin .logo img {
+  width: 300px;
 }
 
-.container__overlay {
-	height: 100%;
-	left: 50%;
-	overflow: hidden;
-	position: absolute;
-	top: 0;
-	transition: transform 0.6s ease-in-out;
-	width: 50%;
-	z-index: 100;
+#signin label {
+  font-size: 0.9rem;
+  line-height: 2rem;
+  font-weight: 500;
 }
 
-.container.right-panel-active .container__overlay {
-	transform: translateX(-100%);
+#signin .text-input {
+  margin-bottom: 1.3rem;
+  width: 100%;
+  border-radius: 2px;
+  background: white;
+  border: 1px solid #555;
+  color: black;
+  padding: 0.5rem 1rem;
+  line-height: 1.3rem;
 }
 
-.overlay {
-	background-color: var(--lightblue);
-	background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg");
-	background-attachment: fixed;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	height: 100%;
-	left: -100%;
-	position: relative;
-	transform: translateX(0);
-	transition: transform 0.6s ease-in-out;
-	width: 200%;
+#signin .primary-btn {
+  width: 100%;
 }
 
-.container.right-panel-active .overlay {
-	transform: translateX(50%);
+#signin .secondary-btn,
+.or,
+.links {
+  width: 60%;
 }
 
-.overlay__panel {
-	align-items: center;
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	justify-content: center;
-	position: absolute;
-	text-align: center;
-	top: 0;
-	transform: translateX(0);
-	transition: transform 0.6s ease-in-out;
-	width: 50%;
+#signin .links a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
 }
 
-.overlay--left {
-	transform: translateX(-20%);
+#signin .or {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.2rem;
+  align-items: center;
 }
 
-.container.right-panel-active .overlay--left {
-	transform: translateX(0);
+#signin .or .bar {
+  flex: auto;
+  border: none;
+  height: 1px;
+  background: #aaa;
 }
 
-.overlay--right {
-	right: 0;
-	transform: translateX(0);
+#signin .or span {
+  color: #ccc;
+  padding: 0 0.8rem;
 }
 
-.container.right-panel-active .overlay--right {
-	transform: translateX(20%);
+
+
+/* Showcase */
+#showcase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url("https://res.cloudinary.com/dci1eujqw/image/upload/v1616769558/Codepen/waldemar-brandt-aThdSdgx0YM-unsplash_cnq4sb.jpg") no-repeat center center / cover;
+  height: 100vh;
+  text-align: center;
 }
 
-.btn {
-	background-color: var(--blue);
-	background-image: linear-gradient(90deg, var(--blue) 0%, var(--lightblue) 74%);
-	border-radius: 20px;
-	border: 1px solid var(--blue);
-	color: var(--white);
-	cursor: pointer;
-	font-size: 0.8rem;
-	font-weight: bold;
-	letter-spacing: 0.1rem;
-	padding: 0.9rem 4rem;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
+#showcase .showcase-text {
+  font-size: 3rem;
+  width: 100%;
+  color: #fff;
+  margin-bottom: 1.5rem;
 }
 
-.form > .btn {
-	margin-top: 1.5rem;
+#showcase .secondary-btn {
+  width: 60%;
+  margin: auto;
+  
 }
 
-.btn:active {
-	transform: scale(0.95);
+/* Footer */
+#main-footer {
+  color: #ccc;
+  text-align: center;
+  font-size: 0.8rem;
+  max-width: 80%;
+  padding-top: 5rem;
 }
 
-.btn:focus {
-	outline: none;
+#main-footer a {
+  color: #f96816;
+  text-decoration: underline;
 }
 
-.form {
-	background-color: var(--white);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
-	padding: 0 3rem;
-	height: 100%;
-	text-align: center;
+/* Button */
+.primary-btn {
+  padding: 0.7rem 1rem;
+  height: 2.7rem;
+  display: block;
+  border: 0;
+  border-radius: 2px;
+  font-weight: 500;
+  background: #f96816;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.5s;
 }
 
-.input {
-	background-color: #fff;
-	border: none;
-	padding: 0.9rem 0.9rem;
-	margin: 0.5rem 0;
-	width: 100%;
+.primary-btn:hover {
+  background-color: #ff7b39;
 }
 
-@keyframes show {
-	0%,
-	49.99% {
-		opacity: 0;
-		z-index: 1;
-	}
+.secondary-btn {
+  padding: 0.7rem 1rem;
+  height: 2.7rem;
+  display: block;
+  border: 1px solid #f4f4f4;
+  border-radius: 2px;
+  font-weight: 500;
+  background: none;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.5s;
+}
 
-	50%,
-	100% {
-		opacity: 1;
-		z-index: 5;
-	}
+.secondary-btn:hover {
+  border-color: #ff7b39;
+  color: #ff7b39;
+}
+
+/* Media Queries */
+@media (min-width: 1200px) {
+  #left {
+    flex: 4;
+  }
+
+  #right {
+    flex: 6;
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    overflow: auto;
+  }
+
+  #right {
+    display: none;
+  }
+
+  #left {
+    justify-content: start;
+    margin-top: 4vh;
+  }
+
+  #signin .logo {
+    margin-bottom: 2vh;
+  }
+
+  #signin .text-input {
+    margin-bottom: 0.7rem;
+  }
+
+  #main-footer {
+    padding-top: 1rem;
+  }
 }
