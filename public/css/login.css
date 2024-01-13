@@ -47,7 +47,7 @@ h6 {
   align-items: center;
   width: 80%;
   padding-bottom: 1rem;
-  padding-top: 40px;
+  padding-top: 80px;
 }
 
 #signin form {
@@ -118,6 +118,85 @@ h6 {
   padding: 0 0.8rem;
 }
 
+/* Sign Up */
+#signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  padding-bottom: 1rem;
+  padding-top: 130px;
+}
+
+#signup form {
+  width: 80%;
+  padding-bottom: 3rem;
+}
+
+#signup .logo {
+  margin-bottom: 8vh;
+}
+
+#signup .logo img {
+  width: 300px;
+}
+
+#signup label {
+  font-size: 0.9rem;
+  line-height: 2rem;
+  font-weight: 500;
+}
+
+#signup .text-input {
+  margin-bottom: 1.3rem;
+  width: 100%;
+  border-radius: 2px;
+  background: white;
+  border: 1px solid #555;
+  color: black;
+  padding: 0.5rem 1rem;
+  line-height: 1.3rem;
+}
+
+#signup .primary-btn {
+  width: 100%;
+}
+
+#signup .secondary-btn,
+.or,
+.links {
+  width: 60%;
+}
+
+#signup .links a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+#signup .or {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1.2rem;
+  align-items: center;
+}
+
+#signup .or .bar {
+  flex: auto;
+  border: none;
+  height: 1px;
+  background: #aaa;
+}
+
+#signup .or span {
+  color: #ccc;
+  padding: 0 0.8rem;
+}
+
 
 
 /* Showcase */
@@ -138,9 +217,10 @@ h6 {
 }
 
 #showcase .secondary-btn {
-  width: 60%;
+  width: 30%;
   margin: auto;
-  
+  background: #da680b;
+  font-weight: 300;
 }
 
 /* Footer */
