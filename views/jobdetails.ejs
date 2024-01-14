@@ -25,17 +25,16 @@
                         
                         <div class="blog-item-box">
                             <div>
-                                <button>
-                                    Back
-                                </button>
+                                <a href="/joblist">Back</a>
                             </div>
 
                             <div class="item pb-3">
                                 <div class="info mt-3">
-                                    <h3>Common so wicket appear to sudden</h3>
+                                    <span class="post-date"><%= data.createdAt.toDateString() %></span>
+                                    <h3><%= data.title %></h3>
                                     
                                     <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iusto natus necessitatibus ab porro. Cum, cumque provident quaerat veritatis eveniet odit dignissimos ratione molestiae magni accusantium. Natus quia sed laboriosam molestiae! 
+                                        <%= data.body %> 
                                     </p>
                                     
                                     <h4>Requirements</h4>
@@ -55,19 +54,6 @@
                             </div>
 
                         </div>
-
-                        <!-- Start Post Pagination -->
-                        <div class="post-pagi-area">
-                            <a href="#">
-                                <i class="fas fa-angle-double-left"></i> Previus Post
-                                <h5>Hello World</h5>
-                            </a>
-                            <a href="#">
-                                Next Post <i class="fas fa-angle-double-right"></i>
-                                <h5>The earth brown</h5>
-                            </a>
-                        </div>
-                        <!-- End Post Pagination -->
 
                         <!-- Start Post Tags-->
                         <div class="post-tags share">

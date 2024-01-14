@@ -10,10 +10,10 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-    // requirements: {
-    //     type: String,
-    //     required: true
-    // },
+    requirements: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

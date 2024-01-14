@@ -1,22 +1,12 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt')
-// const PasswordHasher = ('@fntools/password');
-// const password = new PassordHasher(10);
+// const bcrypt = require('bcrypt')
+
 
 const userSchema = mongoose.Schema(
   {
-    firstname: {
+    username: {
       type: String,
       required: [true, 'Firstname cannot be blank']
-    },
-    lastname: {
-        type: String,
-        required: [true, 'Lastname cannot be blank']
-      },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
     },
     password: {
       type: String,
@@ -33,7 +23,7 @@ const userSchema = mongoose.Schema(
 //   return await bcrypt.compare(enteredPassword, this.password);
 // };
 
-// Encrypt password using bcrypt
+// // Encrypt password using bcrypt
 // userSchema.pre('save', async function (next) {
 //   if (!this.isModified('password')) {
 //     next();

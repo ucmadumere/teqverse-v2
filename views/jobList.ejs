@@ -30,16 +30,14 @@
                             <div class="item">
                                 <div class="info">
                                     
-                                        <span class="post-date"><i class="fas fa-clock"></i> 12 Feb, 2021</span>
+                                        <span class="post-date"><%= post.createdAt.toDateString() %></span>
                                         <h3 class="mt-1">
                                             <a href="/jobdetails/<%= post._id %>"><%= post.title %></a>
                                         </h3>
                                         <p>
-                                            Sitting mistake towards his few country ask. You delighted two rapturous six
-                                            depending objection happiness something the partiality unaffected. Incommode
-                                            so intention defective at convinced. Led income months itself and houses you
+                                            <%= post.body %>
                                         </p>
-                                        <a class="btn circle btn-theme border btn-sm" href="/joblistingdetail">Read
+                                        <a class="btn circle btn-theme border btn-sm" href="/jobdetails/<%= post._id %>">Read
                                             More</a>
                                      
                                 </div>
@@ -54,12 +52,16 @@
                     <div class="row">
                         <div class="col-md-12 pagi-area text-center">
                             <nav aria-label="navigation">
-                                <ul class="pagination">
-                                    <!-- <li class="page-item"><a class="page-link" href="#"><i
-                                                class="fas fa-angle-double-left"></i></a></li> -->
+                                <% if (nextPage !== null) { %>
+                                    <a href="/joblist/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
+                                  <% } %>
+                                <!-- <ul class="pagination">
+                                    <li class="page-item"><a class="page-link" href=""><i class="fas fa-angle-double-left"></i></a></li>
+                                    <li class="page-item active"><a class="page-link" href="">1</a></li>
                                     
+                                    <li class="page-item"><a class="page-link" href=""><i class="fas fa-angle-double-right"></i></a></li>
                                     
-                                </ul>
+                                </ul> -->
                             </nav>
                         </div>
                     </div>
@@ -69,10 +71,7 @@
                     <aside>
                         <div class="sidebar-item search">
                             <div class="sidebar-info">
-                                <form>
-                                    <input type="text" name="text" class="form-control">
-                                    <button type="submit"><i class="fas fa-search"></i></button>
-                                </form>
+                                
                             </div>
                         </div>
                         <div class="sidebar-item recent-post">
