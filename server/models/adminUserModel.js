@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 
-const userSchema = mongoose.Schema(
+const adminUserSchema = mongoose.Schema(
   {
     username: {
       type: String,
-      required: [true, 'Firstname cannot be blank']
+      required: [true, 'Email cannot be blank']
     },
     password: {
       type: String,
@@ -19,12 +19,12 @@ const userSchema = mongoose.Schema(
 );
 
 // Match user entered password to hashed password in database
-userSchema.methods.matchPassword = async function (enteredPassword) {
+adminUserSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 // // Encrypt password using bcrypt
-userSchema.pre('save', async function (next) {
+adminUserSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {
     next();
   }
@@ -33,4 +33,4 @@ userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(this.password, salt);
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('adminUser', adminUserSchema);
