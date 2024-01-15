@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Postjob = require('../models/postJob');
+const postJob = require('../models/postJob');
 const User = require('../models/adminUserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
@@ -8,6 +8,26 @@ const jwt = require('jsonwebtoken');
 const adminLayout = '../views/layouts/adminLogin';
 const jwtSecret = process.env.JWT_SECRET;
 
+
+/**
+ * 
+ * Check Login
+*/
+const authMiddleware = (req, res, next) => {
+    const token = req.cookies.token;
+
+    if (!token) {
+        return res.status(401).json({ message: 'Unauthorized' });
+    }
+
+    try {
+        const decoded = jwt.verify(token, jwtSecret);
+        req.userId = decoded.userId;
+        next();
+    } catch (error) {
+        res.status(401).json({ message: 'Unauthorized' });
+    }
+}
 
 /**
  * GET /
@@ -28,7 +48,7 @@ router.get('/admin', async (req, res) => {
 
 /**
  * POST /
- * Admin - Login Page
+ * Admin - Check Login
 */
 
 router.post('/admin', async (req, res) => {
@@ -46,8 +66,7 @@ router.post('/admin', async (req, res) => {
 
         const token = jwt.sign({ userId: user._id }, jwtSecret);
         res.cookie('token', token, { httpOnly: true });
-
-        res.redirect('/dashboard')
+        res.redirect('/dashboard');
 
     } catch (error) {
         console.log(error)
@@ -57,13 +76,128 @@ router.post('/admin', async (req, res) => {
 
 /**
  * GET /
- * Dashboard
+ * Admin Dashboard
 */
+router.get('/dashboard', authMiddleware, async (req, res) => {
+    try {
+        const locals = {
+            title: 'Dashboard'
+        }
 
-router.get('/dashboard', async (req, res) => {
+        const data = await postJob.find();
+        res.render('admin/dashboard', {
+            locals,
+            data,
+            layout: adminLayout
+        });
 
-    res.render('admin/dashboard');
+    } catch (error) {
+        console.log(error);
+    }
+
 });
+
+/**
+* GET /
+* Admin - Create New Job Post
+*/
+router.get('/add-job', authMiddleware, async (req, res) => {
+    try {
+        const locals = {
+            title: 'Add Post',
+        }
+
+        const data = await postJob.find();
+        res.render('admin/add-job', {
+            locals,
+            layout: adminLayout
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+
+});
+
+/**
+* POST /
+* Admin - Create New Job Post
+*/
+router.post('/add-job', authMiddleware, async (req, res) => {
+    try {
+        console.log(req.body);
+        try {
+            const newPost = new postJob({
+                title: req.body.title,
+                body: req.body.body
+            });
+
+            await postJob.create(newPost);
+            res.redirect('/dashboard');
+        } catch (error) {
+            console.log(error);
+        }
+
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+/**
+ * GET /
+ * Admin - Edit Post
+*/
+router.get('/edit-job/:id', authMiddleware, async (req, res) => {
+    try {
+  
+      const locals = {
+        title: "Edit Post"
+      };
+  
+      const data = await postJob.findOne({ _id: req.params.id });
+  
+      res.render('admin/edit-job', {
+        locals,
+        data,
+        layout: adminLayout
+      })
+  
+    } catch (error) {
+      console.log(error);
+    }
+  
+  });
+
+/**
+ * PUT /
+ * Admin - Edit Post
+*/
+router.put('/edit-job/:id', authMiddleware, async (req, res) => {
+    try {
+  
+      await postJob.findByIdAndUpdate(req.params.id, {
+        title: req.body.title,
+        body: req.body.body,
+        updatedAt: Date.now()
+      });
+  
+      res.redirect(`/edit-job/${req.params.id}`);
+  
+    } catch (error) {
+      console.log(error);
+    }
+  
+  });
+
+
+/**
+ * GET /
+ * Admin - Register
+*/
+// router.get('/register', async (req, res) => {
+
+//     res.render('admin/register', { locals, layout: adminLayout });
+// });
 
 /**
  * POST /
@@ -71,18 +205,53 @@ router.get('/dashboard', async (req, res) => {
 */
 
 router.post('/register', async (req, res) => {
-    const { username, password } = req.body;
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const user = new User({
-        username,
-        password: hashedPassword
-    })
-    await user.save()
+    try {
+        const { username, password } = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    res.redirect('admin/dashboard')
+        try {
+            const user = await User.create({ username, password: hashedPassword });
+            res.status(201).json({ message: 'User Created', user });
+        } catch (error) {
+            if (error.code === 11000) {
+                res.status(409).json({ message: 'User already in use' });
+            }
+            res.status(500).json({ message: 'Internal server error' })
+        }
 
-
+    } catch (error) {
+        console.log(error);
+    }
 });
+
+/**
+ * DELETE /
+ * Admin - Delete Post
+*/
+router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
+
+    try {
+      await postJob.deleteOne( { _id: req.params.id } );
+      res.redirect('/dashboard');
+    } catch (error) {
+      console.log(error);
+    }
+  
+  });
+
+  /**
+ * GET /
+ * Admin Logout
+*/
+router.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    //res.json({ message: 'Logout successful.'});
+    // res.redirect('/');
+    res.render('admin/index', {
+        layout: adminLayout
+    });
+  });
+
 
 
 
