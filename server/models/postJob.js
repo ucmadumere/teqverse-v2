@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-const PostSchema = new Schema({
+const PostJobSchema = new Schema({
     title: {
         type: String,
         required: true
@@ -10,10 +10,10 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-    requirements: {
-        type: String,
-        required: true
-    },
+    // requirements: {
+    //     type: String,
+    //     required: true
+    // },
     createdAt: {
         type: Date,
         default: Date.now
@@ -24,4 +24,4 @@ const PostSchema = new Schema({
     },
 });
 
-module.exports = mongoose.model('Postjob', PostSchema);
+module.exports = mongoose.model('postJob', PostJobSchema);
