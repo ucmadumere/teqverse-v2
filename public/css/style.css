@@ -1563,7 +1563,7 @@ a.btn-simple:hover {
   background-size: cover;
 }
 
-@media only screen and (min-width: 1024px) and (max-width: 1991px) {
+@media only screen and (min-width: 400px) and (max-width: 1991px) {
   .container.container-full {
     padding: 0 15px;
     width: 90%;
@@ -1574,6 +1574,13 @@ a.btn-simple:hover {
     padding: 0 15px;
     width: 80%;
     max-width: 80%;
+    margin: auto;
+  }
+
+  .container.container-small {
+    padding: 0 15px;
+    width: 80%;
+    max-width: 70%;
     margin: auto;
   }
 }
