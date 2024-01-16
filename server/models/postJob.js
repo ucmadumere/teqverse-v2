@@ -10,10 +10,14 @@ const PostJobSchema = new Schema({
         type: String,
         required: true
     },
-    // requirements: {
-    //     type: String,
-    //     required: true
-    // },
+    jobType: {
+        type: String,
+        enum: ['hybrid', 'remote', 'onsite']
+    },
+    jobLocation: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

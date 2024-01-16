@@ -132,36 +132,4 @@ router.get('/about', (req,res) => {
 
 
 
-
-// function insertPostData (){
-//     Postjob.insertMany([
-//         {
-//             title: "React Developer ",
-//             body: "Sitting mistake towards his few country ask. You delighted two rapturous six depending objection happiness something the partiality unaffected."
-//         },
-//         {
-//             title: "React Developer ",
-//             body: "Sitting mistake towards his few country ask. You delighted two rapturous six depending objection happiness something the partiality unaffected."
-//         },
-//         {
-//             title: "React Developer ",
-//             body: "Sitting mistake towards his few country ask. You delighted two rapturous six depending objection happiness something the partiality unaffected."
-//         },
-//         {
-//             title: "React Developer ",
-//             body: "Sitting mistake towards his few country ask. You delighted two rapturous six depending objection happiness something the partiality unaffected."
-//         },
-//         {
-//             title: "React Developer ",
-//             body: "Sitting mistake towards his few country ask. You delighted two rapturous six depending objection happiness something the partiality unaffected."
-//         },
-//         {
-//             title: "React Developer ",
-//             body: "Sitting mistake towards his few country ask. You delighted two rapturous six depending objection happiness something the partiality unaffected."
-//         }
-//     ])
-// }
-// insertPostData();
-
-
 module.exports = router;
