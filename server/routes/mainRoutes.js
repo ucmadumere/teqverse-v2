@@ -36,15 +36,18 @@ router.post('/login', async (req, res) => {
 
     // Validate the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
       return res.status(401).json({ message: 'Invalid email or password' });
     }
 
     // Generate JWT token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    
 
     // Redirect to a dashboard or user profile page
-    res.redirect('/'); // Replace '/dashboard' with your desired redirect URL
+    res.render('/', {user, token}); 
+    console.log(res)
 
   } catch (error) {
     console.error(error);
