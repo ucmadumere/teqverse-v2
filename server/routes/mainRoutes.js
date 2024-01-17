@@ -36,37 +36,40 @@ router.get('/', (req,res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                               SIGN IN                                              **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/login',  (req, res) => {
-    res.render('login', { user:req.User });
-  });
 
-  router.post('/login', async (req, res) => {
-    try {
-      const { email, password } = req.body;
-  
-      // Check if the user exists
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(401).json({ message: 'Invalid email or password' });
-      }
-  
-      // Validate the password
-      const isPasswordValid = await bcrypt.compare(password, user.password);
-      if (!isPasswordValid) {
-        return res.status(401).json({ message: 'Invalid email or password' });
-      }
-  
-      // Generate JWT token
-      const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-      console.log(token)
-      
-      res.json('/');
 
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: 'Server Error' });
+router.get('/login', (req, res) => {
+  res.render('login', { user: req.User }); // Assuming `req.User` is correctly populated
+});
+
+router.post('/login', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    // Check if the user exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).json({ message: 'Invalid email or password' });
     }
-  });
+
+    // Validate the password
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      return res.status(401).json({ message: 'Invalid email or password' });
+    }
+
+    // Generate JWT token
+    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    // Redirect to a dashboard or user profile page
+    res.redirect('/'); // Replace '/dashboard' with your desired redirect URL
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'An error occurred during login' });
+  }
+});
+
   
   
 
@@ -132,7 +135,7 @@ router.get('/joblist', async (req, res) => {
         page,
         totalPages,
       });
-      
+
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
