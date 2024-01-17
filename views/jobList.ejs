@@ -35,10 +35,17 @@
                                             <a href="/jobdetails/<%= post._id %>"><%= post.title %></a>
                                         </h3>
                                         <p>
-                                            <%= post.jobLocation %>
+                                            <%= post.jobType %>
                                         </p>
+                                        
                                         <p>
                                             <%= post.body %>
+                                        </p>
+                                        <p>
+                                            Location: <%= post.jobLocation %>
+                                        </p>
+                                        <p>
+                                            Experience: <%= post.experience %> years
                                         </p>
                                         <a class="btn circle btn-theme border btn-sm" href="/jobdetails/<%= post._id %>">Read
                                             More</a>
