@@ -1,5 +1,5 @@
 const express = require('express');
-const  router = express.Router();
+const router = express.Router();
 const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
@@ -8,27 +8,9 @@ const verifyToken = require('../../utilities/verifyToken');
 const bcrypt = require('bcrypt')
 
 
-// Middleware to handle pagination
-// app.use((req, res, next) => {
-//     const page = parseInt(req.query.page) || 1; // Get the requested page or default to 1
-//     const itemsPerPage = 10; // Set the number of items per page
-  
-//     const startIndex = (page - 1) * itemsPerPage;
-//     const endIndex = startIndex + itemsPerPage;
-  
-//     res.locals.pagination = {
-//       currentPage: page,
-//       totalPages: Math.ceil(data.length / itemsPerPage),
-//     };
-  
-//     res.locals.data = data.slice(startIndex, endIndex);
-  
-//     next();
-//   });
-
 // Routes
 
-router.get('/', (req,res) => {
+router.get('/', (req, res) => {
     res.render('index');
 });
 
@@ -74,16 +56,15 @@ router.post('/login', async (req, res) => {
   
 
 
-
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                               SIGN UP                                              **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/signup', (req,res) => {
+router.get('/signup', (req, res) => {
     res.render('signup');
-}); 
- router.post('/signup', async (req, res) => {
+});
+router.post('/signup', async (req, res) => {
     try {
-        const {name, email, password} = req.body;
+        const { name, email, password } = req.body;
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -99,21 +80,22 @@ router.get('/signup', (req,res) => {
         await newUser.save();
 
         res.redirect('/login');
-    }catch (error) {
+    } catch (error) {
         console.error(error);
         res.status(500).send('Server Error');
     }
- });
+});
 
-
-router.get('/blog', (req,res) => {
+router.get('/blog', (req, res) => {
     res.render('blog');
 });
 
-
-
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                               JOB & DETAILS STARTS HERE                            **/
+/**--------------------------------------------------------------------------------------------------- **/
 router.get('/joblist', async (req, res) => {
     try {
+
       const locals = {
         title: 'TeqVerse',
         description: 'Job List',
@@ -141,9 +123,11 @@ router.get('/joblist', async (req, res) => {
       res.status(500).send('Internal Server Error');
     }
   });
+        
 
-router.get('/jobdetails', (req,res) => {
-    
+router.get('/jobdetails', (req, res) => {
+
+
     res.render('jobdetails');
 });
 
@@ -157,22 +141,26 @@ router.get('/jobdetails/:id', async (req, res) => {
         const locals = {
             title: "TeqVerse",
             description: "Job Detail"
-          }
-      let slug = req.params.id;
-  
-      const data = await Postjob.findById({ _id: slug });
-  
-      res.render('jobdetails', { 
-        locals,
-        data,
-        currentRoute: `/jobdetails/${slug}`
-      });
+        }
+        let slug = req.params.id;
+
+        const data = await Postjob.findById({ _id: slug });
+
+        res.render('jobdetails', {
+            locals,
+            data,
+            currentRoute: `/jobdetails/${slug}`
+        });
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
 
   
   });
-    
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                               JOB & DETAILS ENDS HERE                                **/
+/**--------------------------------------------------------------------------------------------------- **/
+
 
 module.exports = router;
