@@ -88,6 +88,9 @@ router.post('/signup', async (req, res) => {
 router.get('/blog', (req, res) => {
     res.render('blog');
 });
+
+
+
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                               JOB & DETAILS STARTS HERE                            **/
 /**--------------------------------------------------------------------------------------------------- **/
@@ -139,6 +142,7 @@ router.get('/jobdetails', (req, res) => {
     res.render('jobdetails');
 });
 
+
 /**
  * GET /
  * Job Listing Details :id
@@ -161,6 +165,10 @@ router.get('/jobdetails/:id', async (req, res) => {
     } catch (error) {
         console.log(error);
     }
+
+  
+  });
+    
 
 });
 
