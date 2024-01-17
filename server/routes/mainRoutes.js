@@ -108,35 +108,7 @@ router.get('/blog', (req,res) => {
 });
 
 
-<<<<<<< HEAD
 
-
-router.get('/joblist', async (req,res) => {
-    try {
-        const locals = {
-            title: "TeqVerse",
-            description: "Job List"
-          }
-
-        let perPage = 5;
-        let page = req.query.page || 1;
-
-        const data = await Postjob.aggregate([ {$sort: { createdAt: -1}}])
-        .skip(perPage * page - perPage)
-        .limit(perPage)
-        .exec();
-
-        const count = await Postjob.countDocuments({});
-        const nextPage = parseInt(page) + 1;
-        const hasNextPage = nextPage <= Math.ceil(count / perPage);
-
-        // const data = await Postjob.find();
-        res.render('jobList', {data,
-            locals,
-            current: page,
-            nextPage: hasNextPage ? nextPage : null,
-            });
-=======
 router.get('/joblist', async (req, res) => {
     try {
       const locals = {
@@ -160,7 +132,7 @@ router.get('/joblist', async (req, res) => {
         page,
         totalPages,
       });
->>>>>>> 35aa9bb5fe944a3f5d71e45534fe2d83397b2965
+      
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
