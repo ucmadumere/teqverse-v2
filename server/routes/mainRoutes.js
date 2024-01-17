@@ -108,69 +108,64 @@ router.get('/blog', (req,res) => {
 });
 
 
-<<<<<<< HEAD
+
+// router.get('/joblist', async (req,res) => {
+//     try {
+//         const locals = {
+//             title: "TeqVerse",
+//             description: "Job List"
+//           }
+
+//         let perPage = 5;
+//         let page = req.query.page || 1;
+
+//         const data = await Postjob.aggregate([ {$sort: { createdAt: -1}}])
+//         .skip(perPage * page - perPage)
+//         .limit(perPage)
+//         .exec();
+
+//         const count = await Postjob.countDocuments({});
+//         const nextPage = parseInt(page) + 1;
+//         const hasNextPage = nextPage <= Math.ceil(count / perPage);
+
+//         // const data = await Postjob.find();
+//         res.render('jobList', {data,
+//             locals,
+//             current: page,
+//             nextPage: hasNextPage ? nextPage : null,
+//             });
 
 
-router.get('/joblist', async (req,res) => {
-    try {
-        const locals = {
-            title: "TeqVerse",
-            description: "Job List"
-          }
-
-        let perPage = 5;
-        let page = req.query.page || 1;
-
-        const data = await Postjob.aggregate([ {$sort: { createdAt: -1}}])
-        .skip(perPage * page - perPage)
-        .limit(perPage)
-        .exec();
-
-        const count = await Postjob.countDocuments({});
-        const nextPage = parseInt(page) + 1;
-        const hasNextPage = nextPage <= Math.ceil(count / perPage);
-
-        // const data = await Postjob.find();
-        res.render('jobList', {data,
-            locals,
-            current: page,
-            nextPage: hasNextPage ? nextPage : null,
-            });
-=======
 router.get('/joblist', async (req, res) => {
-    try {
-      const locals = {
-        title: 'TeqVerse',
-        description: 'Job List',
-      };
-  
-      const page = parseInt(req.query.page) || 1;
-      const pageSize = 5; // Number of items per page
-  
-      const totalJobs = await Postjob.countDocuments();
-      const totalPages = Math.ceil(totalJobs / pageSize);
-  
-      const jobs = await Postjob.find()
-        .skip((page - 1) * pageSize)
-        .limit(pageSize);
-  
-      res.render('joblist', {
-        data: jobs,
-        locals,
-        page,
-        totalPages,
-      });
->>>>>>> 35aa9bb5fe944a3f5d71e45534fe2d83397b2965
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
-    }
-  });
+  try {
+    const locals = {
+      title: 'TeqVerse',
+      description: 'Job List',
+    };
 
-router.get('/jobdetails', (req,res) => {
-    
-    res.render('jobdetails');
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = 5; // Number of items per page
+
+    const totalJobs = await Postjob.countDocuments();
+    const totalPages = Math.ceil(totalJobs / pageSize);
+
+    const jobs = await Postjob.find()
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+
+    res.render('joblist', {
+      data: jobs,
+      locals,
+      page,
+      totalPages,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+  
 });
+
 
 /**
  * GET /
@@ -194,8 +189,9 @@ router.get('/jobdetails/:id', async (req, res) => {
     } catch (error) {
       console.log(error);
     }
+
   
   });
-
+    
 
 module.exports = router;
