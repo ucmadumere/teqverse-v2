@@ -126,7 +126,7 @@ router.get('/joblist', async (req, res) => {
         .skip((page - 1) * pageSize)
         .limit(pageSize);
   
-      res.render('joblist', {
+      res.render('jobList', {
         data: jobs,
         locals,
         page,
