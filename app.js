@@ -1,5 +1,13 @@
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                          IMPORT DOTENV                                             **/
+/**--------------------------------------------------------------------------------------------------- **/
 require('dotenv').config();
 
+
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                       IMPORT MIDDLEWARE                                            **/
+/**--------------------------------------------------------------------------------------------------- **/
 const express = require('express');
 const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
@@ -7,14 +15,18 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
 
-const connectDB = require('./server/config/db');
 
 const app = express();
-const PORT = 3000 || process.env.PORT;
 
-// Connect to DB
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                             DB CONNECTION                                          **/
+/**--------------------------------------------------------------------------------------------------- **/
+const connectDB = require('./server/config/db');
 connectDB();
 
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                        MIDDLE WARE CONFIG                                          **/
+/**--------------------------------------------------------------------------------------------------- **/
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
@@ -31,16 +43,24 @@ app.use(session ({
 
 app.use(express.static('public'));
 
-// Templating Engine
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                          TEMPLATING ENGINE                                         **/
+/**--------------------------------------------------------------------------------------------------- **/
 app.use(expressLayout);
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
 
-
-app.use('/', require('./server/routes/main'));
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                                 ROUTES                                             **/
+/**--------------------------------------------------------------------------------------------------- **/
+app.use('/', require('./server/routes/mainRoutes'));
 app.use('/', require('./server/routes/admin'));
 
-app.listen(PORT, () =>{
-    console.log(`App is running on port ${PORT}`);
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                          RUN EXPRESS SERVER                                        **/
+/**--------------------------------------------------------------------------------------------------- **/
+app.listen(process.env.PORT || 8000, () =>{
+    console.log(`App is running on port ${process.env.PORT}`);
 })

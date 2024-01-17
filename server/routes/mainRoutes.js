@@ -1,6 +1,11 @@
 const express = require('express');
 const  router = express.Router();
-const Postjob = require('../models/postJob')
+const Postjob = require('../models/postJob');
+const User = require('../models/userModel');
+const jwt = require('jsonwebtoken');
+const verifyPassword = require('../../utilities/passwordUtils');
+const verifyToken = require('../../utilities/verifyToken');
+
 
 // Middleware to handle pagination
 // app.use((req, res, next) => {
@@ -21,22 +26,84 @@ const Postjob = require('../models/postJob')
 //   });
 
 // Routes
+
 router.get('/', (req,res) => {
     res.render('index');
 });
 
-router.get('/login', (req,res) => {
-    res.render('login');
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                               SIGN IN                                              **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/login', (req, res) => {
+    res.render('login'); 
 });
 
+router.post('/login', verifyToken, async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        // Check if the user exists
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+
+        // Validate the password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!isPasswordValid) {
+            return res.status(401).json({ message: 'Invalid email or password' });
+        }
+
+        // Generate JWT token
+        const token = jwt.sign({ userId: user._id },  process.env.JWT_SECRET, { expiresIn: '1h' });
+
+        // Send the token back to the client
+        res.status(200).json({ token });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server Error' });
+    }
+});
+
+
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                               SIGN UP                                              **/
+/**--------------------------------------------------------------------------------------------------- **/
 router.get('/signup', (req,res) => {
     res.render('signup');
-});
+}); 
+ router.post('/signup', async (req, res) => {
+    try {
+        const {name, email, password} = req.body;
+
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).send('A User with the entered Email already exists. Please Log in..');
+        }
+
+        const newUser = new User({
+            name,
+            email,
+            password,
+        });
+
+        await newUser.save();
+
+        res.redirect('/login');
+    }catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+ });
 
 
 router.get('/blog', (req,res) => {
     res.render('blog');
 });
+
+
 
 router.get('/joblist', async (req,res) => {
     try {
