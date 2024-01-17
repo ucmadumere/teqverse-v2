@@ -98,7 +98,6 @@ router.get('/blog', (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/joblist', async (req, res) => {
     try {
-
       const locals = {
         title: 'TeqVerse',
         description: 'Job List',
@@ -106,11 +105,24 @@ router.get('/joblist', async (req, res) => {
   
       const page = parseInt(req.query.page) || 1;
       const pageSize = 5; // Number of items per page
+      let query = {};
   
-      const totalJobs = await Postjob.countDocuments();
+      // Check if a search term is provided in the query parameters
+      const searchTerm = req.query.q;
+      if (searchTerm) {
+        // Use a case-insensitive regex to match the search term in title or body
+        query = {
+          $or: [
+            { title: { $regex: searchTerm, $options: 'i' } },
+            { body: { $regex: searchTerm, $options: 'i' } },
+          ],
+        };
+      }
+  
+      const totalJobs = await Postjob.countDocuments(query);
       const totalPages = Math.ceil(totalJobs / pageSize);
   
-      const jobs = await Postjob.find()
+      const jobs = await Postjob.find(query)
         .skip((page - 1) * pageSize)
         .limit(pageSize);
   
@@ -119,8 +131,8 @@ router.get('/joblist', async (req, res) => {
         locals,
         page,
         totalPages,
+        searchTerm,
       });
-
     } catch (error) {
       console.error(error);
       res.status(500).send('Internal Server Error');
