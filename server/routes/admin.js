@@ -133,6 +133,7 @@ router.post('/add-job', authMiddleware, async (req, res) => {
                 jobType: req.body.jobType,
                 jobLocation: req.body.jobLocation,
                 experience: req.body.experience,
+                requirements: req.body.requirements,
             });
 
             await postJob.create(newPost);

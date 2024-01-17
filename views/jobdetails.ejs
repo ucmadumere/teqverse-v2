@@ -1,75 +1,182 @@
- <!-- Start Breadcrumb 
+<!-- Start Breadcrumb 
     ============================================= -->
-    <div class="breadcrumb-area bg-gray text-center shadow dark text-light bg-cover" style="background-image: url(/img/banner/12.jpg);">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 offset-lg-2">
-                    <h1>Job Listing</h1>
-                    <ul class="breadcrumb">
-                        <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                        <li class="active">Job Details</li>
-                    </ul>
-                </div>
+<div class="breadcrumb-area bg-gray text-center shadow dark text-light bg-cover"
+    style="background-image: url(/img/banner/12.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h1>Job Listing</h1>
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="active">Job Details</li>
+                </ul>
             </div>
         </div>
     </div>
-    <!-- End Breadcrumb -->
+</div>
+<!-- End Breadcrumb -->
 
-    <!-- Start Blog
+<!-- Start Blog
     ============================================= -->
-    <div class="blog-area single full-blog right-sidebar full-blog default-padding">
-        <div class="container">
-            <div class="blog-items">
-                <div class="row">
-                    <div class="blog-content col-lg-8 col-md-12">
-                        
-                        <div class="blog-item-box">
-                            <div>
-                                <a href="/joblist">Back</a>
-                            </div>
+<div class="blog-area single full-blog right-sidebar full-blog default-padding">
+    <div class="container">
+        <div class="blog-items">
+            <div class="row">
+                <div class="blog-content col-lg-8 col-md-12">
 
-                            <div class="item pb-3">
-                                <div class="info mt-3">
-                                    <span class="post-date"><%= data.createdAt.toDateString() %></span>
-                                    <h3><%= data.title %></h3>
-
-                                    <p>
-                                        <%= data.jobType %>
-                                    </p>
-
-                                    <p>
-                                        <%= data.jobLocation %>
-                                    </p>
-                                    
-                                    <p>
-                                        <%= data.body %> 
-                                    </p>
-                                    
-                                    <h4>Requirements</h4>
-                                    <ul>
-                                        
-                                        <li>General few civilly amiable pleased account carried.</li>
-                                        <li>Continue indulged speaking</li>
-                                        <li>Narrow formal length my highly</li>
-                                        <li>Occasional pianoforte alteration unaffected impossible</li>
-                                    </ul>
-                                </div>
-                                <div class="d-flex justify-content-end m-2">
-                                    <button>
-                                        Apply
-                                    </button>
-                                </div>
-                            </div>
-
+                    <div class="blog-item-box">
+                        <div>
+                            <a href="/joblist">Back</a>
                         </div>
 
-                        <!-- Start Post Tags-->
-                        <div class="post-tags share">
-                            <div class="tags">
-                                <a href="#">Analysis</a>
-                                <a href="#">Process</a>
+                        <div class="item pb-3">
+                            <div class="info mt-3">
+                                <span class="post-date">
+                                    <%= data.createdAt.toDateString() %>
+                                </span>
+                                <h3>
+                                    <%= data.title %>
+                                </h3>
+
+                                <p>
+                                    <%= data.jobType %>
+                                </p>
+
+                                <p>
+                                    <%= data.jobLocation %>
+                                </p>
+
+                                <p>
+                                    <%= data.body %>
+                                </p>
+
+                                <h4>Requirements</h4>
+            
+                            
+                                    <ul>
+                                        <% data.requirements.forEach(requirement=> { %>
+                                            <li>
+                                                <%= requirement %>
+                                            </li>
+                                            <% }); %>
+                                    </ul>
+                            
                             </div>
-                            <div class="social">
+                            <div class="d-flex justify-content-end m-2">
+                                <button>
+                                    Apply
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Start Post Tags-->
+                    <div class="post-tags share">
+                        <div class="tags">
+                            <a href="#">Analysis</a>
+                            <a href="#">Process</a>
+                        </div>
+                        <div class="social">
+                            <ul>
+                                <li class="facebook">
+                                    <a href="#">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li class="twitter">
+                                    <a href="#">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li class="pinterest">
+                                    <a href="#">
+                                        <i class="fab fa-pinterest-p"></i>
+                                    </a>
+                                </li>
+                                <li class="linkedin">
+                                    <a href="#">
+                                        <i class="fab fa-linkedin-in"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End Post Tags -->
+                </div>
+
+                <!-- Start Sidebar -->
+                <div class="sidebar col-lg-4 col-md-12">
+                    <aside>
+                        <div class="sidebar-item search">
+                            <div class="sidebar-info">
+                                <form>
+                                    <input type="text" name="text" class="form-control">
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="sidebar-item recent-post">
+                            <div class="title">
+                                <h4>Recent Post</h4>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="info">
+                                        <div class="meta-title">
+                                            <span class="post-date"><i class="fas fa-clock"></i> 12 Feb, 2021</span>
+                                        </div>
+                                        <a href="#">Commanded household smallness delivered.</a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="info">
+                                        <div class="meta-title">
+                                            <span class="post-date"><i class="fas fa-clock"></i> 05 Jul, 2021</span>
+                                        </div>
+                                        <a href="#">Future Plan & Strategy for Consutruction </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="info">
+                                        <div class="meta-title">
+                                            <span class="post-date"><i class="fas fa-clock"></i> 29 Aug, 2021</span>
+                                        </div>
+                                        <a href="#">Melancholy particular devonshire alteration</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="sidebar-item category">
+                            <div class="title">
+                                <h4>category list</h4>
+                            </div>
+                            <div class="sidebar-info">
+                                <ul>
+                                    <li>
+                                        <a href="#">national <span>69</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#">national <span>25</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#">sports <span>18</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#">megazine <span>37</span></a>
+                                    </li>
+                                    <li>
+                                        <a href="#">health <span>12</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-item social-sidebar">
+                            <div class="title">
+                                <h4>follow us</h4>
+                            </div>
+                            <div class="sidebar-info">
                                 <ul>
                                     <li class="facebook">
                                         <a href="#">
@@ -83,7 +190,12 @@
                                     </li>
                                     <li class="pinterest">
                                         <a href="#">
-                                            <i class="fab fa-pinterest-p"></i>
+                                            <i class="fab fa-pinterest"></i>
+                                        </a>
+                                    </li>
+                                    <li class="g-plus">
+                                        <a href="#">
+                                            <i class="fab fa-google-plus-g"></i>
                                         </a>
                                     </li>
                                     <li class="linkedin">
@@ -94,115 +206,11 @@
                                 </ul>
                             </div>
                         </div>
-                        <!-- End Post Tags -->
-                    </div>
-
-                    <!-- Start Sidebar -->
-                    <div class="sidebar col-lg-4 col-md-12">
-                        <aside>
-                            <div class="sidebar-item search">
-                                <div class="sidebar-info">
-                                    <form>
-                                        <input type="text" name="text" class="form-control">
-                                        <button type="submit"><i class="fas fa-search"></i></button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="sidebar-item recent-post">
-                                <div class="title">
-                                    <h4>Recent Post</h4>
-                                </div>
-                                <ul>
-                                    <li>
-                                        <div class="info">
-                                            <div class="meta-title">
-                                                <span class="post-date"><i class="fas fa-clock"></i> 12 Feb, 2021</span>
-                                            </div>
-                                            <a href="#">Commanded household smallness delivered.</a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="info">
-                                            <div class="meta-title">
-                                                <span class="post-date"><i class="fas fa-clock"></i> 05 Jul, 2021</span>
-                                            </div>
-                                            <a href="#">Future Plan & Strategy for Consutruction </a>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="info">
-                                            <div class="meta-title">
-                                                <span class="post-date"><i class="fas fa-clock"></i> 29 Aug, 2021</span>
-                                            </div>
-                                            <a href="#">Melancholy particular devonshire alteration</a>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="sidebar-item category">
-                                <div class="title">
-                                    <h4>category list</h4>
-                                </div>
-                                <div class="sidebar-info">
-                                    <ul>
-                                        <li>
-                                            <a href="#">national <span>69</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#">national <span>25</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#">sports <span>18</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#">megazine <span>37</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="#">health <span>12</span></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                           
-                            <div class="sidebar-item social-sidebar">
-                                <div class="title">
-                                    <h4>follow us</h4>
-                                </div>
-                                <div class="sidebar-info">
-                                    <ul>
-                                        <li class="facebook">
-                                            <a href="#">
-                                                <i class="fab fa-facebook-f"></i>
-                                            </a>
-                                        </li>
-                                        <li class="twitter">
-                                            <a href="#">
-                                                <i class="fab fa-twitter"></i>
-                                            </a>
-                                        </li>
-                                        <li class="pinterest">
-                                            <a href="#">
-                                                <i class="fab fa-pinterest"></i>
-                                            </a>
-                                        </li>
-                                        <li class="g-plus">
-                                            <a href="#">
-                                                <i class="fab fa-google-plus-g"></i>
-                                            </a>
-                                        </li>
-                                        <li class="linkedin">
-                                            <a href="#">
-                                                <i class="fab fa-linkedin-in"></i>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </aside>
-                    </div>
-                    <!-- End Start Sidebar -->
+                    </aside>
                 </div>
+                <!-- End Start Sidebar -->
             </div>
         </div>
     </div>
-    <!-- End Blog -->
+</div>
+<!-- End Blog -->
