@@ -64,16 +64,25 @@
                     <div class="row">
                         <div class="col-md-12 pagi-area text-center">
                             <nav aria-label="navigation">
-                                <% if (nextPage !== null) { %>
-                                    <a href="/joblist/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
-                                  <% } %>
-                                <ul class="pagination">
+                                <!-- <ul class="pagination">
                                     <li class="page-item"><a class="page-link" href=""><i class="fas fa-angle-double-left"></i></a></li>
                                     <li class="page-item active"><a class="page-link" href="">1</a></li>
                                     
                                     <li class="page-item"><a class="page-link" href=""><i class="fas fa-angle-double-right"></i></a></li>
                                     
-                                </ul>
+                                </ul> -->
+                                
+                                  <div>
+                                    <% if (page > 1) { %>
+                                      <a href="?page=<%= page - 1 %>">Previous</a>
+                                    <% } %>
+                                
+                                  
+                                
+                                    <% if (page < totalPages) { %>
+                                      <a href="?page=<%= page + 1 %>">Next</a>
+                                    <% } %>
+                                  </div>
                             </nav>
                         </div>
                     </div>
