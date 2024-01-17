@@ -21,7 +21,7 @@ router.get('/', (req, res) => {
 
 
 router.get('/login', (req, res) => {
-  res.render('login', { user: req.User }); // Assuming `req.User` is correctly populated
+  res.render('login'); // Assuming `req.User` is correctly populated
 });
 
 router.post('/login', async (req, res) => {
@@ -31,14 +31,14 @@ router.post('/login', async (req, res) => {
     // Check if the user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+      return res.status(401).json({ message: 'Invalid email' });
     }
 
     // Validate the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (!isPasswordValid) {
-      return res.status(401).json({ message: 'Invalid email or password' });
+      return res.status(401).json({ message: 'Invalid password' });
     }
 
     // Generate JWT token
@@ -46,7 +46,7 @@ router.post('/login', async (req, res) => {
     
 
     // Redirect to a dashboard or user profile page
-    res.render('/', {user, token}); 
+    res.redirect('/'); 
     console.log(res)
 
   } catch (error) {
