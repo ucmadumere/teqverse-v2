@@ -79,8 +79,8 @@
                     <aside>
                         <div class="sidebar-item search">
                             <div class="sidebar-info">
-                                <form>
-                                    <input type="text" name="text" class="form-control" placeholder="Search...">
+                                <form action="/joblist" method="get">
+                                    <input type="text" name="q" class="form-control" id="searchTerm" value="<%= searchTerm %>">
                                     <button type="submit"><i class="fas fa-search"></i></button>
                                 </form>
                             </div>
