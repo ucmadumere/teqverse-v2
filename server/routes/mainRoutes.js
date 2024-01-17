@@ -60,7 +60,7 @@ router.get('/login',  (req, res) => {
       const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
       console.log(token)
       
-      res.json({ token, user });
+      res.json('/');
 
     } catch (error) {
       console.error(error);
@@ -108,6 +108,7 @@ router.get('/blog', (req,res) => {
 });
 
 
+<<<<<<< HEAD
 
 
 router.get('/joblist', async (req,res) => {
@@ -135,11 +136,36 @@ router.get('/joblist', async (req,res) => {
             current: page,
             nextPage: hasNextPage ? nextPage : null,
             });
+=======
+router.get('/joblist', async (req, res) => {
+    try {
+      const locals = {
+        title: 'TeqVerse',
+        description: 'Job List',
+      };
+  
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = 5; // Number of items per page
+  
+      const totalJobs = await Postjob.countDocuments();
+      const totalPages = Math.ceil(totalJobs / pageSize);
+  
+      const jobs = await Postjob.find()
+        .skip((page - 1) * pageSize)
+        .limit(pageSize);
+  
+      res.render('joblist', {
+        data: jobs,
+        locals,
+        page,
+        totalPages,
+      });
+>>>>>>> 35aa9bb5fe944a3f5d71e45534fe2d83397b2965
     } catch (error) {
-        console.log(error)
+      console.error(error);
+      res.status(500).send('Internal Server Error');
     }
-    
-});
+  });
 
 router.get('/jobdetails', (req,res) => {
     
