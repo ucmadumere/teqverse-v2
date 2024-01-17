@@ -11,7 +11,22 @@
 <form action="/edit-job/<%= data._id %>?_method=PUT" method="POST">
 
   <label for="title"><b>Title</b></label>
-  <input type="text" placeholder="Post Title" name="title" value="<%= data.title %>">
+  <input type="text" placeholder="Post Title" name="title" id="title" value="<%= data.title %>">
+
+  <label for="experience"><b>Experience</b></label>
+  <input type="number" placeholder="experience" name="experience" id="experience" value="<%= data.experience %>">
+
+  <label for="jobLocation"><b>Location</b></label>
+  <input type="text" placeholder="Post Title" name="jobLocation" id="jobLocation" value="<%= data.jobLocation %>">
+
+  <label for="jobType">Job Type:</label>
+
+  <select name="jobType" id="jobType">
+    <!-- <option value="">--Please choose an option--</option> -->
+    <option value="hybrid">Hybrid</option>
+    <option value="onsite">Onsite</option>
+    <option value="remote">Remote</option>
+  </select>
 
   <label for="body"><b>Content</b></label>
   <textarea name="body" cols="50" rows="10"><%= data.body %></textarea>

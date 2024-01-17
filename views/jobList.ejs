@@ -35,7 +35,17 @@
                                             <a href="/jobdetails/<%= post._id %>"><%= post.title %></a>
                                         </h3>
                                         <p>
+                                            <%= post.jobType %>
+                                        </p>
+                                        
+                                        <p>
                                             <%= post.body %>
+                                        </p>
+                                        <p>
+                                            Location: <%= post.jobLocation %>
+                                        </p>
+                                        <p>
+                                            Experience: <%= post.experience %> years
                                         </p>
                                         <a class="btn circle btn-theme border btn-sm" href="/jobdetails/<%= post._id %>">Read
                                             More</a>
@@ -48,6 +58,8 @@
                     </div>
 
                     <!-- Pagination -->
+
+                    
                     
                     <div class="row">
                         <div class="col-md-12 pagi-area text-center">
@@ -55,13 +67,13 @@
                                 <% if (nextPage !== null) { %>
                                     <a href="/joblist/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
                                   <% } %>
-                                <!-- <ul class="pagination">
+                                <ul class="pagination">
                                     <li class="page-item"><a class="page-link" href=""><i class="fas fa-angle-double-left"></i></a></li>
                                     <li class="page-item active"><a class="page-link" href="">1</a></li>
                                     
                                     <li class="page-item"><a class="page-link" href=""><i class="fas fa-angle-double-right"></i></a></li>
                                     
-                                </ul> -->
+                                </ul>
                             </nav>
                         </div>
                     </div>
