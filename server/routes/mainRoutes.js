@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const router = express.Router();
 const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
@@ -20,10 +21,6 @@ router.get('/', (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 
 
-router.get('/login', (req, res) => {
-  res.render('login'); // Assuming `req.User` is correctly populated
-});
-
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -42,18 +39,39 @@ router.post('/login', async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const accessToken = jwt.sign(
+      { userId: user._id,
+        name: user.name,
+        email: user.email,
+        created: user.createdAt,
+        updated: user.updatedAt
+      }, 
+      
+      process.env.JWT_SECRET, { expiresIn: '1h' });
+    
+    req.session.accessToken = token;
+
     
 
+    
     // Redirect to a dashboard or user profile page
-    res.redirect('/'); 
-    console.log(res)
+    res.render('index', {accessToken: req.session.accessToken})
+    console.log(user, token)
+    
 
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'An error occurred during login' });
   }
+
+  
+
 });
+
+router.get('/login', (req, res) => {
+  res.render('login');
+});
+
 
   
   
@@ -123,6 +141,7 @@ router.get('/joblist', async (req, res) => {
       const totalPages = Math.ceil(totalJobs / pageSize);
   
       const jobs = await Postjob.find(query)
+        .sort({ createdAt: -1 })
         .skip((page - 1) * pageSize)
         .limit(pageSize);
   
