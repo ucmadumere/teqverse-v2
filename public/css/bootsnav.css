@@ -1459,11 +1459,11 @@ nav.navbar.bootsnav {
 
 @media (min-width: 1024px) and (max-width: 1300px) {
   nav.navbar.bootsnav ul.nav > li > a {
-    padding: 35px 5px !important;
+    padding: 35px 4px !important;
   }
 
   nav.navbar.bootsnav.sticked ul.nav > li > a {
-    padding: 30px 5px !important;
+    padding: 30px 14px !important;
   }
 }
 
@@ -3200,6 +3200,7 @@ ul.cart-list > li.total > .btn {
   color: #0e2258;
   padding: 10px 25px !important;
 }
+
 
 @media (min-width: 1024px) {
   nav.navbar ul.nav > li > a {
