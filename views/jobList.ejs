@@ -26,18 +26,22 @@
                     <div class="blog-item-box">
                         <!-- Single Item -->
                         <% data.forEach(post=> { %>
-                        <div class="single-item">
-                            <div class="item">
-                                <div class="info">
-                                    
-                                        <span class="post-date"><%= post.createdAt.toDateString() %></span>
+                            <div class="single-item">
+                                <div class="item">
+                                    <div class="info">
+
+                                        <span class="post-date">
+                                            <%= post.createdAt.toDateString() %>
+                                        </span>
                                         <h3 class="mt-1">
-                                            <a href="/jobdetails/<%= post._id %>"><%= post.title %></a>
+                                            <a href="/jobdetails/<%= post._id %>">
+                                                <%= post.title %>
+                                            </a>
                                         </h3>
                                         <p>
-                                            <%= post.jobType %>
+                                            <%= post.jobType %> > <%= post.workType %>
                                         </p>
-                                        
+
                                         <p>
                                             <%= post.body %>
                                         </p>
@@ -47,28 +51,34 @@
                                         <p>
                                             Experience: <%= post.experience %> years
                                         </p>
-                                        <a class="btn circle btn-theme border btn-sm" href="/jobdetails/<%= post._id %>">Read
+                                        <a class="btn circle btn-theme border btn-sm"
+                                            href="/jobdetails/<%= post._id %>">Read
                                             More</a>
-                                     
+
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <% }) %>
-                        <!-- End Single Item -->
+                            <% }) %>
+                                <!-- End Single Item -->
                     </div>
 
-                    <!-- Pagination --> 
+                    <!-- Pagination -->
                     <div class="row">
                         <div class="col-md-12 pagi-area text-center">
                             <nav aria-label="navigation">
                                 <ul class="pagination">
-                                    <% if (page > 1) { %>
-                                    <li class="page-item"><a class="page-link" href="?page=<%= page - 1 %>"><i class="fas fa-angle-double-left"></i></a></li>
-                                    <% } %>
-                                    <li class="page-item active"><a class="page-link" href=""><%= page %></a></li>
-                                    <% if (page < totalPages) { %>
-                                    <li class="page-item"><a class="page-link" href="?page=<%= page + 1 %>"><i class="fas fa-angle-double-right"></i></a></li>
-                                    <% } %>
+                                    <% if (page> 1) { %>
+                                        <li class="page-item"><a class="page-link" href="?page=<%= page - 1 %>"><i
+                                                    class="fas fa-angle-double-left"></i></a></li>
+                                        <% } %>
+                                            <li class="page-item active"><a class="page-link" href="">
+                                                    <%= page %>
+                                                </a></li>
+                                            <% if (page < totalPages) { %>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="?page=<%= page + 1 %>"><i
+                                                            class="fas fa-angle-double-right"></i></a></li>
+                                                <% } %>
                                 </ul>
                             </nav>
                         </div>
@@ -80,7 +90,8 @@
                         <div class="sidebar-item search">
                             <div class="sidebar-info">
                                 <form action="/joblist" method="get">
-                                    <input type="text" name="q" class="form-control" id="searchTerm" value="<%= searchTerm %>">
+                                    <input type="text" name="q" class="form-control" id="searchTerm"
+                                        value="<%= searchTerm %>">
                                     <button type="submit"><i class="fas fa-search"></i></button>
                                 </form>
                             </div>
@@ -90,25 +101,54 @@
                             <div class="title">
                                 <h4>Job Filter</h4>
                             </div>
-                            <div class="sidebar-info">
-                                <ul>
-                                    <li>
-                                        <a href="#">national <span>69</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#">national <span>25</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#">sports <span>18</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#">megazine <span>37</span></a>
-                                    </li>
-                                    <li>
-                                        <a href="#">health <span>12</span></a>
-                                    </li>
-                                </ul>
-                            </div>
+                             <!-- Filter form -->
+                             <form action="/joblist" method="get" class="mb-4">
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="location">Location:</label>
+                                        <input type="text" name="location" id="location" class="form-control"
+                                            value="<%= location %>">
+                                    </div>
+
+                                    <div class="form-group col-12">
+                                        <label for="experience">Experience:</label>
+                                        <input type="number" name="experience" id="experience" class="form-control"
+                                            value="<%= experience %>">
+                                    </div>
+
+                                    <div class="form-group col-12">
+                                        <label for="workType">Work Type:</label>
+                                        <select name="workType" id="workType" class="form-control">
+                                            <option value="contract" <%=workType==='contract' ? 'selected' : '' %>
+                                                >Contract</option>
+                                            <option value="fullTime" <%=workType==='fullTime' ? 'selected' : '' %>
+                                                >Full Time</option>
+                                            <option value="partTime" <%=workType==='partTime' ? 'selected' : '' %>
+                                                >Part Time</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-12">
+                                        <label for="jobType">Job Type:</label>
+                                        <select name="jobType" id="jobType" class="form-control">
+                                            <option value="hybrid" <%=jobType==='hybrid' ? 'selected' : '' %>>Hybrid
+                                            </option>
+                                            <option value="remote" <%=jobType==='remote' ? 'selected' : '' %>>Remote
+                                            </option>
+                                            <option value="onsite" <%=jobType==='onsite' ? 'selected' : '' %>>Onsite
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <button type="submit">Apply Filters</button>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <a href="/resetfilters" class="btn btn-secondary">Reset Filters</a>
+                                    </div>
+                                </div>
+
+                                <!-- <button type="submit" class="btn btn-primary">Apply Filters</button> -->
+                            </form>
                         </div>
                         <!-- Sort By Ends HEre -->
                         <!-- Three Dynamic Recent Post  -->
@@ -126,11 +166,11 @@
                                             delivered.</a>
                                     </div>
                                 </li>
-                                
+
                             </ul>
                         </div>
                         <!-- Three Dynamic Recent Post Ends Here  -->
-                        
+
                         <div class="sidebar-item social-sidebar">
                             <div class="title">
                                 <h4>follow us</h4>

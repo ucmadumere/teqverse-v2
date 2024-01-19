@@ -8217,7 +8217,7 @@ ul.achivement li:first-child {
   font-weight: 500;
   letter-spacing: 1px;
   min-height: 50px;
-  width: 50px;
+  width: 5px;
   position: absolute;
   right: 5px;
   text-transform: uppercase;
@@ -8231,6 +8231,7 @@ ul.achivement li:first-child {
   font-size: 18px;
   border-left: 1px solid #e7e7e7;
 }
+
 
 .blog-area .sidebar input[type="submit"]:hover {
   background: #f35a38 none repeat scroll 0 0;

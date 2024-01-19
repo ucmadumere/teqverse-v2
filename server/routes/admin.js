@@ -131,6 +131,7 @@ router.post('/add-job', authMiddleware, async (req, res) => {
                 title: req.body.title,
                 body: req.body.body,
                 jobType: req.body.jobType,
+                workType: req.body.workType,
                 jobLocation: req.body.jobLocation,
                 experience: req.body.experience,
                 requirements: req.body.requirements,
@@ -153,24 +154,24 @@ router.post('/add-job', authMiddleware, async (req, res) => {
 */
 router.get('/edit-job/:id', authMiddleware, async (req, res) => {
     try {
-  
-      const locals = {
-        title: "Edit Post"
-      };
-  
-      const data = await postJob.findOne({ _id: req.params.id });
-  
-      res.render('admin/edit-job', {
-        locals,
-        data,
-        layout: adminLayout
-      })
-  
+
+        const locals = {
+            title: "Edit Post"
+        };
+
+        const data = await postJob.findOne({ _id: req.params.id });
+
+        res.render('admin/edit-job', {
+            locals,
+            data,
+            layout: adminLayout
+        })
+
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  
-  });
+
+});
 
 /**
  * PUT /
@@ -178,20 +179,25 @@ router.get('/edit-job/:id', authMiddleware, async (req, res) => {
 */
 router.put('/edit-job/:id', authMiddleware, async (req, res) => {
     try {
-  
-      await postJob.findByIdAndUpdate(req.params.id, {
-        title: req.body.title,
-        body: req.body.body,
-        updatedAt: Date.now()
-      });
-  
-      res.redirect(`/edit-job/${req.params.id}`);
-  
+
+        await postJob.findByIdAndUpdate(req.params.id, {
+            title: req.body.title,
+            body: req.body.body,
+            jobType: req.body.jobType,
+            workType: req.body.workType,
+            jobLocation: req.body.jobLocation,
+            experience: req.body.experience,
+            requirements: req.body.requirements,
+            updatedAt: Date.now()
+        });
+
+        res.redirect(`/edit-job/${req.params.id}`);
+
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  
-  });
+
+});
 
 
 /**
@@ -235,17 +241,17 @@ router.post('/register', async (req, res) => {
 router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
 
     try {
-      await postJob.deleteOne( { _id: req.params.id } );
-      res.redirect('/dashboard');
+        await postJob.deleteOne({ _id: req.params.id });
+        res.redirect('/dashboard');
     } catch (error) {
-      console.log(error);
+        console.log(error);
     }
-  
-  });
 
-  /**
- * GET /
- * Admin Logout
+});
+
+/**
+* GET /
+* Admin Logout
 */
 router.get('/logout', (req, res) => {
     res.clearCookie('token');
@@ -254,7 +260,7 @@ router.get('/logout', (req, res) => {
     res.render('admin/index', {
         layout: adminLayout
     });
-  });
+});
 
 
 
