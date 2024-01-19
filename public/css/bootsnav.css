@@ -2984,6 +2984,7 @@ nav.navbar.bootsnav {
     padding-left: 15px;
     padding-right: 15px;
   }
+  
 
   nav.navbar.bootsnav .navbar-nav {
     padding-left: 15px;
@@ -2992,7 +2993,7 @@ nav.navbar.bootsnav {
   }
 
   .attr-nav > ul {
-    margin-right: -25px;
+    margin-right: -90px;
   }
 
   .attr-nav > ul > li > a {
