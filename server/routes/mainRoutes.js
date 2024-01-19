@@ -205,6 +205,7 @@ router.get('/joblist', async (req, res) => {
     const totalPages = Math.ceil(totalJobs / pageSize);
 
     const jobs = await Postjob.find(query)
+      .sort({ createdAt: -1 })
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
