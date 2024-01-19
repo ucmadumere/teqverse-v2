@@ -2465,6 +2465,9 @@ nav.navbar.bootsnav {
     .navbar.navbar-fixed .attr-nav > ul.button > li {
       display: none;
     }
+    .attr-nav {
+      display: none;
+    }
   }
 
   header nav.navbar.border.bootsnav.navbar-fixed.no-background ul li a {

@@ -15,6 +15,11 @@ const PostJobSchema = new Schema({
         enum: ['hybrid', 'remote', 'onsite'],
         // required: true
     },
+    workType: {
+        type: String,
+        enum: ['contract', 'fullTime', 'partTime'],
+        // required: true
+    },
     jobLocation: {
         type: String,
         // required: true

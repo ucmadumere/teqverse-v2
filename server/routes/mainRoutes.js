@@ -1,4 +1,5 @@
 const express = require('express');
+const app = express();
 const router = express.Router();
 const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
@@ -20,10 +21,6 @@ router.get('/', (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 
 
-router.get('/login', (req, res) => {
-  res.render('login'); // Assuming `req.User` is correctly populated
-});
-
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -42,18 +39,39 @@ router.post('/login', async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const accessToken = jwt.sign(
+      { userId: user._id,
+        name: user.name,
+        email: user.email,
+        created: user.createdAt,
+        updated: user.updatedAt
+      }, 
+      
+      process.env.JWT_SECRET, { expiresIn: '1h' });
+    
+    req.session.accessToken = token;
+
     
 
+    
     // Redirect to a dashboard or user profile page
-    res.redirect('/'); 
-    console.log(res)
+    res.render('index', {accessToken: req.session.accessToken})
+    console.log(user, token)
+    
 
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'An error occurred during login' });
   }
+
+  
+
 });
+
+router.get('/login', (req, res) => {
+  res.render('login');
+});
+
 
   
   
@@ -96,49 +114,123 @@ router.get('/blog', (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                               JOB & DETAILS STARTS HERE                            **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/joblist', async (req, res) => {
-    try {
-      const locals = {
-        title: 'TeqVerse',
-        description: 'Job List',
-      };
+// router.get('/joblist', async (req, res) => {
+//     try {
+//       const locals = {
+//         title: 'TeqVerse',
+//         description: 'Job List',
+//       };
   
-      const page = parseInt(req.query.page) || 1;
-      const pageSize = 5; // Number of items per page
-      let query = {};
+//       const page = parseInt(req.query.page) || 1;
+//       const pageSize = 5; // Number of items per page
+//       let query = {};
   
-      // Check if a search term is provided in the query parameters
-      const searchTerm = req.query.q;
-      if (searchTerm) {
-        // Use a case-insensitive regex to match the search term in title or body
-        query = {
-          $or: [
-            { title: { $regex: searchTerm, $options: 'i' } },
-            { body: { $regex: searchTerm, $options: 'i' } },
-          ],
-        };
-      }
+//       // Check if a search term is provided in the query parameters
+//       const searchTerm = req.query.q;
+//       if (searchTerm) {
+//         // Use a case-insensitive regex to match the search term in title or body
+//         query = {
+//           $or: [
+//             { title: { $regex: searchTerm, $options: 'i' } },
+//             { body: { $regex: searchTerm, $options: 'i' } },
+//           ],
+//         };
+//       }
   
-      const totalJobs = await Postjob.countDocuments(query);
-      const totalPages = Math.ceil(totalJobs / pageSize);
+//       const totalJobs = await Postjob.countDocuments(query);
+//       const totalPages = Math.ceil(totalJobs / pageSize);
   
-      const jobs = await Postjob.find(query)
-        .skip((page - 1) * pageSize)
-        .limit(pageSize);
+//       const jobs = await Postjob.find(query)
+//         .skip((page - 1) * pageSize)
+//         .limit(pageSize);
   
-      res.render('jobList', {
-        data: jobs,
-        locals,
-        page,
-        totalPages,
-        searchTerm,
-      });
+//       res.render('jobList', {
+//         data: jobs,
+//         locals,
+//         page,
+//         totalPages,
+//         searchTerm,
+//       });
       
-    } catch (error) {
-      console.error(error);
-      res.status(500).send('Internal Server Error');
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   });
+
+router.get('/joblist', async (req, res) => {
+  try {
+    const locals = {
+      title: 'TeqVerse',
+      description: 'Job List',
+    };
+
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = 5; // Number of items per page
+    let query = {};
+
+    // Check if a search term is provided in the query parameters
+    const searchTerm = req.query.q;
+    if (searchTerm) {
+      // Use a case-insensitive regex to match the search term in title or body
+      query = {
+        $or: [
+          { title: { $regex: searchTerm, $options: 'i' } },
+          { body: { $regex: searchTerm, $options: 'i' } },
+        ],
+      };
     }
-  });
+
+    // Filter by location
+    if (req.query.location) {
+      query.jobLocation = req.query.location;
+    }
+
+    // Filter by experience
+    if (req.query.experience) {
+      query.experience = { $gte: parseInt(req.query.experience) };
+    }
+
+    // Filter by work type
+    if (req.query.workType) {
+      query.workType = req.query.workType;
+    }
+
+    // Filter by job type
+    if (req.query.jobType) {
+      query.jobType = req.query.jobType;
+    }
+
+    const totalJobs = await Postjob.countDocuments(query);
+    const totalPages = Math.ceil(totalJobs / pageSize);
+
+    const jobs = await Postjob.find(query)
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+
+    res.render('jobList', {
+      data: jobs,
+      locals,
+      page,
+      totalPages,
+      searchTerm,
+      location: req.query.location, // Pass location to template
+      experience: req.query.experience, // Pass experience to template
+      workType: req.query.workType, // Pass workType to template
+      jobType: req.query.jobType, // Pass jobType to template
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+// Filter reset
+router.get('/resetfilters', (req, res) => {
+  // Redirect to the joblist route without any filter parameters
+  res.redirect('/joblist');
+});
         
 
 router.get('/jobdetails', (req, res) => {
