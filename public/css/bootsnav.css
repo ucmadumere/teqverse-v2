@@ -1457,13 +1457,13 @@ nav.navbar.bootsnav {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1200px) {
+@media (min-width: 1024px) and (max-width: 1300px) {
   nav.navbar.bootsnav ul.nav > li > a {
-    padding: 35px 12px !important;
+    padding: 35px 5px !important;
   }
 
   nav.navbar.bootsnav.sticked ul.nav > li > a {
-    padding: 30px 12px !important;
+    padding: 30px 5px !important;
   }
 }
 
