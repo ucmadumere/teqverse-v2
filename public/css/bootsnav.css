@@ -1457,13 +1457,13 @@ nav.navbar.bootsnav {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1200px) {
+@media (min-width: 1024px) and (max-width: 1300px) {
   nav.navbar.bootsnav ul.nav > li > a {
-    padding: 35px 12px !important;
+    padding: 35px 4px !important;
   }
 
   nav.navbar.bootsnav.sticked ul.nav > li > a {
-    padding: 30px 12px !important;
+    padding: 30px 14px !important;
   }
 }
 
@@ -2465,6 +2465,7 @@ nav.navbar.bootsnav {
     .navbar.navbar-fixed .attr-nav > ul.button > li {
       display: none;
     }
+    
   }
 
   header nav.navbar.border.bootsnav.navbar-fixed.no-background ul li a {
@@ -2984,6 +2985,7 @@ nav.navbar.bootsnav {
     padding-left: 15px;
     padding-right: 15px;
   }
+  
 
   nav.navbar.bootsnav .navbar-nav {
     padding-left: 15px;
@@ -2992,7 +2994,7 @@ nav.navbar.bootsnav {
   }
 
   .attr-nav > ul {
-    margin-right: -25px;
+    margin-right: -90px;
   }
 
   .attr-nav > ul > li > a {
@@ -3198,6 +3200,7 @@ ul.cart-list > li.total > .btn {
   color: #0e2258;
   padding: 10px 25px !important;
 }
+
 
 @media (min-width: 1024px) {
   nav.navbar ul.nav > li > a {
@@ -3619,7 +3622,12 @@ nav.bootsnav.navbar-sidebar ul.nav > li > a i.fas.fa-file-alt {
 }
 
 @media (max-width: 420px) {
-  nav.navbar.attr-border .attr-nav {
+  nav.navbar.attr-border .attr-nav .attr-nav > ul  {
+    display: none;
+  }
+}
+@media (max-width: 437px) {
+  .attr-nav  {
     display: none;
   }
 }
@@ -3627,6 +3635,19 @@ nav.bootsnav.navbar-sidebar ul.nav > li > a i.fas.fa-file-alt {
 @media (max-width: 500px) {
   .navbar.navbar-fixed .attr-nav > ul > li {
     display: none;
+    
+  }
+}
+@media (max-width: 532px) {
+  .attr-nav {
+    display: none;
+    
+  }
+}
+@media (max-width: 600px) {
+  .navbar .attr-nav > ul > li {
+    display: none;
+    
   }
 }
 
