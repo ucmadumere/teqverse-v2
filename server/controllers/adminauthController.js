@@ -41,7 +41,8 @@ const loginAdmin = async (req, res) => {
     console.log(adminAcessToken)
 
     // Send a success response
-    res.status(200).json({ message: 'Superuser logged in successfully', superuser });
+    // res.status(200).json({ message: 'Superuser logged in successfully', superuser });
+    res.redirect('/dashboard2');
   } catch (error) {
     // Handle any errors
     res.status(500).json({ error: error.message });

@@ -26,23 +26,10 @@ router.post('/login-superuser', adminauthController.loginAdmin);
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   DASHBOARD                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
-// const getDashboard = async (req, res) => {
-//     try {
-//         const locals = {
-//             title: 'Dashboard'
-//         }
-
-//         const data = await postJob.find();
-//         res.render('admin/dashboard', {
-//             locals,
-//             data,
-//             layout: adminLayout
-//         });
-
-//     } catch (error) {
-//         console.log(error);
-//     }
-// }
+router.get('/dashboard2', (req, res) => {
+  // res.render('admin/signin');
+  res.render('admin/dashboard2', {layout: adminLayout });
+});
 
 
 module.exports = router
