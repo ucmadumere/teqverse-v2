@@ -12,17 +12,23 @@
     {
         name: {
         type: String,
-        required: [true, 'Firstname cannot be blank']
+        required: [true, 'Name Field cannot be blank']
         },
 
         email: {
         type: String,
-        required: true,
+        required: [true, 'Email Field cannot be blank'],
         unique: true,
         validate: {
             validator:validateEmail,
             message: 'Invalid Email Format, Please check and try Again...',
-        }
+        },
+
+        isAdmin: {
+            Boolean: false,
+            required: false
+        },
+
         },
         password: {
         type: String,
@@ -54,7 +60,18 @@
         }
     });
 
+  
+      
+      
+      // Custom validator for password comparison
+      userSchema.path('password').validate({
+        validator: function (value) {
+          return value.length >= 8; // Add any additional password complexity checks here
+        },
+        message: 'Password must be at least 8 characters long',
+      });
 
-    
 
-    module.exports = mongoose.model('User', userSchema);
+     const User = mongoose.model('User', userSchema);
+
+    module.exports = User;

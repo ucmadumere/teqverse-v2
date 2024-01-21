@@ -55,7 +55,7 @@ app.set('view engine', 'ejs');
 /**                                                 ROUTES                                             **/
 /**--------------------------------------------------------------------------------------------------- **/
 app.use('/', require('./server/routes/mainRoutes'));
-app.use('/', require('./server/routes/admin'));
+app.use('/', require('./server/routes/adminRoutes'));
 
 
 /**--------------------------------------------------------------------------------------------------- **/
