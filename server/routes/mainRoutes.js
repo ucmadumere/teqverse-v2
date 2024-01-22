@@ -3,6 +3,7 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 const jobdetailController = require('../controllers/jobdetailController');
 const joblistController = require('../controllers/joblistController');
+const userLayout = '../views/layouts/userLogin';
 
 
 
@@ -17,7 +18,7 @@ router.get('/', (req, res) => {
 /**                                   LOGIN ROUTE                                                      **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login', {layout: userLayout });
 });
 router.post('/login', authController.login);
 
@@ -25,7 +26,7 @@ router.post('/login', authController.login);
 /**                                  REGISTER ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/signup', (req, res) => {
-  res.render('signup');
+  res.render('signup', {layout: userLayout });
 });
 router.post('/signup', authController.register);
 
