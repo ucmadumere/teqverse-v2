@@ -141,8 +141,6 @@ router.get('/edit-profile', checkUser, redirectIfAuthenticated, (req, res) => {
 /**                                  A CATCH ALL ROUTE                                                 **/
 /**--------------------------------------------------------------------------------------------------- **/
 
-router.get('*', (req, res) => {
-  res.status(403).render('error404', {layout:userLayout}); // Replace 'error404' with your actual error page template
-});
+// 
 
 module.exports = router;
