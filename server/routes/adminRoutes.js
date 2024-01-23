@@ -9,7 +9,7 @@ const adminLayout = '../views/layouts/adminLogin';
 /**                                  REGISTER ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/create-superuser', (req, res) => {
-    res.render('admin/signup');
+    res.render('admin/signup', {layout: adminLayout });
   });
 router.post('/create-superuser', adminauthController.createSuperuser);
 
