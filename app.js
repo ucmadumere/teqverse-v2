@@ -31,15 +31,15 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride('_method'));
-
-app.use(session ({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI
-    }),
-}));
+app.use(express.json())
+// app.use(session ({
+//     secret: 'keyboard cat',
+//     resave: false,
+//     saveUninitialized: true,
+//     store: MongoStore.create({
+//         mongoUrl: process.env.MONGO_URI
+//     }),
+// }));
 
 app.use(express.static('public'));
 
