@@ -116,12 +116,17 @@ const register = async (req, res) => {
     }
   };
 
-  const logout = (req, res) => {
 
-    res.cookie('jwt', '', { expires: new Date(0), secure: true });
-    res.clearCookie('jwt', { path: '/', secure: true });
-    res.redirect('/logout');
+ const logout = (req, res) => {
+  res.clearCookie('jwt', {
+    path: '/',
+    httpOnly: true,
+    secure: false, // Set to false for HTTP
+  });
+  res.redirect('/logout');
 };
+
+  
 
   
   
