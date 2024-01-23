@@ -6,17 +6,31 @@
     <!-- Start Navigation -->
     <nav class="navbar navbar-default navbar-sticky bootsnav">
 
-        <div class="container">
+        <!-- <div class="container"> -->
 
             <!-- Start Atribute Navigation -->
-            <div class="attr-nav">
-                <ul class="button">
+            <!-- <div class="attr-nav">
+                 <ul class="button"> 
+                    <% if (typeof user !=='undefined' && user) { %>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= user.name %></a>
+                                <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
+                                    <li><a href="#">Profile</a></li>
+                                    <li><a href="#">Log Out</a></li>
+                                </ul>
+                            </li>
+                        </li>
+                        <% } else { %>
+                            <ul class="button">
                     
-                    <li>
-                        <a href="/signup">Get Started</a>
-                    </li>
-                </ul>
-            </div>
+                                <li>
+                                    <a href="/">Get Started</a>
+                                </li>
+                            </ul>
+                        <% } %>
+                </ul> 
+               
+            </div> -->
             <!-- End Atribute Navigation -->
 
             <!-- Start Header Navigation -->
@@ -44,6 +58,30 @@
                             <li><a href="#">About us</a></li>
                         </ul>
                     </li>
+                        
+                            <% if (user) {%>
+                                    <li class="dropdown" style="margin-left:70px;">
+                                        
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <img src="user-profile-image.jpg" class="profile-image" alt="">
+                                             Hello, <%=user.name %></a>
+                                        <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
+                                            <li><a href="#">Profile</a></li>
+                                            <li><a href="/logout">Log Out</a></li>
+                                        </ul>
+                                    
+                                
+                                        <% } else { %>
+                                        <div class="attr-nav">
+                                        <ul class="button">
+                                            <li>
+                                                <a href="/login">Get Started</a>
+                                            </li>
+                                        </ul>
+                                        </div>
+                                    </li>
+                                <% } %>
+                    
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div>

@@ -1,7 +1,9 @@
-    const mongoose = require('mongoose');
-    const bcrypt = require('bcrypt');
-    const validateEmail = require('../../validators/emailValidator')
-    const validatePassword = require('../../validators/passwordValidator')
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const {isEmail} = require('validator');
+const validatePassword = require('../../validators/passwordValidator');
+
+   
 
 
     // const PasswordHasher = ('@fntools/password');
@@ -19,17 +21,16 @@
         type: String,
         required: [true, 'Email Field cannot be blank'],
         unique: true,
-        validate: {
-            validator:validateEmail,
-            message: 'Invalid Email Format, Please check and try Again...',
+        lowercase: true,
+        validate: [isEmail, 'Please Enter a Valid Email']
         },
 
-        isAdmin: {
-            Boolean: false,
-            required: false
+        profileimage: {
+        type: String,
+        default: ''
         },
 
-        },
+
         password: {
         type: String,
         required: [true, 'Password cannot be blank'],
@@ -61,15 +62,20 @@
     });
 
   
-      
-      
-      // Custom validator for password comparison
-      userSchema.path('password').validate({
-        validator: function (value) {
-          return value.length >= 8; // Add any additional password complexity checks here
-        },
-        message: 'Password must be at least 8 characters long',
-      });
+    // for comparing password
+    // userSchema.statics.login = async function(email, password){
+    //     const user = await this.findOne({email});
+
+    //     if (user) {
+    //         const auth = await bcrypt.compare(password, user.password)
+
+    //         if (auth) {
+    //             return user
+    //         }
+    //         throw Error("incorrect Password")
+    //     }
+    //     throw Error("Sorry, the user does not exist..")
+    // }
 
 
      const User = mongoose.model('User', userSchema);
