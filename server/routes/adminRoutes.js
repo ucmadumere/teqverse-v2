@@ -31,6 +31,13 @@ router.get('/dashboard2', (req, res) => {
   res.render('admin/dashboard2', {layout: adminLayout });
 });
 
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                   ADD GUEST JOB LIST                                                   **/
+/**--------------------------------------------------------------------------------------------------- **/
+// router.get('/dashboard', (req, res) => {
+//   res.render('admin/dashboard', {layout: adminLayout });
+// });
+
 
 
 module.exports = router
