@@ -41,7 +41,7 @@ const login = async (req, res) => {
     const accessToken = jwt.sign(
       { userId: user._id}, 
       process.env.JWT_SECRET,
-      { expiresIn: '3h' });
+      { expiresIn: 2 * 60 * 1000 });
 
     // Set the token in a cookie
     res.cookie('jwt', accessToken, {
@@ -53,7 +53,6 @@ const login = async (req, res) => {
 
     // Redirect to a dashboard or user profile page
     res.redirect('/');
-    console.log(accessToken);
 
   } catch (error) {
     console.error(error);

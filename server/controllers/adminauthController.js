@@ -24,27 +24,31 @@ const loginAdmin = async (req, res) => {
     }
 
     const adminAcessToken = jwt.sign (
-      { userId: superuser._id,
-        name: superuser.name,
-        email: superuser.email,
-        role: superuser.role,
-        created: superuser.createdAt,
-        updated: superuser.updatedAt,
-      },
+      { userId: superuser._id,},
       process.env.JWT_SECRET,
-      { expiresIn: '1h' }
+      { expiresIn: 2 * 60 * 1000 }
     
     );
 
-    // If the credentials are correct, create a session or token to authenticate the superuser
-    req.session.superusertoken = adminAcessToken; // Example: Using session for authentication
-    console.log(adminAcessToken)
+       // Set the token in a cookie
+       res.cookie('jwt', adminAcessToken, {
+        httpOnly: true,
+        maxAge: 2 * 60 * 1000, // 20 hours in milliseconds
+        secure: true, // Set to true if using HTTPS
+        sameSite: 'None'
+      });
+  
+      // Redirect to a dashboard or user profile page
+      res.redirect('dashboard2');
 
-    // Send a success response
-    res.status(200).json({ message: 'Superuser logged in successfully', superuser });
   } catch (error) {
-    // Handle any errors
-    res.status(500).json({ error: error.message });
+    console.error(error);
+    res.status(500).render('error500', {
+        errorCode: 400,
+        errorMessage: "Internal Server Error",
+        errorDescription: "The system encountered an error while trying to get the User. Please check your credentials and try again",
+        layout: userLayout,
+    });
   }
 };
 

@@ -29,8 +29,11 @@ const validatePassword = require('../../validators/passwordValidator');
         type: String,
         default: ''
         },
-
-
+        role: {
+            type: String,
+            enum: ['user', 'admin'],
+            default: 'user'
+        },
         password: {
         type: String,
         required: [true, 'Password cannot be blank'],

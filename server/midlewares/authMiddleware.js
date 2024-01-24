@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
+const adminUser = require('../models/adminUserModel')
 
 
 const requireAuth = (req, res, next) => {
@@ -34,23 +35,39 @@ const checkUser = (req, res, next) => {
       } else {
         try {
           let user = await User.findById(decodedToken.userId);
-          if (!user) {
-            throw new Error('User not found');
+          let adminuser = await adminUser.findById(decodedToken.userId);
+          
+          if (user && user.role === 'admin') {
+            res.locals.user = user;
+            res.locals.admin = true;
+            next();
+          } else if (adminuser && adminuser.role === 'superuser') {
+            res.locals.user = adminuser;
+            res.locals.superuser = true;
+            next();
+          } else {
+            res.locals.user = user; // Assuming user and adminUser schema have similar fields
+            res.locals.admin = false;
+            res.locals.superuser = false;
+            next();
           }
-          res.locals.user = user;
-          next();
         } catch (error) {
           console.error(error);
           res.locals.user = null;
+          res.locals.admin = false;
+          res.locals.superuser = false;
           next();
         }
       }
     });
   } else {
     res.locals.user = null;
+    res.locals.admin = false;
+    res.locals.superuser = false;
     next();
   }
 };
+
 
 
 
@@ -69,6 +86,35 @@ const redirectIfAuthenticated = (req, res, next) => {
 
 
 
+
+//   const checkAdminUser = (req, res, next) => {
+//     const token = req.cookies.jwt;
+  
+//     if (token) {
+//       jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+//         if (err) {
+//           res.locals.user = null;
+//           next();
+//         } else {
+//           try {
+//             let adminUser = await AdminUser.findById(decodedToken.userId);
+//             if (!adminUser) {
+//               throw new Error('User not found');
+//             }
+//             res.locals.adminUser = adminUser;
+//             next();
+//           } catch (error) {
+//             console.error(error);
+//             res.locals.user = null;
+//             next();
+//           }
+//         }
+//       });
+//     } else {
+//       res.locals.adminUser = null;
+//       next();
+//     }
+//   };
 
 
 
@@ -102,5 +148,5 @@ const redirectIfAuthenticated = (req, res, next) => {
 module.exports = {
     requireAuth,
     checkUser,
-    redirectIfAuthenticated
+    redirectIfAuthenticated,
 }
