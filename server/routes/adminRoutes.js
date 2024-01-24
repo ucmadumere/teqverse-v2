@@ -35,6 +35,13 @@ router.post('/login-superuser', adminauthController.loginAdmin);
 
 
 
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                   ADD GUEST JOB LIST                                                   **/
+/**--------------------------------------------------------------------------------------------------- **/
+// router.get('/dashboard', (req, res) => {
+//   res.render('admin/dashboard', {layout: adminLayout });
+// });
+
 
 
 module.exports = router

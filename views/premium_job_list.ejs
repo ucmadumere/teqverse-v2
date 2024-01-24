@@ -1,0 +1,220 @@
+<!-- Start Breadcrumb 
+    ============================================= -->
+    <div class="breadcrumb-area bg-gray text-center shadow dark text-light bg-cover"
+    style="background-image: url(/img/banner/12.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <h1>Blog Sidebar</h1>
+                <ul class="breadcrumb">
+                    <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                    <li class="active">Job List</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Breadcrumb -->
+
+<!-- Start Blog
+    ============================================= -->
+<div class="blog-area full-blog right-sidebar full-blog default-padding">
+    <div class="container">
+        <div class="blog-items">
+            <div class="row">
+                <div class="blog-content col-lg-8 col-md-12">
+                    <div class="blog-item-box">
+                        <!-- Single Item -->
+                        <% data.forEach(post=> { %>
+                            <div class="single-item">
+                                <div class="item">
+                                    <div class="info">
+
+                                        <span class="post-date">
+                                            <%= post.createdAt.toDateString() %>
+                                        </span>
+                                        <h3 class="mt-1">
+                                            <a href="/jobdetails/<%= post._id %>">
+                                                <%= post.title %>
+                                            </a>
+                                        </h3>
+                                        <p>
+                                           Job Type: <%= post.jobType %> 
+                                        </p>
+                                        
+                                        <p> 
+                                            <%= post.workType %> 
+                                        </p>
+
+
+                                        <p>
+                                          Job Information:  <%=post.body %>
+                                        </p>
+                                        <p>
+                                            Location: <%= post.jobLocation %>
+                                        </p>
+                                        <p>
+                                            Experience: <%= post.experience %> years
+                                        </p>
+                                        <a class="btn circle btn-theme border btn-sm"
+                                            href="/jobdetails/<%= post._id %>">Read
+                                            More</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <% }) %>
+                                <!-- End Single Item -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="row">
+                        <div class="col-md-12 pagi-area text-center">
+                            <nav aria-label="navigation">
+                                <ul class="pagination">
+                                    <% if (page> 1) { %>
+                                        <li class="page-item"><a class="page-link" href="?page=<%= page - 1 %>"><i
+                                                    class="fas fa-angle-double-left"></i></a></li>
+                                        <% } %>
+                                            <li class="page-item active"><a class="page-link" href="">
+                                                    <%= page %>
+                                                </a></li>
+                                            <% if (page < totalPages) { %>
+                                                <li class="page-item"><a class="page-link"
+                                                        href="?page=<%= page + 1 %>"><i
+                                                            class="fas fa-angle-double-right"></i></a></li>
+                                                <% } %>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- Start Sidebar -->
+                <div class="sidebar col-lg-4 col-md-12">
+                    <aside>
+                        <div class="sidebar-item search">
+                            <div class="sidebar-info">
+                                <form action="/joblist" method="get">
+                                    <input type="text" name="q" class="form-control" id="searchTerm"
+                                        value="<%= searchTerm %>">
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- Sort By Starts Here -->
+                        <div class="sidebar-item category">
+                            <div class="title">
+                                <h4>Job Filter</h4>
+                            </div>
+                             <!-- Filter form -->
+                             <form action="/joblist" method="get" class="mb-4">
+                                <div class="form-row">
+                                    <div class="form-group col-12">
+                                        <label for="location">Location:</label>
+                                        <input type="text" name="location" id="location" class="form-control"
+                                            value="<%= location %>">
+                                    </div>
+
+                                    <div class="form-group col-12">
+                                        <label for="experience">Experience:</label>
+                                        <input type="number" name="experience" id="experience" class="form-control"
+                                            value="<%= experience %>">
+                                    </div>
+
+                                    <div class="form-group col-12">
+                                        <label for="workType">Work Type:</label>
+                                        <select name="workType" id="workType" class="form-control">
+                                            <option value="contract" <%=workType==='contract' ? 'selected' : '' %>
+                                                >Contract</option>
+                                            <option value="fullTime" <%=workType==='fullTime' ? 'selected' : '' %>
+                                                >Full Time</option>
+                                            <option value="partTime" <%=workType==='partTime' ? 'selected' : '' %>
+                                                >Part Time</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-12">
+                                        <label for="jobType">Job Type:</label>
+                                        <select name="jobType" id="jobType" class="form-control">
+                                            <option value="hybrid" <%=jobType==='hybrid' ? 'selected' : '' %>>Hybrid
+                                            </option>
+                                            <option value="remote" <%=jobType==='remote' ? 'selected' : '' %>>Remote
+                                            </option>
+                                            <option value="onsite" <%=jobType==='onsite' ? 'selected' : '' %>>Onsite
+                                            </option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <button type="submit">Apply Filters</button>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <a href="/resetfilters" class="btn btn-secondary">Reset Filters</a>
+                                    </div>
+                                </div>
+
+                                <!-- <button type="submit" class="btn btn-primary">Apply Filters</button> -->
+                            </form>
+                        </div>
+                        <!-- Sort By Ends HEre -->
+                        <!-- Three Dynamic Recent Post  -->
+                        <div class="sidebar-item recent-post">
+                            <div class="title">
+                                <h4>Recent Post</h4>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="info">
+                                        <div class="meta-title">
+                                            <span class="post-date"><i class="fas fa-clock"></i> 12 Feb, 2021</span>
+                                        </div>
+                                        <a href="#">Commanded household smallness
+                                            delivered.</a>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <!-- Three Dynamic Recent Post Ends Here  -->
+
+                        <div class="sidebar-item social-sidebar">
+                            <div class="title">
+                                <h4>follow us</h4>
+                            </div>
+                            <div class="sidebar-info">
+                                <ul>
+                                    <li class="facebook">
+                                        <a href="#">
+                                            <i class="fab fa-facebook-f"></i>
+                                        </a>
+                                    </li>
+                                    <li class="twitter">
+                                        <a href="#">
+                                            <i class="fab fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li class="pinterest">
+                                        <a href="#">
+                                            <i class="fab fa-pinterest"></i>
+                                        </a>
+                                    </li>
+                                    <li class="g-plus">
+                                        <a href="#">
+                                            <i class="fab fa-google-plus-g"></i>
+                                        </a>
+                                    </li>
+                                    <li class="linkedin">
+                                        <a href="#">
+                                            <i class="fab fa-linkedin-in"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </aside>
+                </div>
+                <!-- End Start Sidebar -->
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Blog -->
