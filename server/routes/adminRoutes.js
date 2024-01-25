@@ -38,9 +38,16 @@ router.post('/login-superuser', adminauthController.loginAdmin);
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   ADD GUEST JOB LIST                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
-// router.get('/dashboard', (req, res) => {
-//   res.render('admin/dashboard', {layout: adminLayout });
-// });
+router.get('/add-job', (req, res) => {
+  res.render('admin/add-job', {layout: adminLayout });
+});
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                   GUEST JOB LIST                                                   **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/guest-user-job', (req, res) => {
+  res.render('admin/guest-user-job', {layout: adminLayout });
+});
 
 
 
