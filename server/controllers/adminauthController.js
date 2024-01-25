@@ -3,9 +3,8 @@ const postJob = require('../models/postJob');
 const adminUser = require('../models/adminUserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
+const { createAdminJWT } = require('../utils/tokenUtils');
 const adminLayout = '../views/layouts/adminLogin';
-const jwtSecret = process.env.JWT_SECRET;
 
 
 
@@ -20,23 +19,23 @@ const loginAdmin = async (req, res) => {
 
     // If the superuser is not found or the password is incorrect, send an error response
     if (!superuser || !bcrypt.compareSync(password, superuser.password)) {
-      return res.status(401).json({ error: 'Invalid email or password' });
+      return res.status(400).render('error400',
+      { errorCode: 400,
+        errorMessage: 'Page Unavailable',
+        errorDescription: 'Sorry, You do not Have Required Permissions to Access this Page..',
+        layout: adminLayout 
+      });
     }
 
-    const adminAcessToken = jwt.sign (
-      { userId: superuser._id,},
-      process.env.JWT_SECRET,
-      { expiresIn: 2 * 60 * 1000 }
-    
-    );
+    const token = createAdminJWT({userId:superuser._id, role: superuser.role});
+    const oneDay = 1000 * 60 * 60 *24
 
-       // Set the token in a cookie
-       res.cookie('jwt', adminAcessToken, {
-        httpOnly: true,
-        maxAge: 2 * 60 * 1000, // 20 hours in milliseconds
-        secure: true, // Set to true if using HTTPS
-        sameSite: 'None'
-      });
+    res.cookie('token', token, {
+      httpOnly: true,
+      expires: new Date(Date.now()+oneDay),
+      secure: process.env.NODE_ENV === 'environment',
+      path: '/'
+    })
   
       // Redirect to a dashboard or user profile page
       res.redirect('dashboard2');
@@ -47,7 +46,7 @@ const loginAdmin = async (req, res) => {
         errorCode: 400,
         errorMessage: "Internal Server Error",
         errorDescription: "The system encountered an error while trying to get the User. Please check your credentials and try again",
-        layout: userLayout,
+        layout: adminLayout
     });
   }
 };
@@ -88,14 +87,20 @@ const createSuperuser = async (req, res) => {
 };
 
 
+
 const adminLogout = (req, res) => {
-    res.clearCookie('token');
-    //res.json({ message: 'Logout successful.'});
-    // res.redirect('/');
-    res.render('admin/sigin', {
-        layout: adminLayout
-    });
+  res.cookie('token', 'logout', {
+      httpOnly: true,
+      expires: new Date(0),
+      path: '/',
+      domain: 'localhost',
+      secure: process.env.NODE_ENV === 'production'
+  });
+  res.status(200).render('logout', {
+    layout: adminLayout,
+  })
 };
+
 
 
 module.exports = {
