@@ -770,52 +770,51 @@
                   <h4 class="card-title">Add New Job</h4>
                 </div>
                 <div class="card-body">
-                  <div class="basic-form">
-                    <form>
-
-                      <div class="row">
-                        <div class="mb-3 col-md-6">
-                          <label for="title" class="form-label">Title</label>
-                          <input type="text" class="form-control" placeholder="Title" name="title">
+                  <div class="container mt-5">
+                    <form action="/add-job" method="POST">
+                        <div class="mb-3">
+                            <label for="title" class="form-label">Title</label>
+                            <input type="text" class="form-control" id="title" placeholder="Enter title">
                         </div>
-                        <div class="mb-3 col-md-6">
-                          <label for="experience" class="form-label">Experience</label>
-                          <input type="number" class="form-control" placeholder="Years of experience" name="experience">
+            
+                        <div class="mb-3">
+                            <label for="experience" class="form-label">Experience</label>
+                            <input type="number" class="form-control" id="experience" placeholder="Enter years of experience">
                         </div>
-                        <div class="mb-3 col-md-3">
-                          <label for="jobLocation" class="form-label">Location</label>
-                          <input type="password" class="form-control" placeholder="Location" name="jobLocation">
+            
+                        <div class="mb-3">
+                            <label for="jobLocation" class="form-label">Location</label>
+                            <input type="text" class="form-control" id="jobLocation" placeholder="Enter location">
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="mb-3 col-md-3">
-                          <label for="jobType" class="form-label">Job Type</label>
-
-                          <select name="jobType" id="" class="default-select form-control wide">
-                            <option value="">--Please choose an option--</option>
-                            <option value="hybrid">Hybrids</option>
-                            <option value="onsite">Onsite</option>
-                            <option value="remote">Remote</option>
-                          </select>
-
+            
+                        <div class="mb-3">
+                            <label for="jobType" class="form-label">Job Type</label>
+                            <select class="form-select" id="jobType">
+                                <option value="">--Please choose an option--</option>
+                                <option value="hybrid">Hybrid</option>
+                                <option value="onsite">Onsite</option>
+                                <option value="remote">Remote</option>
+                            </select>
                         </div>
-                        <div class="mb-3 col-md-3">
-
-                          <label for="workType"  class="form-label">Work Type</label>
-                          <select name="workType" id="workType" class="default-select form-control wide">
-                            <option value="">--Please choose an option--</option>
-                            <option value="contract">Contract</option>
-                            <option value="fullTime">Full Time</option>
-                            <option value="partTime">Part Time</option>
-                          </select>
-
+            
+                        <div class="mb-3">
+                            <label for="workType" class="form-label">Work Type</label>
+                            <select class="form-select" id="workType">
+                                <option value="">--Please choose an option--</option>
+                                <option value="contract">Contract</option>
+                                <option value="fullTime">Full Time</option>
+                                <option value="partTime">Part Time</option>
+                            </select>
                         </div>
-                        <div class="card-body custom-ekeditor mb-3 col-md-12">
-                          <div id="ckeditor"></div>
+            
+                        <div class="mb-3">
+                            <label for="jobDescription" class="form-label">Job Description</label>
+                            <textarea class="form-control" id="jobDescription" rows="4" placeholder="Enter job description"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary light">Add</button>
+            
+                        <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
-                  </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -861,9 +860,9 @@
   });
 </script> -->
 <script>
-  // Initialize CKEditor
+  // CKEditor initialization
   ClassicEditor
-      .create(document.querySelector('#ckeditor'))
+      .create(document.querySelector('#jobDescription'))
       .catch(error => {
           console.error(error);
       });
