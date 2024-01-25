@@ -16,7 +16,7 @@ router.get('*', checkUser)
 /**                                  LANDING ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/', (req, res) => {
-    const token = req.cookies.jwt;
+    const token = req.cookies.token;
 
     if(token) {
       jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
@@ -63,19 +63,17 @@ router.post('/signup', checkUser, redirectIfAuthenticated, authController.regist
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  LOG OUT ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/logout', (req, res) => {
-    res.render('logout', {layout: userLayout});
-});
+router.get('/logout', authController.logout)
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB DETAILS ROUTE                                                 **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/jobdetails/:id?',checkUser, redirectIfAuthenticated, jobdetailController);
+router.get('/jobdetails/:id?',checkUser, jobdetailController);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB LIST ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/joblist', checkUser, redirectIfAuthenticated, joblistController);
+router.get('/joblist', checkUser, joblistController);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB FILTER ROUTE                                                    **/
@@ -88,7 +86,7 @@ router.get('/resetfilters', checkUser, redirectIfAuthenticated, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB LIST ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/edit-profile', checkUser, redirectIfAuthenticated, (req, res) => {
+router.get('/edit-profile', checkUser, (req, res) => {
   res.render('edit-page');
 });
 //router.post('/edit-profile', edit)

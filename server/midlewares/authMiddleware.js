@@ -25,7 +25,8 @@ const requireAuth = (req, res, next) => {
 
 
 const checkUser = (req, res, next) => {
-  const token = req.cookies.jwt;
+  const token = req.cookies.token;
+  
 
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
@@ -46,7 +47,7 @@ const checkUser = (req, res, next) => {
             res.locals.superuser = true;
             next();
           } else {
-            res.locals.user = user; // Assuming user and adminUser schema have similar fields
+            res.locals.user = user; 
             res.locals.admin = false;
             res.locals.superuser = false;
             next();
@@ -81,72 +82,37 @@ const redirectIfAuthenticated = (req, res, next) => {
       next();
     }
   };
+
+
+  const redirectAdminIfAuthenticated = (req, res, next) => {
+    if (res.locals.user) {
+      // If the user is authenticated, redirect them to the dashboard
+      res.redirect('/dashboard2');
+    } else {
+      // If the user is not authenticated, continue to the route handler
+      next();
+    }
+  };
+
+
+
+  const isAdminOrSuperuser = (req, res, next) => {
+  const userRole = req.user.role;
+
   
+  if (userRole === 'admin' || userRole === 'superuser') {
+    next();
+  } else {
+    res.status(403).send('Access denied'); 
+  }
+};
 
-
-
-
-
-//   const checkAdminUser = (req, res, next) => {
-//     const token = req.cookies.jwt;
-  
-//     if (token) {
-//       jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-//         if (err) {
-//           res.locals.user = null;
-//           next();
-//         } else {
-//           try {
-//             let adminUser = await AdminUser.findById(decodedToken.userId);
-//             if (!adminUser) {
-//               throw new Error('User not found');
-//             }
-//             res.locals.adminUser = adminUser;
-//             next();
-//           } catch (error) {
-//             console.error(error);
-//             res.locals.user = null;
-//             next();
-//           }
-//         }
-//       });
-//     } else {
-//       res.locals.adminUser = null;
-//       next();
-//     }
-//   };
-
-
-
-
-
-
-// const checkUser = (req, res, next) => {
-//     const token = req.cookies.jwt
-
-//     if(token){
-
-//         jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-//             if(err){
-//                 res.locals.user = null
-//                 next()
-//             }
-//             else{
-//                 let user = await User.findById(decodedToken.userId)
-//                 res.locals.user = user
-//                 next()
-//             }
-//         })
-
-//     }else{
-//         res.locals.user = null;
-//         next();
-//     }
-// }
 
 
 module.exports = {
     requireAuth,
     checkUser,
     redirectIfAuthenticated,
+    redirectAdminIfAuthenticated,
+    isAdminOrSuperuser
 }

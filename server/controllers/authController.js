@@ -2,6 +2,7 @@ const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
 const bcrypt = require('bcrypt');
+const { createJWT } = require('../utils/tokenUtils');
 const userLayout = '../views/layouts/userLogin';
 
 
@@ -37,19 +38,15 @@ const login = async (req, res) => {
       });
     }
 
+    const token = createJWT({userId:user._id, role: user.role});
+    const oneDay = 1000 * 60 * 60 *24
 
-    const accessToken = jwt.sign(
-      { userId: user._id}, 
-      process.env.JWT_SECRET,
-      { expiresIn: 2 * 60 * 1000 });
-
-    // Set the token in a cookie
-    res.cookie('jwt', accessToken, {
+    res.cookie('token', token, {
       httpOnly: true,
-      maxAge: 2 * 60 * 1000, // 20 hours in milliseconds
-      secure: true, // Set to true if using HTTPS
-      sameSite: 'None'
-    });
+      expires: new Date(Date.now()+oneDay),
+      secure: process.env.NODE_ENV === 'environment',
+      path: '/'
+    })
 
     // Redirect to a dashboard or user profile page
     res.redirect('/');
@@ -74,7 +71,7 @@ const login = async (req, res) => {
 // Define the register route handler
 const register = async (req, res) => {
     try {
-      const { name, email, password, password2} = req.body;
+      const { first_name, last_name, email, password, password2} = req.body;
   
       const existingUser = await User.findOne({ email });
       if (existingUser) {
@@ -96,7 +93,8 @@ const register = async (req, res) => {
       };
   
       const newUser = new User({
-        name,
+        first_name, 
+        last_name,
         email,
         password,
       });
@@ -116,21 +114,20 @@ const register = async (req, res) => {
   };
 
 
- const logout = (req, res) => {
-  res.clearCookie('jwt', {
-    path: '/',
-    httpOnly: true,
-    secure: false, // Set to false for HTTP
-  });
-  res.redirect('/logout');
+  const logout = (req, res) => {
+    res.cookie('token', 'logout', {
+        httpOnly: true,
+        expires: new Date(0),
+        path: '/',
+        domain: 'localhost',
+        secure: process.env.NODE_ENV === 'production'
+    });
+    res.status(200).render('logout', {
+      layout: userLayout,
+    })
 };
 
   
-
-  
-  
-  
-
 
 module.exports = {
     login,

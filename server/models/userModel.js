@@ -12,11 +12,15 @@ const validatePassword = require('../../validators/passwordValidator');
 
     const userSchema = mongoose.Schema(
     {
-        name: {
+        first_name: {
         type: String,
         required: [true, 'Name Field cannot be blank']
         },
-
+        
+        last_name: {
+            type: String,
+            required: [true, 'Name Field cannot be blank']
+        },
         email: {
         type: String,
         required: [true, 'Email Field cannot be blank'],
