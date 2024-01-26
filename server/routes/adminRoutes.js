@@ -3,9 +3,8 @@ const router = express.Router();
 const jwt = require('jsonwebtoken')
 const adminauthController = require('../controllers/adminauthController')
 const adminLayout = '../views/layouts/adminLogin';
-const {checkAdminUser, requireAdminAuth} = require('../midlewares/adminMiddleWares/requireAdminAuth')
-const { createJob } = require('../controllers/postadminController')
-
+const { redirectAdminIfAuthenticated, isAdminOrSuperuser } = require('../midlewares/authMiddleware');
+const  { checAdminkUser }  = require('../midlewares/adminAuthMiddleware')
 
 
 
@@ -72,10 +71,9 @@ router.get('/edit-job', (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   GUEST JOB LIST                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/guest-user-job', (req, res) => {
+router.get('/guest-user-job', getGuestList, (req, res) => {
   res.render('admin/guest-user-job', {layout: adminLayout });
 });
-
 
 
 module.exports = router

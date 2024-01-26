@@ -77,11 +77,11 @@ const getAdmin = async (req, res) => {
 //     }
 // }
 
-// const getAddJob = async (req, res) => {
-//     try {
-//         const locals = {
-//             title: 'Add Post',
-//         }
+const getAddJob = async (req, res) => {
+    try {
+        const locals = {
+            title: 'Add Post',
+        }
 
 //         const data = await postJob.find();
 //         res.render('admin/add-job', {
@@ -197,4 +197,5 @@ module.exports = {
     getEditJob,
     createJob,
     getAdmin,
+    getGuestList
 }
