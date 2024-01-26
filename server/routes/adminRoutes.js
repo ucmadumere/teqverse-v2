@@ -85,7 +85,7 @@ router.get('/edit-job', (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   GUEST JOB LIST                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/guest-user-job', (req, res) => {
+router.get('/guest-user-job', getGuestList, (req, res) => {
   res.render('admin/guest-user-job', {layout: adminLayout });
 });
 
