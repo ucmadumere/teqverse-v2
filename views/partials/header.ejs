@@ -61,17 +61,12 @@
                 </li>
 
                 <% if (user) {%>
+                    <% var currentHour=new Date().getHours(); var greeting="" ; if (currentHour < 12) {
+                        greeting="Good Morning" ; } else if (currentHour < 18) { greeting="Good Afternoon" ; }
+                        else { greeting="Good Evening" ; } %>
                     <li class="dropdown" style="margin-left:70px;">
 
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="user-profile-image.jpg" class="profile-image" alt="">
-
-                            <% var currentHour=new Date().getHours(); var greeting="" ; if (currentHour < 12) {
-                                greeting="Good Morning" ; } else if (currentHour < 18) { greeting="Good Afternoon" ; }
-                                else { greeting="Good Evening" ; } %>
-                                <%= greeting %>, <%= user.first_name %>
-
-                        </a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= greeting %>, <%= user.first_name %> </a>
                         <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
                             <li><a href="#">Profile</a></li>
                             <li><a href="/logout">Log Out</a></li>

@@ -3,8 +3,9 @@ const router = express.Router();
 const jwt = require('jsonwebtoken')
 const adminauthController = require('../controllers/adminauthController')
 const adminLayout = '../views/layouts/adminLogin';
-const { redirectAdminIfAuthenticated, isAdminOrSuperuser } = require('../midlewares/authMiddleware');
-const  { checAdminkUser }  = require('../midlewares/adminAuthMiddleware')
+const {checkAdminUser, requireAdminAuth} = require('../midlewares/adminMiddleWares/requireAdminAuth')
+const { createJob } = require('../controllers/postadminController')
+
 
 
 
@@ -12,7 +13,7 @@ const  { checAdminkUser }  = require('../midlewares/adminAuthMiddleware')
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   DASHBOARD                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/dashboard2', (req, res) => {
+router.get('/dashboard2', requireAdminAuth, checkAdminUser, (req, res) => {
   const admintoken = req.cookies.token;
 
   if(admintoken) {
@@ -21,7 +22,7 @@ router.get('/dashboard2', (req, res) => {
           res.render('login');
         }else{
           res.render('admin/dashboard2', {layout: adminLayout });
-        };
+        };  
     });
   } else{
   res.render('admin/dashboard2', {layout: adminLayout });
@@ -32,20 +33,20 @@ router.get('/dashboard2', (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  REGISTER ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/create-superuser',  redirectAdminIfAuthenticated, (req, res) => {
+router.get('/create-superuser', (req, res) => {
     res.render('admin/signup', {layout: adminLayout });
   });
-router.post('/create-superuser', redirectAdminIfAuthenticated, adminauthController.createSuperuser);
+router.post('/create-superuser', adminauthController.createSuperuser);
 
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   LOGIN ROUTE                                                      **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/login-superuser', redirectAdminIfAuthenticated, (req, res) => {
+router.get('/login-superuser', (req, res) => {
   // res.render('admin/signin');
   res.render('admin/login', {layout: adminLayout });
 });
-router.post('/login-superuser', redirectAdminIfAuthenticated, adminauthController.loginAdmin);
+router.post('/login-superuser', adminauthController.loginAdmin);
 
 
 router.get('/adminlogout', adminauthController.adminLogout)
@@ -58,6 +59,8 @@ router.get('/adminlogout', adminauthController.adminLogout)
 router.get('/add-job', (req, res) => {
   res.render('admin/add-job', {layout: adminLayout });
 });
+
+router.post('/add-job', createJob)
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   EDIT GUEST JOB LIST                                                   **/

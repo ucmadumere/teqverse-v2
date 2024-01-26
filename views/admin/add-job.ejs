@@ -342,7 +342,7 @@
                       </svg>
                       <span class="ms-2">Account Settings</span>
                     </a>
-                    <a href="app-profile-1.html" class="ai-icon ">
+                    <a href="#" class="ai-icon ">
                       <svg width="20" height="20" viewbox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                           d="M3.33341 3.33301H16.6667C17.5834 3.33301 18.3334 4.08301 18.3334 4.99967V14.9997C18.3334 15.9163 17.5834 16.6663 16.6667 16.6663H3.33341C2.41675 16.6663 1.66675 15.9163 1.66675 14.9997V4.99967C1.66675 4.08301 2.41675 3.33301 3.33341 3.33301Z"
@@ -437,16 +437,16 @@
             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Guest Job</a>
               <ul aria-expanded="false">
 
-                <li><a href="app-profile-1.html">Add Job</a></li>
-                <li><a href="app-profile-2.html">Edit Job</a></li>
-                <li><a href="/guest-user-job">Job List</a></li>
+                <li><a href="/add-job">Add Job</a></li>
+                <li><a href="/edit-job">Edit Job</a></li>
+                <li><a href="/job-list">Job List</a></li>
               </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Premium Job</a>
               <ul aria-expanded="false">
-                <li><a href="app-profile-1.html">Add Job</a></li>
-                <li><a href="app-profile-2.html">Edit Job</a></li>
-                <li><a href="edit-profile.html">Job List</a></li>
+                <li><a href="#">Add Job</a></li>
+                <li><a href="#">Edit Job</a></li>
+                <li><a href="#">Job List</a></li>
               </ul>
             </li>
           </ul>
@@ -519,10 +519,10 @@
             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Users Manager</a>
               <ul aria-expanded="false">
 
-                <li><a href="app-profile-1.html">Profile 1</a></li>
-                <li><a href="app-profile-2.html">Profile 2</a></li>
-                <li><a href="edit-profile.html">Edit Profile</a></li>
-                <li><a href="post-details.html">Post Details</a></li>
+                <li><a href="#">Profile 1</a></li>
+                <li><a href="#">Profile 2</a></li>
+                <li><a href="#">Edit Profile</a></li>
+                <li><a href="#">Post Details</a></li>
               </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Email</a>
@@ -774,22 +774,22 @@
                     <form action="/add-job" method="POST">
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
-                            <input type="text" class="form-control" id="title" placeholder="Enter title">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Enter title">
                         </div>
             
                         <div class="mb-3">
                             <label for="experience" class="form-label">Experience</label>
-                            <input type="number" class="form-control" id="experience" placeholder="Enter years of experience">
+                            <input type="number" class="form-control" id="experience" name="experience" placeholder="Enter years of experience">
                         </div>
             
                         <div class="mb-3">
                             <label for="jobLocation" class="form-label">Location</label>
-                            <input type="text" class="form-control" id="jobLocation" placeholder="Enter location">
+                            <input type="text" class="form-control" id="jobLocation" name="jobLocation" placeholder="Enter location">
                         </div>
             
                         <div class="mb-3">
                             <label for="jobType" class="form-label">Job Type</label>
-                            <select class="form-select" id="jobType">
+                            <select class="form-select" name="jobType" id="jobType">
                                 <option value="">--Please choose an option--</option>
                                 <option value="hybrid">Hybrid</option>
                                 <option value="onsite">Onsite</option>
@@ -799,7 +799,7 @@
             
                         <div class="mb-3">
                             <label for="workType" class="form-label">Work Type</label>
-                            <select class="form-select" id="workType">
+                            <select class="form-select" name="workType" id="workType">
                                 <option value="">--Please choose an option--</option>
                                 <option value="contract">Contract</option>
                                 <option value="fullTime">Full Time</option>
@@ -809,7 +809,7 @@
             
                         <div class="mb-3">
                             <label for="jobDescription" class="form-label">Job Description</label>
-                            <textarea class="form-control" id="jobDescription" rows="4" placeholder="Enter job description"></textarea>
+                            <textarea class="form-control" id="jobDescription" rows="4" name="jobDescription" placeholder="Enter job description"></textarea>
                         </div>
             
                         <button type="submit" class="btn btn-primary">Submit</button>

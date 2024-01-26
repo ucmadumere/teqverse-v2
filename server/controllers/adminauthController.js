@@ -3,8 +3,9 @@ const postJob = require('../models/postJob');
 const adminUser = require('../models/adminUserModel');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { createAdminJWT } = require('../utils/tokenUtils');
+const { createAdminJWT } = require('../utilsAdmin/admintokenUtils');
 const adminLayout = '../views/layouts/adminLogin';
+
 
 
 
@@ -30,7 +31,7 @@ const loginAdmin = async (req, res) => {
     const token = createAdminJWT({userId:superuser._id, role: superuser.role});
     const oneDay = 1000 * 60 * 60 *24
 
-    res.cookie('token', token, {
+    res.cookie('admintoken', token, {
       httpOnly: true,
       expires: new Date(Date.now()+oneDay),
       secure: process.env.NODE_ENV === 'environment',

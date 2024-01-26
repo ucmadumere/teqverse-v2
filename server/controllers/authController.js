@@ -48,7 +48,6 @@ const login = async (req, res) => {
       path: '/'
     })
 
-    // Redirect to a dashboard or user profile page
     res.redirect('/');
 
   } catch (error) {
