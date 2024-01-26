@@ -77,6 +77,36 @@ const getDashboard = async (req, res) => {
     }
 }
 
+const getGuestList = async (req, res) => {
+    try {
+      const locals = {
+        title: 'Guest Job List',
+      };
+  
+      const page = parseInt(req.query.page) || 1;
+      const pageSize = 5; // Number of items per page
+  
+      const totalJobs = await postJob.countDocuments();
+      const totalPages = Math.ceil(totalJobs / pageSize);
+  
+      const data = await postJob.find()
+        .skip((page - 1) * pageSize)
+        .limit(pageSize);
+  
+      res.render('admin/guest-user-job', {
+        locals,
+        data,
+        currentPage: page,
+        totalPages,
+        layout: adminLayout,
+      });
+  
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Internal Server Error');
+    }
+  };
+
 const getAddJob = async (req, res) => {
     try {
         const locals = {
@@ -224,4 +254,5 @@ module.exports = {
     getDashboard,
     postAdmin,
     getAdmin,
+    getGuestList
 }
