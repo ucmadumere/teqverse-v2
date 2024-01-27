@@ -791,9 +791,9 @@
                             <label for="jobType" class="form-label">Job Type</label>
                             <select class="form-select" name="jobType" id="jobType">
                                 <option value="">--Please choose an option--</option>
-                                <option value="hybrid">Hybrid</option>
-                                <option value="onsite">Onsite</option>
-                                <option value="remote">Remote</option>
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Onsite">Onsite</option>
+                                <option value="Remote">Remote</option>
                             </select>
                         </div>
             
@@ -801,15 +801,21 @@
                             <label for="workType" class="form-label">Work Type</label>
                             <select class="form-select" name="workType" id="workType">
                                 <option value="">--Please choose an option--</option>
-                                <option value="contract">Contract</option>
-                                <option value="fullTime">Full Time</option>
-                                <option value="partTime">Part Time</option>
+                                <option value="Contract">Contract</option>
+                                <option value="Full Time">Full Time</option>
+                                <option value="Part Time">Part Time</option>
                             </select>
                         </div>
+
+                        <div class="mb-3">
+                          <label for="jobOverview" class="form-label">Job Overview</label>
+                          <textarea class="form-control" id="jobOverview" rows="4" name="jobOverview" placeholder="Enter Job Overview"></textarea>
+                      </div>
             
                         <div class="mb-3">
                             <label for="jobDescription" class="form-label">Job Description</label>
                             <textarea class="form-control" id="jobDescription" rows="4" name="jobDescription" placeholder="Enter job description"></textarea>
+                            
                         </div>
             
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -845,25 +851,27 @@
 <!-- Required vendors -->
 <script src="vendor/global/global.min.js"></script>
 
-<script src="vendor/jquery-steps/build/jquery.steps.min.js"></script>
 <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
 
-<script src="vendor/ckeditor/ckeditor.js"></script>
-<script src="js/custom.js"></script>
-<script src="js/deznav-init.js"></script>
-<script src="js/demo.js"></script>
-<script src="js/styleSwitcher.js"></script>
+<script src="/public/js/custom.js"></script>
+<script src="/public/js/deznav-init.js"></script>
+<script src="/public/js/demo.js"></script>
+<script src="/public/js/styleSwitcher.js"></script>
+<script src="/public/vendor/ckeditor/ckeditor.js"></script>
+
 <!-- <script>
-  $(document).ready(function () {
-    // SmartWizard initialize
-    $('#smartwizard').smartWizard();
-  });
-</script> -->
-<script>
   // CKEditor initialization
   ClassicEditor
       .create(document.querySelector('#jobDescription'))
       .catch(error => {
           console.error(error);
       });
+</script> -->
+<!-- <script type="text/javascript">
+    CKEDITOR.replace ('jobDescription');
 </script>
+<script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script> -->
+
+
+
+

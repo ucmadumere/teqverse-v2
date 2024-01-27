@@ -32,6 +32,7 @@ const createJob = async (req, res) => {
       jobType,
       workType,
       jobLocation,
+      jobOverview,
       experience,
       requirements,
     } = req.body;
@@ -43,6 +44,7 @@ const createJob = async (req, res) => {
       jobType,
       workType,
       jobLocation,
+      jobOverview,
       experience,
       requirements,
     });
@@ -51,7 +53,7 @@ const createJob = async (req, res) => {
     await newPost.save();
 
     // Redirect to the dashboard on successful creation
-    res.redirect('/dashboard2');
+    res.redirect('/guest-user-job');
   } catch (error) {
     // Log the error for debugging purposes
     console.error('Error creating job:', error);

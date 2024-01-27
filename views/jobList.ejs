@@ -48,7 +48,7 @@
 
 
                                         <p>
-                                          Job Information:  <%=post.body %>
+                                           <%=post.jobOverview %>
                                         </p>
                                         <p>
                                             Location: <%= post.jobLocation %>
@@ -57,8 +57,7 @@
                                             Experience: <%= post.experience %> years
                                         </p>
                                         <a class="btn circle btn-theme border btn-sm"
-                                            href="/jobdetails/<%= post._id %>">Read
-                                            More</a>
+                                            href="/jobdetails/<%= post._id %>">View More</a>
 
                                     </div>
                                 </div>
@@ -145,12 +144,11 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <a href="/resetfilters" class="btn btn-secondary">Reset Filters</a>
+                                        <button type="submit">Apply Filters</button>
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <a href="/resetfilters" class="btn btn-secondary">Apply Filters</a>
+                                        <a href="/resetfilters" class="btn btn-secondary">Reset Filters</a>
                                     </div>
-                                    
                                     
                                 </div>
 
