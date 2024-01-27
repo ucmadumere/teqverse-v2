@@ -45,21 +45,13 @@
                                 <p>
                                     <%= data.jobLocation %>
                                 </p>
-
                                 <p>
-                                    <%= data.body %>
+                                    <%= data.jobOverview %>
                                 </p>
 
-                                <h4>Requirements</h4>
-            
-                            
-                                    <ul>
-                                        <% data.requirements.forEach(requirement=> { %>
-                                            <li>
-                                                <%= requirement %>
-                                            </li>
-                                            <% }); %>
-                                    </ul>
+                                <p>
+                                    <%= data.jobDescription %>
+                                </p>
                             
                             </div>
                             <div class="d-flex justify-content-end m-2">
