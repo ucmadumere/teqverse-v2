@@ -1,4 +1,4 @@
-<a href="/dashboard">&larr; Back</a>
+<a href="/guest-user-job">&larr; Back</a>
 <div class="admin-title">
   <h2>View / Edit Post</h2>
 
@@ -27,8 +27,11 @@
     <option value="remote">Remote</option>
   </select>
 
+  <br>
+  <hr>
+
   <label for="body"><b>Content</b></label>
-  <textarea name="body" cols="50" rows="10"><%= data.body %></textarea>
+  <textarea name="body" cols="50" rows="10"><%= data.jobDescription %></textarea>
 
   <input type="submit" value="Update" class="btn">
 

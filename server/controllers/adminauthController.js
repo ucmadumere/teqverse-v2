@@ -90,7 +90,7 @@ const createSuperuser = async (req, res) => {
 
 
 const adminLogout = (req, res) => {
-  res.cookie('token', 'logout', {
+  res.cookie('admintoken', 'logout', {
       httpOnly: true,
       expires: new Date(0),
       path: '/',
