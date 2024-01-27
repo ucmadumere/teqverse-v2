@@ -8215,11 +8215,7 @@ ul.achivement li:first-child {
   border: medium none;
   color: #0e2258;
   font-weight: 500;
-  letter-spacing: 1px;
-  min-height: 50px;
-  width: 5px;
   position: absolute;
-  right: 5px;
   text-transform: uppercase;
   top: 5px;
   -webkit-transition: all 0.35s ease-in-out;
@@ -8228,7 +8224,7 @@ ul.achivement li:first-child {
   -o-transition: all 0.35s ease-in-out;
   transition: all 0.35s ease-in-out;
   border-radius: inherit;
-  font-size: 18px;
+  font-size: 15px;
   border-left: 1px solid #e7e7e7;
 }
 
