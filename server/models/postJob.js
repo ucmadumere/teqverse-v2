@@ -17,6 +17,7 @@ const PostJobSchema = new Schema({
     jobType: {
         type: String,
         enum: ['Hybrid', 'Remote', 'Onsite'],
+        // Add internship to jobType
         // required: true
     },
     workType: {
