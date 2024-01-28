@@ -41,6 +41,10 @@
                                         <p>
                                            Job Type: <%= post.jobType %> 
                                         </p>
+
+                                        <p>
+                                            Experience: <%= post.experience %> years
+                                        </p>
                                         
                                         <p> 
                                             <%= post.workType %> 
@@ -53,9 +57,7 @@
                                         <p>
                                             Location: <%= post.jobLocation %>
                                         </p>
-                                        <p>
-                                            Experience: <%= post.experience %> years
-                                        </p>
+                                        
                                         <a class="btn circle btn-theme border btn-sm"
                                             href="/jobdetails/<%= post._id %>">View More</a>
 
@@ -123,23 +125,25 @@
                                     <div class="form-group col-12">
                                         <label for="workType">Work Type:</label>
                                         <select name="workType" id="workType" class="form-control">
-                                            <option value="contract" <%=workType==='contract' ? 'selected' : '' %>
+                                            <option value="Contract" <%=workType==='Contract' ? 'selected' : '' %>
                                                 >Contract</option>
-                                            <option value="fullTime" <%=workType==='fullTime' ? 'selected' : '' %>
+                                            <option value="Full Time" <%=workType==='Full Time' ? 'selected' : '' %>
                                                 >Full Time</option>
-                                            <option value="partTime" <%=workType==='partTime' ? 'selected' : '' %>
+                                            <option value="Part Time" <%=workType==='Part Time' ? 'selected' : '' %>
                                                 >Part Time</option>
+                                            <option value="Internship" <%=workType==='Internship' ? 'selected' : '' %>
+                                                    >Internship</option>
                                         </select>
                                     </div>
 
                                     <div class="form-group col-12">
                                         <label for="jobType">Job Type:</label>
                                         <select name="jobType" id="jobType" class="form-control">
-                                            <option value="hybrid" <%=jobType==='hybrid' ? 'selected' : '' %>>Hybrid
+                                            <option value="Hybrid" <%=jobType==='Hybrid' ? 'selected' : '' %>>Hybrid
                                             </option>
-                                            <option value="remote" <%=jobType==='remote' ? 'selected' : '' %>>Remote
+                                            <option value="Remote" <%=jobType==='Remote' ? 'selected' : '' %>>Remote
                                             </option>
-                                            <option value="onsite" <%=jobType==='onsite' ? 'selected' : '' %>>Onsite
+                                            <option value="Onsite" <%=jobType==='Onsite' ? 'selected' : '' %>>Onsite
                                             </option>
                                         </select>
                                     </div>
