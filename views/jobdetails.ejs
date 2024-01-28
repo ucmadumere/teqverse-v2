@@ -32,25 +32,27 @@
                         <div class="item pb-3">
                             <div class="info mt-3">
                                 <span class="post-date">
-                                    <%= data.createdAt.toDateString() %>
+                                   This Job Was Created On <%= data.createdAt.toDateString() %>
                                 </span>
                                 <h3>
                                     <%= data.title %>
                                 </h3>
 
                                 <p>
-                                    <%= data.jobType %>
+                                  <strong>JOB TYPE:</strong> <br> <%= data.jobType %>
                                 </p>
 
                                 <p>
-                                    <%= data.jobLocation %>
+                                  <strong> LOCATION:</strong> <br>  <%= data.jobLocation %>
                                 </p>
                                 <p>
-                                    <%= data.jobOverview %>
+                                 <strong>JOB OVERVIEW</strong> <br>  <%= data.jobOverview %>
                                 </p>
 
+                                <br>
+
                                 <p>
-                                    <%= data.jobDescription %>
+                                <strong>DESCRIPTION</strong> br  <%= data.jobDescription %>
                                 </p>
                             
                             </div>

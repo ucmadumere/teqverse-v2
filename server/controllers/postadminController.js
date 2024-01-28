@@ -48,7 +48,7 @@ const createJob = async (req, res) => {
       experience,
       requirements,
     });
-
+    
     // Save the new postJob object to the database
     await newPost.save();
 
@@ -111,11 +111,11 @@ const getGuestList = async (req, res) => {
           experience: req.body.experience,
           jobLocation: req.body.jobLocation,
           jobType: req.body.jobType,
-          jobDescription: req.body.jobDescription, // Assuming this corresponds to jobDescription
+          jobDescription: req.body.jobDescription,
           updatedAt: Date.now(),
       });
       
-      res.redirect(`/edit-post/${req.params.id}`);
+      res.redirect(`/edit-job/${req.params.id}`);
 
     } catch (error) {
       console.error('Error updating job:', error);
@@ -153,7 +153,7 @@ const getEditJob = async (req, res) => {
 
 
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                  Delete Job                                                 **/
+/**                                  Delete Job                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
 const deleteJob = async (req, res) => {
     try {

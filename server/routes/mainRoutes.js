@@ -30,6 +30,7 @@ router.get('/', checkUser, (req, res) => {
     }
 });
 
+
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  FAQ ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
@@ -88,28 +89,32 @@ router.get('/logout', authController.logout)
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB DETAILS ROUTE                                                 **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/jobdetails/:id?', checkUser, jobdetailController);
+router.get('/jobdetails/:id?', checkUser, requireAuth, jobdetailController);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB LIST ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/joblist', checkUser, joblistController);
+router.get('/joblist', checkUser, requireAuth, joblistController);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB FILTER ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/resetfilters', (req, res) => {
+router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
     // Redirect to the joblist route without any filter parameters
     res.redirect('/joblist');
 });
           
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                  JOB LIST ROUTE                                                    **/
+/**                                  EDIT PROFILE ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/edit-profile', (req, res) => {
   res.render('edit-page');
 });
 //router.post('/edit-profile', edit)
+
+router.get('/user-profile', (req, res) => {
+  res.render('user-profile');
+});
 
 
 

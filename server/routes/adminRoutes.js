@@ -9,7 +9,7 @@ const { createJob } = require('../controllers/postadminController')
 
 
 const { logout,
-  deletePost,
+  deleteJob,
   updatejob,
   getEditJob,
   postAddJob,
@@ -69,7 +69,7 @@ router.get('/adminlogout', adminauthController.adminLogout)
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   ADD GUEST JOB LIST                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/add-job', getEditJob, (req, res) => {
+router.get('/add-job', (req, res) => {
   res.render('admin/add-job', {layout: adminLayout });
 });
 
@@ -79,6 +79,7 @@ router.post('/add-job', createJob)
 /**                                   EDIT GUEST JOB LIST                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/edit-job/:id', getEditJob, (req, res) => {
+  res.render('/edit-job', {layout: adminLayout });
 });
 
 router.put('/edit-job/:id', updatejob);
@@ -89,6 +90,12 @@ router.put('/edit-job/:id', updatejob);
 router.get('/guest-user-job', getGuestList, (req, res) => {
   res.render('admin/guest-user-job', {layout: adminLayout });
 });
+
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                  Delete Job                                                        **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.delete('/delete-job/:id');
 
 
 module.exports = router

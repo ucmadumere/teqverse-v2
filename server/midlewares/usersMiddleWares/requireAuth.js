@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const User = require("../../models/userModel");
+const userLayout = '../views/layouts/userLogin';
 
 const requireAuth = (req, res, next) => {
   const token = req.cookies.token;
@@ -13,7 +14,12 @@ const requireAuth = (req, res, next) => {
       }
     });
   } else {
-    res.redirect("/index");
+    res.status(400).render('error400', {
+      errorCode: 400,
+      errorMessage: 'Page Error',
+      errorDescription: 'Sorry, You do not have access to this page. Do login or sign up to Access Available Jobs...',
+      layout: userLayout,
+    });
   }
 };
 
