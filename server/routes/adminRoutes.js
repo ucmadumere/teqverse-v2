@@ -69,7 +69,7 @@ router.get('/adminlogout', adminauthController.adminLogout)
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   ADD GUEST JOB LIST                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/add-job', (req, res) => {
+router.get('/add-job', getEditJob, (req, res) => {
   res.render('admin/add-job', {layout: adminLayout });
 });
 
@@ -78,9 +78,10 @@ router.post('/add-job', createJob)
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   EDIT GUEST JOB LIST                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/edit-job', (req, res) => {
-  res.render('admin/edit-job', {layout: adminLayout });
+router.get('/edit-job/:id', getEditJob, (req, res) => {
 });
+
+router.put('/edit-job/:id', updatejob);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   GUEST JOB LIST                                                   **/
