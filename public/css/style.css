@@ -4704,6 +4704,8 @@ ul.achivement li:first-child {
   padding-bottom: 40px;
   transition: all 0.35s ease-in-out;
   border-radius: 8px;
+  box-shadow: 0 0 10px #cccccc;
+  height: 500px;
 }
 
 .our-features-area .features-box .single-item:nth-child(2) .item,
