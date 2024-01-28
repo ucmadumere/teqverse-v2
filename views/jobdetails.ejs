@@ -32,9 +32,9 @@
                         <div class="item pb-3">
                             <div class="info mt-3">
                                 <span class="post-date">
-                                   This Job Was Created On <%= data.createdAt.toDateString() %>
+                                   <%= data.createdAt.toDateString() %>
                                 </span>
-                                <h3>
+                                <h3 class="mt-2">
                                     <%= data.title %>
                                 </h3>
 
@@ -42,7 +42,7 @@
                                   <strong>JOB TYPE:</strong> <br> <%= data.jobType %>
                                 </p>
                                 <p>
-                                    Experience: <%= post.experience %> years
+                                    Experience: <%= data.experience %> years
                                 </p>
 
                                 <p>
