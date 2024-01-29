@@ -172,6 +172,5 @@ module.exports = {
     getEditJob,
     createJob,
     getAdmin,
-    getGuestList,
-    getEditJob
+    getGuestList
 }

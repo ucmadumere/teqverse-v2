@@ -33,13 +33,17 @@
                                         <span class="post-date">
                                             <%= post.createdAt.toDateString() %>
                                         </span>
-                                        <h3 class="mt-1">
+                                        <h3 class="mt-2">
                                             <a href="/jobdetails/<%= post._id %>">
                                                 <%= post.title %>
                                             </a>
                                         </h3>
                                         <p>
                                            Job Type: <%= post.jobType %> 
+                                        </p>
+
+                                        <p>
+                                            Location: <%= post.jobLocation %>
                                         </p>
 
                                         <p>
@@ -54,12 +58,12 @@
                                         <p>
                                            <%=post.jobOverview %>
                                         </p>
-                                        <p>
-                                            Location: <%= post.jobLocation %>
-                                        </p>
                                         
-                                        <a class="btn circle btn-theme border btn-sm"
+                                        
+                                        <div class="d-flex justify-content-end">
+                                            <a class="btn circle btn-theme border btn-sm"
                                             href="/jobdetails/<%= post._id %>">View More</a>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -112,7 +116,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-12">
                                         <label for="location">Location:</label>
-                                        <input type="text" name="location" id="location" class="form-control"
+                                        <input type="text" name="jobLocation" id="jobLocation" class="form-control"
                                             value="<%= location %>">
                                     </div>
 
@@ -125,6 +129,7 @@
                                     <div class="form-group col-12">
                                         <label for="workType">Work Type:</label>
                                         <select name="workType" id="workType" class="form-control">
+                                            <option value="">--Please choose an option--</option>
                                             <option value="Contract" <%=workType==='Contract' ? 'selected' : '' %>
                                                 >Contract</option>
                                             <option value="Full Time" <%=workType==='Full Time' ? 'selected' : '' %>
@@ -139,6 +144,7 @@
                                     <div class="form-group col-12">
                                         <label for="jobType">Job Type:</label>
                                         <select name="jobType" id="jobType" class="form-control">
+                                            <option value="">--Please choose an option--</option>
                                             <option value="Hybrid" <%=jobType==='Hybrid' ? 'selected' : '' %>>Hybrid
                                             </option>
                                             <option value="Remote" <%=jobType==='Remote' ? 'selected' : '' %>>Remote
@@ -147,11 +153,11 @@
                                             </option>
                                         </select>
                                     </div>
-                                    <div class="form-group col-lg-6">
-                                        <button type="submit">Apply Filters</button>
+                                    <div class="form-group col-lg-6 ">
+                                        <button class="filter" type="submit">Apply Filters</button>
                                     </div>
                                     <div class="form-group col-lg-6">
-                                        <a href="/resetfilters" class="btn btn-secondary">Reset Filters</a>
+                                        <a href="/resetfilters" class="btn btn-secondary mt-1 filter">Reset Filters</a>
                                     </div>
                                     
                                 </div>

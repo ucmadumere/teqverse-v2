@@ -300,6 +300,20 @@ button:hover {
   background: #0e2258;
   border-color: #0e2258;
 }
+.filter:hover {
+  background: #0e2258 !important;
+  border-color: #0e2258 !important;
+}
+
+.filter {
+    border: 2px solid #f35a38 !important;
+    background-color: #f35a38 !important;
+    color: #ffffff !important;
+    padding: 8px 10px !important;
+    font-weight: 700 !important;
+    border-radius: 5px !important;
+    transition: all 0.35s ease-in-out !important;
+  }
 
 .mfp-iframe-holder .mfp-close,
 .mfp-iframe-holder .mfp-close:hover {
@@ -8220,6 +8234,7 @@ ul.achivement li:first-child {
   position: absolute;
   text-transform: uppercase;
   top: 5px;
+  right: 5px;
   -webkit-transition: all 0.35s ease-in-out;
   -moz-transition: all 0.35s ease-in-out;
   -ms-transition: all 0.35s ease-in-out;
@@ -8230,6 +8245,12 @@ ul.achivement li:first-child {
   border-left: 1px solid #e7e7e7;
 }
 
+.apply{
+  background-color: #e1a026;
+  height: 50px;
+  width: 130px;
+  color: white;
+}
 
 .blog-area .sidebar input[type="submit"]:hover {
   background: #f35a38 none repeat scroll 0 0;

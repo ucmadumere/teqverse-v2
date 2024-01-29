@@ -32,17 +32,17 @@
                         <div class="item pb-3">
                             <div class="info mt-3">
                                 <span class="post-date">
-                                   This Job Was Created On <%= data.createdAt.toDateString() %>
+                                   <%= data.createdAt.toDateString() %>
                                 </span>
-                                <h3>
+                                <h3 class="mt-2">
                                     <%= data.title %>
                                 </h3>
 
                                 <p>
-                                  <strong>JOB TYPE:</strong> <br> <%= data.jobType %>
+                                  JOB TYPE: <br> <%= data.jobType %>
                                 </p>
                                 <p>
-                                    Experience: <%= post.experience %> years
+                                    Experience: <%= data.experience %> years
                                 </p>
 
                                 <p>
@@ -68,51 +68,19 @@
 
                     </div>
 
-                    <!-- Start Post Tags-->
-                    <div class="post-tags share">
-                        <div class="tags">
-                            <a href="#">Analysis</a>
-                            <a href="#">Process</a>
-                        </div>
-                        <div class="social">
-                            <ul>
-                                <li class="facebook">
-                                    <a href="#">
-                                        <i class="fab fa-facebook-f"></i>
-                                    </a>
-                                </li>
-                                <li class="twitter">
-                                    <a href="#">
-                                        <i class="fab fa-twitter"></i>
-                                    </a>
-                                </li>
-                                <li class="pinterest">
-                                    <a href="#">
-                                        <i class="fab fa-pinterest-p"></i>
-                                    </a>
-                                </li>
-                                <li class="linkedin">
-                                    <a href="#">
-                                        <i class="fab fa-linkedin-in"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- End Post Tags -->
                 </div>
 
                 <!-- Start Sidebar -->
                 <div class="sidebar col-lg-4 col-md-12">
                     <aside>
-                        <div class="sidebar-item search">
+                        <!-- <div class="sidebar-item search">
                             <div class="sidebar-info">
                                 <form>
                                     <input type="text" name="text" class="form-control">
                                     <button type="submit"><i class="fas fa-search"></i></button>
                                 </form>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="sidebar-item recent-post">
                             <div class="title">
                                 <h4>Recent Post</h4>
