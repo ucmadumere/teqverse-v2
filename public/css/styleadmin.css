@@ -24994,11 +24994,11 @@ $dark-light: lighten($dark, 50%); */
   width: 2.5rem; }
 
 .form-check-input {
-  background-color: var(--rgba-primary-3); }
+  background-color: #f35a38; }
   .form-check-input:checked {
-    background-color: var(--primary); }
+    background-color: #f35a38; }
   .form-check-input:focus {
-    border-color: var(--primary);
+    border-color: #f35a38;
     box-shadow: var(--rgba-primary-1); }
 
 .js-switch + .switchery {
@@ -28114,8 +28114,8 @@ button {
     color: #fff; }
 
 .light.btn-primary {
-  background-color: var(--primary-light);
-  border-color: var(--primary-light);
+  background-color: #f35a38;
+  border-color: #f35a38;
   color: var(--text-dark); }
   .light.btn-primary g [fill] {
     fill: black; }
@@ -28124,8 +28124,8 @@ button {
     border-color: transparent;
     color: black !important; }
   .light.btn-primary:hover {
-    background-color: var(--primary);
-    border-color: var(--primary);
+    /* background-color: var(--primary); */
+    /* border-color: var(--primary); */
     color: #fff; }
 
 .light.btn-secondary {

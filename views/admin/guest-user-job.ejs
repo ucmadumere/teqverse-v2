@@ -582,10 +582,11 @@
                                                             <div class="d-flex">
                                                                 <a href="/edit-job/<%= post._id %>"
                                                                     class="btn btn-primary light shadow btn-xs sharp me-1"><i
-                                                                        class="fa fa-pencil"></i></a>
-                                                                <button class="btn btn-danger shadow btn-xs sharp"
-                                                                    onclick="deletePost('<%= post._id %>')"><i
-                                                                        class="fa fa-trash"></i></button>
+                                                                    class="fa fa-pencil"></i></a>
+
+                                                                <a href="#" onclick="deletePost('<%= post._id %>')" 
+                                                                    class="btn btn-primary light shadow btn-xs sharp me-1"><i 
+                                                                    class="fa fa-trash"></i></a>
                                                             </div>
                                                         </td>
 
@@ -644,11 +645,59 @@
         Main wrapper end
     ***********************************-->
 
-<script>
+<!-- <script>
     function deleteJob(postId) {
         if (confirm("Are you sure you want to delete this post?")) {
             // Redirect to the delete route when confirmed
             window.location.href = "/delete-job/" + postId + "?_method=DELETE";
         }
     }
+</script> -->
+
+<!-- <script>
+    function deleteJob(jobId) {
+      if (confirm('Are you sure you want to delete this post?')) {
+        fetch(`/delete-job/${postId}`, {
+          method: 'DELETE'
+        })
+        .then(response => {
+          if (response.ok) {
+            // Optionally handle successful deletion
+            console.log('Post deleted successfully');
+            // Redirect to another page or update the UI as needed
+            window.location.href = '/delete-job';
+          } else {
+            // Handle errors
+            console.error('Failed to delete post');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+    }
+  </script> -->
+
+
+
+  <script>
+  function deletePost(postId) {
+    if (confirm('Are you sure you want to delete this post?')) {
+      fetch(`/delete-job/${postId}`, {
+        method: 'DELETE'
+      })
+      .then(response => {
+        if (response.ok) {
+          console.log('Post deleted successfully');
+          window.location.href = '/delete-job';
+        } else {
+          console.error('Failed to delete post');
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+    }
+    event.preventDefault(); // Prevent the default behavior of the anchor tag
+  }
 </script>
