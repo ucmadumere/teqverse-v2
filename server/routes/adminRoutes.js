@@ -76,13 +76,14 @@ router.get('/add-job', (req, res) => {
 router.post('/add-job', createJob)
 
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                   EDIT GUEST JOB LIST                                                   **/
+/**                                   EDIT GUEST JOB LIST                                              **/
 /**--------------------------------------------------------------------------------------------------- **/
+router.put('/edit-job/:id', updatejob);
+
 router.get('/edit-job/:id', getEditJob, (req, res) => {
-  res.render('/edit-job', {layout: adminLayout });
+  res.render('admin/edit-job', {layout: adminLayout });
 });
 
-router.put('/edit-job/:id', updatejob);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   GUEST JOB LIST                                                   **/

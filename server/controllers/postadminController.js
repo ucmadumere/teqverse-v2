@@ -125,19 +125,18 @@ const getGuestList = async (req, res) => {
   
 
 
-const getEditJob = async (req, res) => {
+  const getEditJob = async (req, res) => {
     try {
+      const data = await postJob.findOne({ _id: req.params.id });
 
       const locals = {
-        title: req.body.title,
-        experience: req.body.experience,
-        jobLocation: req.body.jobLocation,
-        jobType: req.body.jobType,
-        jobDescription: req.body.jobDescription,
+        title: data.title,
+        experience: data.experience,
+        jobLocation: data.jobLocation,
+        jobType: data.jobType,
+        jobDescription: data.jobDescription,
       };
      
-      const data = await postJob.findOne({_id: req.params.id });
-
       res.render('admin/edit-job', {
         locals,
         data,
@@ -148,6 +147,7 @@ const getEditJob = async (req, res) => {
       console.log(error)
     }
   };
+
   
   
 

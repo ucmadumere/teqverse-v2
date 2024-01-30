@@ -14,10 +14,8 @@ const requireAuth = (req, res, next) => {
       }
     });
   } else {
-    res.status(400).render('error400', {
-      errorCode: 400,
-      errorMessage: 'Page Error',
-      errorDescription: 'Sorry, You do not have access to this page. Do login or sign up to Access Available Jobs...',
+    res.status(400).render('login', {
+
       layout: userLayout,
     });
   }
