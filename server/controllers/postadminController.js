@@ -8,14 +8,14 @@ const adminLayout = '../views/layouts/adminLogin';
 
 
 const getAdmin = async (req, res) => {
-    try {
-        const locals = {
-            title: "Admin Panel"
-        }
-        res.render('admin/index', { locals, layout: adminLayout });
-    } catch (error) {
-        console.log(error)
+  try {
+    const locals = {
+      title: "Admin Panel"
     }
+    res.render('admin/index', { locals, layout: adminLayout });
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 
@@ -48,7 +48,7 @@ const createJob = async (req, res) => {
       experience,
       requirements,
     });
-    
+
     // Save the new postJob object to the database
     await newPost.save();
 
@@ -68,63 +68,94 @@ const createJob = async (req, res) => {
 /**                                  Get Guest Job List                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
 const getGuestList = async (req, res) => {
-    try {
-      const locals = {
-        title: 'Guest Job List',
-      };
-  
-      const page = parseInt(req.query.page) || 1;
-      const pageSize = 5; // Number of items per page
-  
-      const totalJobs = await postJob.countDocuments();
-      const totalPages = Math.ceil(totalJobs / pageSize);
-  
-      const data = await postJob.find()
-        .sort({ createdAt: -1 })
-        .skip((page - 1) * pageSize)
-        .limit(pageSize);
-  
-      res.render('admin/guest-user-job', {
-        locals,
-        data,
-        currentPage: page,
-        totalPages,
-        layout: adminLayout,
-      });
-  
-    } catch (error) {
-      console.log(error);
-      res.status(500).send('Internal Server Error');
-    }
-  };
+  try {
+    const locals = {
+      title: 'Guest Job List',
+    };
+
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = 5; // Number of items per page
+
+    const totalJobs = await postJob.countDocuments();
+    const totalPages = Math.ceil(totalJobs / pageSize);
+
+    const data = await postJob.find()
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+
+    res.render('admin/guest-user-job', {
+      locals,
+      data,
+      currentPage: page,
+      totalPages,
+      layout: adminLayout,
+    });
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal Server Error');
+  }
+};
 
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  Update Job Controller                                             **/
 /**--------------------------------------------------------------------------------------------------- **/
-  const updatejob = async (req, res) => {
-    try {
 
-      await postJob.findByIdAndUpdate(req.params.id, {
+const updatejob = async (req, res) => {
+  try {
 
-          title: req.body.title,
-          experience: req.body.experience,
-          jobLocation: req.body.jobLocation,
-          jobType: req.body.jobType,
-          jobDescription: req.body.jobDescription,
-          updatedAt: Date.now(),
-      });
-      
-      res.redirect(`/edit-job/${req.params.id}`);
+    await postJob.findByIdAndUpdate(req.params.id, {
 
-    } catch (error) {
-      console.error('Error updating job:', error);
-      res.status(500).send('Internal Server Error');
-    }
-  };
-  
+      title: req.body.title,
+      experience: req.body.experience,
+      jobLocation: req.body.jobLocation,
+      jobType: req.body.jobType,
+      workType: req.body.workType,
+      jobDescription: req.body.jobDescription,
+      jobOverview: req.body.jobOverview,
+      requirements: req.body.requirements,
+      updatedAt: Date.now(),
+    });
 
+    // res.redirect(`/edit-job/${req.params.id}`);
+    res.redirect('/guest-user-job');
 
+  } catch (error) {
+    console.error('Error updating job:', error);
+    res.status(500).send('Internal Server Error');
+  }
+};
+
+// const getEditJob = async (req, res, next) => {
+//   try {
+//     const locals = {
+//       title: req.body.title,
+//       experience: req.body.experience,
+//       jobLocation: req.body.jobLocation,
+//       jobType: req.body.jobType,
+//       workType: req.body.workType,
+//       jobDescription: req.body.jobDescription,
+//       jobOverview: req.body.jobOverview,
+//       requirements: req.body.requirements,
+//     };
+
+//     const data = await postJob.findOne({ _id: req.params.id });
+
+//     // Attach the locals and data to the request object
+//     req.locals = locals;
+//     req.data = data;
+
+//     // Call next to pass control to the next middleware or route handler
+//     next();
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// };
+
+<<<<<<< HEAD
   const getEditJob = async (req, res) => {
     try {
       const data = await postJob.findOne({ _id: req.params.id });
@@ -149,28 +180,61 @@ const getGuestList = async (req, res) => {
   };
 
   
+=======
+const getEditJob = async (req, res) => {
+  try {
+
+    const locals = {
+      title: req.body.title,
+      experience: req.body.experience,
+      jobLocation: req.body.jobLocation,
+      jobType: req.body.jobType,
+      workType: req.body.workType,
+      jobDescription: req.body.jobDescription,
+      jobOverview: req.body.jobOverview,
+      requirements: req.body.requirements,
+    };
+
+    const data = await postJob.findOne({ _id: req.params.id });
+
+    res.render('admin/edit-job', {
+      locals,
+      data,
+      layout: adminLayout,
+    });
+>>>>>>> beb990155c5763ab11373960e772252813af01d1
   
+  } catch (error) {
+    console.log(error)
+  }
+};
+
+
+
+
+
+
 
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  Delete Job                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
 const deleteJob = async (req, res) => {
-    try {
-        await postJob.deleteOne({ _id: req.params.id });
-        res.redirect('/dashboard2');
-    } catch (error) {
-        console.log(error);
-    }
+  try {
+    await postJob.deleteOne({ _id: req.params.id });
+    res.redirect('/dashboard2');
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 
 
 module.exports = {
-    deleteJob,
-    updatejob,
-    getEditJob,
-    createJob,
-    getAdmin,
-    getGuestList
+  deleteJob,
+  updatejob,
+  getEditJob,
+  createJob,
+  getAdmin,
+  getGuestList
 }
