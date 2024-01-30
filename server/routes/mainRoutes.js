@@ -4,7 +4,7 @@ const authController = require('../controllers/authController');
 const jobdetailController = require('../controllers/jobdetailController');
 const joblistController = require('../controllers/joblistController');
 const userLayout = '../views/layouts/userLogin';
-const adminLayout = '../views/adm'
+const adminLayout = '../views/layouts/adminLogin';
 const jwt = require('jsonwebtoken');
 const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewares/usersMiddleWares/requireAuth')
 
@@ -102,7 +102,7 @@ router.get('/edit-profile', (req, res) => {
 //router.post('/edit-profile', edit)
 
 router.get('/user-profile', checkUser, requireAuth, (req, res) => {
-  res.render('user-profile');
+  res.render('user-profile', {layout: adminLayout});
 });
 
 
