@@ -98,7 +98,7 @@ router.get('/guest-user-job', getGuestList, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  Delete Job                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.delete('/delete-job/:id');
+router.delete('/delete-job/:id', deleteJob);
 
 
 module.exports = router
