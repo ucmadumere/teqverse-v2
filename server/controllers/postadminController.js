@@ -126,34 +126,9 @@ const updatejob = async (req, res) => {
     console.error('Error updating job:', error);
     res.status(500).send('Internal Server Error');
   }
-};
+};  
 
-// const getEditJob = async (req, res, next) => {
-//   try {
-//     const locals = {
-//       title: req.body.title,
-//       experience: req.body.experience,
-//       jobLocation: req.body.jobLocation,
-//       jobType: req.body.jobType,
-//       workType: req.body.workType,
-//       jobDescription: req.body.jobDescription,
-//       jobOverview: req.body.jobOverview,
-//       requirements: req.body.requirements,
-//     };
-
-//     const data = await postJob.findOne({ _id: req.params.id });
-
-//     // Attach the locals and data to the request object
-//     req.locals = locals;
-//     req.data = data;
-
-//     // Call next to pass control to the next middleware or route handler
-//     next();
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// };
+  
 
 const getEditJob = async (req, res) => {
   try {
@@ -176,6 +151,7 @@ const getEditJob = async (req, res) => {
       data,
       layout: adminLayout,
     });
+
   
   } catch (error) {
     console.log(error)
