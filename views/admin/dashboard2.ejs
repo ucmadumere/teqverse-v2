@@ -66,16 +66,34 @@
 						<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown"
 						  aria-expanded="false">
 						  <div class="header-info2 d-flex align-items-center">
+							<% if (user) {%>
+								<% var currentHour=new Date().getHours(); var greeting="" ; if (currentHour < 12) {
+									greeting="Good Morning" ; } else if (currentHour < 18) { greeting="Good Afternoon" ; }
+									else { greeting="Good Evening" ; } %>
 							<div class="header-media">
 							  <img src="images/user.jpg" class="avatar avatar-lg" alt="">
 							</div>
 							<div class="header-info">
-							  <h6>Thomas Fleming</h6>
-							  <p>info@gmail.com</p>
+							  <h6><%= greeting %>, <%= user.name %></h6>
+							  <p><%= user.email %></p>
 							</div>
 		
 						  </div>
 						</a>
+						<% } else { %>
+							<div class="header-media">
+								<img src="images/user.jpg" class="avatar avatar-lg" alt="">
+							  </div>
+							  <div class="header-info">
+								<h6>Please Login</h6>
+								
+							  </div>
+		  
+							</div>
+						  </a>
+
+						<% } %>
+
 						<div class=" profile-box">
 						  <div class="products">
 							<div class="border-img">

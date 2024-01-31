@@ -7,6 +7,19 @@ const userLayout = '../views/layouts/userLogin';
 const adminLayout = '../views/layouts/adminLogin';
 const jwt = require('jsonwebtoken');
 const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewares/usersMiddleWares/requireAuth')
+const upload = require('../midlewares/imageUploader')
+const profileImageController = require('../controllers/uploadImageController');
+
+
+
+
+
+
+router.get('/upload-profile-image', (req, res) => {
+  res.render('upload-profile-image', {layout: adminLayout}); 
+});
+
+router.post('/upload-profile-image', profileImageController.uploadProfileImage);
 
 
 
@@ -96,8 +109,8 @@ router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  EDIT PROFILE ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/edit-profile', (req, res) => {
-  res.render('edit-page');
+router.get('/edit-profile', checkUser, requireAuth, (req, res) => {
+  res.render('edit-profile', {layout: adminLayout});
 });
 //router.post('/edit-profile', edit)
 

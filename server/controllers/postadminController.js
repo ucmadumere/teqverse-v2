@@ -36,15 +36,9 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
-      jobCategory, // Add a field for job category (normal or premium)
     } = req.body;
 
-    // Check if the job category is valid
-    if (jobCategory !== 'normal' && jobCategory !== 'premium') {
-      return res.status(400).send('Invalid job category');
-    }
-
-    // Create a new postJob object with the specified category
+    // Create a new postJob object
     const newPost = new postJob({
       title,
       jobDescription,
@@ -54,7 +48,6 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
-      jobCategory, // Include the job category in the new post
     });
 
     // Save the new postJob object to the database
@@ -69,44 +62,6 @@ const createJob = async (req, res) => {
     res.status(500).send('Failed to create job: ' + error.message);
   }
 };
-
-// const createJob = async (req, res) => {
-//   try {
-//     const {
-//       title,
-//       jobDescription,
-//       jobType,
-//       workType,
-//       jobLocation,
-//       jobOverview,
-//       experience,
-//       requirements,
-//     } = req.body;
-
-    // Create a new postJob object
-    // const newPost = new postJob({
-    //   title,
-    //   jobDescription,
-    //   jobType,
-    //   workType,
-    //   jobLocation,
-    //   jobOverview,
-    //   experience,
-    //   requirements,
-    // });
-
-    // Save the new postJob object to the database
-    // await newPost.save();
-
-    // Redirect to the dashboard on successful creation
-  //   res.redirect('/guest-user-job');
-  // } catch (error) {
-    // Log the error for debugging purposes
-    // console.error('Error creating job:', error);
-    // Send an error response with detailed error message
-//     res.status(500).send('Failed to create job: ' + error.message);
-//   }
-// };
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  Create Premium Controller                                            **/
 /**--------------------------------------------------------------------------------------------------- **/
@@ -249,34 +204,6 @@ const updatejob = async (req, res) => {
   }
 };
 
-/**--------------------------------------------------------------------------------------------------- **/
-/**                                  Update Premium Controller                                             **/
-/**--------------------------------------------------------------------------------------------------- **/
-
-const updatepremium = async (req, res) => {
-  try {
-
-    await premiumJob.findByIdAndUpdate(req.params.id, {
-
-      title: req.body.title,
-      experience: req.body.experience,
-      jobLocation: req.body.jobLocation,
-      jobType: req.body.jobType,
-      workType: req.body.workType,
-      jobDescription: req.body.jobDescription,
-      jobOverview: req.body.jobOverview,
-      requirements: req.body.requirements,
-      updatedAt: Date.now(),
-    });
-
-    // res.redirect(`/edit-job/${req.params.id}`);
-    res.redirect('/premium-user-job');
-
-  } catch (error) {
-    console.error('Error updating job:', error);
-    res.status(500).send('Internal Server Error');
-  }
-};
 
 // const getEditJob = async (req, res, next) => {
 //   try {
@@ -382,7 +309,7 @@ const deleteJob = async (req, res) => {
 module.exports = {
   deleteJob,
   updatejob,
-  updatepremium,
+  // updatepremium,
   getEditJob,
   getEditPremiumJob,
   createJob,

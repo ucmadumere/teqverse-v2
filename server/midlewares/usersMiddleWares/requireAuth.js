@@ -35,26 +35,25 @@ const requireAuth = (req, res, next) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                  Check decodes token and send user details to the front end                        **/
 /**--------------------------------------------------------------------------------------------------- **/
-const checkUser = (req, res, next) => {
+const checkUser = async (req, res, next) => {
   const token = req.cookies.token;
 
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-      if (err) {
-        res.locals = null;
-        next();
-      }
-      else {
-        let user = await User.findById(decodedToken.userId);
-        res.locals.user = user;
-        next();
-      }
-    })
-  } else {
+  try {
+    if (token) {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await User.findById(decodedToken.userId);
+      res.locals.user = user;
+    } else {
+      res.locals.user = null;
+    }
+    next();
+  } catch (error) {
+    console.error(error);
     res.locals.user = null;
     next();
   }
 };
+
 
 
 
