@@ -64,10 +64,6 @@ const createJob = async (req, res) => {
     // Log the error for debugging purposes
     console.error('Error creating job:', error);
     // Send an error response with detailed error message
-    res.status(500).send('Failed to create job: ' + error.message);
-  }
-};
-
 // const createJob = async (req, res) => {
 //   try {
 //     const {
@@ -105,6 +101,9 @@ const createJob = async (req, res) => {
 //     res.status(500).send('Failed to create job: ' + error.message);
 //   }
 // };
+    res.status(500).send('Failed to create job: ' + error.message);
+  }
+};
 
 
 
@@ -176,32 +175,7 @@ const updatejob = async (req, res) => {
 };
 
 
-// const getEditJob = async (req, res, next) => {
-//   try {
-//     const locals = {
-//       title: req.body.title,
-//       experience: req.body.experience,
-//       jobLocation: req.body.jobLocation,
-//       jobType: req.body.jobType,
-//       workType: req.body.workType,
-//       jobDescription: req.body.jobDescription,
-//       jobOverview: req.body.jobOverview,
-//       requirements: req.body.requirements,
-//     };
 
-//     const data = await postJob.findOne({ _id: req.params.id });
-
-//     // Attach the locals and data to the request object
-//     req.locals = locals;
-//     req.data = data;
-
-//     // Call next to pass control to the next middleware or route handler
-//     next();
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).send('Internal Server Error');
-//   }
-// };
 
 const getEditJob = async (req, res) => {
   try {
@@ -250,10 +224,8 @@ const deleteJob = async (req, res) => {
 module.exports = {
   deleteJob,
   updatejob,
-  // updatepremium,
   getEditJob,
   createJob,
-  // createPremium,
   getAdmin,
   getGuestList,
 }
