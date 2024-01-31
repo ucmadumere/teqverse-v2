@@ -4,6 +4,7 @@ const authController = require('../controllers/authController');
 const jobdetailController = require('../controllers/jobdetailController');
 const joblistController = require('../controllers/joblistController');
 const userLayout = '../views/layouts/userLogin';
+const adminLayout = '../views/layouts/adminLogin';
 const jwt = require('jsonwebtoken');
 const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewares/usersMiddleWares/requireAuth')
 
@@ -15,48 +16,36 @@ const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewar
 /**                                  LANDING ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/', checkUser, (req, res) => {
-    const token = res.cookie.token;
-
-    if (token) {
-      jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-        if (err) {
-          res.render('login');
-        }else {
-          res.render('index');
-        }
-      });
-    }else {
-      res.render('index');
-    }
+    res.render('index')
 });
 
 
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                  FAQ ROUTE                                                     **/
+/**                                  FAQ ROUTE                                                         **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/faq', (req, res) => {
     res.render('faq');
 });
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                  ABOUT US ROUTE                                                     **/
+/**                                  ABOUT US ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/about-us', (req, res) => {
     res.render('about-us');
 });
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                  MEDIA ROUTE                                                     **/
+/**                                  MEDIA ROUTE                                                       **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/media', (req, res) => {
     res.render('media');
 });
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                  RESOURCES ROUTE                                                     **/
+/**                                  RESOURCES ROUTE                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/resources', (req, res) => {
     res.render('resources');
 });
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                  LEARNING ROUTE                                                     **/
+/**                                  LEARNING ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/learning', (req, res) => {
     res.render('learning');
@@ -68,7 +57,7 @@ router.get('/learning-mentor', (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   LOGIN ROUTE                                                      **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/login', redirectIfAuthenticated, (req, res) => {
+router.get('/login', checkUser, redirectIfAuthenticated, (req, res) => {
   res.render('login', {layout: userLayout });
 });
 router.post('/login', authController.login);
@@ -76,7 +65,7 @@ router.post('/login', authController.login);
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  REGISTER ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/signup', redirectIfAuthenticated, (req, res) => {
+router.get('/signup', checkUser, redirectIfAuthenticated, (req, res) => {
   res.render('signup', {layout: userLayout });
 });
 router.post('/signup', authController.register);
@@ -97,7 +86,7 @@ router.get('/jobdetails/:id?', checkUser, requireAuth, jobdetailController);
 router.get('/joblist', checkUser, requireAuth, joblistController);
 
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                  JOB FILTER ROUTE                                                    **/
+/**                                  JOB FILTER ROUTE                                                  **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
     // Redirect to the joblist route without any filter parameters
@@ -112,8 +101,8 @@ router.get('/edit-profile', (req, res) => {
 });
 //router.post('/edit-profile', edit)
 
-router.get('/user-profile', (req, res) => {
-  res.render('user-profile');
+router.get('/user-profile', checkUser, requireAuth, (req, res) => {
+  res.render('user-profile', {layout: adminLayout});
 });
 
 

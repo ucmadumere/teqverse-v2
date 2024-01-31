@@ -2,6 +2,12 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/userModel");
 const userLayout = '../views/layouts/userLogin';
 
+
+
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                            Portects Routes from Un-Authenticated users                             **/
+/**--------------------------------------------------------------------------------------------------- **/
 const requireAuth = (req, res, next) => {
   const token = req.cookies.token;
 
@@ -14,28 +20,21 @@ const requireAuth = (req, res, next) => {
       }
     });
   } else {
-    res.status(400).render('error400', {
-      errorCode: 400,
-      errorMessage: 'Page Error',
-      errorDescription: 'Sorry, You do not have access to this page. Do login or sign up to Access Available Jobs...',
+    res.status(400).render('login', {
+
       layout: userLayout,
     });
   }
 };
 
 
-const redirectIfAuthenticated = (req, res, next) => {
-  if (res.locals.user) {
-    // If the user is authenticated, redirect them to the dashboard
-    res.redirect('/');
-  } else {
-    // If the user is not authenticated, continue to the route handler
-    next();
-  }
-};
 
 
 
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                  Check decodes token and send user details to the front end                        **/
+/**--------------------------------------------------------------------------------------------------- **/
 const checkUser = (req, res, next) => {
   const token = req.cookies.token;
 
@@ -56,6 +55,22 @@ const checkUser = (req, res, next) => {
     next();
   }
 };
+
+
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                             A Middle Ware that redirects a logged in user                          **/
+/**                         when they try to access the login page while logged in                     **/
+/**--------------------------------------------------------------------------------------------------- **/
+const redirectIfAuthenticated = (req, res, next) => {
+  if (res.locals.user) {
+    return res.redirect('/');
+  }
+  return next();
+};
+
+
+
 
 
 module.exports = {

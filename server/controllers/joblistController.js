@@ -26,9 +26,9 @@ const joblist = async (req, res) => {
       };
     }
 
-    // Filter by location
-    if (req.query.location) {
-      query.jobLocation = req.query.location;
+   
+    if (req.query.jobLocation) {
+      query.jobLocation = { $regex: req.query.jobLocation, $options: 'i' };
     }
 
     // Filter by experience
@@ -60,7 +60,7 @@ const joblist = async (req, res) => {
       page,
       totalPages,
       searchTerm,
-      location: req.query.location, 
+      jobLocation: req.query.jobLocation, 
       experience: req.query.experience, 
       workType: req.query.workType, 
       jobType: req.query.jobType, 
