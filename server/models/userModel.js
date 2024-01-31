@@ -21,6 +21,12 @@ const validatePassword = require('../../validators/passwordValidator');
             type: String,
             required: [true, 'Name Field cannot be blank']
         },
+
+        other_name: {
+            type: String,
+            required: [true, 'Name Field cannot be blank']
+        },
+
         email: {
         type: String,
         required: [true, 'Email Field cannot be blank'],
@@ -31,8 +37,9 @@ const validatePassword = require('../../validators/passwordValidator');
 
         profileimage: {
         type: String,
-        default: ''
+        default: 'avatar.jpg'
         },
+
         role: {
             type: String,
             enum: ['user', 'admin'],
@@ -85,6 +92,6 @@ const validatePassword = require('../../validators/passwordValidator');
     // }
 
 
-     const User = mongoose.model('User', userSchema);
+    const User = mongoose.model('User', userSchema);
 
     module.exports = User;
