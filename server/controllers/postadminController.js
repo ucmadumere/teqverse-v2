@@ -247,9 +247,8 @@ const updatejob = async (req, res) => {
     console.error('Error updating job:', error);
     res.status(500).send('Internal Server Error');
   }
-};  
+};
 
-<<<<<<< HEAD
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  Update Premium Controller                                             **/
 /**--------------------------------------------------------------------------------------------------- **/
@@ -305,9 +304,6 @@ const updatepremium = async (req, res) => {
 //     res.status(500).send('Internal Server Error');
 //   }
 // };
-=======
-  
->>>>>>> b39e9898c337ed235edefc3cb6d911f5f2c4eb6c
 
 const getEditJob = async (req, res) => {
   try {
@@ -330,7 +326,6 @@ const getEditJob = async (req, res) => {
       data,
       layout: adminLayout,
     });
-
   
   } catch (error) {
     console.log(error)
