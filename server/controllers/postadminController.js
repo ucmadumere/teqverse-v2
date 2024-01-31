@@ -63,6 +63,9 @@ const createJob = async (req, res) => {
   } catch (error) {
     // Log the error for debugging purposes
     console.error('Error creating job:', error);
+
+
+
     // Send an error response with detailed error message
 // const createJob = async (req, res) => {
 //   try {
@@ -162,7 +165,9 @@ const updatejob = async (req, res) => {
       jobDescription: req.body.jobDescription,
       jobOverview: req.body.jobOverview,
       requirements: req.body.requirements,
+      jobCategory: req.body.jobCategory,
       updatedAt: Date.now(),
+      
     });
 
     // res.redirect(`/edit-job/${req.params.id}`);
@@ -189,6 +194,7 @@ const getEditJob = async (req, res) => {
       jobDescription: req.body.jobDescription,
       jobOverview: req.body.jobOverview,
       requirements: req.body.requirements,
+      jobCategory: req.body.jobCategory,
     };
 
     const data = await postJob.findOne({ _id: req.params.id });
