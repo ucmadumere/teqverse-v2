@@ -34,31 +34,71 @@ function checkFileType(file, cb) {
 }
 
 // Handle profile image upload
+
+// Handle profile image upload
 const uploadProfileImage = (req, res) => {
-  upload(req, res, (err) => {
-    if (err) {
-      res.render('upload-profile-image', {
-        msg: err // Render the form view with an error message
-      });
-    } else {
-      if (req.file == undefined) {
+    upload(req, res, (err) => {
+      if (err) {
         res.render('upload-profile-image', {
-          msg: 'Error: No File Selected!' // Render the form view with a no file selected error message
+          msg: err // Render the form view with an error message
         });
       } else {
-        // Save the file details (e.g., file path) to the user's profile in MongoDB
-        User.findById(req.user.id, (err, user) => {
-          if (err) throw err;
-          user.profileImage = `uploads/profiles/${req.file.filename}`;
-          user.save((err) => {
-            if (err) throw err;
-            res.redirect('/profile'); // Redirect to the user's profile page after successful upload
+        if (req.file == undefined) {
+          res.render('upload-profile-image', {
+            msg: 'Error: No File Selected!' // Render the form view with a no file selected error message
           });
-        });
+        } else {
+          // Save the file details (e.g., file path) to the user's profile in MongoDB
+          User.findById(req.user.id, (err, user) => {
+            if (err) throw err;
+            user.profileImage = `uploads${req.file.filename}`;
+            user.save((err) => {
+              if (err) throw err;
+              const imagePath = `uploads${req.file.filename}`;
+              res.render('upload-profile-image', {
+                msg: 'File Uploaded Successfully!',
+                imagePath: imagePath // Pass the file path to the view for display
+              });
+            });
+          });
+        }
       }
-    }
-  });
-};
+    });
+  };
+  
+  module.exports = {
+    uploadProfileImage
+  };
+  
+
+
+
+
+// const uploadProfileImage = (req, res) => {
+//   upload(req, res, (err) => {
+//     if (err) {
+//       res.render('upload-profile-image', {
+//         msg: err // Render the form view with an error message
+//       });
+//     } else {
+//       if (req.file == undefined) {
+//         res.render('upload-profile-image', {
+//           msg: 'Error: No File Selected!' // Render the form view with a no file selected error message
+//         });
+//       } else {
+//         // Save the file details (e.g., file path) to the user's profile in MongoDB
+//         User.findById(req.user.id, (err, user) => {
+//           if (err) throw err;
+//           user.profileImage = `uploads/profiles/${req.file.filename}`;
+//           user.save((err) => {
+//             if (err) throw err;
+//             res.redirect('/profile'); // Redirect to the user's profile page after successful upload
+//           });
+//         });
+//       }
+//     }
+//   });
+// };
 
 
 

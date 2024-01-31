@@ -15,11 +15,11 @@ const profileImageController = require('../controllers/uploadImageController');
 
 
 
-router.get('/upload-profile-image', (req, res) => {
+router.get('/upload-profile-image', checkUser, (req, res) => {
   res.render('upload-profile-image', {layout: adminLayout}); 
 });
 
-router.post('/upload-profile-image', profileImageController.uploadProfileImage);
+router.post('/upload-profile-image', checkUser, profileImageController.uploadProfileImage);
 
 
 
