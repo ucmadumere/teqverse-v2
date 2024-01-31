@@ -164,14 +164,9 @@
             </li>
             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Premium Job</a>
               <ul aria-expanded="false">
-<<<<<<< HEAD
-                <li><a href="#">Add Job</a></li>
-                <li><a href="#">Job List</a></li>
-=======
-                <<li><a href="/add-premium-job">Add Premium Job</a></li>
-                <li><a href="/edit-premium-job">Edit Premium Job</a></li>
-                <li><a href="/premium-user-job">Premium Job List</a></li>
->>>>>>> a143cdcdd267bd8cd31f51185cb352aa82e4cd19
+                <li><a href="/add-premium-job">Add Job</a></li>
+                <li><a href="/edit-premium-job">Edit Job</a></li>
+                <li><a href="/premium-user-job">Job List</a></li>
               </ul>
             </li>
           </ul>
@@ -301,23 +296,23 @@
                             <textarea class="form-control" id="jobDescription" rows="4" name="jobDescription" placeholder="Enter job description"></textarea>
                             
                         </div> -->
-                        <div class="mb-3">
-                          <label for="jobDescription" class="form-label">Job Description</label>
-                          <div id="jobDescription"></div>
+                      <div class="mb-3">
+                        <label for="jobDescription" class="form-label">Job Description</label>
+                        <div id="jobDescription"></div>
                       </div>
 
-                       <!--  Job category Section-->
-                       
-                        <div class="form-container">
-                          <label for="jobCategory" class="form-label">Job Category:</label>
-                          <select name="jobCategory" id="jobCategory" class="form-select">
-                              <option value="normal">Normal</option>
-                              <option value="premium">Premium</option>
-                          </select>
-                        </div>
-                        <!-- Job category section -->
+                      <!--  Job category Section-->
 
-                        <!-- Submit section -->
+                      <div class="form-container">
+                        <label for="jobCategory" class="form-label">Job Category:</label>
+                        <select name="jobCategory" id="jobCategory" class="form-select">
+                          <option value="normal">Normal</option>
+                          <option value="premium">Premium</option>
+                        </select>
+                      </div>
+                      <!-- Job category section -->
+
+                      <!-- Submit section -->
                       <div class="pt-3">
                         <button type="submit" class="btn btn-primary submit-btn">Submit</button>
                       </div>
@@ -347,13 +342,13 @@
 
 <script>
   ClassicEditor
-      .create( document.querySelector( '#jobDescription' ) )
-      .then( editor => {
-          console.log( editor );
-      } )
-      .catch( error => {
-          console.error( error );
-      } );
+    .create(document.querySelector('#jobDescription'))
+    .then(editor => {
+      console.log(editor);
+    })
+    .catch(error => {
+      console.error(error);
+    });
 </script>
 
 
@@ -366,4 +361,3 @@
   ***********************************-->
 <!-- Required vendors -->
 <!-- <script src="/vendor/ckeditor/ckeditor.js"></script> -->
-
