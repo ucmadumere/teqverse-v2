@@ -302,24 +302,21 @@
                         <textarea class="form-control summernote" id="jobDescription" rows="4" name="jobDescription"
                           placeholder="Enter job description"></textarea>
                       </div>
-<<<<<<< HEAD
                        <!-- other job fields -->
-                        <label for="jobCategory">Job Category:</label>
-                        <select name="jobCategory" id="jobCategory">
-                          <option value="normal">Normal</option>
-                          <option value="premium">Premium</option>
-                        </select>
-                     
-                        <button type="submit" class="btn btn-primary">Submit</button>
-=======
-
-
-
-
-
-
-                      <button type="submit" class="btn btn-primary">Submit</button>
->>>>>>> b39e9898c337ed235edefc3cb6d911f5f2c4eb6c
+                       <div class="form-container">
+                          <label for="jobCategory" class="form-label">Job Category:</label>
+                          <select name="jobCategory" id="jobCategory" class="form-select">
+                            <option value="">--Please choose an option--</option>
+                              <option value="normal">Normal</option>
+                              <option value="premium">Premium</option>
+                          </select>
+                      </div>
+                      <!-- Submit button -->
+                        <div class="pt-3">
+                          <button type="submit" class="btn btn-primary submit-btn">Submit</button>
+                        </div>
+                        
+                        <!-- Submit button -->
                     </form>
                   </div>
                 </div>

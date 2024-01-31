@@ -1,6 +1,5 @@
 const express = require('express');
 const postJob = require('../models/postJob');
-const premiumJob = require('../models/premiumJob');
 const adminUser = require('../models/adminUserModel');
 
 const adminLayout = '../views/layouts/adminLogin';
@@ -143,36 +142,6 @@ const getGuestList = async (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  Get Premium Job List                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-const getPremiumList = async (req, res) => {
-  try {
-    const locals = {
-      title: 'Premium Job List',
-    };
-
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = 5; // Number of items per page
-
-    const totalJobs = await premiumJob.countDocuments();
-    const totalPages = Math.ceil(totalJobs / pageSize);
-
-    const data = await premiumJob.find()
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * pageSize)
-      .limit(pageSize);
-
-    res.render('admin/premium-user-job', {
-      locals,
-      data,
-      currentPage: page,
-      totalPages,
-      layout: adminLayout,
-    });
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Internal Server Error');
-  }
-};
 
 
 /**--------------------------------------------------------------------------------------------------- **/
@@ -258,36 +227,6 @@ const getEditJob = async (req, res) => {
     console.log(error)
   }
 };
-const getEditPremiumJob = async (req, res) => {
-  try {
-
-    const locals = {
-      title: req.body.title,
-      experience: req.body.experience,
-      jobLocation: req.body.jobLocation,
-      jobType: req.body.jobType,
-      workType: req.body.workType,
-      jobDescription: req.body.jobDescription,
-      jobOverview: req.body.jobOverview,
-      requirements: req.body.requirements,
-    };
-
-    const data = await postJob.findOne({ _id: req.params.id });
-
-    res.render('admin/edit-premium-job', {
-      locals,
-      data,
-      layout: adminLayout,
-    });
-  
-  } catch (error) {
-    console.log(error)
-  }
-};
-
-
-
-
 
 
 
@@ -311,10 +250,8 @@ module.exports = {
   updatejob,
   // updatepremium,
   getEditJob,
-  getEditPremiumJob,
   createJob,
   // createPremium,
   getAdmin,
-  getPremiumList,
   getGuestList,
 }
