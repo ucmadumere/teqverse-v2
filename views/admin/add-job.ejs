@@ -159,14 +159,12 @@
               <ul aria-expanded="false">
 
                 <li><a href="/add-job">Add Job</a></li>
-                <li><a href="/edit-job">Edit Job</a></li>
                 <li><a href="/guest-user-job">Job List</a></li>
               </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Premium Job</a>
               <ul aria-expanded="false">
                 <li><a href="#">Add Job</a></li>
-                <li><a href="#">Edit Job</a></li>
                 <li><a href="#">Job List</a></li>
               </ul>
             </li>
@@ -245,7 +243,7 @@
                   <h4 class="card-title">Add New Job</h4>
                 </div>
                 <div class="card-body">
-                  <div class="container mt-5">
+                  <div class="container mt-3">
                     <form action="/add-job" method="POST">
                       <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
@@ -293,20 +291,16 @@
 
                       <!-- <div class="mb-3">
                             <label for="jobDescription" class="form-label">Job Description</label>
+                            <div id="jobDescription"></div>
                             <textarea class="form-control" id="jobDescription" rows="4" name="jobDescription" placeholder="Enter job description"></textarea>
                             
                         </div> -->
-
-                      <div class="mb-3">
-                        <label for="jobDescription" class="form-label">Job Description</label>
-                        <textarea class="form-control summernote" id="jobDescription" rows="4" name="jobDescription"
-                          placeholder="Enter job description"></textarea>
+                        <div class="mb-3">
+                          <label for="jobDescription" class="form-label">Job Description</label>
+                          <div id="jobDescription"></div>
                       </div>
-
-
-
-
-
+                        
+                       
 
                       <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
@@ -331,6 +325,19 @@
 
 
 </div>
+
+<script>
+  ClassicEditor
+      .create( document.querySelector( '#jobDescription' ) )
+      .then( editor => {
+          console.log( editor );
+      } )
+      .catch( error => {
+          console.error( error );
+      } );
+</script>
+
+
 <!--**********************************
       Main wrapper end
   ***********************************-->
@@ -339,27 +346,5 @@
       Scripts
   ***********************************-->
 <!-- Required vendors -->
-<script src="/vendor/global/global.min.js"></script>
-
-<script src="/vendor/jquery-validation/jquery.validate.min.js"></script>
-
-<script src="/js/custom.js"></script>
-<script src="/js/deznav-init.js"></script>
-<script src="/js/demo.js"></script>
-<script src="/js/styleSwitcher.js"></script>
 <!-- <script src="/vendor/ckeditor/ckeditor.js"></script> -->
 
-<script>
-  $(document).ready(function() {
-      $('.summernote').summernote({
-          height: 200, // Set the height as needed
-          toolbar: [
-              ['style', ['style']],
-              ['font', ['bold', 'italic', 'underline', 'clear']],
-              ['para', ['ul', 'ol']],
-              ['insert', ['link']],
-              ['view', ['fullscreen', 'codeview']],
-          ]
-      });
-  });
-</script>
