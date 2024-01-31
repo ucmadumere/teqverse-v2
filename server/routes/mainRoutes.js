@@ -4,9 +4,22 @@ const authController = require('../controllers/authController');
 const jobdetailController = require('../controllers/jobdetailController');
 const joblistController = require('../controllers/joblistController');
 const userLayout = '../views/layouts/userLogin';
-const adminLayout = '../views/adm'
+const adminLayout = '../views/layouts/adminLogin';
 const jwt = require('jsonwebtoken');
 const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewares/usersMiddleWares/requireAuth')
+const upload = require('../midlewares/imageUploader')
+const profileImageController = require('../controllers/uploadImageController');
+
+
+
+
+
+
+router.get('/upload-profile-image', checkUser, (req, res) => {
+  res.render('upload-profile-image', {layout: adminLayout}); 
+});
+
+router.post('/upload-profile-image', checkUser, profileImageController.uploadProfileImage);
 
 
 
@@ -96,13 +109,13 @@ router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  EDIT PROFILE ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/edit-profile', (req, res) => {
-  res.render('edit-page');
+router.get('/edit-profile', checkUser, requireAuth, (req, res) => {
+  res.render('edit-profile', {layout: adminLayout});
 });
 //router.post('/edit-profile', edit)
 
 router.get('/user-profile', checkUser, requireAuth, (req, res) => {
-  res.render('user-profile');
+  res.render('user-profile', {layout: adminLayout});
 });
 
 

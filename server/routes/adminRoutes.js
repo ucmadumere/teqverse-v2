@@ -12,11 +12,13 @@ const { logout,
   deleteJob,
   updatejob,
   getEditJob,
+  getEditPremiumJob,
   postAddJob,
   getAddJob,
   getDashboard,
   postAdmin,
   getAdmin,
+  getPremiumList,
   getGuestList } = require('../controllers/postadminController')
 
 
@@ -25,7 +27,6 @@ const { logout,
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   EDIT GUEST JOB LIST                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
-
 router.get('/edit-job/:id', getEditJob, (req, res) => {
   res.render('admin/edit-job', { locals, data, layout: adminLayout });
 });
@@ -33,14 +34,6 @@ router.get('/edit-job/:id', getEditJob, (req, res) => {
 router.put('/edit-job/:id', updatejob);
 
 
-/**--------------------------------------------------------------------------------------------------- **/
-/**                                   EDIT GUEST JOB LIST                                                   **/
-/**--------------------------------------------------------------------------------------------------- **/
-router.get('/edit-job/:id', getEditJob, (req, res) => {
-  res.render('admin/edit-job', { locals, data, layout: adminLayout });
-});
-
-router.put('/edit-job/:id', updatejob);
 
 
 /**--------------------------------------------------------------------------------------------------- **/
@@ -96,14 +89,13 @@ router.get('/add-job', (req, res) => {
 router.post('/add-job', createJob)
 
 
-
-
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   GUEST JOB LIST                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/guest-user-job', getGuestList, (req, res) => {
   res.render('admin/guest-user-job', { layout: adminLayout });
 });
+
 
 
 

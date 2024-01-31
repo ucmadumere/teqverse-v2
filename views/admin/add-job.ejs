@@ -164,8 +164,14 @@
             </li>
             <li><a class="has-arrow" href="javascript:void(0);" aria-expanded="false">Premium Job</a>
               <ul aria-expanded="false">
+<<<<<<< HEAD
                 <li><a href="#">Add Job</a></li>
                 <li><a href="#">Job List</a></li>
+=======
+                <<li><a href="/add-premium-job">Add Premium Job</a></li>
+                <li><a href="/edit-premium-job">Edit Premium Job</a></li>
+                <li><a href="/premium-user-job">Premium Job List</a></li>
+>>>>>>> a143cdcdd267bd8cd31f51185cb352aa82e4cd19
               </ul>
             </li>
           </ul>
@@ -299,10 +305,16 @@
                           <label for="jobDescription" class="form-label">Job Description</label>
                           <div id="jobDescription"></div>
                       </div>
-                        
-                       
 
+                       <!-- other job fields -->
+                        <label for="jobCategory">Job Category:</label>
+                        <select name="jobCategory" id="jobCategory">
+                          <option value="">--Please choose an option--</option>
+                          <option value="normal">Normal</option>
+                          <option value="premium">Premium</option>
+                        </select>
                       <button type="submit" class="btn btn-primary">Submit</button>
+
                     </form>
                   </div>
                 </div>

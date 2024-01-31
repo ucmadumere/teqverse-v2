@@ -1,3 +1,5 @@
+
+
 <!-- Start Breadcrumb 
     ============================================= -->
 <div class="breadcrumb-area bg-gray text-center shadow dark text-light bg-cover"
@@ -26,12 +28,15 @@
 
                     <div class="blog-item-box">
                         <div>
-                            <a href="/joblist">Back</a>
+                            <a href="/joblist">
+                                <i class="fas fa-arrow-left"></i>
+                                <span>Back</span>
+                            </a>
                         </div>
 
                         <div class="item pb-3">
                             <div class="info mt-3">
-                                <span class="post-date">
+                                <span class="post-date date">
                                    <%= data.createdAt.toDateString() %>
                                 </span>
                                 <h3 class="mt-2">
@@ -55,7 +60,7 @@
                                 <br>
 
                                 <p>
-                                <strong>DESCRIPTION</strong> br  <%= data.jobDescription %>
+                                <strong>DESCRIPTION</strong> <br> <%= data.jobDescription %>
                                 </p>
                             
                             </div>

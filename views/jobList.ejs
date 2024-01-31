@@ -30,9 +30,18 @@
                                 <div class="item">
                                     <div class="info">
 
-                                        <span class="post-date">
-                                            <%= post.createdAt.toDateString() %>
-                                        </span>
+                                        <div class="row " >
+                                            <div class="col-lg-6">
+                                                <span class="post-date date">
+                                                    <%= post.createdAt.toDateString() %>
+                                                </span>
+                                            </div>
+                                            <div class="col-lg-6 pb-4 d-flex align-items-end justify-content-end ms-6">
+                                                <span class="post-date date cat-btn">
+                                                    <%= post.jobCategory %>
+                                                </span>
+                                            </div>
+                                        </div>
                                         <h3 class="mt-2">
                                             <a href="/jobdetails/<%= post._id %>">
                                                 <%= post.title %>
