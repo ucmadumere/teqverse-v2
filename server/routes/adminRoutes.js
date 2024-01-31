@@ -12,11 +12,13 @@ const { logout,
   deleteJob,
   updatejob,
   getEditJob,
+  getEditPremiumJob,
   postAddJob,
   getAddJob,
   getDashboard,
   postAdmin,
   getAdmin,
+  getPremiumList,
   getGuestList } = require('../controllers/postadminController')
 
 
@@ -41,6 +43,15 @@ router.get('/edit-job/:id', getEditJob, (req, res) => {
 });
 
 router.put('/edit-job/:id', updatejob);
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                   EDIT PREMIUM JOB LIST                                                   **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/edit-premium-job/:id', getEditPremiumJob, (req, res) => {
+  res.render('admin/edit-premium-job', { locals, data, layout: adminLayout });
+});
+
+router.put('/edit-premium-job/:id', updatejob);
 
 
 /**--------------------------------------------------------------------------------------------------- **/
@@ -94,6 +105,14 @@ router.get('/add-job', (req, res) => {
 });
 
 router.post('/add-job', createJob)
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                   ADD PREMIUM JOB LIST                                                   **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/add-premium-job', (req, res) => {
+  res.render('admin/add-premium-job', { layout: adminLayout });
+});
+
+router.post('/add-premium-job', createJob)
 
 
 
@@ -103,6 +122,12 @@ router.post('/add-job', createJob)
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/guest-user-job', getGuestList, (req, res) => {
   res.render('admin/guest-user-job', { layout: adminLayout });
+});
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                   PREMIUM JOB LIST                                                   **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/premium-user-job', getPremiumList, (req, res) => {
+  res.render('admin/premium-user-job', { layout: adminLayout });
 });
 
 
