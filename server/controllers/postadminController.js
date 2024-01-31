@@ -35,15 +35,9 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
-      jobCategory,
     } = req.body;
 
-    // Check if the job category is valid
-    if (jobCategory !== 'normal' && jobCategory !== 'premium') {
-      return res.status(400).send('Invalid job category');
-    }
-
-    // Create a new postJob object with the specified category
+    // Create a new postJob object
     const newPost = new postJob({
       title,
       jobDescription,
@@ -53,7 +47,6 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
-      jobCategory, // Include the job category in the new post
     });
 
     // Save the new postJob object to the database
@@ -68,7 +61,6 @@ const createJob = async (req, res) => {
     res.status(500).send('Failed to create job: ' + error.message);
   }
 };
-
 
 
 
@@ -108,36 +100,6 @@ const getGuestList = async (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  Get Premium Job List                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-const getPremiumList = async (req, res) => {
-  try {
-    const locals = {
-      title: 'Premium Job List',
-    };
-
-    const page = parseInt(req.query.page) || 1;
-    const pageSize = 5; // Number of items per page
-
-    const totalJobs = await premiumJob.countDocuments();
-    const totalPages = Math.ceil(totalJobs / pageSize);
-
-    const data = await premiumJob.find()
-      .sort({ createdAt: -1 })
-      .skip((page - 1) * pageSize)
-      .limit(pageSize);
-
-    res.render('admin/premium-user-job', {
-      locals,
-      data,
-      currentPage: page,
-      totalPages,
-      layout: adminLayout,
-    });
-
-  } catch (error) {
-    console.log(error);
-    res.status(500).send('Internal Server Error');
-  }
-};
 
 
 /**--------------------------------------------------------------------------------------------------- **/
@@ -167,7 +129,7 @@ const updatejob = async (req, res) => {
     console.error('Error updating job:', error);
     res.status(500).send('Internal Server Error');
   }
-};  
+};
 
 
 // const getEditJob = async (req, res, next) => {
@@ -197,8 +159,6 @@ const updatejob = async (req, res) => {
 //   }
 // };
 
-  
-
 const getEditJob = async (req, res) => {
   try {
 
@@ -220,12 +180,12 @@ const getEditJob = async (req, res) => {
       data,
       layout: adminLayout,
     });
-
   
   } catch (error) {
     console.log(error)
   }
 };
+
 
 
 
@@ -246,12 +206,10 @@ const deleteJob = async (req, res) => {
 module.exports = {
   deleteJob,
   updatejob,
-  //updatepremium,
+  // updatepremium,
   getEditJob,
-  //getEditPremiumJob,
   createJob,
   // createPremium,
   getAdmin,
-  getPremiumList,
   getGuestList,
 }

@@ -37207,4 +37207,9 @@ $dark-light: lighten($dark, 50%); */
     [data-theme-version="dark"] .footer .copyright p {
       color: #fff; }
 
+.submit-btn {
+    width: 100px;
+    font-size: 17px;
+    font-weight: 600;
+   }     
 /*# sourceMappingURL=style.css.map */
