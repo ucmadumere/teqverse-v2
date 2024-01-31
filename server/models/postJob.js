@@ -36,6 +36,11 @@ const PostJobSchema = new Schema({
         type: [String], 
         default: [] 
     },
+    jobCategory: {
+        type: String,
+        enum: ['normal', 'premium'],
+        default: 'normal'
+    },
     createdAt: {
         type: Date,
         default: Date.now

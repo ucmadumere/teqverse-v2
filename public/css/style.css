@@ -7827,13 +7827,16 @@ ul.achivement li:first-child {
   margin-bottom: 35px;
   font-size: 12px;
   z-index: 1;
-  text-transform: uppercase;
+  text-transform: capitalize;
   font-weight: 600;
   color: #ffffff;
 }
 
 .blue .blog-area .item .date {
   background: #0554f2;
+}
+.cat-btn {
+  background: #f35a38 !important;
 }
 
 .software .blog-area .item .date {
