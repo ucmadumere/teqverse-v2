@@ -24,7 +24,6 @@ const validatePassword = require('../../validators/passwordValidator');
 
         other_name: {
             type: String,
-            required: [true, 'Name Field cannot be blank']
         },
 
         email: {
