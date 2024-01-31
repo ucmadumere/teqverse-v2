@@ -1,6 +1,5 @@
 const express = require('express');
 const postJob = require('../models/postJob');
-const premiumJob = require('../models/premiumJob');
 const adminUser = require('../models/adminUserModel');
 
 const adminLayout = '../views/layouts/adminLogin';
@@ -36,7 +35,7 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
-      jobCategory, // Add a field for job category (normal or premium)
+      jobCategory,
     } = req.body;
 
     // Check if the job category is valid
@@ -249,35 +248,6 @@ const updatejob = async (req, res) => {
   }
 };  
 
-<<<<<<< HEAD
-/**--------------------------------------------------------------------------------------------------- **/
-/**                                  Update Premium Controller                                             **/
-/**--------------------------------------------------------------------------------------------------- **/
-
-const updatepremium = async (req, res) => {
-  try {
-
-    await premiumJob.findByIdAndUpdate(req.params.id, {
-
-      title: req.body.title,
-      experience: req.body.experience,
-      jobLocation: req.body.jobLocation,
-      jobType: req.body.jobType,
-      workType: req.body.workType,
-      jobDescription: req.body.jobDescription,
-      jobOverview: req.body.jobOverview,
-      requirements: req.body.requirements,
-      updatedAt: Date.now(),
-    });
-
-    // res.redirect(`/edit-job/${req.params.id}`);
-    res.redirect('/premium-user-job');
-
-  } catch (error) {
-    console.error('Error updating job:', error);
-    res.status(500).send('Internal Server Error');
-  }
-};
 
 // const getEditJob = async (req, res, next) => {
 //   try {
@@ -305,9 +275,8 @@ const updatepremium = async (req, res) => {
 //     res.status(500).send('Internal Server Error');
 //   }
 // };
-=======
+
   
->>>>>>> b39e9898c337ed235edefc3cb6d911f5f2c4eb6c
 
 const getEditJob = async (req, res) => {
   try {
@@ -336,37 +305,6 @@ const getEditJob = async (req, res) => {
     console.log(error)
   }
 };
-const getEditPremiumJob = async (req, res) => {
-  try {
-
-    const locals = {
-      title: req.body.title,
-      experience: req.body.experience,
-      jobLocation: req.body.jobLocation,
-      jobType: req.body.jobType,
-      workType: req.body.workType,
-      jobDescription: req.body.jobDescription,
-      jobOverview: req.body.jobOverview,
-      requirements: req.body.requirements,
-    };
-
-    const data = await postJob.findOne({ _id: req.params.id });
-
-    res.render('admin/edit-premium-job', {
-      locals,
-      data,
-      layout: adminLayout,
-    });
-  
-  } catch (error) {
-    console.log(error)
-  }
-};
-
-
-
-
-
 
 
 
@@ -387,9 +325,9 @@ const deleteJob = async (req, res) => {
 module.exports = {
   deleteJob,
   updatejob,
-  updatepremium,
+  //updatepremium,
   getEditJob,
-  getEditPremiumJob,
+  //getEditPremiumJob,
   createJob,
   // createPremium,
   getAdmin,
