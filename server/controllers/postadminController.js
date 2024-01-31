@@ -23,7 +23,6 @@ const getAdmin = async (req, res) => {
 /**                                  Create Jobs Controller                                            **/
 /**--------------------------------------------------------------------------------------------------- **/
 
-
 const createJob = async (req, res) => {
   try {
     const {
@@ -35,9 +34,15 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
+      jobCategory, // Add a field for job category (normal or premium)
     } = req.body;
 
-    // Create a new postJob object
+    // Check if the job category is valid
+    if (jobCategory !== 'normal' && jobCategory !== 'premium') {
+      return res.status(400).send('Invalid job category');
+    }
+
+    // Create a new postJob object with the specified category
     const newPost = new postJob({
       title,
       jobDescription,
@@ -47,6 +52,7 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
+      jobCategory, // Include the job category in the new post
     });
 
     // Save the new postJob object to the database
@@ -61,6 +67,44 @@ const createJob = async (req, res) => {
     res.status(500).send('Failed to create job: ' + error.message);
   }
 };
+
+// const createJob = async (req, res) => {
+//   try {
+//     const {
+//       title,
+//       jobDescription,
+//       jobType,
+//       workType,
+//       jobLocation,
+//       jobOverview,
+//       experience,
+//       requirements,
+//     } = req.body;
+
+//     // Create a new postJob object
+//     const newPost = new postJob({
+//       title,
+//       jobDescription,
+//       jobType,
+//       workType,
+//       jobLocation,
+//       jobOverview,
+//       experience,
+//       requirements,
+//     });
+
+//     // Save the new postJob object to the database
+//     await newPost.save();
+
+//     // Redirect to the dashboard on successful creation
+//     res.redirect('/guest-user-job');
+//   } catch (error) {
+//     // Log the error for debugging purposes
+//     console.error('Error creating job:', error);
+//     // Send an error response with detailed error message
+//     res.status(500).send('Failed to create job: ' + error.message);
+//   }
+// };
 
 
 
