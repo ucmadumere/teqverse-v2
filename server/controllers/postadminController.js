@@ -34,7 +34,7 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
-      jobCategory, // Add a field for job category (normal or premium)
+      jobCategory,
     } = req.body;
 
     // Check if the job category is valid

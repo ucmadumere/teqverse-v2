@@ -275,12 +275,10 @@
                           placeholder="Enter Job Overview"><%= data.jobOverview %></textarea>
                       </div>
 
-                      <div class="mb-3">
-                        <label for="jobDescription" class="form-label">Job Description</label>
-                        <textarea class="form-control" id="jobDescription" rows="4" name="jobDescription"
-                          placeholder="Enter job description"><%= data.jobDescription %></textarea>
-
-                      </div>
+                      <div class="form-group">
+                        <label for="jobDescription">Job Description</label>
+                        <textarea class="form-control" id="jobDescription" name="jobDescription" required><%= data.jobDescription %></textarea>
+                    </div>
 
                       <!-- Job category section -->
                       <div class="form-container">
@@ -323,4 +321,7 @@
           Main wrapper end
       ***********************************-->
 
-<!--**********************************
+      <script>
+        // Replace textarea of job description with CKEditor
+        CKEDITOR.replace('jobDescription');
+      </script>
