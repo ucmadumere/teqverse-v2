@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewares/usersMiddleWares/requireAuth')
 const upload = require('../midlewares/imageUploader')
 const profileImageController = require('../controllers/uploadImageController');
+const review = require('../models/review');
 
 
 
@@ -118,6 +119,24 @@ router.get('/user-profile', checkUser, requireAuth, (req, res) => {
   res.render('user-profile', {layout: adminLayout});
 });
 
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                  REVIEW ROUTE                                                **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/user-review', checkUser, requireAuth, (req, res) => {
+  res.render('user-review', {layout: adminLayout});
+});
+
+router.post('/user-review', async (req, res) => {
+  try {
+    const { user, rating, comment } = req.body;
+    const newReview = new review({ user, rating, comment });
+    await newReview.save();
+    res.redirect('/user-review');
+  } catch (error) {
+    console.error('Error adding review:', error);
+    res.status(500).send('Failed to add review: ' + error.message);
+  }
+});
 
 
 module.exports = router;
