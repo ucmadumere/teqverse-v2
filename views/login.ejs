@@ -11,16 +11,15 @@
 							<h3 class="title">Sign In</h3>
 							<p>Sign in to your Teqverse account</p>
 						</div>
-						<form action="/login" method="POST">
+						<form action="/login" method="POST" id="loginForm">
 							<div class="mb-4">
 								<label class="mb-1 text-dark">Email or Username</label>
-                				<input type="text" id="email" name="email" class="text-input form-control form-control" />
+								<input type="text" id="email" name="email" class="text-input form-control form-control" />
 							</div>
 							<div class="mb-4 position-relative">
 								<label class="mb-1 text-dark">Password</label>
-                				<input type="password" id="password" name="password" class="text-input form-control form-control" />
-								<span class="show-pass eye">
-								
+								<input type="password" id="password" name="password" class="text-input form-control form-control" />
+								<span class="show-pass eye" onclick="togglePassword()">
 									<i class="fa fa-eye-slash"></i>
 									<i class="fa fa-eye"></i>
 								</span>
@@ -29,7 +28,7 @@
 							<div class="form-row d-flex justify-content-between mt-4 mb-2">
 								<div class="mb-4">
 									<div class="form-check custom-checkbox mb-3">
-										<input type="checkbox" class="form-check-input" id="customCheckBox1">
+										<input type="checkbox" class="form-check-input" id="customCheckBox1" name="rememberMe">
 										<label class="form-check-label mt-1" for="customCheckBox1">Remember my preference</label>
 									</div>
 								</div>
@@ -41,7 +40,7 @@
 								<button type="submit" class="btn btn-primary light btn-block">Sign In</button>
 							</div>
 							<h6 class="login-title"><span>Or continue with</span></h6>
-							
+						
 							<div class="mb-3">
 								<ul class="d-flex align-self-center justify-content-center">
 									<li><a target="_blank" href="https://www.facebook.com/" class="fab fa-facebook-f btn-facebook"></a></li>
@@ -50,7 +49,7 @@
 									<li><a target="_blank" href="https://twitter.com/" class="fab fa-twitter btn-twitter"></a></li>
 								</ul>
 							</div>
-							<p class="text-center">Not registered?  
+							<p class="text-center">Not registered?
 								<a class="btn-link text-primary" href="/signup">Register</a>
 							</p>
 						</form>
@@ -72,6 +71,20 @@
         </div>
     </div>
 
+	<script>
+		function togglePassword() {
+			const passwordInput = document.getElementById("password");
+			const eyeIcon = document.querySelector(".eye");
+	
+			if (passwordInput.type === "password") {
+				passwordInput.type = "text";
+				eyeIcon.innerHTML = '<i class="fa fa-eye"></i>';
+			} else {
+				passwordInput.type = "password";
+				eyeIcon.innerHTML = '<i class="fa fa-eye-slash"></i>';
+			}
+		}
+	</script>
 
 </body>
 </html>
