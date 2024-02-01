@@ -7,6 +7,10 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  title: {
+    type: String,
+    required: true,
+  },
   rating: {
     type: Number,
     required: true,
@@ -14,6 +18,10 @@ const reviewSchema = new mongoose.Schema({
     max: 5,
   },
   comment: {
+    type: String,
+    required: true,
+  },
+  techSpecialty: {
     type: String,
     required: true,
   },

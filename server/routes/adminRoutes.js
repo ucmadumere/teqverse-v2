@@ -6,6 +6,7 @@ const adminLayout = '../views/layouts/adminLogin';
 
 const { checkAdminUser, requireAdminAuth } = require('../midlewares/adminMiddleWares/requireAdminAuth')
 const { createJob } = require('../controllers/postadminController')
+const Review = require('../models/review');
 
 
 const { logout,
@@ -96,6 +97,18 @@ router.get('/guest-user-job', getGuestList, (req, res) => {
   res.render('admin/guest-user-job', { layout: adminLayout });
 });
 
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                   REVIEW LIST                                                   **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/review-list', async (req, res) => {
+  try {
+    const reviews = await Review.find().sort({ createdAt: -1 }); // Fetch reviews from the database and sort by createdAt
+    res.render('admin/review-list', { layout: adminLayout, reviews });
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    res.status(500).send('Failed to fetch reviews: ' + error.message);
+  }
+});
 
 
 

@@ -281,29 +281,55 @@
                                     <div class="card-body">
                                         <div class="container mt-3">
                                             <form action="/user-review" method="POST">
-                                                <div class="form-group">
-                                                    <label for="user">Your Name</label>
+                                                <div class="mb-3">
+                                                    <label for="user" class="form-label">Your Name:</label>
                                                     <input type="text" class="form-control" id="user" name="user"
                                                         required>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="rating">Rating</label>
-                                                    <div class="star-rating">
-                                                        <!-- Add your star rating inputs here -->
-                                                        <% for (let i=5; i>= 1; i--) { %>
-                                                            <input type="radio" id="star<%= i %>" name="rating"
-                                                                value="<%= i %>" required>
-                                                            <label for="star<%= i %>" title="<%= i %> stars"></label>
-                                                            <% } %>
-                                                    </div>
+                                                <div class="mb-3">
+                                                    <label for="title" class="form-label">Title:</label>
+                                                    <input type="text" class="form-control" id="title" name="title"
+                                                        required>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="comment">Your Review</label>
-                                                    <textarea class="form-control" id="comment" name="comment" rows="3"
+                                                <div class="mb-3">
+                                                    <label for="techSpecialty" class="form-label">Specialty:</label>
+                                                    <input type="text" class="form-control" id="techSpecialty"
+                                                        name="techSpecialty" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="rating" class="form-label">Rating:</label>
+                                                    <select class="form-select" id="rating" name="rating" required>
+                                                        <option value="1">1 Star</option>
+                                                        <option value="2">2 Stars</option>
+                                                        <option value="3">3 Stars</option>
+                                                        <option value="4">4 Stars</option>
+                                                        <option value="5">5 Stars</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="comment" class="form-label">Comment:</label>
+                                                    <textarea class="form-control" id="comment" name="comment"
                                                         required></textarea>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary mt-3">Submit Review</button>
+
+                                                <div class="mb-3">
+                                                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                                                </div>
                                             </form>
+                                            <!-- Display User Reviews -->
+                                            <% reviews.forEach(review=> { %>
+                                                <div>
+                                                    <p>Title: <%= review.title %>
+                                                    </p>
+                                                    <p>User: <%= review.user %>
+                                                    </p>
+                                                    <p>Rating: <%= review.rating %> Stars</p>
+                                                    <p>Comment: <%= review.comment %>
+                                                    </p>
+                                                </div>
+                                                <% }); %>
                                         </div>
                                     </div>
                                 </div>

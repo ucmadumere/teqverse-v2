@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewares/usersMiddleWares/requireAuth')
 const upload = require('../midlewares/imageUploader')
 const profileImageController = require('../controllers/uploadImageController');
-const review = require('../models/review');
+const Review = require('../models/review');
 
 
 
@@ -29,8 +29,19 @@ router.post('/upload-profile-image', checkUser, profileImageController.uploadPro
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  LANDING ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/', checkUser, (req, res) => {
-    res.render('index')
+router.get('/', checkUser, async (req, res) => {
+  try {
+    // Fetch top 4 reviews based on rating in descending order
+    // const topReviews = await Review.find()
+    const topReviews = await Review.find({ rating: { $gte: 3, $lte: 5 } })
+      .sort({ rating: -1 })
+      .limit(4);
+
+    res.render('index', { topReviews });
+  } catch (error) {
+    console.error('Error fetching top reviews:', error);
+    res.status(500).send('Failed to fetch top reviews: ' + error.message);
+  }
 });
 
 
@@ -122,21 +133,41 @@ router.get('/user-profile', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  REVIEW ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/user-review', checkUser, requireAuth, (req, res) => {
-  res.render('user-review', {layout: adminLayout});
-});
-
-router.post('/user-review', async (req, res) => {
+router.get('/user-review', checkUser, requireAuth, async (req, res) => {
   try {
-    const { user, rating, comment } = req.body;
-    const newReview = new review({ user, rating, comment });
-    await newReview.save();
-    res.redirect('/user-review');
+    // Fetch all reviews initially
+    const reviews = await Review.find().sort({ createdAt: -1 });
+    res.render('user-review', { layout: adminLayout, reviews });
   } catch (error) {
-    console.error('Error adding review:', error);
-    res.status(500).send('Failed to add review: ' + error.message);
+    console.error('Error fetching reviews:', error);
+    res.status(500).send('Failed to fetch reviews: ' + error.message);
   }
 });
+
+// POST route to handle adding a review
+router.post('/user-review', async (req, res) => {
+  try {
+    const { user, title, techSpecialty, rating, comment } = req.body;
+
+    const newReview = new Review({
+      user,
+      title,
+      techSpecialty,
+      rating,
+      comment,
+    });
+
+    await newReview.save();
+
+    // Redirect to the user-review page or display a success message
+    res.redirect('/user-review');
+  } catch (error) {
+    // Handle errors
+    console.error('Error creating review:', error);
+    res.status(500).send('Failed to create review: ' + error.message);
+  }
+});
+
 
 
 module.exports = router;
