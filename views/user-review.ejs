@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="dz-ripple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <a href="/" class="brand-logo">
+                <img src="/img/logo-blue.png" class="logo" alt="Logo">
+            </a>
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+                            <form>
+                                <div class="input-group search-area">
+                                    <span class="input-group-text"><a href="javascript:void(0)">
+                                            <svg width="22" height="23" viewbox="0 0 22 23" fill="none"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="10.7861" cy="11.2859" r="8.23951" stroke="#252525"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                </circle>
+                                                <path d="M16.5168 17.4443L19.7472 20.6663" stroke="#252525"
+                                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                </path>
+                                            </svg> </a></span>
+                                    <input type="text" class="form-control" placeholder="Search" />
+                                </div>
+                            </form>
+                        </div>
+                        <ul class="navbar-nav header-right">
+                            <li class="nav-item ps-3">
+                                <div class="header-profile2">
+                                    <a class="nav-link" href="javascript:void(0);" role="button"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        <div class="header-info2 d-flex align-items-center">
+                                            <% if (user) {%>
+                                                <% var currentHour=new Date().getHours(); var greeting="" ; if
+                                                    (currentHour < 12) { greeting="Good Morning" ; } else if
+                                                    (currentHour < 18) { greeting="Good Afternoon" ; } else {
+                                                    greeting="Good Evening" ; } %>
+                                                    <div class="header-media">
+                                                        <img src="images/user.jpg" class="avatar avatar-lg" alt="" />
+                                                    </div>
+                                                    <div class="header-info">
+                                                        <h6>
+                                                            <%= greeting %>, <%= user.first_name %>
+                                                        </h6>
+                                                        <p>
+                                                            <%= user.email %>
+                                                        </p>
+                                                    </div>
+                                        </div>
+                                    </a>
+                                    <% } else { %>
+
+                                        <% } %>
+
+                                            <% if (user) {%>
+                                                <div class="profile-box">
+                                                    <div class="products">
+                                                        <div class="border-img">
+                                                            <img src="images/user.jpg" class="avatar" alt="" />
+                                                        </div>
+                                                        <div class="ms-3">
+                                                            <h6 class="mb-0">
+                                                                <%= user.first_name %>
+                                                                    <%= user.last_name %>
+                                                            </h6>
+                                                            <span class="d-block mb-1">
+                                                                <%= user.email %>
+                                                            </span>
+                                                            <span class="badge border-0 rounded">
+                                                                <%= user.role %>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <% } %>
+                                                        <div class="account-setting">
+                                                            <a href="app-profile-2.html" class="ai-icon">
+                                                                <svg width="20" height="20" viewbox="0 0 20 20"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M16.6666 17.5V15.8333C16.6666 14.9493 16.3154 14.1014 15.6903 13.4763C15.0652 12.8512 14.2173 12.5 13.3333 12.5H6.66658C5.78253 12.5 4.93468 12.8512 4.30956 13.4763C3.68444 14.1014 3.33325 14.9493 3.33325 15.8333V17.5"
+                                                                        stroke="white" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                    <path
+                                                                        d="M10.0001 9.16667C11.841 9.16667 13.3334 7.67428 13.3334 5.83333C13.3334 3.99238 11.841 2.5 10.0001 2.5C8.15913 2.5 6.66675 3.99238 6.66675 5.83333C6.66675 7.67428 8.15913 9.16667 10.0001 9.16667Z"
+                                                                        stroke="white" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                </svg>
+                                                                <span class="ms-2">Account Settings</span>
+                                                            </a>
+                                                            <a href="app-profile-1.html" class="ai-icon">
+                                                                <svg width="20" height="20" viewbox="0 0 20 20"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M3.33341 3.33301H16.6667C17.5834 3.33301 18.3334 4.08301 18.3334 4.99967V14.9997C18.3334 15.9163 17.5834 16.6663 16.6667 16.6663H3.33341C2.41675 16.6663 1.66675 15.9163 1.66675 14.9997V4.99967C1.66675 4.08301 2.41675 3.33301 3.33341 3.33301Z"
+                                                                        stroke="white" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                    <path d="M18.3334 5L10.0001 10.8333L1.66675 5"
+                                                                        stroke="white" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                </svg>
+                                                                <span class="ms-2">Subscription</span>
+                                                            </a>
+                                                            <div class="d-flex align-items-center">
+                                                                <a href="javascript:void(0);"
+                                                                    class="dropdown-item ai-icon">
+                                                                    <div>
+                                                                        <svg width="20" height="20" viewbox="0 0 20 20"
+                                                                            fill="none"
+                                                                            xmlns="http://www.w3.org/2000/svg">
+                                                                            <path
+                                                                                d="M17.4999 10.6583C17.3688 12.0768 16.8365 13.4287 15.9651 14.5557C15.0938 15.6826 13.9195 16.5382 12.5797 17.0221C11.2398 17.5061 9.7899 17.5984 8.3995 17.2884C7.0091 16.9784 5.73575 16.2788 4.72844 15.2715C3.72113 14.2642 3.02153 12.9908 2.71151 11.6004C2.40148 10.21 2.49385 8.76007 2.9778 7.42025C3.46175 6.08042 4.31728 4.90614 5.44426 4.03479C6.57125 3.16345 7.92308 2.63109 9.34158 2.5C8.51109 3.62356 8.11146 5.00787 8.21536 6.40118C8.31926 7.79448 8.9198 9.10421 9.90775 10.0922C10.8957 11.0801 12.2054 11.6807 13.5987 11.7846C14.992 11.8885 16.3764 11.4888 17.4999 10.6583Z"
+                                                                                stroke="white" stroke-width="1.5"
+                                                                                stroke-linecap="round"
+                                                                                stroke-linejoin="round"></path>
+                                                                        </svg>
+                                                                        <span class="ms-2">Dark Mode</span>
+                                                                    </div>
+                                                                </a>
+                                                                <div class="dz-layout">
+                                                                    <i class="fas fa-sun sun"></i>
+                                                                    <i class="fas fa-moon moon"></i>
+                                                                </div>
+                                                            </div>
+                                                            <a href="/logout" class="ai-icon">
+                                                                <svg width="20" height="20" viewbox="0 0 20 20"
+                                                                    fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                                    <path
+                                                                        d="M7.5 17.5H4.16667C3.72464 17.5 3.30072 17.3244 2.98816 17.0118C2.67559 16.6993 2.5 16.2754 2.5 15.8333V4.16667C2.5 3.72464 2.67559 3.30072 2.98816 2.98816C3.30072 2.67559 3.72464 2.5 4.16667 2.5H7.5"
+                                                                        stroke="white" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                    <path
+                                                                        d="M13.3333 14.1663L17.4999 9.99967L13.3333 5.83301"
+                                                                        stroke="white" stroke-width="1.5"
+                                                                        stroke-linecap="round" stroke-linejoin="round">
+                                                                    </path>
+                                                                    <path d="M17.5 10H7.5" stroke="white"
+                                                                        stroke-width="1.5" stroke-linecap="round"
+                                                                        stroke-linejoin="round"></path>
+                                                                </svg>
+                                                                <span class="ms-2">Logout </span>
+                                                            </a>
+                                                        </div>
+                                                </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="deznav">
+            <div class="deznav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                            <div class="menu-icon">
+                                <svg width="25" height="24" viewbox="0 0 25 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M3.29077 9L12.2908 2L21.2908 9V20C21.2908 20.5304 21.0801 21.0391 20.705 21.4142C20.3299 21.7893 19.8212 22 19.2908 22H5.29077C4.76034 22 4.25163 21.7893 3.87656 21.4142C3.50149 21.0391 3.29077 20.5304 3.29077 20V9Z"
+                                        stroke="#252525" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path d="M9.29077 22V12H15.2908V22" stroke="#252525" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+
+                            </div>
+                            <span class="nav-text">Profile</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/user-profile">View Profile</a></li>
+                            <li><a href="/edit-profile">Edit Profile</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="/review" class="" aria-expanded="false">
+                            <div class="menu-icon">
+                                <svg width="24" height="24" viewbox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                        d="M14.7379 2.76181H8.08493C6.00493 2.75381 4.29993 4.41181 4.25093 6.49081V17.2038C4.20493 19.3168 5.87993 21.0678 7.99293 21.1148C8.02393 21.1148 8.05393 21.1158 8.08493 21.1148H16.0739C18.1679 21.0298 19.8179 19.2998 19.8029 17.2038V8.03781L14.7379 2.76181Z"
+                                        stroke="#252525" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path d="M14.4751 2.75V5.659C14.4751 7.079 15.6231 8.23 17.0431 8.234H19.7981"
+                                        stroke="#252525" stroke-width="1.5" stroke-linecap="round"
+                                        stroke-linejoin="round"></path>
+                                    <path d="M14.2882 15.3585H8.88818" stroke="#252525" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M12.2432 11.606H8.88721" stroke="#252525" stroke-width="1.5"
+                                        stroke-linecap="round" stroke-linejoin="round"></path>
+                                </svg>
+
+                            </div>
+                            <span class="nav-text">Review</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="switch-btn">
+                    <a href="#">
+                        <svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M18.36 6.63965C19.6184 7.89844 20.4753 9.50209 20.8223 11.2478C21.1693 12.9936 20.9909 14.803 20.3096 16.4474C19.6284 18.0918 18.4748 19.4972 16.9948 20.486C15.5148 21.4748 13.7749 22.0026 11.995 22.0026C10.2151 22.0026 8.47515 21.4748 6.99517 20.486C5.51519 19.4972 4.36164 18.0918 3.68036 16.4474C2.99909 14.803 2.82069 12.9936 3.16772 11.2478C3.51475 9.50209 4.37162 7.89844 5.63 6.63965"
+                                stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                            <path d="M12 2V12" stroke="#252525" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                            </path>
+                        </svg>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="outer-body">
+            <div class="inner-body">
+                <div class="content-body">
+                    <div class="container-fluid">
+                        <!-- row -->
+                        <div class="row">
+                            <div class="col-xl-12 col-xxl-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Add Review</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="container mt-3">
+                                            <form action="/user-review" method="POST">
+                                                <div class="mb-3">
+                                                    <label for="user" class="form-label">Your Name:</label>
+                                                    <input type="text" class="form-control" id="user" name="user"
+                                                        required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="title" class="form-label">Title:</label>
+                                                    <input type="text" class="form-control" id="title" name="title"
+                                                        required>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="techSpecialty" class="form-label">Specialty:</label>
+                                                    <input type="text" class="form-control" id="techSpecialty"
+                                                        name="techSpecialty" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="rating" class="form-label">Rating:</label>
+                                                    <select class="form-select" id="rating" name="rating" required>
+                                                        <option value="1">1 Star</option>
+                                                        <option value="2">2 Stars</option>
+                                                        <option value="3">3 Stars</option>
+                                                        <option value="4">4 Stars</option>
+                                                        <option value="5">5 Stars</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="comment" class="form-label">Comment:</label>
+                                                    <textarea class="form-control" id="comment" name="comment"
+                                                        required></textarea>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <button type="submit" class="btn btn-primary">Submit Review</button>
+                                                </div>
+                                            </form>
+                                            <!-- Display User Reviews -->
+                                            <% reviews.forEach(review=> { %>
+                                                <div>
+                                                    <p>Title: <%= review.title %>
+                                                    </p>
+                                                    <p>User: <%= review.user %>
+                                                    </p>
+                                                    <p>Rating: <%= review.rating %> Stars</p>
+                                                    <p>Comment: <%= review.comment %>
+                                                    </p>
+                                                </div>
+                                                <% }); %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer out-footer">
+                    <div class="copyright">
+                        <p>&copy; Copyright <%= new Date().getFullYear(); %>. All Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script src="vendor/global/global.min.js"></script>
+    <script src="vendor/jquery-nice-select/js/jquery.nice-select.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="vendor/lightgallery/js/lightgallery-all.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="js/deznav-init.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+</body>
+
+</html>
