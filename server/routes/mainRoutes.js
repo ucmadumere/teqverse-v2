@@ -6,9 +6,12 @@ const joblistController = require('../controllers/joblistController');
 const userLayout = '../views/layouts/userLogin';
 const adminLayout = '../views/layouts/adminLogin';
 const jwt = require('jsonwebtoken');
-const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewares/usersMiddleWares/requireAuth')
+const { requireAuth, checkUser, redirectIfAuthenticated, checkPremiumUser } = require('../midlewares/usersMiddleWares/requireAuth')
 const upload = require('../midlewares/imageUploader')
 const profileImageController = require('../controllers/uploadImageController');
+const {applyPremiumjob, getApplypremiumJob} = require('../controllers/premiumJobController');
+const jobdetail = require('../controllers/jobdetailController');
+
 
 
 
@@ -118,6 +121,12 @@ router.get('/user-profile', checkUser, requireAuth, (req, res) => {
   res.render('user-profile', {layout: adminLayout});
 });
 
+
+// Apply for a job route
+router.get('/apply-job/:id', requireAuth, checkUser, checkPremiumUser, getApplypremiumJob);
+
+// Submit job application route
+router.post('/apply-job/:id', requireAuth, checkUser, checkPremiumUser, applyPremiumjob);
 
 
 module.exports = router;
