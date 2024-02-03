@@ -281,10 +281,15 @@
                                     <div class="card-body">
                                         <div class="container mt-3">
                                             <form action="/user-review" method="POST">
-                                                <div class="mb-3">
+                                                <!-- <div class="mb-3">
                                                     <label for="user" class="form-label">Your Name:</label>
                                                     <input type="text" class="form-control" id="user" name="user"
                                                         required>
+                                                </div> -->
+                                                <div class="mb-3">
+                                                    <label for="user" class="form-label">Your Name:</label>
+                                                    <input type="text" class="form-control" id="user" name="fullName"
+                                                        value="<%= user.first_name %> <%= user.other_names %> <%= user.last_name %>" readonly required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="title" class="form-label">Title:</label>
@@ -321,15 +326,18 @@
                                             <!-- Display User Reviews -->
                                             <% reviews.forEach(review=> { %>
                                                 <div>
+                                                    <p>Name: <%= review.fullName %>
+                                                    </p>
                                                     <p>Title: <%= review.title %>
                                                     </p>
-                                                    <p>User: <%= review.user %>
-                                                    </p>
+                                                    
                                                     <p>Rating: <%= review.rating %> Stars</p>
                                                     <p>Comment: <%= review.comment %>
                                                     </p>
                                                 </div>
+                                                <hr>
                                                 <% }); %>
+                                                
                                         </div>
                                     </div>
                                 </div>

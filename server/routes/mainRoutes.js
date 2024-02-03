@@ -10,6 +10,7 @@ const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewar
 const upload = require('../midlewares/imageUploader')
 const profileImageController = require('../controllers/uploadImageController');
 const Review = require('../models/review');
+const {getUserReview, postUserReview} = require('../controllers/reviewController')
 
 
 
@@ -133,40 +134,10 @@ router.get('/user-profile', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  REVIEW ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/user-review', checkUser, requireAuth, async (req, res) => {
-  try {
-    // Fetch all reviews initially
-    const reviews = await Review.find().sort({ createdAt: -1 });
-    res.render('user-review', { layout: adminLayout, reviews });
-  } catch (error) {
-    console.error('Error fetching reviews:', error);
-    res.status(500).send('Failed to fetch reviews: ' + error.message);
-  }
-});
+router.get('/user-review', checkUser, requireAuth, getUserReview);
 
 // POST route to handle adding a review
-router.post('/user-review', async (req, res) => {
-  try {
-    const { user, title, techSpecialty, rating, comment } = req.body;
-
-    const newReview = new Review({
-      user,
-      title,
-      techSpecialty,
-      rating,
-      comment,
-    });
-
-    await newReview.save();
-
-    // Redirect to the user-review page or display a success message
-    res.redirect('/user-review');
-  } catch (error) {
-    // Handle errors
-    console.error('Error creating review:', error);
-    res.status(500).send('Failed to create review: ' + error.message);
-  }
-});
+router.post('/user-review',checkUser, requireAuth, postUserReview);
 
 
 
