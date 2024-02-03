@@ -13,7 +13,7 @@ const requireAdminAuth = (req, res, next) => {
       }
     });
   } else {
-    res.redirect("/dashboard2");
+    res.redirect("/dashboard");
   }
 };
 

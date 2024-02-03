@@ -219,7 +219,7 @@ const getEditJob = async (req, res) => {
 const deleteJob = async (req, res) => {
   try {
     await postJob.deleteOne({ _id: req.params.id });
-    res.redirect('/dashboard2');
+    res.redirect('/dashboard');
   } catch (error) {
     console.log(error);
   }
