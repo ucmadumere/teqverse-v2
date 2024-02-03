@@ -1,5 +1,5 @@
 const express = require('express');
-const postJob = require('../models/postJob');
+const PostJob = require('../models/postJob');
 const adminUser = require('../models/adminUserModel');
 
 const adminLayout = '../views/layouts/adminLogin';
@@ -43,7 +43,7 @@ const createJob = async (req, res) => {
     }
 
     
-    const newPost = new postJob({
+    const newPost = new PostJob({
       title,
       jobDescription,
       jobType,
@@ -81,10 +81,10 @@ const getGuestList = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const pageSize = 5; // Number of items per page
 
-    const totalJobs = await postJob.countDocuments();
+    const totalJobs = await PostJob.countDocuments();
     const totalPages = Math.ceil(totalJobs / pageSize);
 
-    const data = await postJob.find()
+    const data = await PostJob.find()
       .sort({ createdAt: -1 })
       .skip((page - 1) * pageSize)
       .limit(pageSize);
@@ -114,7 +114,7 @@ const getGuestList = async (req, res) => {
 const updatejob = async (req, res) => {
   try {
 
-    await postJob.findByIdAndUpdate(req.params.id, {
+    await PostJob.findByIdAndUpdate(req.params.id, {
 
       title: req.body.title,
       experience: req.body.experience,
@@ -156,7 +156,7 @@ const getEditJob = async (req, res) => {
       jobCategory: req.body.jobCategory,
     };
 
-    const data = await postJob.findOne({ _id: req.params.id });
+    const data = await PostJob.findOne({ _id: req.params.id });
 
     res.render('admin/edit-job', {
       locals,
@@ -175,14 +175,27 @@ const getEditJob = async (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  Delete Job                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
+
 const deleteJob = async (req, res) => {
   try {
-    await postJob.deleteOne({ _id: req.params.id });
-    res.redirect('/dashboard2');
+    await PostJob.deleteOne({ _id: req.params.id });
+    res.status(200).json({ message: 'Post deleted successfully' });
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: 'An error occurred while deleting the post' });
   }
 };
+
+
+
+// const deleteJob = async (req, res) => {
+//   try {
+//     await PostJob.deleteOne({ _id: req.params.id });
+//     res.redirect('/dashboard2');
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 
 

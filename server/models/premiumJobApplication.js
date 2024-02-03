@@ -11,6 +11,12 @@ const PremiumJobSchema = new Schema({
     ref: 'User',
     required: true,
   },
+
+  job: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'PostJob',
+    require: true
+  },
     
    first_name: {
     type: String,
@@ -61,6 +67,21 @@ const PremiumJobSchema = new Schema({
     type: String,
     required: [true, 'This feild is Required']
    },
+
+  //  cv: {
+  //   type: String,
+  //   required: [true, 'CV is required']
+  // },
+
+  // coverLetter: {
+  //   type: String,
+  //   required: [true, 'Cover letter is required']
+  // },
+
+   createdAt: {
+    type: Date,
+    default: Date.now
+},
 
 });
 

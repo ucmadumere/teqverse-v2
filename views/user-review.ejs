@@ -283,8 +283,8 @@
                                             <form action="/user-review" method="POST">
                                                 <div class="mb-3">
                                                     <label for="user" class="form-label">Your Name:</label>
-                                                    <input type="text" class="form-control" id="user" name="user"
-                                                        required>
+                                                    <input type="text" class="form-control" id="user" name="fullName"
+                                                        value="<%= user.first_name %> <%= user.other_names %> <%= user.last_name %>" readonly required>
                                                 </div>
                                                 <div class="mb-3">
                                                     <label for="title" class="form-label">Title:</label>
@@ -323,13 +323,17 @@
                                                 <div>
                                                     <p>Title: <%= review.title %>
                                                     </p>
-                                                    <p>User: <%= review.user %>
+                                                    <p>Name: <%= review.fullName %>
                                                     </p>
                                                     <p>Rating: <%= review.rating %> Stars</p>
                                                     <p>Comment: <%= review.comment %>
                                                     </p>
+                                                    <p>Date: <%= review.createdAt %></p>
                                                 </div>
+                                                <hr>
                                                 <% }); %>
+
+                                        
                                         </div>
                                     </div>
                                 </div>

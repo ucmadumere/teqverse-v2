@@ -2,6 +2,7 @@ const premiumJob = require('../models/premiumJobApplication');
 const User = require('../models/userModel')
 const userLayout = '../views/layouts/userLogin';
 const jwt = require('jsonwebtoken');
+const postJob = require('../models/postJob');
 
 
 
@@ -53,20 +54,30 @@ const getApplypremiumJob = async (req, res) => {
 
     console.log(decodedToken);
 
-
     // Assuming you have a way to retrieve user details from the database
     // You can use the userId to fetch the user's details from the database
     // Replace this with your actual code to retrieve user details
     const user = await User.findById(userId).exec();
 
     if (!user) {
-        // Handle case where user is not found
-        res.status(404).send('User not found');
-        return;
+      // Handle case where user is not found
+      res.status(404).send('User not found');
+      return;
     }
 
-    // Pass the user's details to the template for pre-filling the form
-    res.render('apply-premiumJob', { user });
+    // Assuming you have a way to retrieve the job details based on the request
+    // For example, if the job ID is passed in the URL params
+    const jobId = req.params.id; // Replace with your actual way of getting the job ID
+    const job = await postJob.findById(jobId).exec();
+
+    if (!job) {
+      // Handle case where job is not found
+      res.status(404).send('Job not found');
+      return;
+    }
+
+    // Pass both user and job details to the template for pre-filling the form
+    res.render('apply-premiumJob', { user, job });
   } catch (error) {
     console.error(error);
     res.status(500).send('An error occurred while processing your request.');
@@ -75,14 +86,12 @@ const getApplypremiumJob = async (req, res) => {
 
 
 
-
 const applyPremiumjob = async (req, res) => {
   try {
     const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
     if (!token) {
       // Handle case where token is missing
-      res.status(401).send('Authentication required');
-      return;
+      return res.status(401).send('Authentication required');
     }
 
     // Verify the JWT token to extract user details
@@ -90,10 +99,11 @@ const applyPremiumjob = async (req, res) => {
     const userId = decodedToken.userId; 
 
     const jobId = req.params.id;
+    console.log(req.params);
 
     let job;
     try {
-      job = await Postjob.findById(jobId);
+      job = await postJob.findById(jobId);
       if (!job) {
         return res.status(404).json({ message: 'Job not found' });
       }
@@ -101,6 +111,7 @@ const applyPremiumjob = async (req, res) => {
       console.error('Error retrieving job:', error);
       return res.status(500).json({ message: 'Internal server error' });
     }
+    
 
     // Create a new job application with the user's _id
     const newJobApplication = new premiumJob({
@@ -116,53 +127,21 @@ const applyPremiumjob = async (req, res) => {
       gender: req.body.gender,
       genderSpecify: req.body.genderSpecify,
       additionalInfo: req.body.additionalInfo,
-      // Other fields for the job application
     });
 
     // Save the new job application
-    await newJobApplication.save();
-    console.log(job)
-
-    res.status(200).render('apply-premiumJob', { job: job });
-
+    try {
+      await newJobApplication.save();
+      res.status(201).json({ message: 'Job application created successfully' });
+    } catch (error) {
+      console.error('Error saving job application:', error);
+      return res.status(500).json({ message: 'Internal server error' });
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).send('An error occurred while processing your application.');
+    console.error('Error processing request:', error);
+    return res.status(500).json({ message: 'Internal server error' });
   }
 };
-
-
-
-
-
-
-
-// const applyPremiumjob = async (req, res) => {
-//   try {
-    
-//     const newJobApplication = new premiumJob({
-//       first_name: req.body.first_name,
-//       other_names: req.body.other_names,
-//       last_name: req.body.last_name,
-//       email: req.body.email,
-//       ontact_address: req.body.contact_address,
-//       phone_no: req.body.phone_no,
-//       dateOfBirth: req.body.dateOfBirth,
-//       gender: req.body.gender,
-//       genderSpecify: req.body.genderSpecify,
-//       additionalInfo: req.body.additionalInfo,
-    
-//     });
-
-//     await newJobApplication.save();
-
-//     res.redirect('/');
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('An error occurred while processing your application.');
-//   }
-// };
-
 
 
 
