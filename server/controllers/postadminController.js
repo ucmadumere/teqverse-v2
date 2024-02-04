@@ -178,8 +178,8 @@ const getEditJob = async (req, res) => {
 
 const deleteJob = async (req, res) => {
   try {
-    await PostJob.deleteOne({ _id: req.params.id });
-    res.status(200).json({ message: 'Post deleted successfully' });
+    await postJob.deleteOne({ _id: req.params.id });
+    res.redirect('/dashboard2');
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: 'An error occurred while deleting the post' });

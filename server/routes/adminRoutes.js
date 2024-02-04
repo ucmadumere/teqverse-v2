@@ -40,7 +40,7 @@ router.put('/edit-job/:id', updatejob);
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   DASHBOARD                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/dashboard2', requireAdminAuth, checkAdminUser, (req, res) => {
+router.get('/dashboard', requireAdminAuth, checkAdminUser, (req, res) => {
   const admintoken = req.cookies.token;
 
   if (admintoken) {
@@ -48,11 +48,11 @@ router.get('/dashboard2', requireAdminAuth, checkAdminUser, (req, res) => {
       if (err) {
         res.render('login');
       } else {
-        res.render('admin/dashboard2', { layout: adminLayout });
+        res.render('admin/dashboard', { layout: adminLayout });
       };
     });
   } else {
-    res.render('admin/dashboard2', { layout: adminLayout });
+    res.render('admin/dashboard', { layout: adminLayout });
   }
 });
 

@@ -7,11 +7,10 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  fullName: {
+  fullName:{
     type: String,
-    required: true
+    required: true,
   },
-  
   title: {
     type: String,
     required: true,

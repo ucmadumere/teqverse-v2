@@ -39,6 +39,11 @@ const validatePassword = require('../../validators/passwordValidator');
         default: 'avatar.jpg'
         },
 
+        Interest: {
+            type: String,
+            required: [true, 'Interest Field cannot be blank']
+        },
+
         role: {
             type: String,
             enum: ['user', 'admin'],
