@@ -68,7 +68,8 @@ const getApplypremiumJob = async (req, res) => {
     }
 
     // Pass both user and job details to the template for pre-filling the form
-    res.render("apply-premiumJob", { user, job });
+    // res.render("apply-premiumJob", { user, job });
+    res.render("jobdetails", { user, job });
   } catch (error) {
     console.error(error);
     res.status(500).send("An error occurred while processing your request.");

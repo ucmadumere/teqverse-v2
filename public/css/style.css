@@ -11353,6 +11353,10 @@ span.onsale.theme {
 }
 
 /* subscribe form */
+.modal-body {
+  max-height: 400px; /* Set a maximum height for the modal body */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
 .modal .modal-content {
   position: absolute;
   top: 50%;
@@ -11379,7 +11383,22 @@ span.onsale.theme {
   background-position: right top;
 }
 
-.modal .modal-content button.close {
+/* .modal .modal-content button.close {
+  position: absolute;
+  right: 25px;
+  top: 30px;
+  height: 35px;
+  width: 35px;
+  line-height: 35px;
+  background: #f35a38;
+  color: #ffffff;
+  text-shadow: inherit;
+  opacity: 1;
+  font-size: 13px;
+  border-radius: 50%;
+} */
+
+.modal .custom-modal .modal-content button.close {
   position: absolute;
   right: 25px;
   top: 30px;
@@ -11412,7 +11431,7 @@ span.onsale.theme {
 .modal .modal-content .modal-body form {
   position: relative;
   z-index: 1;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .modal .modal-content .modal-body form input {
@@ -11420,13 +11439,13 @@ span.onsale.theme {
   border: 1px solid #e7e7e7;
   box-shadow: inherit;
   min-height: 60px;
-  padding: 25px;
+  padding: 15px;
   border-radius: 30px;
   background: #f9f9f9;
 }
 
 .modal .modal-content .modal-body form button {
-  position: absolute;
+  /* position: absolute; */
   right: 5px;
   top: 5px;
   border: none;
