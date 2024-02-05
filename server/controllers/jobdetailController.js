@@ -13,11 +13,15 @@ const jobdetail = async (req, res) => {
 
     let slug = req.params.id;
 
+    const jobId = req.params.id; // Replace with your actual way of getting the job ID
     const data = await Postjob.findById({_id: slug});
+    const job = await Postjob.findById(jobId).exec();
+    
 
     res.render('jobdetails', {
       locals,
       data,
+      job,
       currentRoute: `/jobdetails/${slug}`
     });
   } catch (error) {
