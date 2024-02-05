@@ -395,31 +395,33 @@
                     <div class="col-lg-8 offset-lg-2">
                         <div class="testimonials-carousel owl-carousel owl-theme">
 
-                            <% topReviews.forEach(review => { %>
-                                <div class="item">
-                                  <div class="rating">
-                                    <div class="reson">
-                                      (<%= review.title %>)
+                            
+                              <!-- Display Random Reviews -->
+                                <% randomReviews.forEach(review => { %>
+                                    <div class="item">
+                                    <div class="rating">
+                                        <div class="reson">
+                                        (<%= review.title %>)
+                                        </div>
+                                        <div class="icon">
+                                        <% for (let i = 0; i < Math.floor(review.rating); i++) { %>
+                                            <i class="fas fa-star"></i>
+                                        <% } %>
+                                        <% if (review.rating % 1 !== 0) { %>
+                                            <i class="fas fa-star-half-alt"></i>
+                                        <% } %>
+                                        </div>
                                     </div>
-                                    <div class="icon">
-                                      <% for (let i = 0; i < Math.floor(review.rating); i++) { %>
-                                        <i class="fas fa-star"></i>
-                                      <% } %>
-                                      <% if (review.rating % 1 !== 0) { %>
-                                        <i class="fas fa-star-half-alt"></i>
-                                      <% } %>
+                                    <p>
+                                        "<%= review.comment %>"
+                                    </p>
+                                    <div class="thumb-box">
+                                        <!-- You can add additional content here if needed -->
                                     </div>
-                                  </div>
-                                  <p>
-                                    "<%= review.comment %>"
-                                  </p>
-                                  <div class="thumb-box">
-                                    <!-- You can add additional content here if needed -->
-                                  </div>
-                                  <h5><%= review.fullName %></h5>
-                                  <span><%= review.techSpecialty %></span>
-                                </div>
-                              <% }) %>
+                                    <h5><%= review.fullName %></h5>
+                                    <span><%= review.techSpecialty %></span>
+                                    </div>
+                                <% }) %>
                         </div>
                     </div>
                 </div>
