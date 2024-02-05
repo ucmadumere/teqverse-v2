@@ -35,6 +35,8 @@ const createJob = async (req, res) => {
       experience,
       requirements,
       jobCategory,
+      closingDate,
+      methodOfApplication
     } = req.body;
 
     // Check if the job category is valid
@@ -53,6 +55,8 @@ const createJob = async (req, res) => {
       experience,
       requirements,
       jobCategory, // Include the job category in the new post
+      closingDate,
+      methodOfApplication
     });
 
     // Save the new postJob object to the database
@@ -166,6 +170,8 @@ const updatejob = async (req, res) => {
       jobOverview: req.body.jobOverview,
       requirements: req.body.requirements,
       jobCategory: req.body.jobCategory,
+      closingDate: req.body.closingDate,
+      methodOfApplication: req.body.methodOfApplication,
       updatedAt: Date.now(),
       
     });
@@ -195,6 +201,8 @@ const getEditJob = async (req, res) => {
       jobOverview: req.body.jobOverview,
       requirements: req.body.requirements,
       jobCategory: req.body.jobCategory,
+      closingDate: req.body.closingDate,
+      methodOfApplication: req.body.methodOfApplication,
     };
 
     const data = await postJob.findOne({ _id: req.params.id });

@@ -41,6 +41,14 @@ const PostJobSchema = new Schema({
         enum: ['normal', 'premium'],
         default: 'normal'
     },
+    closingDate: { 
+        type: String, 
+        required: true
+    },
+    methodOfApplication: {
+        type: String,
+        required: true
+    },
     createdAt: {
         type: Date,
         default: Date.now

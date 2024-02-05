@@ -290,17 +290,19 @@
                           placeholder="Enter Job Overview"></textarea>
                       </div>
 
-                      <!-- <div class="mb-3">
-                        <label for="jobDescription" class="form-label">Job Description</label>
-
-                        <textarea class="form-control" id="jobDescription" rows="4" name="jobDescription"
-                          placeholder="Enter job description"></textarea>
-
-                      </div> -->
                       <div class="form-group">
                         <label for="jobDescription">Job Description</label>
                         <textarea class="form-control" id="jobDescription" name="jobDescription" required></textarea>
                     </div>
+                    <div class="mb-3">
+                      <label for="closingDate" class="form-label">Closing Date</label>
+                      <input type="text" class="form-control" id="closingDate" name="closingDate"
+                        placeholder="Not Specified or Date (1st January, 2000)">
+                    </div>
+                    <div class="form-group">
+                      <label for="methodOfApplication">Method Of Application</label>
+                      <textarea class="form-control" id="methodOfApplication" name="methodOfApplication" required></textarea>
+                  </div>
 
 
                       <!--  Job category Section-->
@@ -345,6 +347,11 @@
 <script>
   // Replace textarea of job description with CKEditor
   CKEDITOR.replace('jobDescription');
+</script>
+
+<script>
+  // Replace textarea of method of application with CKEditor
+  CKEDITOR.replace('methodOfApplication');
 </script>
 
 <!--**********************************
