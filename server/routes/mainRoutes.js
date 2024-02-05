@@ -7,7 +7,7 @@ const userLayout = '../views/layouts/userLogin';
 const adminLayout = '../views/layouts/adminLogin';
 const jwt = require('jsonwebtoken');
 const { requireAuth, checkUser, redirectIfAuthenticated, checkPremiumUser } = require('../midlewares/usersMiddleWares/requireAuth')
-const upload = require('../midlewares/imageUploader')
+
 const profileImageController = require('../controllers/uploadImageController');
 
 const {applyPremiumjob, getApplypremiumJob} = require('../controllers/premiumJobController');
@@ -15,6 +15,29 @@ const jobdetail = require('../controllers/jobdetailController');
 
 const Review = require('../models/review');
 const {getUserReview, postUserReview} = require('../controllers/reviewController')
+const upload = require('../multerConfig')
+
+//Multer confi
+// const multer = require('multer');
+// const storage = multer.diskStorage({
+//   destination:function(request, file, callback){
+//     callback(null, 'uploads/cvs');
+//   },
+
+//   filename: function(request, file, callback){
+//     callback(null, Date.now() + '-' + file.originalname);
+//   },
+// });
+
+
+// const upload = multer({
+//   storage: storage,
+//   limits:{
+//     fieldNameSize:1024*1024*3
+//   },
+// });
+
+
 
 
 
@@ -147,11 +170,12 @@ router.post('/user-review',checkUser, requireAuth, postUserReview);
 
 
 
+
 // Apply for a job route
 router.get('/apply-job/:id', requireAuth, checkUser, checkPremiumUser, getApplypremiumJob);
 
 // Submit job application route
-router.post('/apply-job/:id', checkPremiumUser, requireAuth, checkUser, applyPremiumjob);
+router.post('/apply-job/:id', checkPremiumUser, requireAuth, checkUser, upload.single('cv'), applyPremiumjob);
 
 
 module.exports = router;

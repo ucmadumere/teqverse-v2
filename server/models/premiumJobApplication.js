@@ -68,15 +68,15 @@ const PremiumJobSchema = new Schema({
     required: [true, 'This feild is Required']
    },
 
-  //  cv: {
-  //   type: String,
-  //   required: [true, 'CV is required']
-  // },
+   cv: {
+    type: String,
+    required: [true, 'CV is required']
+  },
 
-  // coverLetter: {
-  //   type: String,
-  //   required: [true, 'Cover letter is required']
-  // },
+  coverLetter: {
+    type: String,
+    required: [true, 'Cover letter is required']
+  },
 
    createdAt: {
     type: Date,
