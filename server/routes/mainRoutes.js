@@ -57,20 +57,6 @@ router.post('/upload-profile-image', checkUser, profileImageController.uploadPro
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  LANDING ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
-// router.get('/', checkUser, async (req, res) => {
-//   try {
-//     // Fetch top 4 reviews based on rating in descending order
-//     // const topReviews = await Review.find()
-//     const topReviews = await Review.find({ rating: { $gte: 3, $lte: 5 } })
-//       .sort({ rating: -1 })
-//       .limit(4);
-
-//     res.render('index', { topReviews });
-//   } catch (error) {
-//     console.error('Error fetching top reviews:', error);
-//     res.status(500).send('Failed to fetch top reviews: ' + error.message);
-//   }
-// });
 router.get('/', checkUser, async (req, res) => {
   try {
     // Fetch top 4 reviews based on rating in descending order
