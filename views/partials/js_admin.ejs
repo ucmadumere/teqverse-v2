@@ -29,3 +29,17 @@
 	  });
 	});
 </script>
+<script>
+    //AUTO NOTIFICATION AVAILABLE TO ALL PAGES
+    const searchParams = new URLSearchParams(window.location.search);
+
+
+    if (searchParams.has("failure")) {
+        Notiflix.Report.failure("Notification", searchParams.get("failure"))
+    }
+    if (searchParams.has("success")) {
+        Notiflix.Report.success("Notification", searchParams.get("success"))
+
+    }
+
+</script>

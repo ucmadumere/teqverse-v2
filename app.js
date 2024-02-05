@@ -35,31 +35,16 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(methodOverride('_method'));
-app.use(session({
+
+
+app.use(session ({
     secret: 'keyboard cat',
     resave: false,
     saveUninitialized: true,
     store: MongoStore.create({
-        mongoUrl: process.env.MONGO_URI,
-        ttl: 60 * 60 * 24, // 1 day in seconds
-        autoRemove: 'interval',
-        autoRemoveInterval: 10, // Interval in minutes to check for expired sessions
-        touchAfter: 24 * 3600, // Update session only once in a day
-        crypto: {
-            secret: 'keyboard cat'
-        }
+        mongoUrl: process.env.MONGO_URI
     }),
 }));
-
-
-// app.use(session ({
-//     secret: 'keyboard cat',
-//     resave: false,
-//     saveUninitialized: true,
-//     store: MongoStore.create({
-//         mongoUrl: process.env.MONGO_URI
-//     }),
-// }));
 
 
 
