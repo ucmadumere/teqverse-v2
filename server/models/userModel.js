@@ -41,7 +41,6 @@ const validatePassword = require('../../validators/passwordValidator');
 
         Interest: {
             type: String,
-            required: [true, 'Interest Field cannot be blank']
         },
 
         role: {

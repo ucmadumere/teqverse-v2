@@ -1,6 +1,6 @@
 
 <!-- apply-for-job.ejs -->
-<form action="/apply-job/<%= job._id %>" method="POST">
+<form action="/apply-job/<%= job._id %>" method="POST" enctype="multipart/form-data">
     <label for="first_name">First Name:</label>
     <input type="text" id="first_name" name="first_name" value="<%= user.first_name %>" readonly required>
   
@@ -36,15 +36,13 @@
     <label for="additionalInfo">Additional Info:</label>
     <textarea id="additionalInfo" name="additionalInfo" required></textarea>
 
-    <!-- <div class="mb-3">
+    <div class="mb-3">
       <label for="cv" class="form-label">Upload CV</label>
       <input type="file" class="form-control" id="cv" name="cv">
     </div>
   
-    <div class="mb-3">
-      <label for="letterhead" class="form-label">Upload Letterhead</label>
-      <input type="file" class="form-control" id="letterhead" name="letterhead">
-    </div> -->
+    <label for="additionalInfo">Cover Letter:</label>
+    <textarea id="coverLetter" name="coverLetter" required></textarea>
   
   
     <!-- Other form fields go here -->
