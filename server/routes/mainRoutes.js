@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/authController');
+const { login, register, logout} = require('../controllers/authController');
 const jobdetailController = require('../controllers/jobdetailController');
 const joblistController = require('../controllers/joblistController');
 const userLayout = '../views/layouts/userLogin';
@@ -134,7 +134,7 @@ router.get('/learning-mentor', (req, res) => {
 router.get('/login', checkUser, redirectIfAuthenticated, (req, res) => {
   res.render('login', {layout: userLayout });
 });
-router.post('/login', authController.login);
+router.post('/login', login);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  REGISTER ROUTE                                                    **/
@@ -142,12 +142,12 @@ router.post('/login', authController.login);
 router.get('/signup', checkUser, redirectIfAuthenticated, (req, res) => {
   res.render('signup', {layout: userLayout });
 });
-router.post('/signup', authController.register);
+router.post('/signup', register);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  LOG OUT ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/logout', authController.logout)
+router.get('/logout', logout)
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB DETAILS ROUTE                                                 **/
