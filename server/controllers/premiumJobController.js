@@ -88,7 +88,7 @@ const applyPremiumjob = async (req, res) => {
     const userId = decodedToken.userId;
 
     const jobId = req.params.id;
-    console.log(req.params);
+    
 
     let job;
     try {

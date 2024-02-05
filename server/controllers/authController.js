@@ -48,7 +48,7 @@ const login = async (req, res) => {
       path: '/'
     })
 
-    res.redirect('/');
+    res.redirect('/?login=success');
 
   } catch (error) {
     console.error(error);

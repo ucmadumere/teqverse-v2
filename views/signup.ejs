@@ -25,7 +25,7 @@
             <div class="mb-4 position-relative">
               <label class="mb-1 text-dark">Password</label>
               <input type="password" id="dz-password" class="form-control form-control" placeholder="Password" name="password">
-              <span class="show-pass eye">
+              <span class="show-pass eye" onclick="togglePassword()">
               
                 <i class="fa fa-eye-slash"></i>
                 <i class="fa fa-eye"></i>
@@ -35,8 +35,8 @@
             <!-- Confirm Password New -->
             <div class="mb-4 position-relative">
               <label class="mb-1 text-dark">Confirm Password</label>
-              <input type="password" id="dz-password" class="form-control form-control" placeholder="Password" name="password2">
-              <span class="show-pass eye">
+              <input type="password" id="dz-confirm-password" class="form-control form-control" placeholder="Password" name="password2">
+              <span class="show-pass eye" onclick="togglePassword()">
               
                 <i class="fa fa-eye-slash"></i>
                 <i class="fa fa-eye"></i>
@@ -91,6 +91,12 @@
   </div>
 
 </body>
+
+
+
+
+
+
 <!-- <body>
     <div id="wrapper">
       <div id="left">
