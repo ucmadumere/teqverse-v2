@@ -75,7 +75,7 @@ const PremiumJobSchema = new Schema({
 
   coverLetter: {
     type: String,
-    required: [true, 'Cover letter is required']
+    required: [false, 'Cover letter is required']
   },
 
    createdAt: {

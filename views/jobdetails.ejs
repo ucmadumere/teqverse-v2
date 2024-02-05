@@ -74,13 +74,15 @@
                                         data.methodOfApplication %></p>
 
                             </div>
-                            <div class="d-flex justify-content-end m-2">
-                                <a href="/apply-job/<%= data._id %>"><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                    Apply
-                                </button></a>
-                                    
-                            </div>
-
+                            <!-- <div class="d-flex justify-content-end m-2">
+                                <a href="/apply-job/<%= data._id %>"><button>
+                                        Apply
+                                    </button></a>
+                            </div> -->
+                            <% if (data.jobCategory === 'premium') { %>
+                            <button type="button" class="m-2 btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                Apply Now
+                            </button>
                             
 
                             <!-- The Modal -->
@@ -129,19 +131,19 @@
                                                 <!-- Other form fields go here -->
                                                 <div class="mb-3">
                                                     <label for="contact_address" class="form-label">Contact
-                                                        Address:</label>
+                                                        Address</label>
                                                     <input type="text" class="form-control" id="contact_address"
                                                         name="contact_address" required>
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="phone_no" class="form-label">Phone Number:</label>
+                                                    <label for="phone_no" class="form-label">Phone Number</label>
                                                     <input type="tel" class="form-control" id="phone_no" name="phone_no"
                                                         required>
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="gender" class="form-label">Gender:</label>
+                                                    <label for="gender" class="form-label">Gender</label>
                                                     <select id="gender" class="form-select" name="gender" required>
                                                         <option value="Male">Male</option>
                                                         <option value="Female">Female</option>
@@ -151,7 +153,7 @@
 
                                                 <div class="mb-3">
                                                     <label for="genderSpecify" class="form-label">Specify
-                                                        Gender:</label>
+                                                        Gender</label>
                                                     <input type="text" class="form-control" id="genderSpecify"
                                                         name="genderSpecify" required>
                                                 </div>
@@ -163,8 +165,8 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label for="additionalInfo" class="form-label">Additional Info:</label>
-                                                    <textarea class="form-control" id="additionalInfo" name="additionalInfo" required></textarea>
+                                                    <label for="additionalInfo" class="form-label">Additional Info</label>
+                                                    <textarea class="form-control" id="additionalInfo" name="additionalInfo"></textarea>
                                                 </div>
 
                                                 <div class="mb-3">
@@ -179,18 +181,17 @@
                                                         required></textarea>
                                                 </div>
 
-
                                                 <!-- Other form fields go here -->
 
-                                                <!-- <button type="submit">Submit Application</button> -->
-                                                <a href="/apply-job/<%= data._id %>" type="button">Submit Application</a>
+                                                <button type="submit">Submit Application</button>
+                                                <!-- <a href="/apply-job/<%= data._id %>">Submit Application</a> -->
                                             </form>
                                         </div>
-
-
+                                        
                                     </div>
                                 </div>
                             </div>
+                            <% } %>
 
 
 
@@ -314,3 +315,7 @@
     // Replace textarea of Cover Letter with CKEditor
     CKEDITOR.replace('coverLetter');
 </script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->
