@@ -6,9 +6,13 @@ const joblistController = require('../controllers/joblistController');
 const userLayout = '../views/layouts/userLogin';
 const adminLayout = '../views/layouts/adminLogin';
 const jwt = require('jsonwebtoken');
-const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewares/usersMiddleWares/requireAuth')
+const { requireAuth, checkUser, redirectIfAuthenticated, checkPremiumUser } = require('../midlewares/usersMiddleWares/requireAuth')
 const upload = require('../midlewares/imageUploader')
 const profileImageController = require('../controllers/uploadImageController');
+
+const {applyPremiumjob, getApplypremiumJob} = require('../controllers/premiumJobController');
+const jobdetail = require('../controllers/jobdetailController');
+
 const Review = require('../models/review');
 const {getUserReview, postUserReview} = require('../controllers/reviewController')
 
@@ -139,6 +143,15 @@ router.get('/user-review', checkUser, requireAuth, getUserReview);
 // POST route to handle adding a review
 router.post('/user-review',checkUser, requireAuth, postUserReview);
 
+
+
+
+
+// Apply for a job route
+router.get('/apply-job/:id', requireAuth, checkUser, checkPremiumUser, getApplypremiumJob);
+
+// Submit job application route
+router.post('/apply-job/:id', checkPremiumUser, requireAuth, checkUser, applyPremiumjob);
 
 
 module.exports = router;

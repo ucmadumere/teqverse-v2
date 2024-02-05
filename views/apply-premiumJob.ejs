@@ -1,0 +1,54 @@
+
+<!-- apply-for-job.ejs -->
+<form action="/apply-job/<%= job._id %>" method="POST">
+    <label for="first_name">First Name:</label>
+    <input type="text" id="first_name" name="first_name" value="<%= user.first_name %>" readonly required>
+  
+    <label for="other_names">Other Names:</label>
+    <input type="text" id="other_names" name="other_names" readonly required>
+  
+    <label for="last_name">Last Name:</label>
+    <input type="text" id="last_name" name="last_name" value="<%= user.last_name %>" readonly required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" value="<%= user.email %>" readonly required>
+  
+    <!-- Other form fields go here -->
+    <label for="contact_address">Contact Address:</label>
+    <input type="text" id="contact_address" name="contact_address" required>
+  
+    <label for="phone_no">Phone Number:</label>
+    <input type="text" id="phone_no" name="phone_no" required>
+  
+    <label for="gender">Gender:</label>
+    <select id="gender" name="gender" required>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+      <option value="Others">Others</option>
+    </select>
+  
+    <label for="genderSpecify">Specify Gender:</label>
+    <input type="text" id="genderSpecify" name="genderSpecify" required>
+
+    <label for="dateOfBirth">Date of Birth:</label>
+    <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+  
+    <label for="additionalInfo">Additional Info:</label>
+    <textarea id="additionalInfo" name="additionalInfo" required></textarea>
+
+    <!-- <div class="mb-3">
+      <label for="cv" class="form-label">Upload CV</label>
+      <input type="file" class="form-control" id="cv" name="cv">
+    </div>
+  
+    <div class="mb-3">
+      <label for="letterhead" class="form-label">Upload Letterhead</label>
+      <input type="file" class="form-control" id="letterhead" name="letterhead">
+    </div> -->
+  
+  
+    <!-- Other form fields go here -->
+  
+    <button type="submit">Submit Application</button>
+  </form>
+  
