@@ -18,24 +18,14 @@ const login = async (req, res) => {
     // Check if the user exists
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(404).render( 'error400', { 
-        errorCode: 400,
-        errorMessage: 'Invalid Password',
-        errorDescription: 'Sorry, Email or Password is Incorrect....',
-        layout: userLayout,
+      return res.redirect('login?failure=Incorrect Email or Password');
 
-    });
-    }
+    };
 
     // Validate the password
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      return res.status(404).render( 'error400', { 
-          errorCode: 400,
-          errorMessage: 'Invalid Password',
-          errorDescription: 'Sorry, Email or Password is Incorrect....',
-          layout: userLayout,
-      });
+      return res.redirect('login?failure=Incorrect Email or Password'); 
     }
 
     const token = createJWT({userId:user._id, role: user.role});
@@ -48,7 +38,7 @@ const login = async (req, res) => {
       path: '/'
     })
 
-    res.redirect('/');
+    res.redirect('/?success=logged in successfully');
 
   } catch (error) {
     console.error(error);
@@ -100,7 +90,7 @@ const register = async (req, res) => {
   
       await newUser.save();
   
-      res.redirect('/login');
+      res.redirect('/?success=You have been successfully Registered');
     } catch (error) {
       console.error(error);
       res.status(500).render('error500', {
@@ -121,9 +111,8 @@ const register = async (req, res) => {
         domain: 'localhost',
         secure: process.env.NODE_ENV === 'production'
     });
-    res.status(200).render('logout', {
-      layout: userLayout,
-    })
+    res.redirect('/?success=logged Out successfully')
+
 };
 
   

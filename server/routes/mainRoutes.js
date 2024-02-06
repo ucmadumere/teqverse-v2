@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/authController');
+const { login, register, logout} = require('../controllers/authController');
 const jobdetailController = require('../controllers/jobdetailController');
 const joblistController = require('../controllers/joblistController');
 const userLayout = '../views/layouts/userLogin';
@@ -32,17 +32,24 @@ router.post('/upload-profile-image', checkUser, profileImageController.uploadPro
 router.get('/', checkUser, async (req, res) => {
   try {
     // Fetch top 4 reviews based on rating in descending order
-    // const topReviews = await Review.find()
     const topReviews = await Review.find({ rating: { $gte: 3, $lte: 5 } })
       .sort({ rating: -1 })
       .limit(4);
 
-    res.render('index', { topReviews });
+    // Fetch 4 random reviews based on the same criteria
+    const randomReviews = await Review.aggregate([
+      { $match: { rating: { $gte: 3, $lte: 5 } } },
+      { $sample: { size: 4 } }
+    ]);
+
+    res.render('index', { topReviews, randomReviews });
   } catch (error) {
-    console.error('Error fetching top reviews:', error);
-    res.status(500).send('Failed to fetch top reviews: ' + error.message);
+    console.error('Error fetching reviews:', error);
+    res.status(500).send('Failed to fetch reviews: ' + error.message);
   }
 });
+
+
 
 
 /**--------------------------------------------------------------------------------------------------- **/
@@ -85,7 +92,7 @@ router.get('/learning-mentor', (req, res) => {
 router.get('/login', checkUser, redirectIfAuthenticated, (req, res) => {
   res.render('login', {layout: userLayout });
 });
-router.post('/login', authController.login);
+router.post('/login', login);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  REGISTER ROUTE                                                    **/
@@ -93,12 +100,12 @@ router.post('/login', authController.login);
 router.get('/signup', checkUser, redirectIfAuthenticated, (req, res) => {
   res.render('signup', {layout: userLayout });
 });
-router.post('/signup', authController.register);
+router.post('/signup', register);
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  LOG OUT ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/logout', authController.logout)
+router.get('/logout', logout)
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB DETAILS ROUTE                                                 **/

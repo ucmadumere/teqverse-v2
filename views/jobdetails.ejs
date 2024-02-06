@@ -1,5 +1,3 @@
-
-
 <!-- Start Breadcrumb 
     ============================================= -->
 <div class="breadcrumb-area bg-gray text-center shadow dark text-light bg-cover"
@@ -39,44 +37,164 @@
                                 <div class="row">
                                     <span class="post-date date">
                                         <%= data.createdAt.toDateString() %>
-                                     </span>
+                                    </span>
                                 </div>
                                 <h3 class="mt-2">
                                     <%= data.title %>
                                 </h3>
 
                                 <p>
-                                  <strong>JOB TYPE:</strong> <br> <%= data.jobType %>
+                                    <strong>JOB TYPE:</strong> <br>
+                                    <%= data.jobType %>
                                 </p>
                                 <p>
-                                    <strong>Experience:</strong> <br> <%= data.experience %> years
+                                    <strong>Experience:</strong> <br>
+                                    <%= data.experience %> years
                                 </p>
 
                                 <p>
-                                  <strong> LOCATION:</strong> <br>  <%= data.jobLocation %>
+                                    <strong> LOCATION:</strong> <br>
+                                    <%= data.jobLocation %>
                                 </p>
                                 <p>
-                                 <strong>JOB OVERVIEW</strong> <br>  <%= data.jobOverview %>
+                                    <strong>JOB OVERVIEW</strong> <br>
+                                    <%= data.jobOverview %>
                                 </p>
 
                                 <br>
 
                                 <p>
-                                 <%- data.jobDescription %>
+                                    <%- data.jobDescription %>
                                 </p>
 
-                                <p>Application closing date <br> <%= data.closingDate %></p>
-                                <p>Method of Application<br>Interested and qualified candidates should <br> <%- data.methodOfApplication %></p>
-                            
+                                <p>Application closing date <br>
+                                    <%= data.closingDate %>
+                                </p>
+                                <p>Method of Application<br>Interested and qualified candidates should <br> <%-
+                                        data.methodOfApplication %></p>
+
                             </div>
-                            <div class="d-flex justify-content-end m-2">
+                            <!-- <div class="d-flex justify-content-end m-2">
                                 <a href="/apply-job/<%= data._id %>"><button>
-                                    Apply
-                                </button></a>
-                            </div>
+                                        Apply
+                                    </button></a>
+                            </div> -->
+                            <% if (data.jobCategory === 'premium') { %>
+                            <button type="button" class="m-2 btn btn-primary" data-toggle="modal" data-target="#myModal">
+                                Apply Now
+                            </button>
                             
 
-                              
+                            <!-- The Modal -->
+                            <div class="modal custom-modal" id="myModal">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Application Form</h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal Body -->
+                                        <div class="modal-body">
+                                            <!-- Your Form Goes Here -->
+
+                                            <form class="mb-1" action="/apply-job/<%= job._id %>" method="POST"
+                                                enctype="multipart/form-data">
+                                                <div class="mb-3">
+                                                    <label for="first_name" class="form-label">First Name:</label>
+                                                    <input type="text" class="form-control" id="first_name"
+                                                        name="first_name" value="<%= user.first_name %>" readonly
+                                                        required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="other_names" class="form-label">Other Names:</label>
+                                                    <input type="text" class="form-control" id="other_names"
+                                                        name="other_names" readonly required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="last_name" class="form-label">Last Name:</label>
+                                                    <input type="text" class="form-control" id="last_name"
+                                                        name="last_name" value="<%= user.last_name %>" readonly
+                                                        required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="email" class="form-label">Email:</label>
+                                                    <input type="email" class="form-control" id="email" name="email"
+                                                        value="<%= user.email %>" readonly required>
+                                                </div>
+
+                                                <!-- Other form fields go here -->
+                                                <div class="mb-3">
+                                                    <label for="contact_address" class="form-label">Contact
+                                                        Address</label>
+                                                    <input type="text" class="form-control" id="contact_address"
+                                                        name="contact_address" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="phone_no" class="form-label">Phone Number</label>
+                                                    <input type="tel" class="form-control" id="phone_no" name="phone_no"
+                                                        required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="gender" class="form-label">Gender</label>
+                                                    <select id="gender" class="form-select" name="gender" required>
+                                                        <option value="Male">Male</option>
+                                                        <option value="Female">Female</option>
+                                                        <option value="Others">Others</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="genderSpecify" class="form-label">Specify
+                                                        Gender</label>
+                                                    <input type="text" class="form-control" id="genderSpecify"
+                                                        name="genderSpecify" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                                                    <input type="date" class="form-control" id="dateOfBirth"
+                                                        name="dateOfBirth" required>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="additionalInfo" class="form-label">Additional Info</label>
+                                                    <textarea class="form-control" id="additionalInfo" name="additionalInfo"></textarea>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="cv" class="form-label">Upload CV</label>
+                                                    <input type="file" class="form-control" id="cv" name="cv">
+                                                </div>
+
+
+                                                <div class="mb-3">
+                                                    <label for="coverLetter" class="form-label">Cover Letter</label>
+                                                    <textarea class="form-control" id="coverLetter" name="coverLetter"
+                                                        required></textarea>
+                                                </div>
+
+                                                <!-- Other form fields go here -->
+
+                                                <button type="submit">Submit Application</button>
+                                                <!-- <a href="/apply-job/<%= data._id %>">Submit Application</a> -->
+                                            </form>
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
+
+
+
                         </div>
 
                     </div>
@@ -192,3 +310,12 @@
     </div>
 </div>
 <!-- End Blog -->
+
+<script>
+    // Replace textarea of Cover Letter with CKEditor
+    CKEDITOR.replace('coverLetter');
+</script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> -->

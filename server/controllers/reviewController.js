@@ -62,6 +62,15 @@ const postUserReview = async (req, res) => {
             return;
         }
 
+        // Check if the user has already submitted a review
+        const existingReview = await Review.findOne({ user: userId });
+
+        if (existingReview) {
+            // User has already submitted a review
+            res.status(400).send('You have already submitted a review');
+            return;
+        }
+        // If not, proceed to create a new review
         const { title, techSpecialty, rating, comment } = req.body;
 
 
