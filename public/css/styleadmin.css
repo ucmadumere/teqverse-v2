@@ -9554,7 +9554,7 @@ label {
   text-align: left;
   position: absolute;
   top: 0;
-  background-color: #f35a38;
+  background-color: #fff;
   transition: all .2s ease;
   z-index: 5;
   border-bottom: 1px solid rgba(33, 44, 69, 0.2); }
@@ -9740,7 +9740,7 @@ label {
   height: 100%;
   width: 100%;
   padding: 10px;
-  background-color: #f35a38;
+  background-color: #fff;
   padding-left: 18.75rem; }
   .outer-body .content-body {
     margin-left: 0; }
@@ -9760,7 +9760,7 @@ label {
   z-index: 1;
   position: relative;
   padding: 0rem;
-  background-color:#f35a38;
+  background-color:#fff;
   z-index: 3;
   padding-left: 18.75rem;
   padding-top: 10px;
