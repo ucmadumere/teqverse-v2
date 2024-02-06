@@ -44,20 +44,21 @@
                                 </h3>
 
                                 <p>
-                                    <strong>JOB TYPE:</strong> <br>
-                                    <%= data.jobType %>
+                                    <%= data.jobType %> | <%= data.workType %> | <%= data.jobLocation %> 
                                 </p>
+                                <% if (data.workType !== 'Internship') { %>
                                 <p>
                                     <strong>Experience:</strong> <br>
                                     <%= data.experience %> years
                                 </p>
-
+                                <% } else { %>
+                                    <!-- Content for Internship case -->
+                                    <p>
+                                        No Experience Needed
+                                    </p>
+                                <% } %>
+                                    
                                 <p>
-                                    <strong> LOCATION:</strong> <br>
-                                    <%= data.jobLocation %>
-                                </p>
-                                <p>
-                                    <strong>JOB OVERVIEW</strong> <br>
                                     <%= data.jobOverview %>
                                 </p>
 
