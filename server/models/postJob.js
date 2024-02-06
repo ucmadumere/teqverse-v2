@@ -47,7 +47,7 @@ const PostJobSchema = new Schema({
     },
     methodOfApplication: {
         type: String,
-        required: true
+        required: false
     },
     createdAt: {
         type: Date,

@@ -6,7 +6,7 @@ const Postjob = require('../models/postJob');
 const joblist = async (req, res) => {
   try {
     const locals = {
-      title: 'TeqVerse',
+      title: 'TeqVerse - Job List',
       description: 'Job List',
     };
 

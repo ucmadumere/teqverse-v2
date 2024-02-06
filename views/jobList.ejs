@@ -48,22 +48,19 @@
                                             </a>
                                         </h3>
                                         <p>
-                                           Job Type: <%= post.jobType %> 
+                                           <%= post.jobType %> | <%= post.workType %> | <%= post.jobLocation %> 
                                         </p>
 
-                                        <p>
-                                            Location: <%= post.jobLocation %>
-                                        </p>
-
-                                        <p>
-                                            Experience: <%= post.experience %> years
-                                        </p>
+                                        <% if (post.workType !== 'Internship') { %>
+                                            <p>
+                                                Experience: <%= post.experience %> years
+                                            </p>
+                                            <% } else { %>
+                                                <p>
+                                                    No Experience Needed
+                                                </p>
+                                            <% } %>
                                         
-                                        <p> 
-                                            <%= post.workType %> 
-                                        </p>
-
-
                                         <p>
                                            <%=post.jobOverview %>
                                         </p>
