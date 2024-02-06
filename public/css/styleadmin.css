@@ -9554,7 +9554,7 @@ label {
   text-align: left;
   position: absolute;
   top: 0;
-  background-color: var(--nav-headbg);
+  background-color: #0554f2;
   transition: all .2s ease;
   z-index: 5;
   border-bottom: 1px solid rgba(33, 44, 69, 0.2); }
@@ -9631,7 +9631,7 @@ label {
   z-index: 9999;
   font-size: 1.4rem;
   border-radius: 0.625rem;
-  background-color: var(--primary);
+  background-color: #0554f2;
   width: 2.813rem;
   height: 2.813rem; }
   @media only screen and (max-width: 100rem) {
@@ -9740,7 +9740,7 @@ label {
   height: 100%;
   width: 100%;
   padding: 10px;
-  background-color: var(--sidebar-bg);
+  background-color: #0554f2;
   padding-left: 18.75rem; }
   .outer-body .content-body {
     margin-left: 0; }
@@ -9760,7 +9760,7 @@ label {
   z-index: 1;
   position: relative;
   padding: 0rem;
-  background-color: var(--headerbg);
+  background-color:#0554f2;
   z-index: 3;
   padding-left: 18.75rem;
   padding-top: 10px;
@@ -12753,7 +12753,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   top: 6.25rem;
   padding-top: 30px;
   z-index: 6;
-  background-color: var(--sidebar-bg);
+  background-color: #ced4da;
   transition: all .2s ease; }
   .deznav .deznav-scroll {
     position: relative;
