@@ -7,6 +7,10 @@ const reviewSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  fullName:{
+    type: String,
+    required: true,
+  },
   title: {
     type: String,
     required: true,

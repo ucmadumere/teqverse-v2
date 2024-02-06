@@ -62,15 +62,21 @@
                                 <br>
 
                                 <p>
-                                <strong>DESCRIPTION</strong> <br> <%- data.jobDescription %>
+                                 <%- data.jobDescription %>
                                 </p>
+
+                                <p>Application closing date <br> <%= data.closingDate %></p>
+                                <p>Method of Application<br>Interested and qualified candidates should <br> <%- data.methodOfApplication %></p>
                             
                             </div>
                             <div class="d-flex justify-content-end m-2">
-                                <button>
+                                <a href="/apply-job/<%= data._id %>"><button>
                                     Apply
-                                </button>
+                                </button></a>
                             </div>
+                            
+
+                              
                         </div>
 
                     </div>

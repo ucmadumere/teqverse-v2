@@ -1,5 +1,5 @@
 const express = require('express');
-const postJob = require('../models/postJob');
+const PostJob = require('../models/postJob');
 const adminUser = require('../models/adminUserModel');
 
 const adminLayout = '../views/layouts/adminLogin';
@@ -34,7 +34,9 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
-      jobCategory,
+      jobCategory, 
+      closingDate,
+      methodOfApplication
     } = req.body;
 
     // Check if the job category is valid
@@ -42,8 +44,8 @@ const createJob = async (req, res) => {
       return res.status(400).send('Invalid job category');
     }
 
-    // Create a new postJob object with the specified category
-    const newPost = new postJob({
+    
+    const newPost = new PostJob({
       title,
       jobDescription,
       jobType,
@@ -52,7 +54,9 @@ const createJob = async (req, res) => {
       jobOverview,
       experience,
       requirements,
-      jobCategory, // Include the job category in the new post
+      jobCategory, 
+      closingDate,
+      methodOfApplication
     });
 
     // Save the new postJob object to the database
@@ -63,47 +67,6 @@ const createJob = async (req, res) => {
   } catch (error) {
     // Log the error for debugging purposes
     console.error('Error creating job:', error);
-
-
-
-    // Send an error response with detailed error message
-// const createJob = async (req, res) => {
-//   try {
-//     const {
-//       title,
-//       jobDescription,
-//       jobType,
-//       workType,
-//       jobLocation,
-//       jobOverview,
-//       experience,
-//       requirements,
-//     } = req.body;
-
-//     // Create a new postJob object
-//     const newPost = new postJob({
-//       title,
-//       jobDescription,
-//       jobType,
-//       workType,
-//       jobLocation,
-//       jobOverview,
-//       experience,
-//       requirements,
-//     });
-
-//     // Save the new postJob object to the database
-//     await newPost.save();
-
-//     // Redirect to the dashboard on successful creation
-//     res.redirect('/guest-user-job');
-//   } catch (error) {
-//     // Log the error for debugging purposes
-//     console.error('Error creating job:', error);
-//     // Send an error response with detailed error message
-//     res.status(500).send('Failed to create job: ' + error.message);
-//   }
-// };
     res.status(500).send('Failed to create job: ' + error.message);
   }
 };
@@ -122,10 +85,10 @@ const getGuestList = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const pageSize = 5; // Number of items per page
 
-    const totalJobs = await postJob.countDocuments();
+    const totalJobs = await PostJob.countDocuments();
     const totalPages = Math.ceil(totalJobs / pageSize);
 
-    const data = await postJob.find()
+    const data = await PostJob.find()
       .sort({ createdAt: -1 })
       .skip((page - 1) * pageSize)
       .limit(pageSize);
@@ -155,7 +118,7 @@ const getGuestList = async (req, res) => {
 const updatejob = async (req, res) => {
   try {
 
-    await postJob.findByIdAndUpdate(req.params.id, {
+    await PostJob.findByIdAndUpdate(req.params.id, {
 
       title: req.body.title,
       experience: req.body.experience,
@@ -166,6 +129,8 @@ const updatejob = async (req, res) => {
       jobOverview: req.body.jobOverview,
       requirements: req.body.requirements,
       jobCategory: req.body.jobCategory,
+      closingDate: req.body.closingDate,
+      methodOfApplication: req.body.methodOfApplication,
       updatedAt: Date.now(),
       
     });
@@ -195,9 +160,11 @@ const getEditJob = async (req, res) => {
       jobOverview: req.body.jobOverview,
       requirements: req.body.requirements,
       jobCategory: req.body.jobCategory,
+      closingDate: req.body.closingDate,
+      methodOfApplication: req.body.methodOfApplication,
     };
 
-    const data = await postJob.findOne({ _id: req.params.id });
+    const data = await PostJob.findOne({ _id: req.params.id });
 
     res.render('admin/edit-job', {
       locals,
@@ -216,14 +183,27 @@ const getEditJob = async (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  Delete Job                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
+
 const deleteJob = async (req, res) => {
   try {
     await postJob.deleteOne({ _id: req.params.id });
     res.redirect('/dashboard2');
   } catch (error) {
     console.log(error);
+    res.status(500).json({ message: 'An error occurred while deleting the post' });
   }
 };
+
+
+
+// const deleteJob = async (req, res) => {
+//   try {
+//     await PostJob.deleteOne({ _id: req.params.id });
+//     res.redirect('/dashboard2');
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 
 

@@ -288,51 +288,48 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <!-- review-list.ejs -->
-                                        <h1>Review List</h1>
-                                        <table class="table">
-                                            <thead>
+                                        <table class="table table-sm mb-0">
+                                          <thead class="text-black bg-primary-light">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Specialty</th>
+                                                <th>Title</th>
+                                                <th>Rating</th>
+                                                <th>Comment</th>
+                                            </tr>
+                                          </thead>
+                                          <tbody id="orders">
+                                            <% reviews.forEach(review=> { %>
                                                 <tr>
-                                                    <th>User</th>
-                                                    <th>Specialty</th>
-                                                    <th>Title</th>
-                                                    <th>Rating</th>
-                                                    <th>Comment</th>
-                                                    
+                                                    <td>
+                                                        <%= review.user %>
+                                                    </td>
+                                                    <td>
+                                                        <%= review.fullName %>
+                                                    </td>
+                                                    <td>
+                                                        <%= review.techSpecialty %>
+                                                    </td>
+                                                    <td>
+                                                        <%= review.title %>
+                                                    </td>
+                                                    <td>
+                                                        <%= review.rating %> Stars
+                                                    </td>
+                                                    <td>
+                                                        <%= review.comment %>
+                                                    </td>
+                                                    <!-- <td>
+                                                        <%= review.createdAt %>
+                                                    </td> -->
                                                 </tr>
-                                            </thead>
-                                            <tbody>
-                                                <% reviews.forEach(review=> { %>
-                                                    <tr>
-                                                        <td>
-                                                            <%= review.user %>
-                                                        </td>
-                                                        <td>
-                                                            <%= review.techSpecialty %>
-                                                        </td>
-                                                        <td>
-                                                            <%= review.title %>
-                                                        </td>
-                                                        <td>
-                                                            <%= review.rating %> Stars
-                                                        </td>
-                                                        <td>
-                                                            <%= review.comment %>
-                                                        </td>
-                                                        <!-- <td>
-                                                            <%= review.createdAt %>
-                                                        </td> -->
-                                                    </tr>
-                                                    <% }); %>
-                                            </tbody>
+                                                <% }); %>
+                                          </tbody>
+                    
                                         </table>
-
-                                        <nav class="pt-3 d-flex justify-content-end">
-                                            <ul class="pagination pagination-xs">
-
-                                            </ul>
-                                        </nav>
-                                    </div>
+                                        
+                                      </div>
                                 </div>
                             </div>
                         </div>

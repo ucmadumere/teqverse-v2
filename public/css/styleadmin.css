@@ -31609,9 +31609,10 @@ table.dataTable thead .sorting_asc {
   background-color: #fff; }
 
 .login-media {
-  margin-top: 80px; }
+  margin-top: 80px;
+ }
   .login-media img {
-    width: 90%; }
+    width: 100%; }
     @media only screen and (max-width: 61.9375rem) {
       .login-media img {
         width: 80%; } }

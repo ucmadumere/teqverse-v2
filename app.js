@@ -14,7 +14,8 @@ const expressLayout = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-const multer = require('multer')
+
+
 
 
 
@@ -43,7 +44,7 @@ app.use(session ({
     }),
 }));
 
-const upload = multer({ dest: 'uploads/' });
+
 
 app.use(express.static('public'));
 
