@@ -129,12 +129,30 @@ router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
 /**                                  EDIT PROFILE ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/edit-profile', checkUser, requireAuth, (req, res) => {
-  res.render('edit-profile', {layout: adminLayout});
+  try {
+    const locals = {
+      title: 'TeqVerse - Edit Profile'
+  };
+    res.render('edit-profile', {layout: adminLayout, locals});
+  } catch (error) {
+    console.error( error);
+    res.status(500).send( error.message);
+  }
+  
 });
 //router.post('/edit-profile', edit)
 
 router.get('/user-profile', checkUser, requireAuth, (req, res) => {
-  res.render('user-profile', {layout: adminLayout});
+  try {
+    const locals = {
+      title: 'TeqVerse - View Profile'
+  };
+    res.render('user-profile', {layout: adminLayout, locals});
+  } catch (error) {
+    console.error( error);
+    res.status(500).send( error.message);
+  }
+  
 });
 
 /**--------------------------------------------------------------------------------------------------- **/
@@ -142,9 +160,12 @@ router.get('/user-profile', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/user-review', checkUser, requireAuth, async (req, res) => {
   try {
+    const locals = {
+      title: 'TeqVerse - Add Review'
+  };
     // Fetch all reviews initially
     const reviews = await Review.find().sort({ createdAt: -1 });
-    res.render('user-review', { layout: adminLayout, reviews });
+    res.render('user-review', { layout: adminLayout, reviews, locals });
   } catch (error) {
     console.error('Error fetching reviews:', error);
     res.status(500).send('Failed to fetch reviews: ' + error.message);
