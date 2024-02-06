@@ -37214,3 +37214,15 @@ $dark-light: lighten($dark, 50%); */
     font-weight: 600;
    }     
 /*# sourceMappingURL=style.css.map */
+
+/* Your existing styles */
+
+/* Add this style for the collapsed sidebar */
+#menu.collapsed {
+  width: 0; /* Set the collapsed width as needed */
+}
+
+/* Additional styles for the transition effect (optional) */
+#menu {
+  transition: width 0.3s ease; /* Adjust the duration and easing as needed */
+}
