@@ -6,21 +6,24 @@ const joblistController = require('../controllers/joblistController');
 const userLayout = '../views/layouts/userLogin';
 const adminLayout = '../views/layouts/adminLogin';
 const jwt = require('jsonwebtoken');
-const { requireAuth, checkUser, redirectIfAuthenticated } = require('../midlewares/usersMiddleWares/requireAuth')
-const upload = require('../midlewares/imageUploader')
-const profileImageController = require('../controllers/uploadImageController');
+const { requireAuth, checkUser, redirectIfAuthenticated, checkPremiumUser } = require('../midlewares/usersMiddleWares/requireAuth')
+
+const profileImageController = require('../controllers/updateProfileController');
+
+const {applyPremiumjob, getApplypremiumJob} = require('../controllers/premiumJobController');
+const jobdetail = require('../controllers/jobdetailController');
+
 const Review = require('../models/review');
+const {getUserReview, postUserReview} = require('../controllers/reviewController')
+const upload = require('../multerConfig')
+const update = require('../controllers/updateProfileController')
+const updateUser = require('../controllers/userController')
 
 
 
 
 
 
-router.get('/upload-profile-image', checkUser, (req, res) => {
-  res.render('upload-profile-image', {layout: adminLayout}); 
-});
-
-router.post('/upload-profile-image', checkUser, profileImageController.uploadProfileImage);
 
 
 
@@ -55,31 +58,31 @@ router.get('/', checkUser, async (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  FAQ ROUTE                                                         **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/faq', (req, res) => {
+router.get('/faq', checkUser, (req, res) => {
     res.render('faq');
 });
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  ABOUT US ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/about-us', (req, res) => {
+router.get('/about-us', checkUser, (req, res) => {
     res.render('about-us');
 });
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  MEDIA ROUTE                                                       **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/media', (req, res) => {
+router.get('/media', checkUser, (req, res) => {
     res.render('media');
 });
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  RESOURCES ROUTE                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/resources', (req, res) => {
+router.get('/resources', checkUser, (req, res) => {
     res.render('resources');
 });
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  LEARNING ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/learning', (req, res) => {
+router.get('/learning', checkUser, (req, res) => {
     res.render('learning');
 });
 router.get('/learning-mentor', (req, res) => {
@@ -128,7 +131,7 @@ router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  EDIT PROFILE ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/edit-profile', checkUser, requireAuth, (req, res) => {
+router.get('/update-profile', checkUser, requireAuth, (req, res) => {
   try {
     const locals = {
       title: 'TeqVerse - Edit Profile'
@@ -140,7 +143,10 @@ router.get('/edit-profile', checkUser, requireAuth, (req, res) => {
   }
   
 });
-//router.post('/edit-profile', edit)
+
+router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => {
+
+});
 
 router.get('/user-profile', checkUser, requireAuth, (req, res) => {
   try {
@@ -158,43 +164,22 @@ router.get('/user-profile', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  REVIEW ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/user-review', checkUser, requireAuth, async (req, res) => {
-  try {
-    const locals = {
-      title: 'TeqVerse - Add Review'
-  };
-    // Fetch all reviews initially
-    const reviews = await Review.find().sort({ createdAt: -1 });
-    res.render('user-review', { layout: adminLayout, reviews, locals });
-  } catch (error) {
-    console.error('Error fetching reviews:', error);
-    res.status(500).send('Failed to fetch reviews: ' + error.message);
-  }
-});
+router.get('/user-review', checkUser, requireAuth, getUserReview);
 
 // POST route to handle adding a review
-router.post('/user-review', async (req, res) => {
-  try {
-    const { user, title, techSpecialty, rating, comment } = req.body;
+router.post('/user-review',checkUser, requireAuth, postUserReview);
 
-    const newReview = new Review({
-      user,
-      title,
-      techSpecialty,
-      rating,
-      comment,
-    });
 
-    await newReview.save();
 
-    // Redirect to the user-review page or display a success message
-    res.redirect('/user-review');
-  } catch (error) {
-    // Handle errors
-    console.error('Error creating review:', error);
-    res.status(500).send('Failed to create review: ' + error.message);
-  }
-});
+
+
+
+// Apply for a job route
+router.get('/apply-job/:id', requireAuth, checkUser, checkPremiumUser, getApplypremiumJob);
+
+// Submit job application route
+router.post('/apply-job/:id', checkPremiumUser, requireAuth, checkUser, upload.single('cv'), applyPremiumjob);
+
 
 
 

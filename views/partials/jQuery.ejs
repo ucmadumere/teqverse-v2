@@ -18,8 +18,10 @@
 <script src="/js/script.js"></script>
 <script>
     //AUTO NOTIFICATION AVAILABLE TO ALL PAGES
-    const searchParams = new URLSearchParams(window.location.search);
+   
 
+    const searchParams = new URLSearchParams(window.location.search);
+   
 
     if (searchParams.has("failure")) {
         Notiflix.Report.failure("Notification", searchParams.get("failure"))
