@@ -91,6 +91,51 @@
 
     </nav>
     <!-- End Navigation -->
-
+    
 </header>
 <!-- End Header -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/notiflix/2.7.0/Notiflix-2.7.0.min.js"></script>
+  <script>
+    // Your JavaScript functions...
+
+    // Function to show a success notification
+    function showSuccessNotification(message) {
+        Notiflix.Notify.Success(message);
+    }
+
+    // Function to show a failure notification
+    function showFailureNotification(message) {
+        Notiflix.Notify.Failure(message);
+    }
+
+    // Simulate user login
+    function simulateLogin() {
+        const success = true; // Simulating success
+        if (success) {
+            showSuccessNotification("Login successful");
+        } else {
+            showFailureNotification("Login failed");
+        }
+    }
+
+    // Simulate user logout
+    function simulateLogout() {
+        const success = true; // Simulating success
+        if (success) {
+            showSuccessNotification("Logout successful");
+        } else {
+            showFailureNotification("Logout failed");
+        }
+    }
+
+    // Simulate user registration
+    function simulateRegister() {
+        const success = true; // Simulating success
+        if (success) {
+            showSuccessNotification("Registration successful");
+        } else {
+            showFailureNotification("Registration failed");
+        }
+    }
+  </script>

@@ -6,6 +6,9 @@ const adminLayout = '../views/layouts/adminLogin';
 
 const getUserReview = async (req, res) => {
     try {
+        const locals = {
+            title: 'TeqVerse - Add Review'
+        };
         // Retrieve the JWT token from the request cookies
         const token = req.cookies.token;
 
@@ -27,7 +30,11 @@ const getUserReview = async (req, res) => {
 
         // Fetch reviews made by the logged-in user
         const reviews = await Review.find({ user: userId }).sort({ createdAt: -1 });
-        res.render('user-review', { layout: adminLayout, reviews });
+        res.render('user-review', {
+            locals,
+            reviews,
+            layout: adminLayout, 
+        });
     } catch (error) {
         console.error('Error fetching user reviews:', error);
         res.status(500).send('Failed to fetch user reviews: ' + error.message);

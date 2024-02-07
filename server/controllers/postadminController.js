@@ -79,7 +79,7 @@ const createJob = async (req, res) => {
 const getGuestList = async (req, res) => {
   try {
     const locals = {
-      title: 'Guest Job List',
+      title: 'Job List',
     };
 
     const page = parseInt(req.query.page) || 1;

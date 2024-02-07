@@ -484,6 +484,7 @@ nav.navbar.bootsnav .navbar-toggle {
   font-size: 18px;
   position: relative;
   top: 15px;
+  left: 15px;
   color: #232323;
 }
 
@@ -2403,7 +2404,8 @@ nav.navbar.bootsnav {
   }
 
   .navbar-brand > img {
-    height: 50px !important;
+    height: 45px !important;
+    width: 209px;
   }
 
   nav.navbar.bootsnav.navbar-transparent.pad-top {

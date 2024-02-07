@@ -65,9 +65,9 @@ Sidebar heading:  20px 'Quicksand', sans-serif
 ** General Styles for HTML tags
 */
 
-@import url("../../css2-2");
+/* @import url("../../css2-2");
 @import url("../../css2-3");
-@import url('../../css2-4');
+@import url('../../css2-4'); */
 
 * {
   padding: 0;
@@ -313,6 +313,8 @@ button:hover {
     font-weight: 700 !important;
     border-radius: 5px !important;
     transition: all 0.35s ease-in-out !important;
+    width: 80%;
+    min-width: 150px;
   }
 
 .mfp-iframe-holder .mfp-close,
@@ -9323,7 +9325,7 @@ footer {
 footer.bg-dark::after {
   position: absolute;
   content: "";
-  background: url(assets/img/shape/42.png);
+  /* background: url(assets/img/shape/42.png); */
   left: 0;
   bottom: 0;
   height: 100%;
@@ -11449,11 +11451,11 @@ span.onsale.theme {
   right: 5px;
   top: 5px;
   border: none;
-  background: #f35a38;
-  color: #ffffff;
+  /* background: #f35a38; */
+  /* color: #ffffff; */
   font-weight: 600;
-  min-height: 50px;
-  padding: 0 35px;
+  /* min-height: 50px;
+  padding: 0 35px; */
   border-radius: 30px;
 }
 
