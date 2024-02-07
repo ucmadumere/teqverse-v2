@@ -41,6 +41,7 @@ const validatePassword = require('../../validators/passwordValidator');
 
         interest: {
             type: String,
+            default: [] 
         },
 
         role: {

@@ -41,6 +41,10 @@ const PostJobSchema = new Schema({
         enum: ['normal', 'premium'],
         default: 'normal'
     },
+    skills: { 
+        type: [String], 
+        default: [] 
+    },
     closingDate: { 
         type: String, 
         required: true

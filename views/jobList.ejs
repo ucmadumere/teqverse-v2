@@ -186,7 +186,7 @@
                                     <div class="meta-title">
                                       <span class="post-date"><i class="fas fa-clock"></i> <%= recommendedJob.createdAt.toDateString() %></span>
                                     </div>
-                                    <a href="<%= recommendedJob.url %>"><%= recommendedJob.title %></a>
+                                    <a href="/jobdetails/<%= recommendedJob._id %>"><%= recommendedJob.title %></a>
                                   </div>
                                 </li>
                               <% }) %>
