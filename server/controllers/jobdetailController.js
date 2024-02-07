@@ -14,12 +14,12 @@ const jobdetail = async (req, res) => {
 
     let slug = req.params.id;
 
-    const jobId = req.params.id; // Replace with your actual way of getting the job ID
+    const jobId = req.params.id;
     const data = await Postjob.findById({ _id: slug });
     const job = await Postjob.findById(jobId).exec();
 
     // Get user's interests
-    const userId = req.user ? req.user.id : null;  // Assuming you have a user object in req.user
+    const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
     const user = await User.findById(userId).exec();
 
     let recommendedJobs = [];
