@@ -36,7 +36,8 @@ const createJob = async (req, res) => {
       requirements,
       jobCategory, 
       closingDate,
-      methodOfApplication
+      methodOfApplication,
+      skills
     } = req.body;
 
     // Check if the job category is valid
@@ -56,7 +57,8 @@ const createJob = async (req, res) => {
       requirements,
       jobCategory, 
       closingDate,
-      methodOfApplication
+      methodOfApplication,
+      skills
     });
 
     // Save the new postJob object to the database
@@ -131,6 +133,7 @@ const updatejob = async (req, res) => {
       jobCategory: req.body.jobCategory,
       closingDate: req.body.closingDate,
       methodOfApplication: req.body.methodOfApplication,
+      skills: req.body.skills,
       updatedAt: Date.now(),
       
     });
@@ -162,6 +165,7 @@ const getEditJob = async (req, res) => {
       jobCategory: req.body.jobCategory,
       closingDate: req.body.closingDate,
       methodOfApplication: req.body.methodOfApplication,
+      skills: req.body.skills,
     };
 
     const data = await PostJob.findOne({ _id: req.params.id });
@@ -186,7 +190,7 @@ const getEditJob = async (req, res) => {
 
 const deleteJob = async (req, res) => {
   try {
-    await postJob.deleteOne({ _id: req.params.id });
+    await PostJob.deleteOne({ _id: req.params.id });
     res.redirect('/dashboard2');
   } catch (error) {
     console.log(error);
