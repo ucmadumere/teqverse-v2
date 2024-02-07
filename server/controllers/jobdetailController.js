@@ -18,7 +18,7 @@ const jobdetail = async (req, res) => {
     const data = await Postjob.findById({ _id: slug });
     const job = await Postjob.findById(jobId).exec();
 
-    // Get user's interests
+    // Get user's interest
     const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
     const user = await User.findById(userId).exec();
 
