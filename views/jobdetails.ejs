@@ -52,7 +52,6 @@
                                     <%= data.experience %> years
                                 </p>
                                 <% } else { %>
-                                    <!-- Content for Internship case -->
                                     <p>
                                         No Experience Needed
                                     </p>
@@ -205,45 +204,26 @@
                 <!-- Start Sidebar -->
                 <div class="sidebar col-lg-4 col-md-12">
                     <aside>
-                        <!-- <div class="sidebar-item search">
-                            <div class="sidebar-info">
-                                <form>
-                                    <input type="text" name="text" class="form-control">
-                                    <button type="submit"><i class="fas fa-search"></i></button>
-                                </form>
-                            </div>
-                        </div> -->
+                        <!-- Dynamic Recommended Job Post  -->
                         <div class="sidebar-item recent-post">
                             <div class="title">
-                                <h4>Recent Post</h4>
+                              <h4>Recommended Jobs</h4>
                             </div>
                             <ul>
+                              <% recommendedJobs.forEach(recommendedJob => { %>
                                 <li>
-                                    <div class="info">
-                                        <div class="meta-title">
-                                            <span class="post-date"><i class="fas fa-clock"></i> 12 Feb, 2021</span>
-                                        </div>
-                                        <a href="#">Commanded household smallness delivered.</a>
+                                  <div class="info">
+                                    <div class="meta-title">
+                                      <span class="post-date"><i class="fas fa-clock"></i> <%= recommendedJob.createdAt.toDateString() %></span>
                                     </div>
+                                    <a href="<%= recommendedJob.url %>"><%= recommendedJob.title %></a>
+                                  </div>
                                 </li>
-                                <li>
-                                    <div class="info">
-                                        <div class="meta-title">
-                                            <span class="post-date"><i class="fas fa-clock"></i> 05 Jul, 2021</span>
-                                        </div>
-                                        <a href="#">Future Plan & Strategy for Consutruction </a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="info">
-                                        <div class="meta-title">
-                                            <span class="post-date"><i class="fas fa-clock"></i> 29 Aug, 2021</span>
-                                        </div>
-                                        <a href="#">Melancholy particular devonshire alteration</a>
-                                    </div>
-                                </li>
+                              <% }) %>
                             </ul>
-                        </div>
+                          </div>
+                          
+                        <!-- Dynamic Recommended Job Post Ends Here  -->
                         <!-- <div class="sidebar-item category">
                             <div class="title">
                                 <h4>category list</h4>
@@ -276,29 +256,25 @@
                             <div class="sidebar-info">
                                 <ul>
                                     <li class="facebook">
-                                        <a href="#">
+                                        <a href="https://www.facebook.com/profile.php?id=61555619157391&mibextid=ZbWKwL">
                                             <i class="fab fa-facebook-f"></i>
                                         </a>
                                     </li>
-                                    <li class="twitter">
-                                        <a href="#">
-                                            <i class="fab fa-twitter"></i>
+                                    <li class="instagram">
+                                        <a href="https://www.instagram.com/teqverse?igsh=MjhhZWJ6bWoyazNk"><i class="fab fa-instagram"></i></a>
+                                    </li>
+                                    <li class="">
+                                        <a href="https://twitter.com/teqverse56653">
+                                            <i class="fab fa-xing"></i>
                                         </a>
                                     </li>
                                     <li class="pinterest">
-                                        <a href="#">
-                                            <i class="fab fa-pinterest"></i>
+                                        <a href="https://www.youtube.com/@TEQVERSE-ou4sv">
+                                            <i class="fab fa-youtube"></i>
                                         </a>
                                     </li>
-                                    <li class="g-plus">
-                                        <a href="#">
-                                            <i class="fab fa-google-plus-g"></i>
-                                        </a>
-                                    </li>
-                                    <li class="linkedin">
-                                        <a href="#">
-                                            <i class="fab fa-linkedin-in"></i>
-                                        </a>
+                                    <li class="">
+                                        <a href="https://www.tiktok.com/@teqverse?_t=8jODJgriF7e&_r=1"> <i class="fab fa-tiktok fa-3x" style="color: white;"></i></a>
                                     </li>
                                 </ul>
                             </div>

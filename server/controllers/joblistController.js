@@ -1,4 +1,5 @@
 const Postjob = require('../models/postJob');
+const User = require('../models/userModel');
 
 
 
@@ -54,23 +55,35 @@ const joblist = async (req, res) => {
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
+    // Get user's interests
+    const userId = req.user ? req.user.id : null;  // Assuming you have a user object in req.user
+    const user = await User.findById(userId).exec();
+
+    let recommendedJobs = [];
+    if (user && user.interest) {
+      // If user has specified interest, find jobs matching those interests
+      recommendedJobs = await Postjob.find({ jobCategory: { $in: user.interest } })
+        .limit(3)  // Limit to 3 recommended jobs
+        .sort({ createdAt: -1 });
+    }
+
     res.render('jobList', {
       data: jobs,
       locals,
       page,
       totalPages,
       searchTerm,
-      jobLocation: req.query.jobLocation, 
-      experience: req.query.experience, 
-      workType: req.query.workType, 
-      jobType: req.query.jobType, 
+      jobLocation: req.query.jobLocation,
+      experience: req.query.experience,
+      workType: req.query.workType,
+      jobType: req.query.jobType,
       jobCategory: req.body.jobCategory,
+      recommendedJobs,  // Pass recommended jobs to the view
     });
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
 };
-
 
 module.exports = joblist;

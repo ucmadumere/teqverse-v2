@@ -41,7 +41,6 @@ const validatePassword = require('../../validators/passwordValidator');
 
         Interest: {
             type: String,
-            enum: ['python', 'frontend'],
         },
 
         role: {
