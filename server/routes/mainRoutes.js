@@ -76,13 +76,13 @@ router.get('/media', checkUser, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  RESOURCES ROUTE                                                   **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/resources', checkUser, (req, res) => {
+router.get('/resources', checkUser, requireAuth, (req, res) => {
     res.render('resources');
 });
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  LEARNING ROUTE                                                    **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/learning', checkUser, (req, res) => {
+router.get('/learning', checkUser, requireAuth, (req, res) => {
     res.render('learning');
 });
 router.get('/learning-mentor', (req, res) => {

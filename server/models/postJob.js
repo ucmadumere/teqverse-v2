@@ -38,8 +38,8 @@ const PostJobSchema = new Schema({
     },
     jobCategory: {
         type: String,
-        enum: ['normal', 'premium'],
-        default: 'normal'
+        enum: ['Regular', 'Premium'],
+        default: 'Regular'
     },
     closingDate: { 
         type: String, 

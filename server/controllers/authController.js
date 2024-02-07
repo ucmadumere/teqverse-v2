@@ -80,7 +80,7 @@ const register = async (req, res) => {
   
       await newUser.save();
   
-      res.redirect('/?success=You have been successfully Registered');
+      res.redirect('login?success=You have been successfully Registered');
     } catch (error) {
       console.error(error);
       res.status(500).render('error500', {

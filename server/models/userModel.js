@@ -51,8 +51,8 @@ const validatePassword = require('../../validators/passwordValidator');
 
         userCategory: {
             type: String,
-            enum: ['normal', 'premium'],
-            default: 'normal'
+            enum: ['Regular', 'Premium'],
+            default: 'Regular'
         },
 
         password: {

@@ -1,5 +1,6 @@
 const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
+const jwt = require('jsonwebtoken')
 
 
 

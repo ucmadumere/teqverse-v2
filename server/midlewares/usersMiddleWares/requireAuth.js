@@ -59,6 +59,25 @@ const requireAuth = async (req, res, next) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                  Check decodes token and send user details to the front end                        **/
 /**--------------------------------------------------------------------------------------------------- **/
+// const checkUser = async (req, res, next) => {
+//   const token = req.cookies.token;
+
+//   try {
+//     if (token) {
+//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+//       const user = await User.findById(decodedToken.userId);
+//       res.locals.user = user;
+//     } else {
+//       res.locals.user = null;
+//     }
+//     next();
+//   } catch (error) {
+//     console.error(error);
+//     res.locals.user = null;
+//     next();
+//   }
+// };
+
 const checkUser = async (req, res, next) => {
   const token = req.cookies.token;
 
@@ -66,7 +85,12 @@ const checkUser = async (req, res, next) => {
     if (token) {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decodedToken.userId);
-      res.locals.user = user;
+      // Fetch additional details like other_names, interest, etc.
+      // For example:
+      const additionalDetails = await fetchAdditionalDetails(user);
+      // Merge user details with additional details
+      const mergedUser = { ...user._doc, ...additionalDetails };
+      res.locals.user = mergedUser;
     } else {
       res.locals.user = null;
     }
@@ -77,6 +101,21 @@ const checkUser = async (req, res, next) => {
     next();
   }
 };
+
+// Function to fetch additional details from the database
+const fetchAdditionalDetails = async (user) => {
+  try {
+    // Example: Fetch additional details from the database based on user ID
+    // Replace this with your actual logic
+    const additionalDetails = await User.findById(user._id).select('other_names interest');
+    return additionalDetails;
+  } catch (error) {
+    console.error('Error fetching additional details:', error);
+    return {};
+  }
+};
+
+
 
 
 
@@ -131,12 +170,12 @@ const checkPremiumUser = async (req, res, next) => {
     
 
     // Check if the user is eligible based on their user category and the job category
-    if ((user.userCategory === 'premium' && job.jobCategory === 'premium') ||
-        (user.userCategory === 'normal' && job.jobCategory === 'normal') ||
-        (user.userCategory === 'premium' && job.jobCategory === 'normal')) {
+    if ((user.userCategory === 'Premium' && job.jobCategory === 'Premium') ||
+        (user.userCategory === 'Regular' && job.jobCategory === 'Regular') ||
+        (user.userCategory === 'Premium' && job.jobCategory === 'Regular')) {
       // User is eligible to apply for the job
       next();
-    } else if (user.userCategory === 'normal' && job.jobCategory === 'premium') {
+    } else if (user.userCategory === 'Regular' && job.jobCategory === 'Premium') {
       // User is not eligible for premium job
       return res.status(403).send('User is not eligible to apply for this premium job');
     } else {
