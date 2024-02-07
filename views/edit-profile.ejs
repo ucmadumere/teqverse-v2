@@ -251,8 +251,9 @@
 														</div>
 													</div>
 													<div class="author-info">
-														<h6 class="title">Nella Vita</h6>
-														<span>Developer</span>
+														<h6 class="title"><%= user.first_name %> <%= user.other_name %> <%= user.last_name %></h6>
+														<span><strong>Developer</strong></span>
+														<span><%= user.email %></span>
 													</div>
 												</div>
 											</div>
@@ -269,7 +270,7 @@
 												<div class="form-control rounded text-center bg-white">Portfolio</div>
 											</div>
 											<div class="input-group">
-												<a href="#" class="form-control text-primary rounded text-start bg-white">teqverse</a>
+												<a href="#" class="form-control text-primary rounded text-center bg-white">teqverse</a>
 											</div>
 										</div>
 									</div>
@@ -280,20 +281,30 @@
 									<div class="card-header">
 										<h6 class="card-title">Account setup</h6>
 									</div>
-									<form class="profile-form">
+
+									<% if (user) {%>
+									<form class="profile-form" id="update-profile" method="POST" action="update-profile" enctype="multipart/form-data">
 										<div class="card-body">
 											<div class="row">
 												<div class="col-sm-6 m-b30">
-													<label class="form-label">Name</label>
-													<input type="text" class="form-control" value="John">
+													<label class="form-label">First Name</label>
+													<input type="text" name="first_name" class="form-control" value=" <%= user.first_name %>" readonly>
 												</div>
 												<div class="col-sm-6 m-b30">
-													<label class="form-label">Surname</label>
-													<input type="text" class="form-control">
+													<label class="form-label">Other Names</label>
+													<input type="text" name="other_name" class="form-control" value="<%= user.other_name %>">
+												</div>
+												<div class="col-sm-6 m-b30">
+													<label class="form-label">Last Name</label>
+													<input type="text" name="last_name" class="form-control" value="<%= user.last_name %>" readonly >
 												</div>
 												<div class="col-sm-6 m-b30">
 													<label class="form-label">Specialty</label>
 													<input type="text" class="form-control" value="Developer">
+												</div>
+												<div class="col-sm-6 m-b30">
+													<label class="form-label">Interest</label>
+													<input type="text" name="interest" class="form-control" value="<%= user.interest %>">
 												</div>
 												<div class="col-sm-6 m-b30">
 													<label class="form-label">Skills</label>
@@ -318,7 +329,7 @@
 												</div>
 												<div class="col-sm-6 m-b30">
 													<label class="form-label">Email address</label>
-													<input type="text" class="form-control" value="demo@gmail.com">
+													<input type="text" class="form-control" value="<%= user.email %>" readonly>
 												</div>
 												<div class="col-sm-6 m-b30">
 													<label class="form-label">Country</label>
@@ -330,6 +341,7 @@
 														<option value="india">India</option>
 													</select>
 												</div>
+												
 												<div class="col-sm-6 m-b30">
 													<label class="form-label">City</label>
 													<select class="default-select form-control" id="validationCustom02">
@@ -347,6 +359,7 @@
 											<a href="page-register.html" class="btn-link ms-3">Forgot your password?</a>
 										</div>
 									</form>
+									<% } %>
 								</div>
 							</div>
 						</div>

@@ -8,7 +8,7 @@ const adminLayout = '../views/layouts/adminLogin';
 const jwt = require('jsonwebtoken');
 const { requireAuth, checkUser, redirectIfAuthenticated, checkPremiumUser } = require('../midlewares/usersMiddleWares/requireAuth')
 
-const profileImageController = require('../controllers/uploadImageController');
+const profileImageController = require('../controllers/updateProfileController');
 
 const {applyPremiumjob, getApplypremiumJob} = require('../controllers/premiumJobController');
 const jobdetail = require('../controllers/jobdetailController');
@@ -16,39 +16,14 @@ const jobdetail = require('../controllers/jobdetailController');
 const Review = require('../models/review');
 const {getUserReview, postUserReview} = require('../controllers/reviewController')
 const upload = require('../multerConfig')
-
-//Multer confi
-// const multer = require('multer');
-// const storage = multer.diskStorage({
-//   destination:function(request, file, callback){
-//     callback(null, 'uploads/cvs');
-//   },
-
-//   filename: function(request, file, callback){
-//     callback(null, Date.now() + '-' + file.originalname);
-//   },
-// });
-
-
-// const upload = multer({
-//   storage: storage,
-//   limits:{
-//     fieldNameSize:1024*1024*3
-//   },
-// });
+const update = require('../controllers/updateProfileController')
+const updateUser = require('../controllers/userController')
 
 
 
 
 
 
-
-
-router.get('/upload-profile-image', checkUser, (req, res) => {
-  res.render('upload-profile-image', {layout: adminLayout}); 
-});
-
-router.post('/upload-profile-image', checkUser, profileImageController.uploadProfileImage);
 
 
 
@@ -156,10 +131,13 @@ router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  EDIT PROFILE ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/edit-profile', checkUser, requireAuth, (req, res) => {
+router.get('/update-profile', checkUser, requireAuth, (req, res) => {
   res.render('edit-profile', {layout: adminLayout});
 });
-//router.post('/edit-profile', edit)
+
+router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => {
+
+});
 
 router.get('/user-profile', checkUser, requireAuth, (req, res) => {
   res.render('user-profile', {layout: adminLayout});

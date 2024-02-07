@@ -53,8 +53,7 @@ const postUserReview = async (req, res) => {
         // You can use the userId to fetch the user's details from the database
         // Replace this with your actual code to retrieve user details
         const user = await User.findById(userId).exec();
-        console.log(user.first_name)
-        console.log(user)
+        
 
         if (!user) {
             // Handle case where user is not found
@@ -67,7 +66,7 @@ const postUserReview = async (req, res) => {
 
         if (existingReview) {
             // User has already submitted a review
-            res.status(400).send('You have already submitted a review');
+            res.redirect('user-review?failure=This User Has Already Created a Review')
             return;
         }
         // If not, proceed to create a new review
@@ -93,7 +92,7 @@ const postUserReview = async (req, res) => {
         await newReview.save();
 
         // Redirect to the user-review page or display a success message
-        res.redirect('/user-review');
+        res.redirect('user-review?success=Review Ctreated Successfully')
     } catch (error) {
         // Handle errors
         console.error('Error creating review:', error);

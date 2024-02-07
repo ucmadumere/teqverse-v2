@@ -8,24 +8,48 @@ const PostJob = require('../../models/postJob');
 /**--------------------------------------------------------------------------------------------------- **/
 /**                            Portects Routes from Un-Authenticated users                             **/
 /**--------------------------------------------------------------------------------------------------- **/
-const requireAuth = (req, res, next) => {
+// const requireAuth = (req, res, next) => {
+//   const token = req.cookies.token;
+
+//   if (token) {
+//     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
+//       if (err) {
+//         res.redirect("/login");
+//       } else {
+//         req.user = user;
+//       }
+//     });
+//   } else {
+//     res.status(400).render('login', {
+
+//       layout: userLayout,
+//     });
+//   }
+// };
+
+const requireAuth = async (req, res, next) => {
   const token = req.cookies.token;
 
   if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-      if (err) {
-        res.redirect("/login");
-      } else {
-        next();
-      }
-    });
-  } else {
-    res.status(400).render('login', {
+    try {
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const user = await User.findById(decodedToken.userId);
 
-      layout: userLayout,
-    });
+      if (!user) {
+        res.redirect('login?failure= User Not Found, Please Sign In')
+      }
+
+      req.user = user; // Attach user information to the request object
+      next();
+    } catch (error) {
+      res.redirect('login?failure=Unauthorized, Please Sign In')
+
+    }
+  } else {
+    res.redirect('login?failure=Unauthorized, Please Sign In')
   }
 };
+
 
 
 
@@ -63,7 +87,7 @@ const checkUser = async (req, res, next) => {
 /**--------------------------------------------------------------------------------------------------- **/
 const redirectIfAuthenticated = (req, res, next) => {
   if (res.locals.user) {
-    return res.redirect('/');
+    return res.redirect('/?failure= This User is Already Signed In, You Can Sign out and Sign Back In');
   }
   return next();
 };

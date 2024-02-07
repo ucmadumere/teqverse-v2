@@ -39,7 +39,7 @@ const validatePassword = require('../../validators/passwordValidator');
         default: 'avatar.jpg'
         },
 
-        Interest: {
+        interest: {
             type: String,
         },
 

@@ -64,21 +64,11 @@ const register = async (req, res) => {
   
       const existingUser = await User.findOne({ email });
       if (existingUser) {
-        return res.status(400).render('error400', {
-            errorCode: 400, 
-            errorMessage: 'Existing User',
-            errorDescription: 'Sorry, A User with the entered email already exists. Please log in.',
-            layout: userLayout,
-        });
+        return res.redirect('login?failure= A User with this details already exists in the system. Please sign in')
       };
 
       if (password !== password2) {
-        return res.status(400).render('error400', {
-            errorCode: 400,
-            errorMessage: 'Password Missmatch...',
-            errorDescription: 'Sorry, Password did not match...',
-            layout: userLayout,
-        });
+        return res.redirect('signup?failure= Password Mismatch...')
       };
   
       const newUser = new User({

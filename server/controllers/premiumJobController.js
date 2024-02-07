@@ -4,28 +4,12 @@ const userLayout = "../views/layouts/userLogin";
 const jwt = require("jsonwebtoken");
 const postJob = require("../models/postJob");
 
-// // Controller function to render the job application form
-// const getApplypremiumJob = (req, res) => {
-//   try {
-//     // Decode the JWT token to extract user details
-//     const token = req.cookies.token;
-//     console.log(token)
-//     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-//     const { userId } = decodedToken;
-//     console.log(decodedToken)
 
-//     // Assuming you have a way to retrieve user details from the database
-//     // You can use the userId to fetch the user's details from the database
-//     // Replace this with your actual code to retrieve user details
-//     const user = User.findById(userId);
 
-//     // Pass the user's details to the template for pre-filling the form
-//     res.render('apply-premiumJob', { user });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('An error occurred while processing your request.');
-//   }
-// };
+
+
+
+
 
 // Controller function to render the job application form
 const getApplypremiumJob = async (req, res) => {
@@ -139,6 +123,8 @@ const applyPremiumjob = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
 
 module.exports = {
   applyPremiumjob,
