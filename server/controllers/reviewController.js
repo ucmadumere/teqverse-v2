@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const Review = require('../models/review');
 const adminLayout = '../views/layouts/adminLogin';
-// GET
+
 
 const getUserReview = async (req, res) => {
     try {

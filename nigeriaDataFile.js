@@ -1,17 +1,14 @@
-const { Country, State, City } = require('country-state-city');
 const fs = require('fs');
+const ccsj = require('countrycitystatejson');
 
 // Get all countries
-const countries = Country.getAllCountries();
+const countries = ccsj.getCountries();
 
 // Get all states and cities for each country
 const allData = countries.map(country => {
-    const states = State.getStatesOfCountry(country.isoCode);
+    const states = ccsj.getStatesByShort(country.shortName);
     const cities = states.reduce((cityList, state) => {
-        const stateCities = City.getCitiesOfState(state.isoCode);
-        if (stateCities.length === 0) {
-            console.log(`No cities found for state: ${state.name}, ISO Code: ${state.isoCode}`);
-        }
+        const stateCities = ccsj.getCities(country.shortName, state.name);
         return [...cityList, ...stateCities];
     }, []);
     return {
@@ -25,4 +22,3 @@ const allData = countries.map(country => {
 fs.writeFileSync('all-countries-data.json', JSON.stringify(allData, null, 2));
 
 console.log('All countries data has been saved to all-countries-data.json');
-
