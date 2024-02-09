@@ -251,23 +251,23 @@
                       <div class="mb-3">
                         <label for="jobType" class="form-label">Job Type</label>
                         <select class="form-select" name="jobType" id="jobType">
-                          <option value="">--Please choose an option--</option>
-                          <option value="Hybrid">Hybrid</option>
-                          <option value="Onsite">Onsite</option>
-                          <option value="Remote">Remote</option>
+                          <option value="" <% if (!data.jobType) { %>selected<% } %>>--Please choose an option--</option>
+                          <option value="Hybrid" <% if (data.jobType === 'Hybrid') { %>selected<% } %>>Hybrid</option>
+                          <option value="Onsite" <% if (data.jobType === 'Onsite') { %>selected<% } %>>Onsite</option>
+                          <option value="Remote" <% if (data.jobType === 'Remote') { %>selected<% } %>>Remote</option>
                         </select>
                       </div>
 
-                      <div class="mb-3">
-                        <label for="workType" class="form-label">Work Type</label>
-                        <select class="form-select" name="workType" id="workType">
-                          <option value="">--Please choose an option--</option>
-                          <option value="Contract">Contract</option>
-                          <option value="Full Time">Full Time</option>
-                          <option value="Part Time">Part Time</option>
-                          <option value="Internship">Internship</option>
-                        </select>
-                      </div>
+                        <div class="mb-3">
+                          <label for="workType" class="form-label">Work Type</label>
+                          <select class="form-select" name="workType" id="workType">
+                            <option value="" <% if (!data.workType) { %>selected<% } %>>--Please choose an option--</option>
+                            <option value="Contract" <% if (data.workType === 'Contract') { %>selected<% } %>>Contract</option>
+                            <option value="Full Time" <% if (data.workType === 'Full Time') { %>selected<% } %>>Full Time</option>
+                            <option value="Part Time" <% if (data.workType === 'Part Time') { %>selected<% } %>>Part Time</option>
+                            <option value="Internship" <% if (data.workType === 'Internship') { %>selected<% } %>>Internship</option>
+                          </select>
+                        </div>
 
                       <div class="mb-3">
                         <label for="jobOverview" class="form-label">Job Overview</label>
@@ -297,8 +297,8 @@
                       <div class="form-container">
                         <label for="jobCategory" class="form-label">Job Category:</label>
                         <select name="jobCategory" id="jobCategory" class="form-select">
-                            <option value="normal">Normal</option>
-                            <option value="premium">Premium</option>
+                          <option value="Regular" <% if (data.jobCategory === 'Regular') { %>selected<% } %>>Regular</option>
+                          <option value="Premium" <% if (data.jobCategory === 'Premium') { %>selected<% } %>>Premium</option>
                         </select>
                       </div>
                       <!-- Job category section -->

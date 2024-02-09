@@ -1,8 +1,6 @@
 const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
-
-
-
+const jwt = require('jsonwebtoken');
 
 const joblist = async (req, res) => {
   try {
@@ -27,7 +25,6 @@ const joblist = async (req, res) => {
       };
     }
 
-   
     if (req.query.jobLocation) {
       query.jobLocation = { $regex: req.query.jobLocation, $options: 'i' };
     }
@@ -55,17 +52,25 @@ const joblist = async (req, res) => {
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
-    // Get user's interests
-    const userId = req.user ? req.user.id : null;  // Assuming you have a user object in req.user
-    const user = await User.findById(userId).exec();
-
-    let recommendedJobs = [];
-    if (user && user.interest) {
-      // If user has specified interest, find jobs matching those interests
-      recommendedJobs = await Postjob.find({ jobCategory: { $in: user.interest } })
-        .limit(3)  // Limit to 3 recommended jobs
-        .sort({ createdAt: -1 });
-    }
+      // Get user's interest
+      const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
+      const userInterestResponse = await User.findById(userId).select('interest').exec();
+      const userInterest = userInterestResponse ? userInterestResponse.interest : [];
+      const allJobs = await Postjob.find().exec();
+      const allJobsSkills = await Postjob.find().select('skills').exec();
+      var userinterestnew= userInterest.split(",");
+      userinterestnew= userinterestnew.map(el => el.trim());
+      userinterestnew= userinterestnew.map(el => el.toLowerCase());
+  console.log(userinterestnew)
+  
+  
+  var recommendedJobs=[];
+  userinterestnew.map(item=>{
+  let allfound=allJobs.filter(element=>element.skills.includes(item.trim()));
+  recommendedJobs=[...recommendedJobs,...allfound];
+  
+  })
+  recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
 
     res.render('jobList', {
       data: jobs,
@@ -78,7 +83,7 @@ const joblist = async (req, res) => {
       workType: req.query.workType,
       jobType: req.query.jobType,
       jobCategory: req.body.jobCategory,
-      recommendedJobs,  // Pass recommended jobs to the view
+      recommendedJobs,
     });
   } catch (error) {
     console.error(error);
