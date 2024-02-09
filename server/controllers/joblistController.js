@@ -52,18 +52,25 @@ const joblist = async (req, res) => {
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
-    // Get user's interests
-    const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
-    const user = await User.findById(userId).exec();
-
-    let recommendedJobs = [];
-
-    // Filter jobs based on user's interests
-    if (user && user.interest) {
-      recommendedJobs = await Postjob.find({ skills: { $in: user.interest } })
-        .limit(3)  // Limit to 3 recommended jobs based on interests
-        .sort({ createdAt: -1 });
-    }
+      // Get user's interest
+      const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
+      const userInterestResponse = await User.findById(userId).select('interest').exec();
+      const userInterest = userInterestResponse ? userInterestResponse.interest : [];
+      const allJobs = await Postjob.find().exec();
+      const allJobsSkills = await Postjob.find().select('skills').exec();
+      var userinterestnew= userInterest.split(",");
+      userinterestnew= userinterestnew.map(el => el.trim());
+      userinterestnew= userinterestnew.map(el => el.toLowerCase());
+  console.log(userinterestnew)
+  
+  
+  var recommendedJobs=[];
+  userinterestnew.map(item=>{
+  let allfound=allJobs.filter(element=>element.skills.includes(item.trim()));
+  recommendedJobs=[...recommendedJobs,...allfound];
+  
+  })
+  recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
 
     res.render('jobList', {
       data: jobs,

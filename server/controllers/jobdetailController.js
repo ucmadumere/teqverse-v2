@@ -20,19 +20,23 @@ const jobdetail = async (req, res) => {
     const userInterest = userInterestResponse ? userInterestResponse.interest : [];
     const allJobs = await Postjob.find().exec();
     const allJobsSkills = await Postjob.find().select('skills').exec();
+    var userinterestnew= userInterest.split(",");
+    userinterestnew= userinterestnew.map(el => el.trim());
+    userinterestnew= userinterestnew.map(el => el.toLowerCase());
+   
+console.log(userinterestnew)
 
 
-    let recommendedJobs = [];
+var recommendedJobs=[];
+userinterestnew.map(item=>{
+let allfound=allJobs.filter(element=>element.skills.includes(item.trim()));
+recommendedJobs=[...recommendedJobs,...allfound];
 
-    allJobsSkills.map(item=>{
-      let allfound=allJobs.filter(element=>element.skills.includes(item));
-      recommendedJobs=[...recommendedJobs,...allfound];
-      
-      }) 
-      recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
+})
+recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
 
-    console.log(recommendedJobs);
-    console.log(userInterest);
+console.log(recommendedJobs)
+
 
     res.render('jobdetails', {
       locals,
