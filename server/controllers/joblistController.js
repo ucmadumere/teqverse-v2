@@ -52,28 +52,27 @@ const joblist = async (req, res) => {
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
-      // Get user's interest
-      const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
-      const userInterestResponse = await User.findById(userId).select('interest').exec();
-      const userInterest = userInterestResponse ? userInterestResponse.interest : [];
-      const allJobs = await Postjob.find().exec();
-      const allJobsSkills = await Postjob.find().select('skills').exec();
-      
-      // Convert interests to lowercase and trim whitespace
-      const userInterests = userInterest.map(interest => interest.toLowerCase().trim());
-      
-      // Find recommended jobs based on user interests
-      let recommendedJobs = [];
-      userInterests.forEach(interest => {
-        const foundJobs = allJobs.filter(job => job.skills.includes(interest));
-        recommendedJobs.push(...foundJobs);
-      });
-      
-      // Remove duplicate recommended jobs
-      recommendedJobs = recommendedJobs.filter((job, index, self) => index === self.findIndex(j => j.title === job.title));
-      
-      console.log(recommendedJobs);
-      
+       // Get user's interest
+    const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
+    const userInterestResponse = await User.findById(userId).select('interest').exec();
+    const userInterest = userInterestResponse ? userInterestResponse.interest : [];
+    const allJobs = await Postjob.find().exec();
+    const allJobsSkills = await Postjob.find().select('skills').exec();
+    var userinterestnew= userInterest.split(",");
+console.log(userinterestnew)
+console.log(allJobs)
+
+
+var recommendedJobs=[];
+userinterestnew.map(item=>{
+let allfound=allJobs.filter(element=>element.skills.includes(item.trim()));
+recommendedJobs=[...recommendedJobs,...allfound];
+
+})
+recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
+
+console.log(recommendedJobs)
+
 
     res.render('jobList', {
       data: jobs,
