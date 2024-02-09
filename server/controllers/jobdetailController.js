@@ -14,28 +14,22 @@ const jobdetail = async (req, res) => {
     const data = await Postjob.findById({ _id: jobId });
     const job = await Postjob.findById(jobId).exec();
 
-    // Get user's interest
-    const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
-    const userInterestResponse = await User.findById(userId).select('interest').exec();
-    const userInterest = userInterestResponse ? userInterestResponse.interest : [];
-    const allJobs = await Postjob.find().exec();
-    const allJobsSkills = await Postjob.find().select('skills').exec();
-    var userinterestnew = userInterest.split(",");
-    userinterestnew = userinterestnew.map(el => el.trim());
-    console.log(userinterestnew)
-    // console.log(allJobs)
+ // Get user's interest
+ const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
+ const userInterestResponse = await User.findById(userId).select('interest').exec();
+ const userInterest = userInterestResponse ? userInterestResponse.interest : [];
 
+ // Split user interests and convert to lowercase
+ const userInterests = userInterest.join(',').split(',').map(interest => interest.trim().toLowerCase());
 
-    var recommendedJobs = [];
-    userinterestnew.map(item => {
-      let allfound = allJobs.filter(element => element.skills.indexOf(item.trim()) > -1);
-    // console.log(allfound)
-      recommendedJobs = [...recommendedJobs, ...allfound];
+ // Find recommended jobs
+ const allJobs = await Postjob.find().exec();
+ const recommendedJobs = allJobs.filter(job => {
+   const jobSkills = job.skills.flatMap(skill => skill.split(',').map(skill => skill.trim().toLowerCase()));
+   return jobSkills.some(skill => userInterests.includes(skill));
+ });
 
-    })
-    recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
-
-    console.log(recommendedJobs)
+ console.log('Recommended Jobs:', recommendedJobs);
 
 
     res.render('jobdetails', {
