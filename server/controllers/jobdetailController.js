@@ -29,13 +29,14 @@ const jobdetail = async (req, res) => {
     var recommendedJobs = [];
     userinterestnew.map(item => {
       let allfound = allJobs.filter(element => element.skills.indexOf(item.trim()) > -1);
-    // console.log(allfound)
+    
       recommendedJobs = [...recommendedJobs, ...allfound];
-
+      // console.log(allfound)
     })
     recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
 
     console.log(recommendedJobs)
+   
 
 
     res.render('jobdetails', {
