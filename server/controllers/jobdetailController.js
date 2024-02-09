@@ -20,22 +20,22 @@ const jobdetail = async (req, res) => {
     const userInterest = userInterestResponse ? userInterestResponse.interest : [];
     const allJobs = await Postjob.find().exec();
     const allJobsSkills = await Postjob.find().select('skills').exec();
-    var userinterestnew= userInterest.split(",");
-    userinterestnew= userinterestnew.map(el => el.trim());
-    userinterestnew= userinterestnew.map(el => el.toLowerCase());
-   
-console.log(userinterestnew)
+    var userinterestnew = userInterest.split(",");
+    userinterestnew = userinterestnew.map(el => el.trim());
+    console.log(userinterestnew)
+    // console.log(allJobs)
 
 
-var recommendedJobs=[];
-userinterestnew.map(item=>{
-let allfound=allJobs.filter(element=>element.skills.includes(item.trim()));
-recommendedJobs=[...recommendedJobs,...allfound];
+    var recommendedJobs = [];
+    userinterestnew.map(item => {
+      let allfound = allJobs.filter(element => element.skills.indexOf(item.trim()) > -1);
+    // console.log(allfound)
+      recommendedJobs = [...recommendedJobs, ...allfound];
 
-})
-recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
+    })
+    recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
 
-console.log(recommendedJobs)
+    console.log(recommendedJobs)
 
 
     res.render('jobdetails', {
@@ -55,11 +55,11 @@ module.exports = jobdetail;
 
 
 
-    // if (Array.isArray(userInterest) && userInterest.length > 0) {
-    //   allJobs.map(item => {
-    //     let allfound = allJobs.filter(element => element.allJobs && element.allJobs.includes(item));
-    //     recommendedJobs = [...recommendedJobs, ...allfound];
-    //   });
+// if (Array.isArray(userInterest) && userInterest.length > 0) {
+//   allJobs.map(item => {
+//     let allfound = allJobs.filter(element => element.allJobs && element.allJobs.includes(item));
+//     recommendedJobs = [...recommendedJobs, ...allfound];
+//   });
 
-    //   recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
-    // }
+//   recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
+// }
