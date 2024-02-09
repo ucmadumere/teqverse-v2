@@ -1,8 +1,6 @@
 const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
-
-
-
+const jwt = require('jsonwebtoken');
 
 const joblist = async (req, res) => {
   try {
@@ -27,7 +25,6 @@ const joblist = async (req, res) => {
       };
     }
 
-   
     if (req.query.jobLocation) {
       query.jobLocation = { $regex: req.query.jobLocation, $options: 'i' };
     }
@@ -56,14 +53,15 @@ const joblist = async (req, res) => {
       .limit(pageSize);
 
     // Get user's interests
-    const userId = req.user ? req.user.id : null;  // Assuming you have a user object in req.user
+    const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
     const user = await User.findById(userId).exec();
 
     let recommendedJobs = [];
+
+    // Filter jobs based on user's interests
     if (user && user.interest) {
-      // If user has specified interest, find jobs matching those interests
-      recommendedJobs = await Postjob.find({ jobCategory: { $in: user.interest } })
-        .limit(3)  // Limit to 3 recommended jobs
+      recommendedJobs = await Postjob.find({ skills: { $in: user.interest } })
+        .limit(3)  // Limit to 3 recommended jobs based on interests
         .sort({ createdAt: -1 });
     }
 
@@ -78,7 +76,7 @@ const joblist = async (req, res) => {
       workType: req.query.workType,
       jobType: req.query.jobType,
       jobCategory: req.body.jobCategory,
-      recommendedJobs,  // Pass recommended jobs to the view
+      recommendedJobs,
     });
   } catch (error) {
     console.error(error);

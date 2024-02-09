@@ -64,3 +64,4 @@ const PostJobSchema = new Schema({
 });
 
 module.exports = mongoose.model('postJob', PostJobSchema);
+

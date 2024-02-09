@@ -41,7 +41,7 @@ const createJob = async (req, res) => {
     } = req.body;
 
     // Check if the job category is valid
-    if (jobCategory !== 'normal' && jobCategory !== 'premium') {
+    if (jobCategory !== 'Regular' && jobCategory !== 'Premium') {
       return res.status(400).send('Invalid job category');
     }
 
