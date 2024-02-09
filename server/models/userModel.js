@@ -47,9 +47,8 @@ const userSchema = mongoose.Schema(
         },
 
         interest: {
-            type: String,
+            type: [String],
             default: [],
-            required: false
         },
 
         role: {
@@ -60,8 +59,8 @@ const userSchema = mongoose.Schema(
 
         userCategory: {
             type: String,
-            enum: ['normal', 'premium'],
-            default: 'normal'
+            enum: ['Regular', 'Premium'],
+            default: 'Regular'
         },
 
         password: {
