@@ -317,6 +317,21 @@ button:hover {
     min-width: 150px;
   }
 
+  .submit-btn {
+    border: 2px solid #f35a38 !important;
+    background-color: #f35a38 !important;
+    color: #ffffff !important;
+    padding: 8px 10px !important;
+    font-weight: 700 !important;
+    border-radius: 5px !important;
+    transition: all 0.35s ease-in-out !important;
+    width: 11%;
+  }
+  .submit-btn:hover {
+    background: #0e2258 !important;
+    border-color: #0e2258 !important;
+  }
+
 .mfp-iframe-holder .mfp-close,
 .mfp-iframe-holder .mfp-close:hover {
   background: transparent !important;
