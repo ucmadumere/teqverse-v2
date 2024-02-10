@@ -1,8 +1,6 @@
 const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
-
-
-
+const jwt = require('jsonwebtoken');
 
 const joblist = async (req, res) => {
   try {
@@ -27,7 +25,6 @@ const joblist = async (req, res) => {
       };
     }
 
-   
     if (req.query.jobLocation) {
       query.jobLocation = { $regex: req.query.jobLocation, $options: 'i' };
     }
@@ -55,17 +52,29 @@ const joblist = async (req, res) => {
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
-    // Get user's interests
-    const userId = req.user ? req.user.id : null;  // Assuming you have a user object in req.user
-    const user = await User.findById(userId).exec();
+// Get user's interest
+const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
+const userInterestResponse = await User.findById(userId).select('interest').exec();
+let userInterest = userInterestResponse ? userInterestResponse.interest : [];
 
-    let recommendedJobs = [];
-    if (user && user.interest) {
-      // If user has specified interest, find jobs matching those interests
-      recommendedJobs = await Postjob.find({ jobCategory: { $in: user.interest } })
-        .limit(3)  // Limit to 3 recommended jobs
-        .sort({ createdAt: -1 });
-    }
+// Split user interests and convert to lowercase
+if (Array.isArray(userInterest)) {
+  userInterest = userInterest.join(' ');
+}
+const userInterests = userInterest.split(' ').map(interest => interest.trim().toLowerCase());
+
+
+
+// Find recommended jobs
+const recommendedJobs = await Postjob.find({
+  skills: {
+    $in: userInterests
+  }
+}).collation({ locale: 'en', strength: 2 }).exec(); // Use collation for case-insensitive match
+
+
+console.log('Recommended Jobs:', recommendedJobs);
+
 
     res.render('jobList', {
       data: jobs,
@@ -78,7 +87,7 @@ const joblist = async (req, res) => {
       workType: req.query.workType,
       jobType: req.query.jobType,
       jobCategory: req.body.jobCategory,
-      recommendedJobs,  // Pass recommended jobs to the view
+      recommendedJobs,
     });
   } catch (error) {
     console.error(error);

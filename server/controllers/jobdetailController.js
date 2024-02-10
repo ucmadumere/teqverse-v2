@@ -1,9 +1,6 @@
 const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
-const jwt = require('jsonwebtoken')
-
-
-
+const jwt = require('jsonwebtoken');
 
 // Define the jobdetail function
 const jobdetail = async (req, res) => {
@@ -13,33 +10,26 @@ const jobdetail = async (req, res) => {
       description: "Job Detail"
     };
 
-    let slug = req.params.id;
-
     const jobId = req.params.id;
-    const data = await Postjob.findById({ _id: slug });
+    const data = await Postjob.findById({ _id: jobId });
     const job = await Postjob.findById(jobId).exec();
 
-   // Get user's interest
-   const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
-   const user = await User.findById(userId).exec();
+ // Get user's interest
+ const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
+ const userInterestResponse = await User.findById(userId).select('interest').exec();
+ const userInterest = userInterestResponse ? userInterestResponse.interest : [];
 
-   let recommendedJobs = [];
-   if (user && user.interest) {
-     // If user has specified interest, find jobs matching those interests
-     recommendedJobs = await Postjob.find({ jobCategory: { $in: user.interest } })
-       .limit(3)  // Limit to 3 recommended jobs
-       .sort({ createdAt: -1 });
-   }
+ // Split user interests and convert to lowercase
+ const userInterests = userInterest.join(',').split(',').map(interest => interest.trim().toLowerCase());
 
-   // Additionally, find jobs based on job skills
-   if (data && data.skills) {
-     const matchingJobs = await Postjob.find({ skills: { $in: data.skills } })
-       .limit(3)  // Limit to 3 matching jobs
-       .sort({ createdAt: -1 });
+ // Find recommended jobs
+ const allJobs = await Postjob.find().exec();
+ const recommendedJobs = allJobs.filter(job => {
+   const jobSkills = job.skills.flatMap(skill => skill.split(',').map(skill => skill.trim().toLowerCase()));
+   return jobSkills.some(skill => userInterests.includes(skill));
+ });
 
-     // Merge the two arrays of jobs (recommendedJobs and matchingJobs)
-     recommendedJobs = [...recommendedJobs, ...matchingJobs];
-   }
+ console.log('Recommended Jobs:', recommendedJobs);
 
 
     res.render('jobdetails', {
@@ -47,7 +37,7 @@ const jobdetail = async (req, res) => {
       data,
       job,
       recommendedJobs,
-      currentRoute: `/jobdetails/${slug}`
+      currentRoute: `/jobdetails/${jobId}`
     });
   } catch (error) {
     console.log(error);
@@ -55,5 +45,15 @@ const jobdetail = async (req, res) => {
   }
 };
 
-
 module.exports = jobdetail;
+
+
+
+// if (Array.isArray(userInterest) && userInterest.length > 0) {
+//   allJobs.map(item => {
+//     let allfound = allJobs.filter(element => element.allJobs && element.allJobs.includes(item));
+//     recommendedJobs = [...recommendedJobs, ...allfound];
+//   });
+
+//   recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
+// }

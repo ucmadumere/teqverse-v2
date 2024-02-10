@@ -70,11 +70,11 @@
 							  greeting="Good Morning" ; } else if (currentHour < 18) { greeting="Good Afternoon" ; } else {
 							  greeting="Good Evening" ; } %>
 							  <div class="header-media">
-								<img src="images/user.jpg" class="avatar avatar-lg" alt="" />
+								<img src="<%= user.profilepicture %>" class="avatar avatar-lg" alt="" />
 							  </div>
 							  <div class="header-info">
 								<h6>
-								  <%= greeting %>, <%= user.first_name %>
+								  <%= greeting %>, <%= user.name %>
 								</h6>
 								<p>
 								  <%= user.email %>
@@ -90,7 +90,7 @@
 							<div class="profile-box">
 							  <div class="products">
 								<div class="border-img">
-								  <img src="images/user.jpg" class="avatar" alt="" />
+								  <img src="<%= user.profilepicture %>" class="avatar" alt="" />
 								</div>
 								<div class="ms-3">
 								  <h6 class="mb-0">
@@ -1587,6 +1587,7 @@
 											</div>
 										</div>
 									</div>
+									
 									<div class="col-xl-12">
 										<h4 class="card-title my-2 mb-3 fs-20">User Reviews</h4>
 										<div class="swiper mySwiper">

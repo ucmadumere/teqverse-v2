@@ -21,11 +21,7 @@ const updateUser = require('../controllers/userController')
 
 
 
-
-
-
-
-
+router.post('/profileimage', checkUser, requireAuth, )
 
 
 
@@ -131,7 +127,7 @@ router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  EDIT PROFILE ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/update-profile', checkUser, requireAuth, (req, res) => {
+router.get('/update-profile', checkUser, requireAuth, async (req, res) => {
   try {
     const locals = {
       title: 'TeqVerse - Edit Profile'
@@ -144,15 +140,14 @@ router.get('/update-profile', checkUser, requireAuth, (req, res) => {
   
 });
 
-router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => {
 
-});
+router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => {});
 
 router.get('/user-profile', checkUser, requireAuth, (req, res) => {
   try {
     const locals = {
       title: 'TeqVerse - View Profile'
-  };
+    };
     res.render('user-profile', {layout: adminLayout, locals});
   } catch (error) {
     console.error( error);
@@ -160,6 +155,7 @@ router.get('/user-profile', checkUser, requireAuth, (req, res) => {
   }
   
 });
+
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  REVIEW ROUTE                                                **/

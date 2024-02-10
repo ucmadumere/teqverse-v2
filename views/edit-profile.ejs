@@ -254,7 +254,7 @@
 													</div>
 													<div class="author-info">
 														<h6 class="title"><%= user.first_name %> <%= user.other_name %> <%= user.last_name %></h6>
-														<span><strong>Developer</strong></span>
+														<span><strong><%= user.userCategory %></strong></span>
 														<span><%= user.email %></span>
 													</div>
 												</div>
@@ -341,6 +341,17 @@
 														<option value="canada">Canada</option>
 														<option value="china">China</option>
 														<option value="india">India</option>
+													</select>
+												</div>
+
+												<div class="col-sm-6 m-b30">
+													<label class="form-label">State</label>
+													<select class="default-select form-control" id="validationCustom01">
+														<option data-display="Select">Please select</option>
+														<option value="russia">FCT</option>
+														<option value="canada">Sokoto</option>
+														<option value="china">Kaduna</option>
+														<option value="india">Niger</option>
 													</select>
 												</div>
 												

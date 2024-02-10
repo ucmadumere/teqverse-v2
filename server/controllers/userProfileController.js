@@ -1,43 +1,20 @@
-const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
-const Review = require('../models/review');
 const adminLayout = '../views/layouts/adminLogin';
+// GET
 
-
-const getUserReview = async (req, res) => {
+const getUserProfile = async (req, res) => {
     try {
         const locals = {
-            title: 'TeqVerse - Add Review'
+            title: 'TeqVerse - User Profile'
         };
-        // Retrieve the JWT token from the request cookies
-        const token = req.cookies.token;
-
-        if (!token) {
-            // If the token is missing, the user is not authenticated
-            res.status(401).send('Authentication required');
-            return;
-        }
-
-        // Verify the JWT token to extract user details
-        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        const userId = decodedToken.userId;
-        const user = await User.findById(userId).exec();
-        if (!user) {
-            // Handle case where user is not found
-            res.status(404).send('User not found');
-            return;
-        }
-
-        // Fetch reviews made by the logged-in user
-        const reviews = await Review.find({ user: userId }).sort({ createdAt: -1 });
-        res.render('user-review', {
+       
+        res.render('user-profile', {
             locals,
-            reviews,
-            layout: adminLayout, 
+            layout: adminLayout
         });
     } catch (error) {
-        console.error('Error fetching user reviews:', error);
-        res.status(500).send('Failed to fetch user reviews: ' + error.message);
+        console.error( error );
+        res.status(500).send( error.message );
     }
 
 }
@@ -60,7 +37,8 @@ const postUserReview = async (req, res) => {
         // You can use the userId to fetch the user's details from the database
         // Replace this with your actual code to retrieve user details
         const user = await User.findById(userId).exec();
-        
+        console.log(user.first_name)
+        console.log(user)
 
         if (!user) {
             // Handle case where user is not found
@@ -73,7 +51,7 @@ const postUserReview = async (req, res) => {
 
         if (existingReview) {
             // User has already submitted a review
-            res.redirect('user-review?failure=This User Has Already Created a Review')
+            res.status(400).send('You have already submitted a review');
             return;
         }
         // If not, proceed to create a new review
@@ -81,8 +59,8 @@ const postUserReview = async (req, res) => {
 
 
         let fullName = user.first_name;
-        if (user.other_name) {
-            fullName += ` ${user.other_name}`;
+        if (user.other_names) {
+            fullName += ` ${user.other_names}`;
         }
         fullName += ` ${user.last_name}`;
 
@@ -99,7 +77,7 @@ const postUserReview = async (req, res) => {
         await newReview.save();
 
         // Redirect to the user-review page or display a success message
-        res.redirect('user-review?success=Review Ctreated Successfully')
+        res.redirect('/user-review');
     } catch (error) {
         // Handle errors
         console.error('Error creating review:', error);
@@ -110,6 +88,6 @@ const postUserReview = async (req, res) => {
 
 
 module.exports = {
-    getUserReview,
+    getUserProfile,
     postUserReview
 };

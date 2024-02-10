@@ -41,9 +41,11 @@ const createJob = async (req, res) => {
     } = req.body;
 
     // Check if the job category is valid
-    if (jobCategory !== 'normal' && jobCategory !== 'premium') {
+    if (jobCategory !== 'Regular' && jobCategory !== 'Premium') {
       return res.status(400).send('Invalid job category');
     }
+
+    const skillsArray = skills.split(',').map(skill => skill.trim());;
 
     
     const newPost = new PostJob({
@@ -58,7 +60,7 @@ const createJob = async (req, res) => {
       jobCategory, 
       closingDate,
       methodOfApplication,
-      skills
+      skills: skillsArray
     });
 
     // Save the new postJob object to the database

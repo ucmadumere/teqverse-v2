@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 
 
 
+
 const updateUser = async (req, res, next) => {
     const { other_name, interest } = req.body;
     const token = req.cookies.token;
@@ -21,10 +22,13 @@ const updateUser = async (req, res, next) => {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
         const { userId } = decodedToken;
 
+        // Ensure interest is always an array of strings
+        const updatedInterest = Array.isArray(interest) ? interest : [interest];
+
         // Update the user using the findByIdAndUpdate method
         const updatedUser = await User.findByIdAndUpdate(userId, {
             other_name: other_name,
-            interest: interest
+            interest: updatedInterest,
         }, { new: true }); // Set { new: true } to return the updated user
 
         if (!updatedUser) {
@@ -37,8 +41,6 @@ const updateUser = async (req, res, next) => {
         res.status(500).json({ message: 'Internal server error', error });
     }
 };
-
-
 
 
 
