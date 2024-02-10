@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/userModel');
 const Review = require('../models/review');
 const adminLayout = '../views/layouts/adminLogin';
-// GET
+
 
 const getUserReview = async (req, res) => {
     try {
@@ -81,8 +81,8 @@ const postUserReview = async (req, res) => {
 
 
         let fullName = user.first_name;
-        if (user.other_names) {
-            fullName += ` ${user.other_names}`;
+        if (user.other_name) {
+            fullName += ` ${user.other_name}`;
         }
         fullName += ` ${user.last_name}`;
 

@@ -52,27 +52,22 @@ const joblist = async (req, res) => {
       .skip((page - 1) * pageSize)
       .limit(pageSize);
 
-       // Get user's interest
+    // Get user's interest
     const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
     const userInterestResponse = await User.findById(userId).select('interest').exec();
     const userInterest = userInterestResponse ? userInterestResponse.interest : [];
+
+    // Split user interests and convert to lowercase
+    const userInterests = userInterest.join(',').split(',').map(interest => interest.trim().toLowerCase());
+
+    // Find recommended jobs
     const allJobs = await Postjob.find().exec();
-    const allJobsSkills = await Postjob.find().select('skills').exec();
-    var userinterestnew= userInterest.split(",");
-console.log(userinterestnew)
-console.log(allJobs)
+    const recommendedJobs = allJobs.filter(job => {
+      const jobSkills = job.skills.flatMap(skill => skill.split(',').map(skill => skill.trim().toLowerCase()));
+      return jobSkills.some(skill => userInterests.includes(skill));
+    });
 
-
-var recommendedJobs=[];
-userinterestnew.map(item=>{
-let allfound=allJobs.filter(element=>element.skills.includes(item.trim()));
-recommendedJobs=[...recommendedJobs,...allfound];
-
-})
-recommendedJobs = recommendedJobs.filter((recommendedJobs, index, self) => index === self.findIndex(i => i.title === recommendedJobs.title));
-
-console.log(recommendedJobs)
-
+    console.log('Recommended Jobs:', recommendedJobs);
 
     res.render('jobList', {
       data: jobs,

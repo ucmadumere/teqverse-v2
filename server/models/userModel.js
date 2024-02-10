@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
-const { isEmail } = require('validator');
+const {isEmail} = require('validator');
+const { Country, State, City } = require('country-state-city');
 const validatePassword = require('../../validators/passwordValidator');
+const addressSchema = require('./addressSchema');
 
 
 
@@ -12,6 +14,11 @@ const validatePassword = require('../../validators/passwordValidator');
 
 const userSchema = mongoose.Schema(
     {
+        address: {
+            type: addressSchema,
+            required: false
+        },
+
         first_name: {
             type: String,
             required: [true, 'Name Field cannot be blank']
@@ -40,9 +47,8 @@ const userSchema = mongoose.Schema(
         },
 
         interest: {
-            type: String,
+            type: [String],
             default: [],
-            required: false
         },
 
         role: {

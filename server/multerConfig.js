@@ -33,4 +33,36 @@ const upload = multer({
 });
 
 
+
 module.exports = upload;
+
+
+
+
+const imageStorage = multer.diskStorage({
+  destination: function (request, file, callback) {
+    callback(null, './public/upload/profileimages');
+  },
+  filename: function(request, file, callback) {
+    callback(null, Date.now() + '-' + file.originalname);
+  },
+});
+
+const imageFileFilter = function (request, file, callback) {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  if (allowedTypes.includes(file.mimetype)) {
+    callback(null, true);
+  } else {
+    callback(new Error('Only JPEG, PNG, and GIF files are allowed'));
+  }
+};
+
+const imageUpload = multer({
+  storage: imageStorage,
+  fileFilter: imageFileFilter,
+  limits: {
+    fileSize: 1024 * 1024 * 3 // 3MB limit
+  },
+});
+
+module.exports = imageUpload
