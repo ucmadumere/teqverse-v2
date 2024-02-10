@@ -180,17 +180,30 @@
                               <h4>Recommended Jobs</h4>
                             </div>
                             <ul>
-                              <% recommendedJobs.forEach(recommendedJob => { %>
-                                <li>
-                                  <div class="info">
-                                    <div class="meta-title">
-                                      <span class="post-date"><i class="fas fa-clock"></i> <%= recommendedJob.createdAt.toDateString() %></span>
+                                <% recommendedJobs.slice(0, 6).forEach(recommendedJob => { %>
+                                  <li>
+                                    <div class="info">
+                                      <div class="meta-title">
+                                        <span class="post-date"><i class="fas fa-clock"></i> <%= recommendedJob.createdAt.toDateString() %></span>
+                                      </div>
+                                      <a href="/jobdetails/<%= recommendedJob._id %>"><%= recommendedJob.title %></a>
                                     </div>
-                                    <a href="/jobdetails/<%= recommendedJob._id %>"><%= recommendedJob.title %></a>
-                                  </div>
-                                </li>
-                              <% }) %>
-                            </ul>
+                                  </li>
+                                <% }) %>
+                              </ul>
+                              <br>
+                              <br>
+                              <div style="text-align: center;">
+                                <a href="/all-recommended-jobs" style="display: inline-block; padding: 5px 10px; color: #007BFF; background-color: #fff; 
+                                text-decoration: none; border-radius: 20px; transition: all 0.3s ease-in-out; border: 2px solid #007BFF;" 
+                                onmouseover="this.style.color='#fff'; this.style.backgroundColor='#007BFF'; this.style.borderColor='#fff';" 
+                                onmouseout="this.style.color='#007BFF'; this.style.backgroundColor='#fff'; this.style.borderColor='#007BFF';">View all recommended jobs</a>
+                            </div>
+                            
+                              
+                              
+                              
+                              
                           </div>
                           
                         <!-- Dynamic Recommended Job Post Ends Here  -->

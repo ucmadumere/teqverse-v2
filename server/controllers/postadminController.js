@@ -45,6 +45,8 @@ const createJob = async (req, res) => {
       return res.status(400).send('Invalid job category');
     }
 
+    const skillsArray = skills.split(',').map(skill => skill.trim());;
+
     
     const newPost = new PostJob({
       title,
@@ -58,7 +60,7 @@ const createJob = async (req, res) => {
       jobCategory, 
       closingDate,
       methodOfApplication,
-      skills
+      skills: skillsArray
     });
 
     // Save the new postJob object to the database
