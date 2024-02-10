@@ -270,7 +270,8 @@
                                 <%= user.last_name %>
                           </h4>
                           <p>
-                            <%= user.role %>
+                            <%= user.role.charAt(0).toUpperCase() + user.role.slice(1) %>
+
                           </p>
                         </div>
                         <div class="profile-email px-2 pt-2">

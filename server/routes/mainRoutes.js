@@ -18,7 +18,6 @@ const {getUserReview, postUserReview} = require('../controllers/reviewController
 const upload = require('../multerConfig')
 const update = require('../controllers/updateProfileController')
 const updateUser = require('../controllers/userController')
-const { Country, State } = require('country-state-city');
 
 
 
@@ -128,20 +127,19 @@ router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  EDIT PROFILE ROUTE                                                **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/update-profile', checkUser, requireAuth, (req, res) => {
+router.get('/update-profile', checkUser, requireAuth, async (req, res) => {
   try {
     const locals = {
       title: 'TeqVerse - Edit Profile'
   };
-  const countries = Country.getAllCountries();
-  console.log('Countries:', countries);
-    res.render('edit-profile', {layout: adminLayout, countries, locals});
+    res.render('edit-profile', {layout: adminLayout, locals});
   } catch (error) {
     console.error( error);
     res.status(500).send( error.message);
   }
   
 });
+
 
 router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => {});
 

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const ccsj = require('countrycitystatejson');
+const ccsj = require('country-state-city');
 
 // Get all countries
 const countries = ccsj.getCountries();
