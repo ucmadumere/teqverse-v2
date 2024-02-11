@@ -105,6 +105,21 @@ router.post('/signup', register);
 /**                                  LOG OUT ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/logout', logout)
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                  FORGOT PASSWORD ROUTE                                                     **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/forgot-password', checkUser, redirectIfAuthenticated, (req, res) => {
+  res.render('forgot-password', {layout: userLayout });
+});
+router.post('/forgot-password');
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                  RESET PASSWORD ROUTE                                                     **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/reset-password', checkUser, redirectIfAuthenticated, (req, res) => {
+  res.render('reset-password', {layout: userLayout });
+});
+router.post('/reset-password');
+
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB DETAILS ROUTE                                                 **/
