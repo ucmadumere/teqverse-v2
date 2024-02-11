@@ -17,19 +17,22 @@ const jobdetail = async (req, res) => {
  // Get user's interest
  const userId = req.cookies.token ? jwt.verify(req.cookies.token, process.env.JWT_SECRET).userId : null;
  const userInterestResponse = await User.findById(userId).select('interest').exec();
- const userInterest = userInterestResponse ? userInterestResponse.interest : [];
-
+ let userInterest = userInterestResponse ? userInterestResponse.interest : [];
+ 
  // Split user interests and convert to lowercase
- const userInterests = userInterest.join(',').split(',').map(interest => interest.trim().toLowerCase());
-
+ if (Array.isArray(userInterest)) {
+   userInterest = userInterest.join(' ');
+ }
+ const userInterests = userInterest.split(' ').map(interest => interest.trim().toLowerCase());
+ 
+ 
+ 
  // Find recommended jobs
- const allJobs = await Postjob.find().exec();
- const recommendedJobs = allJobs.filter(job => {
-   const jobSkills = job.skills.flatMap(skill => skill.split(',').map(skill => skill.trim().toLowerCase()));
-   return jobSkills.some(skill => userInterests.includes(skill));
- });
-
- console.log('Recommended Jobs:', recommendedJobs);
+ const recommendedJobs = await Postjob.find({
+   skills: {
+     $in: userInterests
+   }
+ }).collation({ locale: 'en', strength: 2 }).exec(); // Use collation for case-insensitive match
 
 
     res.render('jobdetails', {
