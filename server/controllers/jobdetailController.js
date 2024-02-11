@@ -32,7 +32,7 @@ const jobdetail = async (req, res) => {
    skills: {
      $in: userInterests
    }
- }).collation({ locale: 'en', strength: 2 }).exec(); // Use collation for case-insensitive match
+ }).collation({ locale: 'en', strength: 2 }).exec(); 
 
 
     res.render('jobdetails', {
