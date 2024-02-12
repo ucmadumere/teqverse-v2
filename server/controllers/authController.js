@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { createJWT } = require('../utils/tokenUtils');
 const userLayout = '../views/layouts/userLogin';
+const crypto = require('crypto');
 
 
 
@@ -93,7 +94,7 @@ const register = async (req, res) => {
   };
 
 
-  const logout = (req, res) => {
+const logout = (req, res) => {
     res.cookie('token', 'logout', {
         httpOnly: true,
         expires: new Date(0),
@@ -105,13 +106,16 @@ const register = async (req, res) => {
 
 };
 
-  
+
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                           RESET PASSWORD                                           **/
+/**--------------------------------------------------------------------------------------------------- **/
+
+
 
 module.exports = {
     login,
     register,
     logout
 }
-
-
-

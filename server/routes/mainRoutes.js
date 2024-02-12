@@ -139,17 +139,17 @@ router.get('/update-profile', checkUser, requireAuth, async (req, res) => {
   try {
     const locals = {
       title: 'TeqVerse - Edit Profile'
-    };
-    res.render('edit-profile', { layout: adminLayout, locals });
+  };
+    res.render('edit-profile', {layout: adminLayout, locals});
   } catch (error) {
-    console.error(error);
-    res.status(500).send(error.message);
+    console.error( error);
+    res.status(500).send( error.message);
   }
-
+  
 });
 
 
-router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => { });
+router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => {});
 
 router.get('/user-profile', checkUser, requireAuth, (req, res) => {
   try {
@@ -183,6 +183,9 @@ router.get('/apply-job/:id', requireAuth, checkUser, checkPremiumUser, getApplyp
 
 // Submit job application route
 router.post('/apply-job/:id', checkPremiumUser, requireAuth, checkUser, upload.single('cv'), applyPremiumjob);
+
+
+
 
 
 

@@ -70,10 +70,9 @@ const recommendedJobs = await Postjob.find({
   skills: {
     $in: userInterests
   }
-}).collation({ locale: 'en', strength: 2 }).exec(); // Use collation for case-insensitive match
+}).collation({ locale: 'en', strength: 2 }).exec(); 
 
 
-console.log('Recommended Jobs:', recommendedJobs);
 
 
     res.render('jobList', {
