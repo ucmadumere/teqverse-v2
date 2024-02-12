@@ -110,6 +110,151 @@ router.get('/logout', logout)
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  FORGOT PASSWORD ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
+router.get('/forgot-password', checkUser, redirectIfAuthenticated, (req, res) => {
+  res.render('forgot-password', { layout: userLayout });
+});
+
+// Function to generate a random token
+function generateRandomToken() {
+  return crypto.randomBytes(20).toString('hex');
+}
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'chibseze933@gmail.com',
+    pass: 'fmyb bqkv madm hmpx',
+  },
+});
+
+function sendEmail(to, subject, html) {
+  const mailOptions = {
+    from: 'chibseze933@gmail.com',
+    to,
+    subject,
+    html,
+  };
+
+  return transporter.sendMail(mailOptions);
+}
+
+router.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Find the user with the provided email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      // User not found
+      return res.render('forgot-password', {
+        layout: userLayout,
+        errorMessage: 'User not found with the provided email',
+      });
+    }
+
+    // Generate a unique token for password reset (you can use a library like `crypto`)
+    const resetToken = generateRandomToken();
+
+    // Save the reset token and its expiration time to the user in the database
+    user.resetToken = resetToken;
+    user.resetTokenExpires = Date.now() + 3600000; // Token expires in 1 hour
+    await user.save();
+
+
+    // Send an email with a link containing the reset token
+    const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+    const emailSubject = 'Password Reset Request';
+    const emailHTML = `<p>You have requested a password reset. Click the following link to reset your password:</p><p><a href="${resetLink}">${resetLink}</a></p>`;
+
+
+    await sendEmail(user.email, emailSubject, emailHTML);
+
+    res.render('forgot-password', {
+      layout: userLayout,
+      successMessage: 'Password reset link sent successfully. Check your email.',
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('forgot-password', {
+      layout: userLayout,
+      errorMessage: 'Internal Server Error. Please try again later.',
+    });
+  }
+});
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                  RESET PASSWORD ROUTE                                                     **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/reset-password/:token', async (req, res) => {
+  try {
+    const token = req.params.token; // Extract token from URL parameters
+
+    // Find the user with the provided reset token
+    const user = await User.findOne({
+      resetToken: token,
+      resetTokenExpires: { $gt: Date.now() },
+    });
+    console.log(token)
+    if (!user) {
+      return res.render('reset-password', {
+        layout: userLayout,
+        errorMessage: 'Invalid or expired reset token. Please request a new one.',
+      });
+    }
+
+    // Render the reset password page with the token (hidden input field in the form)
+    res.render('reset-password', {
+      layout: userLayout,
+      token, // Pass the token to the template
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('reset-password', {
+      layout: userLayout,
+      errorMessage: 'Internal Server Error. Please try again later.',
+    });
+  }
+});
+
+
+router.post('/reset-password/:token', async (req, res) => {
+  try {
+    const token = req.params.token;
+    const newPassword = req.body.password; // Use the correct field name
+
+    // Find the user with the provided reset token
+    const user = await User.findOne({
+      resetToken: token,
+      resetTokenExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.render('reset-password', {
+        layout: userLayout,
+        locals,
+        errorMessage: 'Invalid or expired reset token. Please request a new one.',
+      });
+    }
+
+    // Update the user's password
+    user.password = newPassword;
+    // Clear the reset token and its expiration time
+    user.resetToken = undefined;
+    user.resetTokenExpires = undefined;
+    await user.save();
+
+    // Redirect to the login page or any other page you prefer
+    res.redirect('/login');
+  } catch (error) {
+    console.error(error);
+    res.render('reset-password', {
+      layout: userLayout,
+      locals,
+      errorMessage: 'Internal Server Error. Please try again later.',
+    });
+  }
+});
 
 
 
@@ -139,17 +284,17 @@ router.get('/update-profile', checkUser, requireAuth, async (req, res) => {
   try {
     const locals = {
       title: 'TeqVerse - Edit Profile'
-  };
-    res.render('edit-profile', {layout: adminLayout, locals});
+    };
+    res.render('edit-profile', { layout: adminLayout, locals });
   } catch (error) {
-    console.error( error);
-    res.status(500).send( error.message);
+    console.error(error);
+    res.status(500).send(error.message);
   }
-  
+
 });
 
 
-router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => {});
+router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => { });
 
 router.get('/user-profile', checkUser, requireAuth, (req, res) => {
   try {
@@ -183,9 +328,6 @@ router.get('/apply-job/:id', requireAuth, checkUser, checkPremiumUser, getApplyp
 
 // Submit job application route
 router.post('/apply-job/:id', checkPremiumUser, requireAuth, checkUser, upload.single('cv'), applyPremiumjob);
-
-
-
 
 
 
