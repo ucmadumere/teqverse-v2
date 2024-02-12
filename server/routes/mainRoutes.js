@@ -19,9 +19,8 @@ const upload = require('../multerConfig')
 const update = require('../controllers/updateProfileController')
 const updateUser = require('../controllers/userController')
 
-
-
 router.post('/profileimage', checkUser, requireAuth, )
+
 
 
 
@@ -131,14 +130,14 @@ router.get('/update-profile', checkUser, requireAuth, async (req, res) => {
   try {
     const locals = {
       title: 'TeqVerse - Edit Profile'
-  };
+    };
     res.render('edit-profile', {layout: adminLayout, locals});
   } catch (error) {
-    console.error( error);
-    res.status(500).send( error.message);
+    console.error(error);
+    res.status(500).send(error.message);
   }
-  
 });
+
 
 
 router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => {});

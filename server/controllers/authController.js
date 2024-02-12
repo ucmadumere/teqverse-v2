@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { createJWT } = require('../utils/tokenUtils');
 const userLayout = '../views/layouts/userLogin';
+const crypto = require('crypto');
 
 
 
@@ -93,7 +94,7 @@ const register = async (req, res) => {
   };
 
 
-  const logout = (req, res) => {
+const logout = (req, res) => {
     res.cookie('token', 'logout', {
         httpOnly: true,
         expires: new Date(0),
@@ -105,13 +106,47 @@ const register = async (req, res) => {
 
 };
 
-  
+
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                           RESET PASSWORD                                           **/
+/**--------------------------------------------------------------------------------------------------- **/
+
+const resetPassword = async (req, res) => {
+    try {
+        // Generate a random reset token
+        const resetToken = crypto.randomBytes(32).toString('hex');
+        
+        // Hash the reset token and set it to the user's resetToken field
+        const user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.redirect('reset-password?failure=No account with that email address exists.');
+        }
+        user.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+        user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
+
+        await user.save();
+
+        // Send the reset token to the user's email
+        // You can use a package like nodemailer to send the email
+        // The email should contain a link to a page where the user can enter their new password
+        // The link should include the reset token as a query parameter
+
+        res.redirect('reset-password?success=An email has been sent to your email address with further instructions.');
+    } catch (error) {
+        console.error(error);
+        res.status(500).render('error500', {
+            errorCode: 500,
+            errorMessage: 'Internal Server Error',
+            errorDescription: 'The system encountered an error while trying to reset your password. Please try again.',
+            layout: userLayout,
+        });
+    }
+};
 
 module.exports = {
     login,
     register,
-    logout
+    logout,
+    resetPassword
 }
-
-
-

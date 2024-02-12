@@ -51,6 +51,19 @@ const userSchema = mongoose.Schema(
             default: [],
         },
 
+        phone: {
+            type: String,
+        },
+
+        country: {
+            type: String,
+            enum: ['Rusia', 'Canada', 'Nigeria', 'China', 'India']
+        },
+
+        state: {
+            type: String,
+        },
+
         role: {
             type: String,
             enum: ['user', 'admin'],
