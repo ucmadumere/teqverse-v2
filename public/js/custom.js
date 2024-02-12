@@ -288,32 +288,32 @@ var W3Admin = function(){
 	}
 
 	
-	var heartBlast = function (){
-		$(".heart").on("click", function() {
-			$(this).toggleClass("heart-blast");
-		});
-	}
+	// var heartBlast = function (){
+	// 	$(".heart").on("click", function() {
+	// 		$(this).toggleClass("heart-blast");
+	// 	});
+	// }
 	
-	var handleDzLoadMore = function() {
-		$(".dz-load-more").on('click', function(e)
-		{
-			e.preventDefault();	//STOP default action
-			$(this).append(' <i class="fas fa-sync"></i>');
+	// var handleDzLoadMore = function() {
+	// 	$(".dz-load-more").on('click', function(e)
+	// 	{
+	// 		e.preventDefault();	//STOP default action
+	// 		$(this).append(' <i class="fas fa-sync"></i>');
 			
-			var dzLoadMoreUrl = $(this).attr('rel');
-			var dzLoadMoreId = $(this).attr('id');
+	// 		var dzLoadMoreUrl = $(this).attr('rel');
+	// 		var dzLoadMoreId = $(this).attr('id');
 			
-			$.ajax({
-				method: "POST",
-				url: dzLoadMoreUrl,
-				dataType: 'html',
-				success: function(data) {
-					$( "#"+dzLoadMoreId+"Content").append(data);
-					$('.dz-load-more i').remove();
-				}
-			})
-		});
-	}
+	// 		$.ajax({
+	// 			method: "POST",
+	// 			url: dzLoadMoreUrl,
+	// 			dataType: 'html',
+	// 			success: function(data) {
+	// 				$( "#"+dzLoadMoreId+"Content").append(data);
+	// 				$('.dz-load-more i').remove();
+	// 			}
+	// 		})
+	// 	});
+	// }
 	
 	var handleLightgallery = function(){
 		if(jQuery('#lightgallery').length > 0){
@@ -669,8 +669,8 @@ var W3Admin = function(){
 			handleDzChatUser();
 			handleDzFullScreen();
 			handleshowPass();
-			heartBlast();
-			handleDzLoadMore();
+			// heartBlast();
+			// handleDzLoadMore();
 			handleLightgallery();
 			handleCustomFileInput();
 			vHeight();
