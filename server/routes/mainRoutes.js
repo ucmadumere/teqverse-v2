@@ -166,7 +166,7 @@ router.post('/forgot-password', async (req, res) => {
     // Send an email with a link containing the reset token
     const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
     const emailSubject = 'Password Reset Request';
-    const emailHTML = `<p>You have requested a password reset. Click the following link to reset your password:</p><p><a href="${resetLink}">${resetLink}</a></p>`;
+    const emailHTML = `<p>You have requested a password reset. Click the following link to reset your pass<p><a href="${resetLink}">${resetLink}</a></p>`;
 
     await sendEmail(user.email, emailSubject, emailHTML);
 
@@ -189,7 +189,41 @@ router.post('/forgot-password', async (req, res) => {
 router.get('/reset-password', checkUser, redirectIfAuthenticated, (req, res) => {
   res.render('reset-password', {layout: userLayout });
 });
-router.post('/reset-password');
+
+router.post('/reset-password', async (req, res) => {
+  const { token, password } = req.body;
+
+  try {
+    // Find the user with the provided reset token
+    const user = await User.findOne({ resetToken: token, resetTokenExpires: { $gt: Date.now() } });
+
+    if (!user) {
+      // Token is invalid or expired
+      return res.render('reset-password', {
+        layout: userLayout,
+        errorMessage: 'Invalid or expired token. Please request a new password reset.',
+      });
+    }
+
+    // Update the user's password
+    user.password = password;
+    user.resetToken = undefined;
+    user.resetTokenExpires = undefined;
+    await user.save();
+
+    res.render('reset-password', {
+      layout: userLayout,
+      successMessage: 'Password reset successfully. You can now login with your new password.',
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('reset-password', {
+      layout: userLayout,
+      errorMessage: 'Internal Server Error. Please try again later.',
+    });
+  }
+});
+
 
 
 /**--------------------------------------------------------------------------------------------------- **/
@@ -261,6 +295,9 @@ router.get('/apply-job/:id', requireAuth, checkUser, checkPremiumUser, getApplyp
 
 // Submit job application route
 router.post('/apply-job/:id', checkPremiumUser, requireAuth, checkUser, upload.single('cv'), applyPremiumjob);
+
+
+
 
 
 
