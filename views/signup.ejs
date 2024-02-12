@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<body class="vh-100">
+
   <div class="authincation h-100">
       <div class="container-fluid h-100">
           <div class="row h-100">
@@ -22,39 +20,26 @@
               <label class="mb-1 text-dark">Email</label>
               <input type="email" class="form-control form-control" placeholder="hello@example.com" name="email">
             </div>
-            <div class="mb-4 position-relative">
-              <label class="mb-1 text-dark">Password</label>
-              <input type="password" id="dz-password" class="form-control form-control" placeholder="Password" name="password">
-              <span class="show-pass eye" onclick="togglePassword()">
-              
-                <i class="fa fa-eye-slash"></i>
-                <i class="fa fa-eye"></i>
-              
-              </span>
-            </div>
-            <!-- Confirm Password New -->
-            <div class="mb-4 position-relative">
-              <label class="mb-1 text-dark">Confirm Password</label>
-              <input type="password" id="dz-confirm-password" class="form-control form-control" placeholder="Password" name="password2">
-              <span class="show-pass eye" onclick="togglePassword()">
-              
-                <i class="fa fa-eye-slash"></i>
-                <i class="fa fa-eye"></i>
-              
-              </span>
-            </div>
-             <!-- Confirm Password New -->
-            <!-- <div class="form-row d-flex justify-content-between mt-4 mb-2">
-              <div class="mb-4">
-                <div class="form-check custom-checkbox mb-3">
-                  <input type="checkbox" class="form-check-input" id="customCheckBox1">
-                  <label class="form-check-label mt-1" for="customCheckBox1">Remember my preference</label>
-                </div>
-              </div>
-              <div class="mb-4">
-                <a href="/login" class="btn-link text-primary">Sign in</a>
-              </div>
-            </div> -->
+           <!-- Password Field -->
+<div class="mb-4 position-relative">
+  <label class="mb-1 text-dark">Password</label>
+  <input type="password" id="dz-password" class="form-control form-control" placeholder="Password" name="password">
+  <span class="show-pass eye" id="eye-password" onclick="togglePassword('teq-password')">
+    <i class="fa fa-eye-slash"></i>
+    <i class="fa fa-eye"></i>
+  </span>
+</div>
+
+<!-- Confirm Password Field -->
+<div class="mb-4 position-relative">
+  <label class="mb-1 text-dark">Confirm Password</label>
+  <input type="password" id="dz-confirm-password" class="form-control form-control" placeholder="Password" name="password2">
+  <span class="show-pass eye" id="eye-confirm-password" onclick="togglePassword('teq-confirm-password')">
+    <i class="fa fa-eye-slash"></i>
+    <i class="fa fa-eye"></i>
+  </span>
+</div>
+
             <div class="text-center mb-4">
               <button type="submit" class="btn btn-primary light btn-block">Sign Up</button>
             </div>
@@ -90,7 +75,43 @@
       </div>
   </div>
 
-</body>
+  <script>
+    function togglePassword(passwordFieldId) {
+      const passwordField = document.getElementById(passwordFieldId);
+      const eyeIcon = document.getElementById(`eye-${passwordFieldId}`);
+    
+      if (passwordField && eyeIcon) {
+        if (passwordField.type === 'password') {
+          passwordField.type = 'text';
+          eyeIcon.classList.add('show');
+        } else {
+          passwordField.type = 'password';
+          eyeIcon.classList.remove('show');
+        }
+      }
+    }
+  </script>
+  
+  <!-- <script>
+    function togglePassword(passwordFieldId) {
+      const passwordField = document.getElementById(passwordFieldId);
+      const eyeIcon = passwordField.nextElementSibling;
+  
+      // Toggle password visibility
+      passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
+  
+      // Toggle eye icon
+      eyeIcon.innerHTML = passwordField.type === 'password'
+        ? '<i class="fa fa-eye-slash"></i>' // Show eye-slash icon
+        : '<i class="fa fa-eye"></i>';      // Show eye icon
+    }
+  </script> -->
+  
+  
+  
+  
+  
+
 
 
 
@@ -136,4 +157,3 @@
       </div>
     
 </body> -->
-</html>

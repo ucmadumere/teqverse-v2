@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const User = require('../models/userModel');
 const { login, register, logout} = require('../controllers/authController');
 const jobdetailController = require('../controllers/jobdetailController');
 const joblistController = require('../controllers/joblistController');
@@ -18,6 +19,9 @@ const {getUserReview, postUserReview} = require('../controllers/reviewController
 const upload = require('../multerConfig')
 const update = require('../controllers/updateProfileController')
 const updateUser = require('../controllers/userController')
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+
 
 router.post('/profileimage', checkUser, requireAuth, )
 
@@ -104,6 +108,89 @@ router.post('/signup', register);
 /**                                  LOG OUT ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
 router.get('/logout', logout)
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                  FORGOT PASSWORD ROUTE                                                     **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/forgot-password', checkUser, redirectIfAuthenticated, (req, res) => {
+  res.render('forgot-password', {layout: userLayout });
+});
+
+// Function to generate a random token
+function generateRandomToken() {
+  return crypto.randomBytes(20).toString('hex');
+}
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'chibseze933@gmail.com',
+    // pass: 'chinkoeze@IG',
+    pass: 'fmyb bqkv madm hmpx',
+  },
+});
+
+function sendEmail(to, subject, html) {
+  const mailOptions = {
+    from: 'chibseze933@gmail.com',
+    to,
+    subject,
+    html,
+  };
+
+  return transporter.sendMail(mailOptions);
+}
+
+router.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Find the user with the provided email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      // User not found
+      return res.render('forgot-password', {
+        layout: userLayout,
+        errorMessage: 'User not found with the provided email',
+      });
+    }
+
+    // Generate a unique token for password reset (you can use a library like `crypto`)
+    const resetToken = generateRandomToken();
+
+    // Save the reset token and its expiration time to the user in the database
+    user.resetToken = resetToken;
+    user.resetTokenExpires = Date.now() + 3600000; // Token expires in 1 hour
+    await user.save();
+
+    // Send an email with a link containing the reset token
+    const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+    const emailSubject = 'Password Reset Request';
+    const emailHTML = `<p>You have requested a password reset. Click the following link to reset your password:</p><p><a href="${resetLink}">${resetLink}</a></p>`;
+
+    await sendEmail(user.email, emailSubject, emailHTML);
+
+    res.render('forgot-password', {
+      layout: userLayout,
+      successMessage: 'Password reset link sent successfully. Check your email.',
+    });
+  } catch (error) {
+    console.error(error);
+    res.render('forgot-password', {
+      layout: userLayout,
+      errorMessage: 'Internal Server Error. Please try again later.',
+    });
+  }
+});
+
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                  RESET PASSWORD ROUTE                                                     **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/reset-password', checkUser, redirectIfAuthenticated, (req, res) => {
+  res.render('reset-password', {layout: userLayout });
+});
+router.post('/reset-password');
+
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB DETAILS ROUTE                                                 **/
