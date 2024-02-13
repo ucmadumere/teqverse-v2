@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const {isEmail} = require('validator');
-const { Country, State, City } = require('country-state-city');
+// const { Country, State, City } = require('country-state-city');
 const validatePassword = require('../../validators/passwordValidator');
 const addressSchema = require('./addressSchema');
 
@@ -57,11 +57,13 @@ const userSchema = mongoose.Schema(
 
         country: {
             type: String,
-            enum: ['Rusia', 'Canada', 'Nigeria', 'China', 'India']
+        },
+        city: {
+            type: String,
         },
 
         state: {
-            type: String,
+            type: String,    
         },
 
         role: {
