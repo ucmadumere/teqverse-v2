@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 const {isEmail} = require('validator');
 // const { Country, State, City } = require('country-state-city');
 const validatePassword = require('../../validators/passwordValidator');
@@ -70,23 +71,19 @@ const userSchema = mongoose.Schema(
         city: {
             type: String,
         },
-
         state: {
             type: String,    
         },
-
         role: {
             type: String,
             enum: ['user', 'admin'],
             default: 'user'
         },
-
         userCategory: {
             type: String,
             enum: ['Regular', 'Premium'],
             default: 'Regular'
         },
-
         password: {
             type: String,
             required: [true, 'Password cannot be blank'],
@@ -95,6 +92,9 @@ const userSchema = mongoose.Schema(
                 message: 'Password must contain at Least one of (A-Z, a-z, (!@#$-_%^&*) and must be at least 8)...',
             }
         },
+        passwordChangedAt: Date,
+        passwordResetToken: String,
+        passwordResetTokenExpires: Date
     },
     {
         timestamps: true,
@@ -117,21 +117,16 @@ userSchema.pre('save', async function (next) {
     }
 });
 
+userSchema.methods.createResetPasswordToken = function() {
+    const resetToken = crypto.randomBytes(32).toString('hex');
+    const hashedToken = crypto.createHash('sha256').update(resetToken).digest('hex');
 
-// for comparing password
-// userSchema.statics.login = async function(email, password){
-//     const user = await this.findOne({email});
+    this.passwordResetToken = hashedToken;
+    this.passwordResetTokenExpires = Date.now() + 10 * 60 * 1000;
 
-//     if (user) {
-//         const auth = await bcrypt.compare(password, user.password)
+    return resetToken;
+}
 
-//         if (auth) {
-//             return user
-//         }
-//         throw Error("incorrect Password")
-//     }
-//     throw Error("Sorry, the user does not exist..")
-// }
 
 
 const User = mongoose.model('User', userSchema);

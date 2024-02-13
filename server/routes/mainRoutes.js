@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
-const { login, register, logout } = require("../controllers/authController");
+const { login, register, logout,forgotPassword, passwordReset } = require("../controllers/authController");
 const jobdetailController = require("../controllers/jobdetailController");
 const joblistController = require("../controllers/joblistController");
 const userLayout = "../views/layouts/userLogin";
@@ -31,8 +31,6 @@ const upload = require("../multerConfig");
 const update = require("../controllers/updateProfileController");
 const updateUser = require("../controllers/userController");
 
-const crypto = require("crypto");
-const nodemailer = require("nodemailer");
 
 router.post("/profileimage", checkUser, requireAuth);
 
@@ -124,160 +122,22 @@ router.get(
     res.render("forgot-password", { layout: userLayout });
   }
 );
+router.post('/forgot-password', forgotPassword)
 
-// Function to generate a random token
-function generateRandomToken() {
-  return crypto.randomBytes(20).toString("hex");
-}
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: "chibseze933@gmail.com",
-    // pass: 'chinkoeze@IG',
-    pass: "fmyb bqkv madm hmpx",
-  },
-});
-
-function sendEmail(to, subject, html) {
-  const mailOptions = {
-    from: "chibseze933@gmail.com",
-    to,
-    subject,
-    html,
-  };
-
-  return transporter.sendMail(mailOptions);
-}
-
-router.post("/forgot-password", async (req, res) => {
-  const { email } = req.body;
-
-  try {
-    // Find the user with the provided email
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      // User not found
-      return res.render("forgot-password", {
-        layout: userLayout,
-        errorMessage: "User not found with the provided email",
-      });
-    }
-
-    // Generate a unique token for password reset (you can use a library like crypto)
-    const resetToken = generateRandomToken();
-
-    // Save the reset token and its expiration time to the user in the database
-    user.resetToken = resetToken;
-    user.resetTokenExpires = Date.now() + 3600000; // Token expires in 1 hour
-    await user.save();
-
-    // Send an email with a link containing the reset token
-    const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
-    const emailSubject = "Password Reset Request";
-    const emailHTML = `<p>You have requested a password reset. Click the following link to reset your password:</p><p><a href="${resetLink}">${resetLink}</a></p>`;
-
-    await sendEmail(user.email, emailSubject, emailHTML);
-
-    res.render("forgot-password", {
-      layout: userLayout,
-      successMessage:
-        "Password reset link sent successfully. Check your email.",
-    });
-  } catch (error) {
-    console.error(error);
-    res.render("forgot-password", {
-      layout: userLayout,
-      errorMessage: "Internal Server Error. Please try again later.",
-    });
-  }
-});
 
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  RESET PASSWORD ROUTE                                                     **/
 // /--------------------------------------------------------------------------------------------------- **/
-router.get("/reset-password", async (req, res) => {
-  const { token } = req.query;
+router.get('/reset-password/:token', (req, res) => {
+  const token = req.params.token;
 
-  try {
-    // Find the user with the provided reset token
-    const user = await User.findOne({
-      resetToken: token,
-      resetTokenExpires: { $gt: Date.now() },
-    });
-
-    if (!user) {
-      // Token is invalid or expired
-      return res.render("reset-password", {
-        layout: userLayout,
-        errorMessage:
-          "Invalid or expired token. Please request a new password reset.",
-      });
-    }
-
-    res.render("reset-password", {
-      layout: userLayout,
-      token: token, // Pass the token to the reset password form
-    });
-  } catch (error) {
-    console.error(error);
-    res.render("reset-password", {
-      layout: userLayout,
-      errorMessage: "Internal Server Error. Please try again later.",
-    });
-  }
+  // Render a form where users can enter their new password
+  res.render('reset-password', { layout:userLayout, token });
 });
 
-router.post("/reset-password/:token", async (req, res) => {
-  try {
-    const token = req.params.token;
-    const newPassword = req.body.newPassword;
-    const confirmPassword = req.body.confirmPassword;
-
-    // Check if the passwords match
-    if (newPassword !== confirmPassword) {
-      return res.render("reset-password", {
-        layout: userLayout,
-        token,
-        errorMessage:
-          "Passwords do not match. Please enter matching passwords.",
-      });
-    }
-
-    // Find the user with the provided reset token
-    const user = await User.findOne({
-      resetToken: token,
-      resetTokenExpires: { $gt: Date.now() },
-    });
-
-    if (!user) {
-      // Token is invalid or expired
-      return res.render("reset-password", {
-        layout: userLayout,
-        token,
-        errorMessage:
-          "Invalid or expired reset token. Please request a new one.",
-      });
-    }
-
-    // Update the user's password
-    user.password = newPassword;
-    // Clear the reset token and its expiration time
-    user.resetToken = undefined;
-    user.resetTokenExpires = undefined;
-    await user.save();
-
-    // Redirect to the login page or any other destination
-    return res.redirect("/login");
-  } catch (error) {
-    console.error(error);
-    return res.render("reset-password", {
-      layout: userLayout,
-      errorMessage: "Internal Server Error. Please try again later.",
-    });
-  }
-});
+router.post('/reset-password/:token', passwordReset)
+// router.patch('/reset-password/:token', passwordReset)
 
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB DETAILS ROUTE                                                 **/
