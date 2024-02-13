@@ -33,6 +33,10 @@ const userSchema = mongoose.Schema(
             type: String,
         },
 
+        date_of_birth:{
+            type: Date,
+        },
+
         email: {
             type: String,
             required: [true, 'Email Field cannot be blank'],
@@ -50,6 +54,10 @@ const userSchema = mongoose.Schema(
             type: [String],
             default: [],
         },
+        gender: {
+            type: String,
+            enum: ['Male', 'Female'],
+        },
 
         phone: {
             type: String,
@@ -57,6 +65,7 @@ const userSchema = mongoose.Schema(
 
         country: {
             type: String,
+            enum: ['Nigeria'],
         },
         city: {
             type: String,
