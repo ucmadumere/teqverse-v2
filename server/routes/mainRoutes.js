@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/userModel');
-const { login, register, logout } = require('../controllers/authController');
+const { login, register, logout} = require('../controllers/authController');
 const jobdetailController = require('../controllers/jobdetailController');
 const joblistController = require('../controllers/joblistController');
 const userLayout = '../views/layouts/userLogin';
@@ -11,25 +11,27 @@ const { requireAuth, checkUser, redirectIfAuthenticated, checkPremiumUser } = re
 
 const profileImageController = require('../controllers/updateProfileController');
 
-const { applyPremiumjob, getApplypremiumJob } = require('../controllers/premiumJobController');
+const {applyPremiumjob, getApplypremiumJob} = require('../controllers/premiumJobController');
 const jobdetail = require('../controllers/jobdetailController');
 
 const Review = require('../models/review');
-const { getUserReview, postUserReview } = require('../controllers/reviewController')
+const {getUserReview, postUserReview} = require('../controllers/reviewController')
 const upload = require('../multerConfig')
 const update = require('../controllers/updateProfileController')
 const updateUser = require('../controllers/userController')
+
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 
 
-router.post('/profileimage', checkUser, requireAuth,)
+router.post('/profileimage', checkUser, requireAuth, )
 
 
 
-/**--------------------------------------------------------------------------------------------------- **/
+
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  LANDING ROUTE                                                     **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/', checkUser, async (req, res) => {
   try {
     // Fetch top 4 reviews based on rating in descending order
@@ -53,65 +55,65 @@ router.get('/', checkUser, async (req, res) => {
 
 
 
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  FAQ ROUTE                                                         **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/faq', checkUser, (req, res) => {
-  res.render('faq');
+    res.render('faq');
 });
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  ABOUT US ROUTE                                                    **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/about-us', checkUser, (req, res) => {
-  res.render('about-us');
+    res.render('about-us');
 });
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  MEDIA ROUTE                                                       **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/media', checkUser, (req, res) => {
-  res.render('media');
+    res.render('media');
 });
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  RESOURCES ROUTE                                                   **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/resources', checkUser, requireAuth, (req, res) => {
-  res.render('resources');
+    res.render('resources');
 });
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  LEARNING ROUTE                                                    **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/learning', checkUser, requireAuth, (req, res) => {
-  res.render('learning');
+    res.render('learning');
 });
 router.get('/learning-mentor', (req, res) => {
-  res.render('learning-mentor');
+    res.render('learning-mentor');
 });
 
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                   LOGIN ROUTE                                                      **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/login', checkUser, redirectIfAuthenticated, (req, res) => {
-  res.render('login', { layout: userLayout });
+  res.render('login', {layout: userLayout });
 });
 router.post('/login', login);
 
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  REGISTER ROUTE                                                    **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/signup', checkUser, redirectIfAuthenticated, (req, res) => {
-  res.render('signup', { layout: userLayout });
+  res.render('signup', {layout: userLayout });
 });
 router.post('/signup', register);
 
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  LOG OUT ROUTE                                                     **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/logout', logout)
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  FORGOT PASSWORD ROUTE                                                     **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/forgot-password', checkUser, redirectIfAuthenticated, (req, res) => {
-  res.render('forgot-password', { layout: userLayout });
+  res.render('forgot-password', {layout: userLayout });
 });
 
 // Function to generate a random token
@@ -123,6 +125,7 @@ const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: 'chibseze933@gmail.com',
+    // pass: 'chinkoeze@IG',
     pass: 'fmyb bqkv madm hmpx',
   },
 });
@@ -153,7 +156,7 @@ router.post('/forgot-password', async (req, res) => {
       });
     }
 
-    // Generate a unique token for password reset (you can use a library like `crypto`)
+    // Generate a unique token for password reset (you can use a library like crypto)
     const resetToken = generateRandomToken();
 
     // Save the reset token and its expiration time to the user in the database
@@ -161,12 +164,10 @@ router.post('/forgot-password', async (req, res) => {
     user.resetTokenExpires = Date.now() + 3600000; // Token expires in 1 hour
     await user.save();
 
-
     // Send an email with a link containing the reset token
-    const resetLink = `http://localhost:3000/reset-password/${resetToken}`;
+    const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
     const emailSubject = 'Password Reset Request';
     const emailHTML = `<p>You have requested a password reset. Click the following link to reset your password:</p><p><a href="${resetLink}">${resetLink}</a></p>`;
-
 
     await sendEmail(user.email, emailSubject, emailHTML);
 
@@ -183,30 +184,27 @@ router.post('/forgot-password', async (req, res) => {
   }
 });
 
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  RESET PASSWORD ROUTE                                                     **/
-/**--------------------------------------------------------------------------------------------------- **/
-router.get('/reset-password/:token', async (req, res) => {
-  try {
-    const token = req.params.token; // Extract token from URL parameters
+// /--------------------------------------------------------------------------------------------------- **/
+router.get('/reset-password', async (req, res) => {
+  const { token } = req.query;
 
+  try {
     // Find the user with the provided reset token
-    const user = await User.findOne({
-      resetToken: token,
-      resetTokenExpires: { $gt: Date.now() },
-    });
-    console.log(token)
+    const user = await User.findOne({ resetToken: token, resetTokenExpires: { $gt: Date.now() } });
+
     if (!user) {
+      // Token is invalid or expired
       return res.render('reset-password', {
         layout: userLayout,
-        errorMessage: 'Invalid or expired reset token. Please request a new one.',
+        errorMessage: 'Invalid or expired token. Please request a new password reset.',
       });
     }
 
-    // Render the reset password page with the token (hidden input field in the form)
     res.render('reset-password', {
       layout: userLayout,
-      token, // Pass the token to the template
+      token: token, // Pass the token to the reset password form
     });
   } catch (error) {
     console.error(error);
@@ -221,7 +219,17 @@ router.get('/reset-password/:token', async (req, res) => {
 router.post('/reset-password/:token', async (req, res) => {
   try {
     const token = req.params.token;
-    const newPassword = req.body.password; // Use the correct field name
+    const newPassword = req.body.newPassword;
+    const confirmPassword = req.body.confirmPassword;
+
+    // Check if the passwords match
+    if (newPassword !== confirmPassword) {
+      return res.render('reset-password', {
+        layout: userLayout,
+        token,
+        errorMessage: 'Passwords do not match. Please enter matching passwords.',
+      });
+    }
 
     // Find the user with the provided reset token
     const user = await User.findOne({
@@ -230,9 +238,10 @@ router.post('/reset-password/:token', async (req, res) => {
     });
 
     if (!user) {
+      // Token is invalid or expired
       return res.render('reset-password', {
         layout: userLayout,
-        locals,
+        token,
         errorMessage: 'Invalid or expired reset token. Please request a new one.',
       });
     }
@@ -244,13 +253,12 @@ router.post('/reset-password/:token', async (req, res) => {
     user.resetTokenExpires = undefined;
     await user.save();
 
-    // Redirect to the login page or any other page you prefer
-    res.redirect('/login');
+    // Redirect to the login page or any other destination
+    return res.redirect('/login');
   } catch (error) {
     console.error(error);
-    res.render('reset-password', {
+    return res.render('reset-password', {
       layout: userLayout,
-      locals,
       errorMessage: 'Internal Server Error. Please try again later.',
     });
   }
@@ -258,65 +266,64 @@ router.post('/reset-password/:token', async (req, res) => {
 
 
 
-
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB DETAILS ROUTE                                                 **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/jobdetails/:id?', checkUser, requireAuth, jobdetailController);
 
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB LIST ROUTE                                                    **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/joblist', checkUser, requireAuth, joblistController);
 
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB FILTER ROUTE                                                  **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/resetfilters', checkUser, requireAuth, (req, res) => {
-  // Redirect to the joblist route without any filter parameters
-  res.redirect('/joblist');
+    // Redirect to the joblist route without any filter parameters
+    res.redirect('/joblist');
 });
-
-/**--------------------------------------------------------------------------------------------------- **/
+          
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  EDIT PROFILE ROUTE                                                **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/update-profile', checkUser, requireAuth, async (req, res) => {
   try {
     const locals = {
       title: 'TeqVerse - Edit Profile'
     };
-    res.render('edit-profile', { layout: adminLayout, locals });
+    res.render('edit-profile', {layout: adminLayout, locals});
   } catch (error) {
     console.error(error);
     res.status(500).send(error.message);
   }
-
 });
 
 
-router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => { });
+
+router.post('/update-profile', checkUser, requireAuth, updateUser, update, (req, res) => {});
 
 router.get('/user-profile', checkUser, requireAuth, (req, res) => {
   try {
     const locals = {
       title: 'TeqVerse - View Profile'
     };
-    res.render('user-profile', { layout: adminLayout, locals });
+    res.render('user-profile', {layout: adminLayout, locals});
   } catch (error) {
-    console.error(error);
-    res.status(500).send(error.message);
+    console.error( error);
+    res.status(500).send( error.message);
   }
-
+  
 });
 
 
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  REVIEW ROUTE                                                **/
-/**--------------------------------------------------------------------------------------------------- **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/user-review', checkUser, requireAuth, getUserReview);
 
 // POST route to handle adding a review
-router.post('/user-review', checkUser, requireAuth, postUserReview);
+router.post('/user-review',checkUser, requireAuth, postUserReview);
 
 
 
