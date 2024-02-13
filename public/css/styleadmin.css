@@ -6710,7 +6710,10 @@ textarea.form-control-lg {
   text-align: right !important; }
 
 .text-center {
-  text-align: center !important; }
+  text-align: center !important;
+  position: relative;
+    top: 100px; 
+}
 
 .text-decoration-none {
   text-decoration: none !important; }
