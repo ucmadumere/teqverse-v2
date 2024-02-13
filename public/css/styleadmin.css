@@ -6711,10 +6711,12 @@ textarea.form-control-lg {
 
 .text-center {
   text-align: center !important;
+  
+}
+.text-over {
   position: relative;
     top: 100px; 
 }
-
 .text-decoration-none {
   text-decoration: none !important; }
 
