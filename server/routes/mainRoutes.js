@@ -129,10 +129,9 @@ router.post('/forgot-password', forgotPassword)
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  RESET PASSWORD ROUTE                                                     **/
 // /--------------------------------------------------------------------------------------------------- **/
-router.get('/reset-password/:token', (req, res) => {
-  const token = req.params.token;
-
-  // Render a form where users can enter their new password
+router.get('/reset-password',checkUser, redirectIfAuthenticated, (req, res) => {
+  const token = req.query.token;
+  
   res.render('reset-password', { layout:userLayout, token });
 });
 

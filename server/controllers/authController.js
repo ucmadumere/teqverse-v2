@@ -126,7 +126,7 @@ const forgotPassword = async (req, res, next) => {
   await user.save({validateBeforeSave: false});
 
   // SEND THE TOKEN BACK TO THE USER EMAIL
-  const resetUrl = `${req.protocol}://${req.get('host')}/reset-password/${resetToken}`;
+  const resetUrl = `${req.protocol}://${req.get('host')}/reset-password?token=${resetToken}`;
   const message = `We have received a password reset request. Please use the link below to reset your password\n\n${resetUrl}\n\nThis reset password link will be valid only for 10 minutes`
 
   try {
