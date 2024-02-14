@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 
 
 const updateUser = async (req, res, next) => {
-    const { other_name, interest, country} = req.body;
+    const { other_name,gender, phone,date_of_birth, interest, city, state, country} = req.body;
     const token = req.cookies.token;
 
     if (!token) {
@@ -29,6 +29,11 @@ const updateUser = async (req, res, next) => {
         const updatedUser = await User.findByIdAndUpdate(userId, {
             other_name: other_name,
             interest: updatedInterest,
+            gender, 
+            phone,
+            date_of_birth,
+            city: city,
+            state: state,
             country: country
         }, { new: true }); // Set { new: true } to return the updated user
 
