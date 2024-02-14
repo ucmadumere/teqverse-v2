@@ -116,138 +116,23 @@ router.get('/forgot-password', checkUser, redirectIfAuthenticated, (req, res) =>
   res.render('forgot-password', {layout: userLayout });
 });
 
-// Function to generate a random token
-function generateRandomToken() {
-  return crypto.randomBytes(20).toString('hex');
-}
-
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'chibseze933@gmail.com',
-    // pass: 'chinkoeze@IG',
-    pass: 'fmyb bqkv madm hmpx',
-  },
-});
-
-function sendEmail(to, subject, html) {
-  const mailOptions = {
-    from: 'chibseze933@gmail.com',
-    to,
-    subject,
-    html,
-  };
-
-  return transporter.sendMail(mailOptions);
-}
 
 router.post('/forgot-password', async (req, res) => {
-  const { email } = req.body;
-
-  try {
-    // Find the user with the provided email
-    const user = await User.findOne({ email });
-
-    if (!user) {
-      // User not found
-      return res.render('forgot-password', {
-        layout: userLayout,
-        errorMessage: 'User not found with the provided email',
-      });
-    }
-
-    // Generate a unique token for password reset (you can use a library like `crypto`)
-    const resetToken = generateRandomToken();
-
-    // Save the reset token and its expiration time to the user in the database
-    user.resetToken = resetToken;
-    user.resetTokenExpires = Date.now() + 3600000; // Token expires in 1 hour
-    await user.save();
-
-    // Send an email with a link containing the reset token
-    const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
-    const emailSubject = 'Password Reset Request';
-    const emailHTML = `<p>You have requested a password reset. Click the following link to reset your password:</p><p><a href="${resetLink}">${resetLink}</a></p>`;
-
-    await sendEmail(user.email, emailSubject, emailHTML);
-
-    res.render('forgot-password', {
-      layout: userLayout,
-      successMessage: 'Password reset link sent successfully. Check your email.',
-    });
-  } catch (error) {
-    console.error(error);
-    res.render('forgot-password', {
-      layout: userLayout,
-      errorMessage: 'Internal Server Error. Please try again later.',
-    });
-  }
+  
 });
 
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                  RESET PASSWORD ROUTE                                                     **/
 /**--------------------------------------------------------------------------------------------------- **/
+
+
 router.get('/reset-password', async (req, res) => {
-  const { token } = req.query;
 
-  try {
-    // Find the user with the provided reset token
-    const user = await User.findOne({ resetToken: token, resetTokenExpires: { $gt: Date.now() } });
-
-    if (!user) {
-      // Token is invalid or expired
-      return res.render('reset-password', {
-        layout: userLayout,
-        errorMessage: 'Invalid or expired token. Please request a new password reset.',
-      });
-    }
-
-    res.render('reset-password', {
-      layout: userLayout,
-      token: token, // Pass the token to the reset password form
-    });
-  } catch (error) {
-    console.error(error);
-    res.render('reset-password', {
-      layout: userLayout,
-      errorMessage: 'Internal Server Error. Please try again later.',
-    });
-  }
 });
 
 
 router.post('/reset-password', async (req, res) => {
-  const { token, password } = req.body;
-
-  try {
-    // Find the user with the provided reset token
-    const user = await User.findOne({ resetToken: token, resetTokenExpires: { $gt: Date.now() } });
-
-    if (!user) {
-      // Token is invalid or expired
-      return res.render('reset-password', {
-        layout: userLayout,
-        errorMessage: 'Invalid or expired token. Please request a new password reset.',
-      });
-    }
-
-    // Update the user's password
-    user.password = password;
-    user.resetToken = undefined;
-    user.resetTokenExpires = undefined;
-    await user.save();
-
-    res.render('reset-password', {
-      layout: userLayout,
-      successMessage: 'Password reset successfully. You can now login with your new password.',
-    });
-  } catch (error) {
-    console.error(error);
-    res.render('reset-password', {
-      layout: userLayout,
-      errorMessage: 'Internal Server Error. Please try again later.',
-    });
-  }
+ 
 });
 
 

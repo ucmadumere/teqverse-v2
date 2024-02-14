@@ -84,6 +84,7 @@ const userSchema = mongoose.Schema(
                 message: 'Password must contain at Least one of (A-Z, a-z, (!@#$-_%^&*) and must be at least 8)...',
             }
         },
+
     },
     {
         timestamps: true,
