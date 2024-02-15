@@ -159,6 +159,13 @@ router.get("/resetfilters", checkUser, requireAuth, (req, res) => {
 });
 
 // /--------------------------------------------------------------------------------------------------- **/
+/**                                  APPLICATION TRACKING ROUTE                                                  **/
+// /--------------------------------------------------------------------------------------------------- **/
+router.get("/application-tracking", checkUser, requireAuth, (req, res) => {
+  res.render("application-tracking", { layout:adminLayout});
+});
+
+// /--------------------------------------------------------------------------------------------------- **/
 /**                                  EDIT PROFILE ROUTE                                                **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/update-profile", checkUser, requireAuth, async (req, res) => {

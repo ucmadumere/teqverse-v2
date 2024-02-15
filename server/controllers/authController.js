@@ -96,7 +96,7 @@ const logout = (req, res) => {
         httpOnly: true,
         expires: new Date(0),
         path: '/',
-        domain: 'localhost',
+        // domain: 'localhost',
         secure: process.env.NODE_ENV === 'production'
     });
     res.redirect('/?success=logged Out successfully')
