@@ -30,6 +30,7 @@ const {
 const upload = require("../multerConfig");
 const update = require("../controllers/updateProfileController");
 const updateUser = require("../controllers/userController");
+const { subscribeToJobs } = require('../controllers/subscribeController');
 
 
 router.post("/profileimage", checkUser, requireAuth);
@@ -294,5 +295,13 @@ router.post(
   upload.single("cv"),
   applyPremiumjob
 );
+
+// /--------------------------------------------------------------------------------------------------- **/
+/**                                  SUBSCRIBE ROUTE                                                **/
+// /--------------------------------------------------------------------------------------------------- **/
+router.post('/subscribe', subscribeToJobs);
+
+
+
 
 module.exports = router;
