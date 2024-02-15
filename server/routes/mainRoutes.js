@@ -137,6 +137,7 @@ router.get('/reset-password',checkUser, redirectIfAuthenticated, (req, res) => {
 });
 
 router.post('/reset-password/:token', passwordReset)
+
 // router.patch('/reset-password/:token', passwordReset)
 
 // /--------------------------------------------------------------------------------------------------- **/
