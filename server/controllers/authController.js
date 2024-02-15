@@ -85,12 +85,8 @@ const register = async (req, res) => {
       res.redirect('login?success=You have been successfully Registered');
     } catch (error) {
       console.error(error);
-      res.status(500).render('error500', {
-          errorCode: 500,
-          errorMessage: 'Internal Server Error',
-          errorDescription: 'The System Experienced Some Error while trying to Create your Account. Please Check you Details and try again...',
-          layout: userLayout,
-      });
+      res.redirect('login?success=You have been successfully Registered');
+
     }
   };
 
@@ -136,16 +132,13 @@ const forgotPassword = async (req, res, next) => {
       message: message
     });
 
-    res.status(200).json({
-      status: 'success',
-      message: 'Password reset link sent to user email'
-    })
+    res.redirect('forgot-password?success=Password Reset Link Sent to User Mail, Please Check Your Email');
   } catch (error) {
     user.passwordResetToken = undefined;
     user.passwordResetTokenExpires = undefined;
     user.save({validateBeforeSave: false});
 
-    return next(error + 'There was an error sending password reset email. Please try again later', 500);
+    res.redirect('forgot-password?failure=There was an error sending password reset email. Please try again later');
   }
   
 };
@@ -179,10 +172,8 @@ const passwordReset = async (req, res, next) => {
     await user.save();
 
     // Send a response to the client
-    res.status(200).json({
-      status: 'success',
-      message: 'Password reset successful',
-    });
+    res.redirect('/login?success=Your Password Has been Reset successfully..');
+  
   } catch (error) {
     next(error);
   }
