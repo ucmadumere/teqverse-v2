@@ -127,8 +127,8 @@ const subscribeToJobs = async (req, res) => {
 
     if (!user) {
       // Create a new user record with subscribe set to true
-      user = await User.create({ email, subscribe: true });
-    } else if (!user.subscribe) {
+      user = await User.create({ email, subscribed: true });
+    } else if (!user.subscribed) {
       // Update the user's subscription status to true
       user.subscribe = true;
       await user.save();
