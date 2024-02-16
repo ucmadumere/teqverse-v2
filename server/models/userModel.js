@@ -84,6 +84,10 @@ const userSchema = mongoose.Schema(
             enum: ['Regular', 'Premium'],
             default: 'Regular'
         },
+        subscribed: {
+            type: Boolean,
+            default: false
+        },
         password: {
             type: String,
             required: [true, 'Password cannot be blank'],
