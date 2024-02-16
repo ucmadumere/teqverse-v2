@@ -26,7 +26,7 @@ const subscribeToJobs = async (req, res) => {
     });
 
     const emailOptions = {
-      from: '<noreply@teqverse.com.ng>',
+      from: '<notifications@teqverse.com.ng>',
       to: email,
       subject: 'Subscription Confirmation',
       text: 'Thank you for subscribing to the latest jobs at TeqVerse.',
