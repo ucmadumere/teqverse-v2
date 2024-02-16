@@ -122,19 +122,20 @@ const subscribeToJobs = async (req, res) => {
   try {
     const { email } = req.body;
 
-    // Check if the user exists (case-insensitive)
+    // Find the user by email
     let user = await User.findOne({ email });
 
     if (!user) {
-      // Create a new user record
-      user = await User.create({ email });
-    } else if (user.subscribe) {
+      // Create a new user record with subscribe set to true
+      user = await User.create({ email, subscribe: true });
+    } else if (!user.subscribe) {
+      // Update the user's subscription status to true
+      user.subscribe = true;
+      await user.save();
+    } else {
+      // User is already subscribed
       return res.status(400).json({ message: 'Email is already subscribed.' });
     }
-
-    // Update the user's subscription status
-    user.subscribe = true;
-    await user.save();
 
     // Send confirmation email
     const transporter = nodemailer.createTransport({
@@ -155,13 +156,6 @@ const subscribeToJobs = async (req, res) => {
 
     await transporter.sendMail(emailOptions);
 
-    // Assuming `jobs` is an array of job objects
-    // You should fetch relevant jobs based on user's interests or other criteria
-    // const jobs = await fetchJobs(user);
-
-    // Send the list of jobs to the user
-    // await sendJobList(user, jobs);
-
     res.status(200).json({ message: 'Successfully subscribed to latest jobs.' });
   } catch (error) {
     console.error(error);
@@ -172,3 +166,4 @@ const subscribeToJobs = async (req, res) => {
 module.exports = {
   subscribeToJobs,
 };
+
