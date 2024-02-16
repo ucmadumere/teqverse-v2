@@ -1,7 +1,6 @@
-
-  <div class="authincation h-100">
-      <div class="container-fluid h-100">
-          <div class="row h-100">
+<div class="authincation h-100">
+  <div class="container-fluid h-100">
+    <div class="row h-100">
       <div class="col-lg-6 col-md-7 col-sm-12 mx-auto align-self-center">
         <div class="login-form">
           <div class="text-center">
@@ -20,25 +19,30 @@
               <label class="mb-1 text-dark">Email</label>
               <input type="email" class="form-control form-control" placeholder="hello@example.com" name="email">
             </div>
-           <!-- Password Field -->
-<div class="mb-4 position-relative">
-  <label class="mb-1 text-dark">Password</label>
-  <input type="password" id="dz-password" class="form-control form-control" placeholder="Password" name="password">
-  <span class="show-pass eye" id="eye-password" onclick="togglePassword('teq-password')">
-    <i class="fa fa-eye-slash"></i>
-    <i class="fa fa-eye"></i>
-  </span>
-</div>
+            <!-- Password Field -->
+            <div class="mb-4 position-relative">
+              <label class="mb-1 text-dark">Password</label>
+              <input type="password" id="dz-password" class="form-control form-control" placeholder="Password"
+                name="password">
+              <span class="show-pass eye" id="eye-password" onclick="togglePassword('teq-password')">
+                <i class="fa fa-eye-slash"></i>
+                <i class="fa fa-eye"></i>
+              </span>
+              <small id="password-requirements" class="form-text text-muted">
+                Password must contain at least 8 characters, including uppercase, lowercase, 1 special character and a number.
+              </small>
+            </div>
 
-<!-- Confirm Password Field -->
-<div class="mb-4 position-relative">
-  <label class="mb-1 text-dark">Confirm Password</label>
-  <input type="password" id="dz-confirm-password" class="form-control form-control" placeholder="Password" name="password2">
-  <span class="show-pass eye" id="eye-confirm-password" onclick="togglePassword('teq-confirm-password')">
-    <i class="fa fa-eye-slash"></i>
-    <i class="fa fa-eye"></i>
-  </span>
-</div>
+            <!-- Confirm Password Field -->
+            <div class="mb-4 position-relative">
+              <label class="mb-1 text-dark">Confirm Password</label>
+              <input type="password" id="dz-confirm-password" class="form-control form-control" placeholder="Password"
+                name="password2">
+              <span class="show-pass eye" id="eye-confirm-password" onclick="togglePassword('teq-confirm-password')">
+                <i class="fa fa-eye-slash"></i>
+                <i class="fa fa-eye"></i>
+              </span>
+            </div>
 
             <div class="text-center mb-4">
               <button type="submit" class="btn btn-primary light btn-block">Sign Up</button>
@@ -53,64 +57,50 @@
                 <li><a target="_blank" href="https://twitter.com/" class="fab fa-twitter btn-twitter"></a></li>
               </ul>
             </div> -->
-            <p class="text-center">Already registered?  
+            <p class="text-center">Already registered?
               <a class="btn-link text-primary" href="/login">Sign In</a>
             </p>
           </form>
         </div>
       </div>
-              <div class="col-xl-6 col-lg-6">
+      <div class="col-xl-6 col-lg-6">
         <div class="pages-left h-100">
           <div class="login-content">
-            <a href="/"><img src="/img/logo-blue.png" class="logo" class="mb-3"  alt="Logo"></a>
-            
-            <p class="mt-2">Your true value is determined by how much more you give in value than you take in payment. ...</p>
+            <a href="/"><img src="/img/logo-blue.png" class="logo" class="mb-3" alt="Logo"></a>
+
+            <p class="mt-2">Your true value is determined by how much more you give in value than you take in payment.
+              ...</p>
           </div>
           <div class="login-media text-center">
             <img src="images/login.png" alt="">
           </div>
         </div>
-              </div>
-          </div>
       </div>
+    </div>
   </div>
+</div>
 
-  <script>
-    function togglePassword(passwordFieldId) {
-      const passwordField = document.getElementById(passwordFieldId);
-      const eyeIcon = document.getElementById(`eye-${passwordFieldId}`);
-    
-      if (passwordField && eyeIcon) {
-        if (passwordField.type === 'password') {
-          passwordField.type = 'text';
-          eyeIcon.classList.add('show');
-        } else {
-          passwordField.type = 'password';
-          eyeIcon.classList.remove('show');
-        }
+<script>
+  function togglePassword(passwordFieldId) {
+    const passwordField = document.getElementById(passwordFieldId);
+    const eyeIcon = document.getElementById(`eye-${passwordFieldId}`);
+
+    if (passwordField && eyeIcon) {
+      if (passwordField.type === 'password') {
+        passwordField.type = 'text';
+        eyeIcon.classList.add('show');
+      } else {
+        passwordField.type = 'password';
+        eyeIcon.classList.remove('show');
       }
     }
-  </script>
-  
-  <!-- <script>
-    function togglePassword(passwordFieldId) {
-      const passwordField = document.getElementById(passwordFieldId);
-      const eyeIcon = passwordField.nextElementSibling;
-  
-      // Toggle password visibility
-      passwordField.type = passwordField.type === 'password' ? 'text' : 'password';
-  
-      // Toggle eye icon
-      eyeIcon.innerHTML = passwordField.type === 'password'
-        ? '<i class="fa fa-eye-slash"></i>' // Show eye-slash icon
-        : '<i class="fa fa-eye"></i>';      // Show eye icon
-    }
-  </script> -->
-  
-  
-  
-  
-  
+  }
+</script>
+
+
+
+
+
 
 
 

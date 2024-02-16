@@ -30,6 +30,7 @@ const {
 const upload = require("../multerConfig");
 const update = require("../controllers/updateProfileController");
 const updateUser = require("../controllers/userController");
+const { subscribeToJobs } = require('../controllers/subscribeController');
 
 
 router.post("/profileimage", checkUser, requireAuth);
@@ -155,6 +156,13 @@ router.get("/joblist", checkUser, requireAuth, joblistController);
 router.get("/resetfilters", checkUser, requireAuth, (req, res) => {
   // Redirect to the joblist route without any filter parameters
   res.redirect("/joblist");
+});
+
+// /--------------------------------------------------------------------------------------------------- **/
+/**                                  APPLICATION TRACKING ROUTE                                                  **/
+// /--------------------------------------------------------------------------------------------------- **/
+router.get("/application-tracking", checkUser, requireAuth, (req, res) => {
+  res.render("application-tracking", { layout:adminLayout});
 });
 
 // /--------------------------------------------------------------------------------------------------- **/
@@ -295,5 +303,13 @@ router.post(
   upload.single("cv"),
   applyPremiumjob
 );
+
+// /--------------------------------------------------------------------------------------------------- **/
+/**                                  SUBSCRIBE ROUTE                                                **/
+// /--------------------------------------------------------------------------------------------------- **/
+router.post('/subscribe', subscribeToJobs);
+
+
+
 
 module.exports = router;
