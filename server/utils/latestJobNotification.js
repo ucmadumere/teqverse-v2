@@ -13,7 +13,7 @@ const sendJobEmail = async (option) => {
 
     // DEFINE EMAIL OPTIONS
     const emailOptions = {
-        from: 'Teqverse support<noreply@teqverse.com.ng>',
+        from: '<noreply@teqverse.com.ng>',
         to: option.email,
         subject: option.subject,
         text: option.message
