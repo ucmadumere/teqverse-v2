@@ -130,7 +130,7 @@ const subscribeToJobs = async (req, res) => {
       user = await User.create({ email, subscribed: true });
     } else if (!user.subscribed) {
       // Update the user's subscription status to true
-      user.subscribe = true;
+      user.subscribed = true;
       await user.save();
     } else {
       // User is already subscribed
