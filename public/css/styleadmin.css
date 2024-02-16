@@ -9657,10 +9657,48 @@ label {
     padding-right: 1.3rem;
     font-weight: 700;
     padding-top: 11px; }
+
+    
+    @media only screen and (max-width: 320px) {
+      .nav-header .brand-logo {
+        /* Center the logo on mobile devices */
+        display: block;
+        margin: 0 auto;
+        margin-top: 20px;
+        justify-content: center !important;
+        align-items: center !important;
+      }
+    }
+    @media only screen and (max-width: 767px) {
+      .nav-header .brand-logo {
+        /* Center the logo on mobile devices */
+        display: block;
+        margin: 0 auto;
+        margin-top: 20px;
+        justify-content: center;
+        align-items: center;
+        margin-left: 200px !important;
+      }
+    }
+    @media only screen and (max-width: 900px) {
+      .nav-header .brand-logo {
+        /* Center the logo on mobile devices */
+        display: block;
+        margin: 0 auto;
+        margin-top: 20px;
+        justify-content: center;
+        align-items: center;
+        margin-left: 200px !important;
+      }
+    }
+    
+  
+    
     @media only screen and (max-width: 87.5rem) {
       .nav-header .brand-logo {
         padding-left: 1.25rem;
-        padding-right: 1.25rem; } }
+        padding-right: 1.25rem;
+         } }
     [data-sidebar-style="compact"] .nav-header .brand-logo,
     [data-sidebar-style="mini"] .nav-header .brand-logo {
       padding-left: 0;
@@ -9668,7 +9706,7 @@ label {
       justify-content: center; }
     @media only screen and (max-width: 47.9375rem) {
       .nav-header .brand-logo {
-        padding-left: 0;
+        padding-left: 30%;
         padding-right: 0;
         justify-content: center; } }
   .nav-header .logo-abbr {
