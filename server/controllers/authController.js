@@ -43,14 +43,7 @@ const login = async (req, res) => {
     res.redirect('/?success=logged in successfully');
 
   } catch (error) {
-    console.error(error);
-    res.status(500).render('error500', {
-        errorCode: 400,
-        errorMessage: "Internal Server Error",
-        errorDescription: "The system encountered an error while trying to get the User. Please check your credentials and try again",
-        layout: userLayout,
-
-    }); //{ message: 'An error occurred during login' });
+    res.redirect('login?failure=Something Went Wrong, Please Check Your details and Try Again');
   }
 };
 
@@ -84,8 +77,7 @@ const register = async (req, res) => {
   
       res.redirect('login?success=You have been successfully Registered');
     } catch (error) {
-      console.error(error);
-      res.redirect('login?success=You have been successfully Registered');
+      res.redirect('login?failure=Something Went Wrong, Please Check Your details and Try Again');
 
     }
   };
