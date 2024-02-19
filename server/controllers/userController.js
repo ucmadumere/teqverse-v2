@@ -23,7 +23,7 @@ const updateUser = async (req, res, next) => {
         const { userId } = decodedToken;
 
         // Ensure interest is always an array of strings
-        const updatedInterest = Array.isArray(interest) ? interest : [interest];
+        const updatedInterest = interest.split(',').map(interest => interest.trim());
 
         // Update the user using the findByIdAndUpdate method
         const updatedUser = await User.findByIdAndUpdate(userId, {

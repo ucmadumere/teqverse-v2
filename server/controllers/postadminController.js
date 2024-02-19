@@ -45,7 +45,7 @@ const createJob = async (req, res) => {
       return res.status(400).send('Invalid job category');
     }
 
-    const skillsArray = skills.split(',').map(skill => skill.trim());;
+    const skillsArray = skills.split(',').map(skill => skill.trim());
 
     
     const newPost = new PostJob({
