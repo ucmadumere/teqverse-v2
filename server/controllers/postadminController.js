@@ -120,6 +120,8 @@ const getGuestList = async (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 
 const updatejob = async (req, res) => {
+  const { title, experience, jobLocation, jobType, workType, jobDescription, jobOverview, requirements, jobCategory, closingDate, methodOfApplication, skills, updatedAt } = req.body;
+  const skillsArray = skills.split(',').map(skill => skill.trim());
   try {
 
     await PostJob.findByIdAndUpdate(req.params.id, {
@@ -135,7 +137,7 @@ const updatejob = async (req, res) => {
       jobCategory: req.body.jobCategory,
       closingDate: req.body.closingDate,
       methodOfApplication: req.body.methodOfApplication,
-      skills: req.body.skills,
+      skills: skillsArray,
       updatedAt: Date.now(),
       
     });
