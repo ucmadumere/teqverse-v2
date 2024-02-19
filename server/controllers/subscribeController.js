@@ -86,83 +86,8 @@
 const User = require('../models/userModel');
 const Postjob = require('../models/postJob');
 const nodemailer = require('nodemailer');
-// const sendJobEmail = require('../utils/latestJobNotification');
+const cron = require('node-cron');
 
-const fetchJobsBasedOnInterests = async (userInterests, limit = 6) => {
-  // Modify this function to fetch relevant jobs based on user interests
-  // Limit the number of jobs fetched to the specified limit.
-  // This is just a placeholder, replace it with your actual logic.
-
-  // Sample implementation assuming 'Postjob' model has 'skills' field.
-  return Postjob.find({
-    skills: {
-      $in: userInterests
-    }
-  })
-    .collation({ locale: 'en', strength: 2 })
-    .limit(limit) // Limit the number of jobs fetched
-    .exec();
-};
-
-// const sendJobList = async (user) => {
-//   try {
-//     // Fetch user's interests
-//     const userInterestResponse = await User.findById(user._id).select('interest').exec();
-//     let userInterest = userInterestResponse ? userInterestResponse.interest : [];
-
-//     // Split user interests and convert to lowercase
-//     if (Array.isArray(userInterest)) {
-//       userInterest = userInterest.join(' ');
-//     }
-//     const userInterests = userInterest.split(' ').map(interest => interest.trim().toLowerCase());
-
-//     // Fetch relevant jobs based on user's interests (limit to 6 jobs)
-//     const jobs = await fetchJobsBasedOnInterests(userInterests, 6);
-
-//     // Limit the number of job notifications to send to the user
-//     const maxJobNotifications = 6;
-//     const jobsToSend = jobs.slice(0, maxJobNotifications);
-
-//     // Send job email notification
-//     await sendJobEmail(user, jobsToSend);
-
-//     console.log(`Job list sent to user email. ${jobsToSend.length} jobs sent.`);
-//   } catch (error) {
-//     console.error('Error sending job list to user email:', error);
-//   }
-// };
-const sendJobList = async (user) => {
-  try {
-    // Check if the user is subscribed
-    if (!user.subscribed) {
-      console.log('User is not subscribed. Skipping job notification.');
-      return;
-    }
-
-    // Fetch user's interests
-    const userInterestResponse = await User.findById(user._id).select('interest').exec();
-    let userInterest = userInterestResponse ? userInterestResponse.interest : [];
-
-    // Split user interests and convert to lowercase
-    if (Array.isArray(userInterest)) {
-      userInterest = userInterest.join(' ');
-    }
-    const userInterests = userInterest.split(' ').map(interest => interest.trim().toLowerCase());
-
-    // Fetch relevant jobs based on user's interests
-    const jobs = await fetchJobsBasedOnInterests(userInterests);
-
-    // Limit the number of jobs to 6 or less
-    const limitedJobs = jobs.slice(0, 6);
-
-    // Send job email notification
-    await sendJobEmail(user, limitedJobs);
-
-    console.log('Job list sent to user email');
-  } catch (error) {
-    console.error('Error sending job list to user email:', error);
-  }
-};
 
 
 
@@ -174,8 +99,8 @@ const subscribeToJobs = async (req, res) => {
     let user = await User.findOne({ email });
 
     if (!user) {
-      // Create a new user record with subscribe set to true and save interests
-      user = await User.create({ email, subscribed: true, interest: interests });
+      // Create a new user record with subscribe set to true  
+      user = await User.create({ email, subscribed: true });
     } else if (!user.subscribed) {
       // Update the user's subscription status to true and save interests
       user.subscribed = true;
@@ -218,6 +143,31 @@ const subscribeToJobs = async (req, res) => {
     res.status(500).json({ message: 'Internal Server Error' });
   }
 };
+
+// Schedule job to run every day at a specific time (e.g., 12:00 PM)
+cron.schedule('0 0 12 * * *', async () => {
+  try {
+    // Fetch all subscribed users
+    const subscribedUsers = await User.find({ subscribed: true });
+
+    // Iterate through subscribed users
+    for (const user of subscribedUsers) {
+      // Assuming `fetchJobs` is a function that fetches relevant jobs based on user's interests
+      const jobs = await fetchJobs(user);
+
+      // Send the list of jobs to the user
+      await sendJobList(user, jobs);
+
+      console.log(user, jobs)
+    }
+
+    console.log('Job listings sent to subscribed users.');
+  } catch (error) {
+    console.error('Error sending job listings:', error);
+  }
+});
+
+
 
 module.exports = {
   subscribeToJobs,
