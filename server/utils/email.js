@@ -16,7 +16,7 @@ const sendEmail = async (option) => {
         from: 'Teqverse support<noreply@teqverse.com.ng>',
         to: option.email,
         subject: option.subject,
-        text: option.message
+        html: option.message
     }
 
     await transporter.sendMail(emailOptions);

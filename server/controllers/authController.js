@@ -6,6 +6,7 @@ const { createJWT } = require('../utils/tokenUtils');
 const userLayout = '../views/layouts/userLogin';
 const crypto = require('crypto');
 const sendEmail = require('../utils/email');
+const getResetPasswordTemplate = require('../utils/emailTemplate');
 
 
 
@@ -115,7 +116,8 @@ const forgotPassword = async (req, res, next) => {
 
   // SEND THE TOKEN BACK TO THE USER EMAIL
   const resetUrl = `${req.protocol}://${req.get('host')}/reset-password?token=${resetToken}`;
-  const message = `We have received a password reset request. Please use the link below to reset your password\n\n${resetUrl}\n\nThis reset password link will be valid only for 10 minutes`
+  // const message = `We have received a password reset request. Please use the link below to reset your password\n\n${resetUrl}\n\nThis reset password link will be valid only for 10 minutes`
+  const message = getResetPasswordTemplate(user?.first_name, resetUrl);
 
   try {
     await sendEmail({
