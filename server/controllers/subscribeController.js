@@ -84,38 +84,23 @@
 // };
 
 const User = require('../models/userModel');
-const Postjob = require('../models/postJob');
 const nodemailer = require('nodemailer');
 const cron = require('node-cron');
 
-
-
-
 const subscribeToJobs = async (req, res) => {
   try {
-    const { email, interests } = req.body;
-
-    // Find the user by email
+    const { email } = req.body;
     let user = await User.findOne({ email });
 
     if (!user) {
-      // Create a new user record with subscribe set to true  
       user = await User.create({ email, subscribed: true });
     } else if (!user.subscribed) {
-      // Update the user's subscription status to true and save interests
       user.subscribed = true;
-      user.interest = interests;
       await user.save();
     } else {
-      // User is already subscribed, update interests if provided
-      if (interests && interests.length > 0) {
-        user.interest = interests;
-        await user.save();
-      }
       return res.status(400).json({ message: 'Email is already subscribed.' });
     }
 
-    // Send confirmation email
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST2,
       port: process.env.SMTP_PORT2,
@@ -134,9 +119,6 @@ const subscribeToJobs = async (req, res) => {
 
     await transporter.sendMail(emailOptions);
 
-    // Send job list based on interests
-    await sendJobList(user);
-
     res.status(200).json({ message: 'Successfully subscribed to latest jobs.' });
   } catch (error) {
     console.error(error);
@@ -144,20 +126,13 @@ const subscribeToJobs = async (req, res) => {
   }
 };
 
-// Schedule job to run every day at a specific time (e.g., 12:00 PM)
-cron.schedule('0 0 12 * * *', async () => {
+const sendJobListings = async () => {
   try {
-    // Fetch all subscribed users
     const subscribedUsers = await User.find({ subscribed: true });
 
-    // Iterate through subscribed users
     for (const user of subscribedUsers) {
-      // Assuming `fetchJobs` is a function that fetches relevant jobs based on user's interests
       const jobs = await fetchJobs(user);
-
-      // Send the list of jobs to the user
       await sendJobList(user, jobs);
-
       console.log(user, jobs)
     }
 
@@ -165,9 +140,10 @@ cron.schedule('0 0 12 * * *', async () => {
   } catch (error) {
     console.error('Error sending job listings:', error);
   }
-});
+};
 
-
+// Schedule job to run every day at a specific time (e.g., 12:00 PM)
+cron.schedule('0 0 12 * * *', sendJobListings);
 
 module.exports = {
   subscribeToJobs,
