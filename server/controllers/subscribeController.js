@@ -1,36 +1,7 @@
 // const User = require('../models/userModel');
 // const nodemailer = require('nodemailer');
-// const sendJobEmail = require('../utils/latestJobNotification')
+// const cron = require('node-cron');
 
-// const sendJobList = async (user, jobs) => {
-//   const jobList = jobs.map(job => `- ${job.title} (${job.company})`).join('\n');
-
-//   const message = `Here are some job listings that match your interests:\n\n${jobList}`;
-
-//   try {
-//     const transporter = nodemailer.createTransport({
-//       host: process.env.SMTP_HOST2,
-//       port: process.env.SMTP_PORT2,
-//       auth: {
-//         user: process.env.SMTP_USERNAME2,
-//         pass: process.env.SMTP_PASSWORD2,
-//       },
-//     });
-
-//     const emailOptions = {
-//       from: '<notifications@teqverse.com.ng>',
-//       to: user.email,
-//       subject: 'Job listings based on your interests',
-//       text: message,
-//     };
-
-//     await transporter.sendMail(emailOptions);
-
-//     console.log('Job list sent to user email');
-//   } catch (error) {
-//     console.error('Error sending job list to user email:', error);
-//   }
-// };
 
 
 
@@ -42,7 +13,7 @@
 //     let user = await User.findOne({ email });
 
 //     if (!user) {
-//       // Create a new user record with subscribe set to true
+//       // Create a new user record with subscribe set to true  
 //       user = await User.create({ email, subscribed: true });
 //     } else if (!user.subscribed) {
 //       // Update the user's subscription status to true
@@ -79,9 +50,38 @@
 //   }
 // };
 
+// // Schedule job to run every day at a specific time (e.g., 12:00 PM)
+// cron.schedule('0 0 12 * * *', async () => {
+//   try {
+//     // Fetch all subscribed users
+//     const subscribedUsers = await User.find({ subscribed: true });
+
+//     // Iterate through subscribed users
+//     for (const user of subscribedUsers) {
+//       // Assuming `fetchJobs` is a function that fetches relevant jobs based on user's interests
+//       const jobs = await fetchJobs(user);
+
+//       // Send the list of jobs to the user
+//       await sendJobList(user, jobs);
+
+//       console.log(user, jobs)
+//     }
+
+//     console.log('Job listings sent to subscribed users.');
+//   } catch (error) {
+//     console.error('Error sending job listings:', error);
+//   }
+// });
+
+
+
 // module.exports = {
 //   subscribeToJobs,
 // };
+
+
+
+
 
 const User = require('../models/userModel');
 const nodemailer = require('nodemailer');
@@ -89,13 +89,15 @@ const cron = require('node-cron');
 
 const subscribeToJobs = async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, interests } = req.body;
+
     let user = await User.findOne({ email });
 
     if (!user) {
-      user = await User.create({ email, subscribed: true });
+      user = await User.create({ email, subscribed: true, interests });
     } else if (!user.subscribed) {
       user.subscribed = true;
+      user.interests = interests;
       await user.save();
     } else {
       return res.status(400).json({ message: 'Email is already subscribed.' });
@@ -131,9 +133,14 @@ const sendJobListings = async () => {
     const subscribedUsers = await User.find({ subscribed: true });
 
     for (const user of subscribedUsers) {
-      const jobs = await fetchJobs(user);
-      await sendJobList(user, jobs);
-      console.log(user, jobs)
+      // Subscribe user to jobs and get their interests
+      await subscribeToJobs({ body: { email: user.email, interests: user.interests } });
+
+      // Get job listings based on user interests
+      const { recommendedJobs } = await joblist(user);
+
+      // Send job notifications to the user
+      await sendJobList(user, recommendedJobs);
     }
 
     console.log('Job listings sent to subscribed users.');
@@ -142,8 +149,9 @@ const sendJobListings = async () => {
   }
 };
 
+
 // Schedule job to run every day at a specific time (e.g., 12:00 PM)
-cron.schedule('0 0 12 * * *', sendJobListings);
+// cron.schedule('* * * * *', sendJobListings);
 
 module.exports = {
   subscribeToJobs,
