@@ -3,6 +3,7 @@ const nodemailer = require('nodemailer');
 const cron = require('node-cron');
 const jwt = require('jsonwebtoken')
 Postjob = require('../models/postJob')
+const getJobListingsTemplate = require('../utils/jobListEmailTemplate');
 
 
 
@@ -88,16 +89,14 @@ const sendJobList = async (user, jobs) => {
       },
     });
 
-    let jobList = '';
-    for (const job of jobs) {
-      jobList += `${job.title} - ${job.description}\n`;
-    }
+    
+    const emailTemplate = getJobListingsTemplate(user?.first_name, jobs);
 
     const emailOptions = {
       from: '<notifications@teqverse.com.ng>',
       to: user.email,
       subject: 'Recommended Jobs',
-      text: `Here are some jobs you might be interested in:\n${jobList}`,
+      html: emailTemplate
     };
 
     await transporter.sendMail(emailOptions);
@@ -110,22 +109,36 @@ const sendJobList = async (user, jobs) => {
 const sendJobListings = async () => {
   try {
     const subscribedUsers = await User.find({ subscribed: true });
-    console.log(subscribedUsers)
 
     for (const user of subscribedUsers) {
       const jobs = await fetchJobs(user);
+      if (jobs.length <= 4) {
+        console.log(`Avalible jobs not Upto Five(5), Can not send bellow 5 jobs to a user email: ${user.email}`);
+        continue;
+      }
+
+      // Check if the jobs have been sent before
+      if (user.sentJobs && jobs.every(job => user.sentJobs.includes(job._id))) {
+        console.log(`No new jobs for user: ${user.email}`);
+        continue;
+      }
+
       await sendJobList(user, jobs);
-      console.log(user, jobs)
+
+      // Update the sentJobs field for the user
+      user.sentJobs = jobs.map(job => job._id);
+      await user.save();
+
     }
 
-    console.log('Job listings sent to subscribed users.');
   } catch (error) {
     console.error('Error sending job listings:', error);
   }
 };
 
+
 // Schedule job to run every day at a specific time (e.g., 12:00 PM)
-cron.schedule('15 16 * * *', sendJobListings);
+cron.schedule('58 09 * * *', sendJobListings);
 
 module.exports = {
   subscribeToJobs,
