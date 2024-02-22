@@ -3,8 +3,8 @@ const Postjob = require('../models/postJob');
 const nodemailer = require('nodemailer');
 const cron = require('node-cron');
 const jwt = require('jsonwebtoken')
-Postjob = require('../models/postJob')
 const getJobListingsTemplate = require('../utils/jobListEmailTemplate');
+const subscribedTemplate = require('../utils/subscribedTemplate');
 
 
 
@@ -34,11 +34,14 @@ const subscribeToJobs = async (req, res) => {
       },
     });
 
+    const unsubscribeUrl = `${req.protocol}://${req.get('host')}/unsubscribe`;
+    const subscribeTemplate = subscribedTemplate(user?.first_name, user?.last_name, unsubscribeUrl);
+    
     const emailOptions = {
       from: '<notifications@teqverse.com.ng>',
       to: email,
       subject: 'Subscription Confirmation',
-      text: 'Thank you for subscribing to the latest jobs at TeqVerse.',
+      html: subscribeTemplate,
     };
 
     await transporter.sendMail(emailOptions);
@@ -144,7 +147,31 @@ const sendJobListings = async () => {
 // Schedule job to run every day at a specific time (e.g., 12:00 PM)
 cron.schedule('22 10 * * *', sendJobListings);
 
+// UNSUBSCRIBE FUNCTION
+const unsubscribeToJobs = async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    // Find the user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found.' });
+    }
+
+    // Update the subscribed field to false
+    user.subscribed = false;
+    await user.save();
+
+    res.status(200).json({ message: 'Successfully unsubscribed.' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+}
+
 module.exports = {
+  unsubscribeToJobs,
   subscribeToJobs,
   sendJobList,
 };
