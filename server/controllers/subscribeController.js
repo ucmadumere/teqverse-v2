@@ -117,11 +117,12 @@ const sendJobListings = async () => {
         continue;
       }
 
-      // Check if the jobs have been sent before
-      if (user.sentJobs && jobs.every(job => user.sentJobs.includes(job._id))) {
-        console.log(`No new jobs for user: ${user.email}`);
-        continue;
-      }
+     // Check if the jobs have been sent before
+    if (user.sentJobs && jobs.every(job => user.sentJobs.includes(String(job._id)))) {
+      console.log(`No new jobs for user: ${user.email}`);
+      continue;
+    }
+
 
       await sendJobList(user, jobs);
 
@@ -138,7 +139,7 @@ const sendJobListings = async () => {
 
 
 // Schedule job to run every day at a specific time (e.g., 12:00 PM)
-cron.schedule('58 09 * * *', sendJobListings);
+cron.schedule('22 10 * * *', sendJobListings);
 
 module.exports = {
   subscribeToJobs,
