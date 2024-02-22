@@ -1,10 +1,8 @@
 const User = require('../models/userModel');
+const Postjob = require('../models/postJob');
 const nodemailer = require('nodemailer');
 const cron = require('node-cron');
-const jwt = require('jsonwebtoken')
-
-
-
+const jwt = require('jsonwebtoken');
 
 const subscribeToJobs = async (req, res) => {
   try {
@@ -47,59 +45,54 @@ const subscribeToJobs = async (req, res) => {
   }
 };
 
+const fetchJobs = async (req, user) => {
+  try {
+    const token = req.cookies.token;
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decoded.userId;
 
+    const userInterestResponse = await User.findById(userId).select('interest').exec();
+    let userInterest = userInterestResponse ? userInterestResponse.interest : [];
 
-    const fetchJobs = async (req, res, user) => {
-      // Fetch user interests
-      const token = req.cookies.token;
+    if (Array.isArray(userInterest)) {
+      userInterest = userInterest.join(' ');
+    }
+    const userInterests = userInterest.split(' ').map(interest => interest.trim().toLowerCase());
 
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const recommendedJobs = await Postjob.find({
+      skills: {
+        $elemMatch: {
+          $in: userInterests,
+        },
+      },
+    }).collation({ locale: 'en', strength: 2 }).exec();
 
-      const userId = decoded.userId;
-      console.log(userId)
+    return recommendedJobs;
+  } catch (error) {
+    console.error('Error fetching jobs:', error);
+    return [];
+  }
+};
 
-      const userInterestResponse = await User.findById(userId).select('interest').exec();
-      let userInterest = userInterestResponse ? userInterestResponse.interest : [];
+const sendJobListings = async (req) => {
+  try {
+    const subscribedUsers = await User.find({ subscribed: true });
 
-        // Split user interests and convert to lowercase
-        if (Array.isArray(userInterest)) {
-          userInterest = userInterest.join(' ');
-        }
-        const userInterests = userInterest.split(' ').map(interest => interest.trim().toLowerCase());
-      
-        // Find recommended jobs
-        const recommendedJobs = await Postjob.find({
-          skills: {
-            $elemMatch: {
-              $in: userInterests
-            }
-          }
-        }).collation({ locale: 'en', strength: 2 }).exec();
-      
-        return recommendedJobs;
-      };
+    for (const user of subscribedUsers) {
+      const jobs = await fetchJobs(req, user);
+      await sendJobList(user, jobs);
+      console.log(user, jobs);
+    }
 
+    console.log('Job listings sent to subscribed users.');
+  } catch (error) {
+    console.error('Error sending job listings:', error);
+  }
+};
 
-    const sendJobListings = async () => {
-      try {
-        const subscribedUsers = await User.find({ subscribed: true });
-        console.log(subscribedUsers)
+// Schedule job to run every day at a specific time (e.g., 12:00 PM)
+cron.schedule('* * * * *', () => sendJobListings(req));
 
-        for (const user of subscribedUsers) {
-          const jobs = await fetchJobs(token, user);
-          await sendJobList(user, jobs);
-          console.log(user, jobs)
-        }
-
-        console.log('Job listings sent to subscribed users.');
-      } catch (error) {
-        console.error('Error sending job listings:', error);
-      }
-    };
-
-    // Schedule job to run every day at a specific time (e.g., 12:00 PM)
-    cron.schedule('19 12 * * *', sendJobListings);
-
-    module.exports = {
-      subscribeToJobs,
-    };
+module.exports = {
+  subscribeToJobs,
+};
