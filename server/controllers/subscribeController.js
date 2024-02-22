@@ -159,6 +159,11 @@ const unsubscribeToJobs = async (req, res) => {
       return res.status(404).json({ message: 'User not found.' });
     }
 
+    // Check if the user is already unsubscribed
+    if (!user.subscribed) {
+      return res.status(200).json({ message: 'User is already unsubscribed.' });
+    }
+
     // Update the subscribed field to false
     user.subscribed = false;
     await user.save();
