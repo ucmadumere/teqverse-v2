@@ -65,12 +65,15 @@ const joblist = async (req, res) => {
 
 
 
-    // Find recommended jobs
+   // Find recommended jobs
     const recommendedJobs = await Postjob.find({
       skills: {
-        $in: userInterests
+        $elemMatch: {
+          $in: userInterests
+        }
       }
     }).collation({ locale: 'en', strength: 2 }).exec();
+
 
     res.render('jobList', {
       data: jobs,
