@@ -1,0 +1,32 @@
+<div class="authincation h-100">
+    <div class="container-fluid h-100">
+        <div class="row h-100">
+            <div class="col-lg-6 col-md-12 col-sm-12 mx-auto align-self-center">
+                <div class="job-listings">
+                    <div class="text-center">
+                        <h3 class="title">Job Listings</h3>
+                        <p>Here are some jobs you might be interested in:</p>
+                    </div>
+                    <% for(let job of jobs) { %>
+                        <div class="job">
+                            <h4><%= job.title %></h4>
+                            <p><%= job.description %></p>
+                        </div>
+                    <% } %>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6">
+                <div class="pages-left h-100">
+                    <div class="login-content">
+                        <a href="/"><img src="/img/logo-blue.png" class="logo" class="mb-3" alt="Logo"></a>
+                        <p class="mt-2">Your true value is determined by how much more you give in value than you
+                            take in payment...</p>
+                    </div>
+                    <div class="login-media text-center">
+                        <img src="images/login.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
