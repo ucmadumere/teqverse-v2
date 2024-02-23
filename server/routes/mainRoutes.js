@@ -30,7 +30,9 @@ const {
 const upload = require("../multerConfig");
 const update = require("../controllers/updateProfileController");
 const updateUser = require("../controllers/userController");
-const { subscribeToJobs } = require('../controllers/subscribeController');
+const { subscribeToJobs,
+  unsubscribeToJobs
+ } = require('../controllers/subscribeController');
 
 
 router.post("/profileimage", checkUser, requireAuth);
@@ -308,6 +310,15 @@ router.post(
 /**                                  SUBSCRIBE ROUTE                                                **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.post('/subscribe', subscribeToJobs);
+
+// /--------------------------------------------------------------------------------------------------- **/
+/**                                  UNSUBSCRIBE ROUTE                                                **/
+// /--------------------------------------------------------------------------------------------------- **/
+router.get('/unsubscribe', checkUser, (req, res) => {
+    res.render("unsubscribe", { layout: userLayout });
+  }
+);
+router.post('/unsubscribe', unsubscribeToJobs);
 
 
 
