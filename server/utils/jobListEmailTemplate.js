@@ -37,13 +37,14 @@ const getJobListingsTemplate = (first_name, jobs) => `
                         
                         <!-- Job listings -->
                         ${jobs.map(job => `
-                        <h2><a href="http://localhost:5000/jobdetails/${job._id}">${job.title}</a></h2>
-                        <p>Description:<br>${job.jobDescription}</p>
-                        <p>Location: ${job.location ? job.location : 'Not specified'}</p>
-                        <p>Skills required: ${job.skills.join(', ')}</p>
+                        <h2><a href="/jobdetails/${job._id}">${job.title}</a></h2>
+                        <p>Description: ${job.jobDescription}</p>
+                        <p>Location: ${job.jobLocation}</p>
+                        <p>Skills required: ${job.skills.length ? job.skills.join(', ') : 'Not specified'}</p>
                         <p>Salary: ${job.salary ? job.salary : 'Not specified'}</p>
                         <hr />
                       `).join('')}
+                      
                       
                       
                         

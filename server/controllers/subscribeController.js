@@ -139,7 +139,7 @@ const sendJobListings = async () => {
 
 
 // Schedule job to run every day at a specific time (e.g., 12:00 PM)
-cron.schedule('22 10 * * *', sendJobListings);
+cron.schedule('18 13 * * *', sendJobListings);
 
 module.exports = {
   subscribeToJobs,

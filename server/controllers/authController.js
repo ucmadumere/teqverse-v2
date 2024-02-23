@@ -7,6 +7,7 @@ const userLayout = '../views/layouts/userLogin';
 const crypto = require('crypto');
 const sendEmail = require('../utils/email');
 const getResetPasswordTemplate = require('../utils/emailTemplate');
+const nodemailer = require('nodemailer')
 
 
 
@@ -29,6 +30,11 @@ const login = async (req, res) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.redirect('login?failure=Incorrect Email or Password'); 
+    }
+
+    // Check if the user is verified
+    if (!user.verified) {
+      return res.redirect('login?failure=Your account has not been verified. Please check your email for a verification link');
     }
 
     const token = createJWT({userId:user._id, role: user.role});
@@ -75,9 +81,31 @@ const register = async (req, res) => {
       });
   
       await newUser.save();
+
+    // Create a verification token
+    const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, { expiresIn: '1d' });
+
+    // Send verification email
+    const transporter = nodemailer.createTransport({ 
+      host: process.env.SMTP_HOST2,
+      port: process.env.SMTP_PORT2,
+      auth: {
+        user: process.env.SMTP_USERNAME2,
+        pass: process.env.SMTP_PASSWORD2,
+      },
+    });
+    const mailOptions = {
+      from: '<notifications@teqverse.com.ng>',
+      to: email,
+      subject: 'Please verify your email',
+      text: `Hello, ${first_name} ${last_name}. Please verify your email by clicking the following link: \nhttp://${req.headers.host}/verify-email?token=${token}`
+    };
+    await transporter.sendMail(mailOptions);
+
   
-      res.redirect('login?success=You have been successfully Registered');
+      res.redirect('login?success=You have been successfully Registered. Please Check your email to Verify Your Account So You can Login');
     } catch (error) {
+      console.log(error)
       res.redirect('login?failure=Something Went Wrong, Please Check Your details and Try Again');
 
     }
@@ -174,13 +202,35 @@ const passwordReset = async (req, res, next) => {
 };
 
 /**--------------------------------------------------------------------------------------------------- **/
-/**                                           UPDATE PASSWORD                                           **/
+/**                                           UPDATE PASSWORD                                          **/
 /**--------------------------------------------------------------------------------------------------- **/
 
 // const updatePassword = async (req, res, next) => {
 //   // GET CURRENT USER DATA FROM DATABASE
 // }
 
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                        VERIFICATION TOKEN                                          **/
+/**--------------------------------------------------------------------------------------------------- **/
+
+const verifyToken = async (req, res) => {
+try {
+  const { token } = req.query;
+
+  // Verify the token
+  const { userId } = jwt.verify(token, process.env.JWT_SECRET);
+
+  // Find the user by ID and update the verified field
+  const user = await User.findById(userId);
+  user.verified = true;
+  await user.save();
+
+  // Redirect to the login page
+  res.redirect('login?success=Your email has been verified. You can now log in.');
+} catch (error) {
+  res.redirect('login?failure=Invalid or expired verification link.');
+};
+};
 
 
 module.exports = {
@@ -189,4 +239,5 @@ module.exports = {
     logout,
     forgotPassword,
     passwordReset,
+    verifyToken,
 }

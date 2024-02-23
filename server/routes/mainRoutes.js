@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
-const { login, register, logout,forgotPassword, passwordReset } = require("../controllers/authController");
+const { login, register, logout,forgotPassword, passwordReset, verifyToken } = require("../controllers/authController");
 const jobdetailController = require("../controllers/jobdetailController");
 const joblistController = require("../controllers/joblistController");
 const userLayout = "../views/layouts/userLogin";
@@ -310,6 +310,9 @@ router.post(
 router.post('/subscribe', subscribeToJobs);
 
 
+
+
+router.get('/verify-email', verifyToken)
 
 
 module.exports = router;
