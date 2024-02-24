@@ -8,6 +8,7 @@ const crypto = require('crypto');
 const sendEmail = require('../utils/email');
 const getResetPasswordTemplate = require('../utils/emailTemplate');
 const nodemailer = require('nodemailer')
+const getEmailVerificationTemplate = require('../utils/getEmailVerification')
 
 
 
@@ -94,11 +95,14 @@ const register = async (req, res) => {
         pass: process.env.SMTP_PASSWORD2,
       },
     });
+
+    const emailContent = getEmailVerificationTemplate(first_name, token, req);
+
     const mailOptions = {
       from: '<notifications@teqverse.com.ng>',
       to: email,
       subject: 'Please verify your email',
-      text: `Hello, ${first_name} ${last_name}. Please verify your email by clicking the following link: \nhttp://${req.headers.host}/verify-email?token=${token}`
+      html: emailContent
     };
     await transporter.sendMail(mailOptions);
 

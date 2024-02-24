@@ -105,7 +105,7 @@ router.post("/login", login);
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  REGISTER ROUTE                                                    **/
 // /--------------------------------------------------------------------------------------------------- **/
-router.get("/signup", checkUser, redirectIfAuthenticated, (req, res) => {
+router.get("/signup", redirectIfAuthenticated, (req, res) => {
   res.render("signup", { layout: userLayout });
 });
 router.post("/signup", register);

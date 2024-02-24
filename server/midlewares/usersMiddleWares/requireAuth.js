@@ -85,12 +85,14 @@ const checkUser = async (req, res, next) => {
     if (token) {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decodedToken.userId);
-      // Fetch additional details like other_names, interest, etc.
-      // For example:
-      const additionalDetails = await fetchAdditionalDetails(user);
-      // Merge user details with additional details
-      const mergedUser = { ...user._doc, ...additionalDetails };
-      res.locals.user = mergedUser;
+      if (!user) {
+        console.error('User not found:', decodedToken.userId);
+        res.locals.user = null;
+      } else {
+        const additionalDetails = await fetchAdditionalDetails(user);
+        const mergedUser = { ...user._doc, ...additionalDetails };
+        res.locals.user = mergedUser;
+      }
     } else {
       res.locals.user = null;
     }
@@ -102,11 +104,10 @@ const checkUser = async (req, res, next) => {
   }
 };
 
+
 // Function to fetch additional details from the database
 const fetchAdditionalDetails = async (user) => {
   try {
-    // Example: Fetch additional details from the database based on user ID
-    // Replace this with your actual logic
     const additionalDetails = await User.findById(user._id).select('other_names interest');
     return additionalDetails;
   } catch (error) {
