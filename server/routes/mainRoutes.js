@@ -13,7 +13,6 @@ const {
   redirectIfAuthenticated,
   checkPremiumUser,
 } = require("../midlewares/usersMiddleWares/requireAuth");
-
 const profileImageController = require("../controllers/updateProfileController");
 
 const {
@@ -33,6 +32,7 @@ const updateUser = require("../controllers/userController");
 const { subscribeToJobs,
   unsubscribeToJobs
  } = require('../controllers/subscribeController');
+const recommendedJoblist = require('../controllers/recommendedJobs')
 
 
 router.post("/profileimage", checkUser, requireAuth);
@@ -322,8 +322,15 @@ router.post('/unsubscribe', unsubscribeToJobs);
 
 
 
-
+// /--------------------------------------------------------------------------------------------------- **/
+/**                                  VERIFY ROUTE                                                **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.get('/verify-email', verifyToken)
+
+// /--------------------------------------------------------------------------------------------------- **/
+/**                                  RECOMMENDED JOB ROUTE                                                **/
+// /--------------------------------------------------------------------------------------------------- **/
+router.get('/all-recommended-jobs', checkUser,requireAuth,recommendedJoblist);
 
 
 module.exports = router;

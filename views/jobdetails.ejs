@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
-                <h1>Job Listing</h1>
+                <h1>Job Details</h1>
                 <ul class="breadcrumb">
                     <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
                     <li class="active">Job Details</li>
@@ -76,21 +76,17 @@
                                 <% } %>
 
                             </div>
-                            <!-- <div class="d-flex justify-content-end m-2">
-                                <a href="/apply-job/<%= data._id %>"><button>
-                                        Apply
-                                    </button></a>
-                            </div> -->
-                            <% if (data.jobCategory === 'Premium') { %>
-                            <!-- <button type="button" class="m-2 btn btn-primary" data-toggle="modal" data-target="#myModal">
-                                Apply Now
-                            </button> -->
-                            <button id="applyNowBtn" type="button" class="m-2 btn btn-primary">
-                                Apply Now
-                            </button>
-                            
-
+                            <% if (data.jobCategory === 'Premium' && user.userCategory === 'Regular') { %>
+                                <button type="button" class="m-2 btn btn-primary" disabled>
+                                  Upgrade to Premium to Apply
+                                </button>
+                              <% } else if (data.jobCategory === 'Premium') { %>
+                                <button id="applyNowBtn" type="button" class="m-2 btn btn-primary">
+                                  Apply Now
+                                </button>
+                              <% } %>
                             <!-- The Modal -->
+                            <% if (data.jobCategory === 'Premium') { %>
                             <div class="modal custom-modal" id="myModal">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
