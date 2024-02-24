@@ -9583,7 +9583,7 @@ label {
   }
 }
 /* Editable */
-#preloader {
+/* #preloader {
   background-color: #fff;
   padding: 0;
   margin: 0;
@@ -9623,7 +9623,7 @@ label {
     opacity: 0; } }
 
 [data-theme-version="dark"] #preloader {
-  background-color: #1E1E1E; }
+  background-color: #1E1E1E; } */
 
 .footer {
   padding-right: 0;
