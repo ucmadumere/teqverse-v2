@@ -145,7 +145,7 @@ const sendJobListings = async () => {
 
 
 // Schedule job to run every day at a specific time (e.g., 12:00 PM)
-cron.schedule('18 13 * * *', sendJobListings);
+cron.schedule('9 00 * * *', sendJobListings);
 
 // UNSUBSCRIBE FUNCTION
 const unsubscribeToJobs = async (req, res) => {
