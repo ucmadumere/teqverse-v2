@@ -86,7 +86,6 @@ const checkUser = async (req, res, next) => {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decodedToken.userId);
       if (!user) {
-        console.error('User not found:', decodedToken.userId);
         res.locals.user = null;
       } else {
         const additionalDetails = await fetchAdditionalDetails(user);
