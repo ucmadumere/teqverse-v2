@@ -263,14 +263,17 @@
                       <span class="nav-text nav-txt">Review</span>
                     </a>
                   </li>
-                  <li>
-                    <a href="/application-tracking" class="" aria-expanded="false">
-                      <div class="menu-icon men-icon">
-                        <i class="fas fa-laptop"></i>
-                      </div>
-                      <span class="nav-text nav-txt">Application Tracking</span>
-                    </a>
-                  </li>
+                  <% if (user.userCategory === 'Premium') { %>
+                    <li>
+                      <a href="/application-tracking" class="" aria-expanded="false">
+                        <div class="menu-icon men-icon">
+                          <i class="fas fa-laptop"></i>
+                        </div>
+                        <span class="nav-text nav-txt">Application Tracking</span>
+                      </a>
+                    </li>
+                  <% } %>
+                  
                   <li>
                     <a href="tel:+1234567890" class="" aria-expanded="false">
                       <div class="menu-icon men-icon">

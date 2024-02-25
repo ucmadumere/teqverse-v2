@@ -1,7 +1,7 @@
 <!-- Start Breadcrumb 
     ============================================= -->
 <div class="breadcrumb-area bg-gray text-center shadow dark text-light bg-cover"
-style="background-image: url(/img/banner/12.jpg);">
+    style="background-image: url(/img/banner/12.jpg);">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 offset-lg-2">
@@ -20,69 +20,68 @@ style="background-image: url(/img/banner/12.jpg);">
     ============================================= -->
 <div class="blog-area full-blog default-padding">
     <div class="container">
-        <div class="row">
+        <div class="">
             <div class="blog-items">
-                <div class="blog-content col-lg-10 offset-lg-1">
-                    <div class="blog-item-box">
-                        <!-- Single Item -->
-                        <% recommendedJobs.forEach(recommendedJob => { %>
-                        <div class="single-item">
-                            <div class="item">
-                                <div class="info">
-                                            <li>
-                                                <div class="">
-                                                  <div class="">
-                                                    <span class="post-date"><i class="fas fa-clock"></i> <%= recommendedJob.createdAt.toDateString() %></span>
-                                                  </div>
-                                                  <a href="/jobdetails/<%= recommendedJob._id %>"><%= recommendedJob.title %></a>
-                                                </div>
-                                            </li>
-                                      <% }) %>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Single Item -->
-                        <% recommendedJobs.forEach(recommendedJobs=> { %>
+                <div class="blog-content col-12 col-lg-12">
+                    <% recommendedJobs.forEach(recommendedJob=> { %>
+                        <div class="blog-item-box">
+                            <!-- Single Item -->
+
                             <div class="single-item">
                                 <div class="item">
                                     <div class="info">
 
-                                        <div class="row d-flex justify-content-around" >
-                                            <div class="col ">
-                                                <span class="post-date date">
-                                                    <%= recommendedJobs.createdAt.toDateString() %>
+                                        <div class="">
+                                            <div class="">
+                                                <span class="post-date"><i class="fas fa-clock"></i>
+                                                    <%= recommendedJob.createdAt.toDateString() %>
                                                 </span>
                                             </div>
-                                            
-                                        </div>
-                                        <h3 class="mt-2">
-                                            <a href="/jobdetails/<%= recommendedJobs._id %>">
-                                                <%= recommendedJobs.title %>
+                                            <a href="/jobdetails/<%= recommendedJob._id %>">
+                                                <%= recommendedJob.title %>
                                             </a>
-                                        </h3>
+                                        </div>
+
+
                                     </div>
                                 </div>
                             </div>
-                            <% }) %>
-                    </div>
 
-                    <!-- Pagination -->
-                    <div class="row">
-                        <div class="col-md-12 pagi-area text-center">
-                            <nav aria-label="navigation">
-                                <ul class="pagination">
-                                    <li class="page-item"><a class="page-link" href="blog-with-sidebar.html"><i
-                                                class="fas fa-angle-double-left"></i></a></li>
-                                    <li class="page-item active"><a class="page-link"
-                                            href="blog-with-sidebar.html">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="blog-with-sidebar.html">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="blog-with-sidebar.html">3</a></li>
-                                    <li class="page-item"><a class="page-link" href="blog-with-sidebar.html"><i
-                                                class="fas fa-angle-double-right"></i></a></li>
-                                </ul>
-                            </nav>
+                            <!-- End Single Item -->
+
                         </div>
-                    </div>
+                        <% }) %>
+
+                            <!-- Pagination -->
+                            <div class="row">
+                                <div class="col-md-12 pagi-area text-center">
+                                    <nav aria-label="navigation">
+                                        <ul class="pagination">
+
+                                            <% if (currentPage > 1) { %>
+                                                <li class="page-item"><a class="page-link" href="?page=<%= currentPage - 1 %>"><i class="fas fa-angle-double-left"></i></a></li>
+                                              <% } %>
+                                      
+                                              <% for (let i = 1; i <= totalPages; i++) { %>
+                                                <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+                                                  <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+                                                </li>
+                                              <% } %>
+                                      
+                                              <% if (currentPage < totalPages) { %>
+                                                <li class="page-item"><a class="page-link" href="?page=<%= currentPage + 1 %>"><i class="fas fa-angle-double-right"></i></a></li>
+                                              <% } %>
+                                              
+
+
+
+
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+
+
                 </div>
             </div>
         </div>

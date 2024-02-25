@@ -110,6 +110,19 @@ router.get('/review-list', async (req, res) => {
   }
 });
 
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                   USER APPLICATION                                                  **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.get('/applications', async (req, res) => {
+  try {
+    res.render('admin/applications', { layout: adminLayout });
+  } catch (error) {
+    console.error('Error fetching reviews:', error);
+    res.status(500).send(error.message);
+  }
+});
+
+
 
 
 /**--------------------------------------------------------------------------------------------------- **/
