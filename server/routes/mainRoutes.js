@@ -26,7 +26,7 @@ const {
   getUserReview,
   postUserReview,
 } = require("../controllers/reviewController");
-const upload = require("../multerConfig");
+const {upload, imageUpload} = require("../multerConfig");
 const update = require("../controllers/updateProfileController");
 const updateUser = require("../controllers/userController");
 const { subscribeToJobs,

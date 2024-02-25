@@ -34,9 +34,6 @@ const upload = multer({
 
 
 
-module.exports = upload;
-
-
 
 
 const imageStorage = multer.diskStorage({
@@ -65,4 +62,7 @@ const imageUpload = multer({
   },
 });
 
-module.exports = imageUpload
+module.exports = {
+  imageUpload,
+  upload,
+}
