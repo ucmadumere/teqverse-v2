@@ -170,12 +170,12 @@ const checkPremiumUser = async (req, res, next) => {
     
 
     // Check if the user is eligible based on their user category and the job category
-    if ((user.userCategory === 'premium' && job.jobCategory === 'premium') ||
-        (user.userCategory === 'normal' && job.jobCategory === 'normal') ||
-        (user.userCategory === 'premium' && job.jobCategory === 'normal')) {
+    if ((user.userCategory === 'Premium' && job.jobCategory === 'Premium') ||
+        (user.userCategory === 'Regular' && job.jobCategory === 'Regular') ||
+        (user.userCategory === 'Premium' && job.jobCategory === 'Regular')) {
       // User is eligible to apply for the job
       next();
-    } else if (user.userCategory === 'normal' && job.jobCategory === 'premium') {
+    } else if (user.userCategory === 'Regular' && job.jobCategory === 'Premium') {
       // User is not eligible for premium job
       return res.status(403).send('User is not eligible to apply for this premium job');
     } else {
