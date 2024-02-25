@@ -21,7 +21,7 @@ const recommendedJoblist = async (req, res) => {
 
     // Pagination parameters
     const page = parseInt(req.query.page) || 1;
-    const limit = 2; // Limit to 2 jobs per page
+    const limit = 1; // Limit to 2 jobs per page
     const skip = (page - 1) * limit;
 
     // Find recommended jobs with pagination
