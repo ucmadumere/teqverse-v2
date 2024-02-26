@@ -24581,7 +24581,7 @@ input#checkAll.form-check-input:checked {
     background: #fff;
     color: #333333; }
   .form-control:focus {
-    border-color: var(--primary); }
+    border-color: #0554f2; }
   .form-control.solid {
     background: #F4F4F5;
     border-color: #cdcdcd;
@@ -25161,14 +25161,14 @@ $dark-light: lighten($dark, 50%); */
   print-color-adjust: exact; 
 }
   .form-check-input:checked {
-    background-color: #f35a38; }
+    background-color: #0554f2; }
   .form-check-input:focus {
-    border-color: #f35a38;
+    border-color: #0554f2;
     box-shadow: var(--rgba-primary-1); }
   .form-check-inputt:checked {
-    background-color: #f35a38; }
+    background-color: #0554f2; }
   .form-check-inputt:focus {
-    border-color: #f35a38;
+    border-color: #0554f2;
     box-shadow: var(--rgba-primary-1); }
 
 .js-switch + .switchery {
@@ -28299,8 +28299,8 @@ button {
     border-color: transparent;
     color: black !important; }
   .light.btn-primary:hover {
-    /* background-color: var(--primary); */
-    /* border-color: var(--primary); */
+    background-color: #0554f2;
+    border-color: #0554f2;
     color: #fff; }
 
 .light.btn-secondary {
@@ -32795,7 +32795,7 @@ table.dataTable thead .sorting_asc {
   .profile-form .bootstrap-select .dropdown-toggle:active,
   .profile-form .bootstrap-select .dropdown-toggle:focus,
   .profile-form .bootstrap-select .dropdown-toggle:hover {
-    border-color: var(--primary); }
+    border-color: #0554f2; }
 
 .profile-form .bootstrap-select > .dropdown-toggle {
   background-color: #fff;
