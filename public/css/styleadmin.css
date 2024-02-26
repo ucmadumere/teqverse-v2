@@ -28288,9 +28288,10 @@ button {
     color: #fff; }
 
 .light.btn-primary {
-  background-color: #f35a38;
-  border-color: #f35a38;
-  color: var(--text-dark); }
+  background-color: #0554f2;
+  border-color: #0554f2;
+  /* color: var(--text-dark); */
+ }
   .light.btn-primary g [fill] {
     fill: black; }
   [data-theme-version="dark"] .light.btn-primary {
