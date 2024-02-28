@@ -332,6 +332,16 @@ button:hover {
     border-color: #0e2258 !important;
   }
 
+  .butt {
+    border-radius: 5px !important;
+    transition: all 0.35s ease-in-out;
+  }
+  
+  .butt:hover {
+    background: #466fdf;
+    border-color: #466fdf;
+  }
+
 .mfp-iframe-holder .mfp-close,
 .mfp-iframe-holder .mfp-close:hover {
   background: transparent !important;

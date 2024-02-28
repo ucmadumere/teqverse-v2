@@ -8,6 +8,7 @@
                 <h1>Job Details</h1>
                 <ul class="breadcrumb">
                     <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="jobList.ejs">Job List</a></li>
                     <li class="active">Job Details</li>
                 </ul>
             </div>
@@ -33,47 +34,62 @@
                         </div>
 
                         <div class="item pb-3">
-                            <div class="info mt-3">
-                                <div class="row">
+                            <div class="info mt-3 mx-4">
+                                <!-- <div class="row">
                                     <span class="post-date date">
                                         <%= data.createdAt.toDateString() %>
                                     </span>
+                                </div> -->
+                                <div class="row">
+                                    <div class="col-lg-11 col-md-12 col-sm-12">
+                                        <h3 class="mt-2">
+                                            <%= data.title %>
+                                        </h3>
+                                    </div>
+                                    <div class="col-lg-1 col-md-12 col-sm-12 ">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
                                 </div>
-                                <h3 class="mt-2">
-                                    <%= data.title %>
-                                </h3>
+                                
 
-                                <h5>
+                                <!-- <h5>
                                     <%= data.jobType %> | <%= data.workType %> | <%= data.jobLocation %> 
                                 </h5>
-                                <% if (data.workType !== 'Internship') { %>
+                                <% if (data.workType !== 'Internship') { %> -->
+                                
                                 <p>
-                                    <strong>Experience:</strong> <br>
-                                    <%= data.experience %> years
+                                    <span>Invision Labs</span>
+                                    Experience: <%= data.experience %> years
+                                    <hr>
                                 </p>
+                                
                                 <% } else { %>
                                     <p>
                                         No Experience Needed
                                     </p>
                                 <% } %>
                                     
-                                <p>
+                                <!-- <p>
                                     <%= data.jobOverview %>
+                                </p> -->
+                                <p>
+                                    <h5 >Job Description</h5>
+                                    <span >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias distinctio est, dolor amet, cupiditate laboriosam minima natus nihil, libero quae magni hic ipsum temporibus harum modi qui porro nam sit quisquam voluptatem quia nemo. Nam reprehenderit quisquam adipisci deleniti. Accusamus similique quod ipsam quis, odit ad veritatis vero nesciunt officia. Recusandae repellat cumque eius debitis corporis facere? Dolorem et natus veniam voluptatibus deserunt, atque magni dignissimos obcaecati minus pariatur necessitatibus dolor repellendus dicta at deleniti similique quo molestiae, ducimus error architecto modi vitae in? Saepe necessitatibus laudantium consequatur natus iusto ipsum at, delectus voluptatem fugiat quisquam itaque tempora dolor possimus, labore perspiciatis qui aspernatur eum? Possimus alias perspiciatis eius eligendi nostrum. Soluta quod earum quis neque modi autem odit voluptate consequatur harum doloremque, eum voluptates nam perferendis incidunt ipsum iste nisi suscipit quisquam! Itaque dolore hic esse, quos recusandae repellendus magni consectetur dolores repellat nobis quidem. Nemo similique, ratione nulla, corrupti ipsum repellat inventore quaerat veritatis qui dolore facilis placeat. Exercitationem ipsum accusantium incidunt. Eos fugit doloremque veniam neque sed possimus beatae ducimus qui porro quos ab accusamus, atque nisi quam omnis officiis laboriosam nobis, exercitationem praesentium consequatur. Reiciendis, nemo obcaecati? Laborum atque voluptatem similique repellendus, quod veniam eveniet asperiores nulla officiis odio dolor porro nobis dignissimos expedita totam blanditiis illo! Suscipit quidem eum natus autem incidunt consequuntur necessitatibus enim maxime illo harum ab, ducimus aliquam porro illum tenetur sapiente unde deleniti. Beatae vero perspiciatis voluptates harum, ipsa tempore adipisci explicabo, fugit reiciendis deleniti, doloremque aliquid. Iste eos velit magni quibusdam, ipsam aliquid labore cumque obcaecati aspernatur laboriosam porro deleniti ut, iusto amet dolorum rem ducimus laudantium odio tempora. Nisi illo eius explicabo nihil sunt sit non et, eos ex? Tenetur quaerat sed, esse atque culpa provident, fugit maxime rerum nostrum consequatur nesciunt ipsa omnis corrupti quia nulla ea qui.</span>
                                 </p>
 
                                 <br>
 
-                                <p>
+                                <!-- <p>
                                     <%- data.jobDescription %>
-                                </p>
+                                </p> -->
 
-                                <p>Application closing date <br>
+                                <!-- <p>Application closing date <br>
                                     <%= data.closingDate %>
                                 </p>
                                 <% if (data.jobCategory === 'Regular') { %>
                                 <p>Method of Application<br>Interested and qualified candidates should <br> <%-
                                         data.methodOfApplication %></p>
-                                <% } %>
+                                <% } %> -->
 
                             </div>
                             <% if (data.jobCategory === 'Premium' && user.userCategory === 'Regular') { %>
@@ -198,10 +214,51 @@
                 </div>
 
                 <!-- Start Sidebar -->
-                <div class="sidebar col-lg-4 col-md-12">
-                    <aside>
+                <div class="blog-content col-lg-4 col-md-12 mt-4">
+                    <div class="blog-item-box ">
+                        
+                        <div class="item pb-3">
+                            <div class="info mt-3 row">
+                              <div class="col">
+                                <p>
+                                    <strong>Location</strong> <br>
+                                    <span>Lagos, Nigeria</span>
+                                </p>
+                              </div>
+                              <div class="col">
+                                <p>
+                                    <strong>Date Posted</strong> <br>
+                                    <span> 27th Nov, 2023</span>
+                                </p>
+                              </div>
+
+                            </div>
+                            <div class=" mx-3  row ">
+                              <div class="col">
+                                <p>
+                                    <strong>Salary Range</strong> <br>
+                                    <span>N500,000 - N1,000,000</span>
+                                </p>
+                              </div>
+
+                            </div>
+
+                            <div class="d-grid gap-2 mx-4">
+                                <button type="button" class="btn btn-outline-dark butt">Full-time</button>
+                                <button type="button" class="btn btn-outline-dark butt">Onsite</button>
+                                <button type="button" class="btn btn-outline-dark butt">Lagos, Nigeria</button>
+                            </div>
+                           <div class="mx-4 pt-3">
+                            <button type="button" class="btn btn-primary filter" style="width: 310px;">Upgrade to premium to apply</button>
+                           </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="sidebar col-lg-4 col-md-12 blog-content">
+                    <!-- <aside class="blog-item-box"> -->
                         <!-- Dynamic Recommended Job Post -->
-                        <div class="sidebar-item recent-post">
+                        <!-- <div class="sidebar-item recent-post">
                             <div class="title">
                               <h4>Recommended Jobs</h4>
                             </div>
@@ -251,9 +308,9 @@
                                     </li>
                                 </ul>
                             </div>
-                        </div>
-                    </aside>
-                </div>
+                        </div> -->
+                    <!-- </aside> -->
+                </div> 
                 <!-- End Start Sidebar -->
             </div>
         </div>
