@@ -78,15 +78,11 @@ const PremiumJobSchema = new Schema({
     required: [false, 'Cover letter is required']
   },
 
-  applications: [
+  applicationsStatus: [
     {
       // You may add more fields based on your application requirements
-      user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Reference to the user applying
-      },
+      type: String,
       status: {
-        type: String,
         enum: ['Submitted', 'Processing', 'Approved', 'Rejected'],
         default: '',
       },
