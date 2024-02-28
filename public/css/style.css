@@ -14587,3 +14587,48 @@ footer.demo p {
 .my-float{
 	margin-top:16px;
 }
+/* JOB LIST CARD */
+.custom-card{
+  max-height: 400px;
+  height: 95%;
+  box-shadow: 0 0 10px #cccccc;
+}
+
+.custom-card h5,h6{
+  font-size: 17px;
+}
+
+.custom-card .jobCategory-span{
+  border-radius: 10px;
+  background-color: #f35a38;
+  color: #ffffff;
+  padding: 2px 10px;
+}
+
+.recommended-Job{
+  max-height: 1400px;
+  height: 95%;
+  background-color: #F2F2F2;
+  margin: 0;
+}
+
+.recommended-Job hr{
+  border-bottom: 3px solid #f35a38;
+  max-width: 50px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.follow-us{
+  max-height: 1400px;
+  height: 95%;
+  background-color: #F2F2F2;
+  margin: 0;
+}
+
+.follow-us hr{
+  border-bottom: 3px solid #f35a38;
+  max-width: 50px;
+  width: 100%;
+  margin-top: 5px;
+}
