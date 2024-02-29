@@ -343,18 +343,19 @@ button:hover {
     border-color: #466fdf;
   }
   .but {
-    text-decoration: none;
+    text-transform: none !important;
     margin-top: 6px;
-    width: 120px;
+    width: 130px;
     height: 37px;
     border-radius: 4px !important;
     padding: 12px, 24px, 12px, 24px;
     background: #F1F2F4;
   }
   .buty {
+    text-transform: none !important;
     margin-top: 6px;
     color: #fff;
-    width: 110px;
+    width: 130px;
     height: 37px;
     border-radius: 3px !important;
     padding: 12px, 24px, 12px, 24px;
