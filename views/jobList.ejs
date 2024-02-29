@@ -19,36 +19,107 @@
 <!-- Start Blog
     ============================================= -->
 <div class="container mt-5">
-    <div class="row">
-        <div class="input-group mb-3 col-lg-12 col-md-12 col-sm-12 ">
-            <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">
-                    <i class="fas fa-search"></i>
-                </span>
+           <div class="row">
+            <div class="input-group mb-3 col-lg-9 col-md-12 col-sm-12">
+                <div class="input-group-prepend card">
+                    <i><img src="/img/search.jpg" style="width: 20px;" class="mx-3 mt-3" alt=""></i>
+                </div>
+                <input type="text" class="form-control" placeholder="Job title, position, or keyword" aria-label="Search" aria-describedby="basic-addon1">
             </div>
-            <input type="text" class="form-control" placeholder="Job title, position, or keyword" aria-label="Search"
-                aria-describedby="basic-addon1">
-            <div class=" card" style="width: 700px;">
-                <div class="row" style="height: 40px;">
-                    <!-- <div class="col-lg-6 col-md-12 col-sm-12  mt-2 mx-4"  style="height: 40px;">
-                            <i><img src="/img/location.png" style="width: 23px;" alt=""></i>
-                            <span class="mx-2">Job Location</span>
-                            
-                        </div> -->
-                    <div class="col-lg-2 col-md-12 col-sm-12 mx-4 ">
-                        <button type="button" class="btn but" data-toggle="modal" data-target="#exampleModal"><i><img src="/img/filters.png" class="mb-1 ms-2"
-                                    style="width: 17px;" alt=""></i><span class="mx-2">Filters</span></button>
+            <!-- <form action="/joblist" method="get">
+                <input type="text" name="q" class="form-control" id="searchTerm"
+                    value="<%= searchTerm %>">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form> -->
+            <div class="input-group mb-3 col-lg-3 col-md-12 col-sm-12  " style="gap: 8px;">
+                <div class="input-group-prepend">
+                    <button type="button" class="btn but " data-toggle="modal" data-target="#exampleModal">
+                        <div>
+                            <img src="/img/filters.png" class="mb-1 ms-2"  style="width: 17px;" alt="">
+                            <span class="">Filters </span>
+                        </div>
+                        
+                    </button>
+
+                    
+                    <!-- Modal -->
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Filter by</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="row">
+                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                        <label for="location">Location:</label>
+                                        <input type="text" name="jobLocation" id="jobLocation" class="form-control"
+                                            value="<%= jobLocation %>">
+                                    </div>
+                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                        <label for="experience">Experience:</label>
+                                        <input type="number" name="experience" id="experience" class="form-control"
+                                            value="<%= experience %>">
+                                    </div>
+                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                        <label for="workType">Work Type:</label>
+                                        <select name="workType" id="workType" class="form-control">
+                                            <option value="">--Please choose an option--</option>
+                                            <option value="Contract" <%=workType==='Contract' ? 'selected' : '' %>
+                                                >Contract</option>
+                                            <option value="Full Time" <%=workType==='Full Time' ? 'selected' : '' %>
+                                                >Full Time</option>
+                                            <option value="Part Time" <%=workType==='Part Time' ? 'selected' : '' %>
+                                                >Part Time</option>
+                                            <option value="Internship" <%=workType==='Internship' ? 'selected' : '' %>
+                                                >Internship</option>
+                                        </select>
+                                    </div>
+                                    <!-- First Column -->
+                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                        <label for="jobType">Job Type:</label>
+                                        <select name="jobType" id="jobType" class="form-control">
+                                            <option value="">--Please choose an option--</option>
+                                            <option value="Hybrid" <%=jobType==='Hybrid' ? 'selected' : '' %>>Hybrid
+                                            </option>
+                                            <option value="Remote" <%=jobType==='Remote' ? 'selected' : '' %>>Remote
+                                            </option>
+                                            <option value="Onsite" <%=jobType==='Onsite' ? 'selected' : '' %>>Onsite
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="d-flex row justify-content-end align-items-right" style="gap: 7px;">
+                                        <div class="form-group col-lg-3 col-md-12 col-sm-12 d-flex justify-content-end ">
+                                            <button class="filter" type="submit">Apply Filters</button>
+                                        </div>
+                                        <div class="form-group col-lg-3 col-md-12 col-sm-12 d-flex justify-content-end">
+                                            <a href="/resetfilters" class="btn btn-secondary mt-1 filter ">Reset
+                                                Filters</a>
+                                        </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-lg-2 col-md-12 col-sm-12  ">
-                        <button type="button" class="btn buty">Find Job</button>
                     </div>
                 </div>
+                <div class="input-group-prepend">
+                    <button type="button" class="btn buty mx-">Find Job</button>
+                </div>
             </div>
-        </div>
-    </div>
-
-
-
+            
+           </div>
+           
+    
+    
     <div class="row">
         <% data.forEach(post=> { %>
             <div class="col-lg-4 col-md-12">
@@ -94,59 +165,9 @@
             </div>
             <% }) %>
     </div>
-    <!-- Modal -->
-    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Open Modal
-    </button> -->
 
-    <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Two Column Modal</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
+   
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="input1">Input Field 1:</label>
-                                <input type="text" class="form-control" id="input1"
-                                    placeholder="Enter value for column 1">
-                            </div>
-                        </div>
-                        <!-- First Column -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="input1">Input Field 1:</label>
-                                <input type="text" class="form-control" id="input1"
-                                    placeholder="Enter value for column 1">
-                            </div>
-                        </div>
-
-                        <!-- Second Column -->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="input2">Input Field 2:</label>
-                                <input type="text" class="form-control" id="input2"
-                                    placeholder="Enter value for column 2">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!-- Pagination -->
     <div class="row">
         <div class="col-md-12 pagi-area text-center">
@@ -257,16 +278,29 @@
                     </ul>
                 </div>
             </div>
-            <!-- <div class="sidebar-item col-6">
+            <!-- <div class="sidebar-item col-5">
                 <form action="/subscribe" method="post">
                     <input type="email" name="email" class="form-control" id="email"
                         placeholder="Subscribe to Latest Jobs">
-                    <span class="input-group-addon">
+                     <span class="input-group-addon">
                         <button type="submit" style="padding: 7px;"><i
-                                class="fas fa-paper-plane"></i></button>
-                    </span>
+                                class="fas fa-paper-plane"></i>
+                        </button>
+                    </span> 
 
                 </form>
+            </div> -->
+            <!-- <div class="input-group mb-3 col-lg-5 col-md-12 col-sm-12 ">
+                <form action="/subscribe" method="post"></form>
+                    <input type="email" name="email" class="form-control" id="email"
+                        placeholder="Subscribe to Latest Jobs">
+                     <span class="input-group-addon">
+                        <button type="submit" style="padding: 7px;"><i
+                                class="fas fa-paper-plane"></i>
+                        </button>
+                    </span> 
+                </form>
+                
             </div> -->
         </div>
 

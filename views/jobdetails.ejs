@@ -35,17 +35,23 @@
 
                         <div class="item pb-3">
                             <div class="info mt-3 mx-4">
-                                <div class="row">
-                                    <div class="col-lg-11 col-md-12 col-sm-12">
+                                <!-- <div class="row">
+                                    <span class="post-date date">
+                                        <%= data.createdAt.toDateString() %>
+                                    </span>
+                                </div> -->
+                                
                                         <h3 class="mt-2">
                                             <%= data.title %>
                                         </h3>
-                                    </div>
-                                    <div class="col-lg-1 col-md-12 col-sm-12 ">
-                                        <i class="fa fa-heart"></i>
-                                    </div>
-                                </div>
-                                <% if (data.workType !== 'Internship') { %>
+                                   
+                                
+
+                                <!-- <h5>
+                                    <%= data.jobType %> | <%= data.workType %> | <%= data.jobLocation %> 
+                                </h5>
+                                <% if (data.workType !== 'Internship') { %> -->
+                                
                                 <p>
                                     Experience: <%= data.experience %> years
                                 </p>
