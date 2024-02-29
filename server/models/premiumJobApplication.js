@@ -80,11 +80,14 @@ const PremiumJobSchema = new Schema({
 
   applicationsStatus: [
     {
-      // You may add more fields based on your application requirements
-      type: String,
       status: {
+        type: String,
         enum: ['Submitted', 'Processing', 'Approved', 'Rejected'],
-        default: '',
+        default: 'Submitted', // Default status when a new application is created
+      },
+      date: {
+        type: Date,
+        default: Date.now,
       },
     },
   ],

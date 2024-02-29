@@ -60,6 +60,9 @@ const getApplypremiumJob = async (req, res) => {
   }
 };
 
+
+
+
 const applyPremiumjob = async (req, res) => {
   try {
     const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
@@ -73,7 +76,12 @@ const applyPremiumjob = async (req, res) => {
     const userId = decodedToken.userId;
 
     const jobId = req.params.id;
-    
+
+    // Check if the user has already applied for this job
+    const existingApplication = await premiumJob.findOne({ job: jobId, user: userId });
+    if (existingApplication) {
+      return res.status(400).json({ message: "You have already applied for this job" });
+    }
 
     let job;
     try {
@@ -91,7 +99,6 @@ const applyPremiumjob = async (req, res) => {
       return res.status(400).json({ message: "CV is required" });
     }
 
-
     // Create a new job application with the user's _id
     const newJobApplication = new premiumJob({
       job: jobId,
@@ -108,6 +115,7 @@ const applyPremiumjob = async (req, res) => {
       additionalInfo: req.body.additionalInfo,
       cv: req.file.filename,
       coverLetter: req.body.coverLetter,
+      applicationsStatus: [{ status: 'Submitted' }],
     });
 
     // Save the new job application
@@ -123,6 +131,7 @@ const applyPremiumjob = async (req, res) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 
 
