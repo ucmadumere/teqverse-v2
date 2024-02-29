@@ -19,34 +19,36 @@
 <!-- Start Blog
     ============================================= -->
 <div class="container mt-5">
-           <div class="row">
-            <div class="input-group mb-3 col-lg-12 col-md-12 col-sm-12 ">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="basic-addon1">
-                        <i class="fas fa-search"></i>
-                    </span>
-                </div>
-                <input type="text" class="form-control" placeholder="Job title, position, or keyword" aria-label="Search" aria-describedby="basic-addon1">
-                <div class=" card" style="width: 700px;">
-                    <div class="row" style="height: 40px;">
-                        <div class="col-lg-6 col-md-12 col-sm-12  mt-2 mx-4"  style="height: 40px;">
+    <div class="row">
+        <div class="input-group mb-3 col-lg-12 col-md-12 col-sm-12 ">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="fas fa-search"></i>
+                </span>
+            </div>
+            <input type="text" class="form-control" placeholder="Job title, position, or keyword" aria-label="Search"
+                aria-describedby="basic-addon1">
+            <div class=" card" style="width: 700px;">
+                <div class="row" style="height: 40px;">
+                    <!-- <div class="col-lg-6 col-md-12 col-sm-12  mt-2 mx-4"  style="height: 40px;">
                             <i><img src="/img/location.png" style="width: 23px;" alt=""></i>
                             <span class="mx-2">Job Location</span>
                             
-                        </div>
-                        <div class="col-lg-2 col-md-12 col-sm-12 mx-4 ">
-                            <button type="button" class="btn but"><i><img src="/img/filters.png" class="mb-1 ms-2"  style="width: 17px;" alt=""></i><span class="mx-2">Filters</span></button>
-                        </div>
-                        <div class="col-lg-2 col-md-12 col-sm-12  ">
-                            <button type="button" class="btn buty">Find Job</button>
-                        </div>
+                        </div> -->
+                    <div class="col-lg-2 col-md-12 col-sm-12 mx-4 ">
+                        <button type="button" class="btn but" data-toggle="modal" data-target="#exampleModal"><i><img src="/img/filters.png" class="mb-1 ms-2"
+                                    style="width: 17px;" alt=""></i><span class="mx-2">Filters</span></button>
+                    </div>
+                    <div class="col-lg-2 col-md-12 col-sm-12  ">
+                        <button type="button" class="btn buty">Find Job</button>
                     </div>
                 </div>
             </div>
-           </div>
-           
-    
-    
+        </div>
+    </div>
+
+
+
     <div class="row">
         <% data.forEach(post=> { %>
             <div class="col-lg-4 col-md-12">
@@ -54,11 +56,11 @@
                     <div class="card-body">
                         <div class="row d-flex justify-content-around">
                             <div class="col-6 job-title">
-                               <div style="width: 10px; padding: 0; margin: 0;">
-                                <a href="/jobdetails/<%= post._id %>" class="text-truncate" >
-                                    <%= post.title %>
-                                </a>
-                               </div>
+                                <div>
+                                    <a href="/jobdetails/<%= post._id %>" class="text-truncate">
+                                        <%= post.title %>
+                                    </a>
+                                </div>
                             </div>
                             <div class="col-6 d-flex justify-content-end">
                                 <span class="jobCategory-span">
@@ -68,13 +70,13 @@
                         </div>
                         <div class="mt-3">
                             <% if (post.workType !=='Internship' ) { %>
-                                <h5>
+                                <p>
                                     Experience: <%= post.experience %> years
-                                </h5>
+                                </p>
                                 <% } else { %>
-                                    <h5>
+                                    <p>
                                         No Experience Needed
-                                    </h5>
+                                    </p>
                                     <% } %>
                         </div>
                         <!-- <h5>
@@ -91,6 +93,59 @@
                 </div>
             </div>
             <% }) %>
+    </div>
+    <!-- Modal -->
+    <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Open Modal
+    </button> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Two Column Modal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="input1">Input Field 1:</label>
+                                <input type="text" class="form-control" id="input1"
+                                    placeholder="Enter value for column 1">
+                            </div>
+                        </div>
+                        <!-- First Column -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="input1">Input Field 1:</label>
+                                <input type="text" class="form-control" id="input1"
+                                    placeholder="Enter value for column 1">
+                            </div>
+                        </div>
+
+                        <!-- Second Column -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="input2">Input Field 2:</label>
+                                <input type="text" class="form-control" id="input2"
+                                    placeholder="Enter value for column 2">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- Pagination -->
     <div class="row">
