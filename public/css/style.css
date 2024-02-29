@@ -332,6 +332,41 @@ button:hover {
     border-color: #0e2258 !important;
   }
 
+  .butt {
+    border-radius: 5px !important;
+    transition: all 0.35s ease-in-out;
+  }
+ 
+  
+  .butt:hover {
+    background: #466fdf;
+    border-color: #466fdf;
+  }
+  .but {
+    text-decoration: none;
+    margin-top: 6px;
+    width: 120px;
+    height: 37px;
+    border-radius: 4px !important;
+    padding: 12px, 24px, 12px, 24px;
+    background: #F1F2F4;
+  }
+  .buty {
+    margin-top: 6px;
+    color: #fff;
+    width: 110px;
+    height: 37px;
+    border-radius: 3px !important;
+    padding: 12px, 24px, 12px, 24px;
+    background: #F35A38;
+  }
+
+  .custom-box {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); /* Box shadow */
+    padding: 20px; /* Add padding for better visual */
+
+}
+
 .mfp-iframe-holder .mfp-close,
 .mfp-iframe-holder .mfp-close:hover {
   background: transparent !important;
