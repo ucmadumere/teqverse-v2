@@ -43,73 +43,75 @@
 
                     
                     <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Filter by</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
+                    <form action="/joblist" method="get">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Filter by</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
 
-                                <div class="row">
-                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                        <label for="location">Location:</label>
-                                        <input type="text" name="jobLocation" id="jobLocation" class="form-control"
-                                            value="<%= jobLocation %>">
-                                    </div>
-                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                        <label for="experience">Experience:</label>
-                                        <input type="number" name="experience" id="experience" class="form-control"
-                                            value="<%= experience %>">
-                                    </div>
-                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                        <label for="workType">Work Type:</label>
-                                        <select name="workType" id="workType" class="form-control">
-                                            <option value="">--Please choose an option--</option>
-                                            <option value="Contract" <%=workType==='Contract' ? 'selected' : '' %>
-                                                >Contract</option>
-                                            <option value="Full Time" <%=workType==='Full Time' ? 'selected' : '' %>
-                                                >Full Time</option>
-                                            <option value="Part Time" <%=workType==='Part Time' ? 'selected' : '' %>
-                                                >Part Time</option>
-                                            <option value="Internship" <%=workType==='Internship' ? 'selected' : '' %>
-                                                >Internship</option>
-                                        </select>
-                                    </div>
-                                    <!-- First Column -->
-                                    <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                        <label for="jobType">Job Type:</label>
-                                        <select name="jobType" id="jobType" class="form-control">
-                                            <option value="">--Please choose an option--</option>
-                                            <option value="Hybrid" <%=jobType==='Hybrid' ? 'selected' : '' %>>Hybrid
-                                            </option>
-                                            <option value="Remote" <%=jobType==='Remote' ? 'selected' : '' %>>Remote
-                                            </option>
-                                            <option value="Onsite" <%=jobType==='Onsite' ? 'selected' : '' %>>Onsite
-                                            </option>
-                                        </select>
+                                    <div class="row">
+                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                            <label for="location">Location:</label>
+                                            <input type="text" name="jobLocation" id="jobLocation" class="form-control"
+                                                value="<%= jobLocation %>">
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                            <label for="experience">Experience:</label>
+                                            <input type="number" name="experience" id="experience" class="form-control"
+                                                value="<%= experience %>">
+                                        </div>
+                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                            <label for="workType">Work Type:</label>
+                                            <select name="workType" id="workType" class="form-control">
+                                                <option value="">--Please choose an option--</option>
+                                                <option value="Contract" <%=workType==='Contract' ? 'selected' : '' %>
+                                                    >Contract</option>
+                                                <option value="Full Time" <%=workType==='Full Time' ? 'selected' : '' %>
+                                                    >Full Time</option>
+                                                <option value="Part Time" <%=workType==='Part Time' ? 'selected' : '' %>
+                                                    >Part Time</option>
+                                                <option value="Internship" <%=workType==='Internship' ? 'selected' : '' %>
+                                                    >Internship</option>
+                                            </select>
+                                        </div>
+                                        <!-- First Column -->
+                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
+                                            <label for="jobType">Job Type:</label>
+                                            <select name="jobType" id="jobType" class="form-control">
+                                                <option value="">--Please choose an option--</option>
+                                                <option value="Hybrid" <%=jobType==='Hybrid' ? 'selected' : '' %>>Hybrid
+                                                </option>
+                                                <option value="Remote" <%=jobType==='Remote' ? 'selected' : '' %>>Remote
+                                                </option>
+                                                <option value="Onsite" <%=jobType==='Onsite' ? 'selected' : '' %>>Onsite
+                                                </option>
+                                            </select>
+                                        </div>
+
                                     </div>
 
                                 </div>
 
-                            </div>
-
-                            <div class="d-flex row justify-content-end align-items-right" style="gap: 7px;">
-                                        <div class="form-group col-lg-3 col-md-12 col-sm-12 d-flex justify-content-end ">
-                                            <button class="filter" type="submit">Apply Filters</button>
-                                        </div>
-                                        <div class="form-group col-lg-3 col-md-12 col-sm-12 d-flex justify-content-end">
-                                            <a href="/resetfilters" class="btn btn-secondary mt-1 filter ">Reset
-                                                Filters</a>
-                                        </div>
+                                <div class="d-flex row justify-content-end align-items-right" style="gap: 7px;">
+                                            <div class="form-group col-lg-3 col-md-12 col-sm-12 d-flex justify-content-end ">
+                                                <button class="filter" type="submit">Apply Filters</button>
+                                            </div>
+                                            <div class="form-group col-lg-3 col-md-12 col-sm-12 d-flex justify-content-end">
+                                                <a href="/resetfilters" class="btn btn-secondary mt-1 filter ">Reset
+                                                    Filters</a>
+                                            </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    </div>
+                        </div>
+                    </form>
                 </div>
                 <div class="input-group-prepend">
                     <button type="button" class="btn buty mx-">Find Job</button>
