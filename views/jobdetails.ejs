@@ -53,9 +53,7 @@
                                 <% if (data.workType !== 'Internship') { %> -->
                                 
                                 <p>
-                                    <span>Invision Labs</span>
                                     Experience: <%= data.experience %> years
-                                    <hr>
                                 </p>
                                 
                                 <% } else { %>
@@ -64,38 +62,20 @@
                                     </p>
                                 <% } %>
                                     
-                                <!-- <p>
-                                    <%= data.jobOverview %>
-                                </p> -->
                                 <p>
                                     <h5 >Job Description</h5>
-                                    <span >Lorem ipsum dolor, sit amet consectetur adipisicing elit. Molestias distinctio est, dolor amet, cupiditate laboriosam minima natus nihil, libero quae magni hic ipsum temporibus harum modi qui porro nam sit quisquam voluptatem quia nemo. Nam reprehenderit quisquam adipisci deleniti. Accusamus similique quod ipsam quis, odit ad veritatis vero nesciunt officia. Recusandae repellat cumque eius debitis corporis facere? Dolorem et natus veniam voluptatibus deserunt, atque magni dignissimos obcaecati minus pariatur necessitatibus dolor repellendus dicta at deleniti similique quo molestiae, ducimus error architecto modi vitae in? Saepe necessitatibus laudantium consequatur natus iusto ipsum at, delectus voluptatem fugiat quisquam itaque tempora dolor possimus, labore perspiciatis qui aspernatur eum? Possimus alias perspiciatis eius eligendi nostrum. Soluta quod earum quis neque modi autem odit voluptate consequatur harum doloremque, eum voluptates nam perferendis incidunt ipsum iste nisi suscipit quisquam! Itaque dolore hic esse, quos recusandae repellendus magni consectetur dolores repellat nobis quidem. Nemo similique, ratione nulla, corrupti ipsum repellat inventore quaerat veritatis qui dolore facilis placeat. Exercitationem ipsum accusantium incidunt. Eos fugit doloremque veniam neque sed possimus beatae ducimus qui porro quos ab accusamus, atque nisi quam omnis officiis laboriosam nobis, exercitationem praesentium consequatur. Reiciendis, nemo obcaecati? Laborum atque voluptatem similique repellendus, quod veniam eveniet asperiores nulla officiis odio dolor porro nobis dignissimos expedita totam blanditiis illo! Suscipit quidem eum natus autem incidunt consequuntur necessitatibus enim maxime illo harum ab, ducimus aliquam porro illum tenetur sapiente unde deleniti. Beatae vero perspiciatis voluptates harum, ipsa tempore adipisci explicabo, fugit reiciendis deleniti, doloremque aliquid. Iste eos velit magni quibusdam, ipsam aliquid labore cumque obcaecati aspernatur laboriosam porro deleniti ut, iusto amet dolorum rem ducimus laudantium odio tempora. Nisi illo eius explicabo nihil sunt sit non et, eos ex? Tenetur quaerat sed, esse atque culpa provident, fugit maxime rerum nostrum consequatur nesciunt ipsa omnis corrupti quia nulla ea qui.</span>
+                                    <span ><%- data.jobDescription %></span>
                                 </p>
 
-                                <br>
-
-                                <!-- <p>
-                                    <%- data.jobDescription %>
-                                </p> -->
-
-                                <!-- <p>Application closing date <br>
+                                <p>Application closing date <br>
                                     <%= data.closingDate %>
                                 </p>
                                 <% if (data.jobCategory === 'Regular') { %>
                                 <p>Method of Application<br>Interested and qualified candidates should <br> <%-
                                         data.methodOfApplication %></p>
-                                <% } %> -->
+                                <% } %>
 
                             </div>
-                            <% if (data.jobCategory === 'Premium' && user.userCategory === 'Regular') { %>
-                                <button type="button" class="m-2 btn btn-primary" disabled>
-                                  Upgrade to Premium to Apply
-                                </button>
-                              <% } else if (data.jobCategory === 'Premium') { %>
-                                <button id="applyNowBtn" type="button" class="m-2 btn btn-primary">
-                                  Apply Now
-                                </button>
-                              <% } %>
                             <!-- The Modal -->
                             <% if (data.jobCategory === 'Premium') { %>
                             <div class="modal custom-modal" id="myModal">
@@ -199,9 +179,6 @@
                                 </div>
                             </div>
                             <% } %>
-
-
-
                         </div>
 
                     </div>
@@ -217,13 +194,13 @@
                               <div class="col">
                                 <p>
                                     <strong>Location</strong> <br>
-                                    <span>Lagos, Nigeria</span>
+                                    <span><%= data.jobLocation %></span>
                                 </p>
                               </div>
                               <div class="col">
                                 <p>
                                     <strong>Date Posted</strong> <br>
-                                    <span> 27th Nov, 2023</span>
+                                    <span> <%= data.createdAt.toDateString() %></span>
                                 </p>
                               </div>
 
@@ -231,20 +208,28 @@
                             <div class=" mx-3  row ">
                               <div class="col">
                                 <p>
-                                    <strong>Salary Range</strong> <br>
-                                    <span>N500,000 - N1,000,000</span>
+                                    <strong><%= data.companyName %></strong> <br>
+                                    <span><%= data.salaryRange %></span>
                                 </p>
                               </div>
 
                             </div>
 
                             <div class="d-grid gap-2 mx-4">
-                                <button type="button" class="btn btn-outline-dark butt">Full-time</button>
-                                <button type="button" class="btn btn-outline-dark butt">Onsite</button>
-                                <button type="button" class="btn btn-outline-dark butt">Lagos, Nigeria</button>
+                                <button type="button" class="btn btn-outline-dark butt my-2"><%= data.jobType %></button>
+                                <button type="button" class="btn btn-outline-dark butt my-2"><%= data.workType %></button>
+                                <button type="button" class="btn btn-outline-dark butt my-2"><%= data.jobLocation %></button>
                             </div>
-                           <div class="mx-4 pt-3">
-                            <button type="button" class="btn btn-primary filter" style="width: 310px;">Upgrade to premium to apply</button>
+                           <div class="mx-4 pt-3">                            
+                            <% if (data.jobCategory === 'Premium' && user.userCategory === 'Regular') { %>
+                                <button type="button" class="m-2 btn btn-primary filter col-12" style="width: 310px;" disabled>
+                                  Upgrade to Premium to Apply
+                                </button>
+                              <% } else if (data.jobCategory === 'Premium') { %>
+                                <button id="applyNowBtn" type="button" class="btn btn-primary filter">
+                                  Apply Now
+                                </button>
+                              <% } %>
                            </div>
                         </div>
 

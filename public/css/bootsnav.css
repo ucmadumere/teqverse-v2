@@ -2339,7 +2339,7 @@ nav.navbar.bootsnav {
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1200px) {
   .attr-nav {
     margin-right: 0;
   }
@@ -2981,6 +2981,7 @@ nav.navbar.bootsnav {
     display: block;
   }
 }
+
 
 @media (max-width: 767px) {
   nav.navbar.bootsnav .navbar-header {
