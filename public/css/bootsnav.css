@@ -1458,7 +1458,7 @@ nav.navbar.bootsnav {
   }
 }
 
-@media (min-width: 1024px) and (max-width: 1300px) {
+@media (min-width: 1024px)  {
   nav.navbar.bootsnav ul.nav > li > a {
     padding: 35px 4px !important;
   }

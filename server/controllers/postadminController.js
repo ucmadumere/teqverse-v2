@@ -37,6 +37,8 @@ const createJob = async (req, res) => {
       jobCategory, 
       closingDate,
       methodOfApplication,
+      salaryRange,
+      companyName,
       skills
     } = req.body;
 
@@ -60,6 +62,8 @@ const createJob = async (req, res) => {
       jobCategory, 
       closingDate,
       methodOfApplication,
+      salaryRange,
+      companyName,
       skills: skillsArray
     });
 
@@ -137,6 +141,8 @@ const updatejob = async (req, res) => {
       jobCategory: req.body.jobCategory,
       closingDate: req.body.closingDate,
       methodOfApplication: req.body.methodOfApplication,
+      salaryRange: req.body.salaryRange,
+      companyName: req.body.companyName,
       skills: skillsArray,
       updatedAt: Date.now(),
       
@@ -169,6 +175,7 @@ const getEditJob = async (req, res) => {
       jobCategory: req.body.jobCategory,
       closingDate: req.body.closingDate,
       methodOfApplication: req.body.methodOfApplication,
+      
       skills: req.body.skills,
     };
 
