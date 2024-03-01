@@ -35,37 +35,25 @@
 
                         <div class="item pb-3">
                             <div class="info mt-3 mx-4">
-                                <!-- <div class="row">
-                                    <span class="post-date date">
-                                        <%= data.createdAt.toDateString() %>
-                                    </span>
-                                </div> -->
+                                <h3 class="mt-2" style="color:#1C1C1C; font-size: 24px; font-weight: 700; line-height: 36px;">
+                                    <%= data.title %>
+                                </h3>
+                                <div class="d-flex mb-3">
+                                    <div class="mr-4" style="color: #232323;font-weight: 400; font-size: 16px;line-height: 24px;"><%= data.companyName %>  </div> 
+                                    <div style="color: #767F8C;font-size: 16px;font-weight: 400;line-height: 20px;"> <% if (data.workType !== 'Internship') { %> 
+                                        Experience : <%= data.experience %> years
+                                    <% } else { %>
+                                        
+                                                No Experience Needed
+                                            
+                                        <% } %> </div>
+                                </div>
+                                <hr>
                                 
-                                        <h3 class="mt-2">
-                                            <%= data.title %>
-                                        </h3>
-                                   
-                                
-
-                                <!-- <h5>
-                                    <%= data.jobType %> | <%= data.workType %> | <%= data.jobLocation %> 
-                                </h5>
-                                <% if (data.workType !== 'Internship') { %> -->
-                                
-                                <p>
-                                    Experience: <%= data.experience %> years
-                                </p>
-                                
-                                <% } else { %>
-                                    <p>
-                                        No Experience Needed
-                                    </p>
-                                <% } %>
                                     
-                                <p>
-                                    <h5 >Job Description</h5>
-                                    <span ><%- data.jobDescription %></span>
-                                </p>
+                                <p class="mt-3" style="color: #000000; font-weight: 600; font-size: 20px; line-height: 30px;">Job Description <br></p>
+                                <p style="color: #000000;font-size: 16px;font-weight: 400;line-height: 19px;"><%- data.jobDescription %></p>
+                                
 
                                 <p>Application closing date <br>
                                     <%= data.closingDate %>
@@ -192,25 +180,25 @@
                         <div class="item pb-3">
                             <div class="info mt-3 row">
                               <div class="col">
-                                <p>
-                                    <strong>Location</strong> <br>
-                                    <span><%= data.jobLocation %></span>
-                                </p>
+                                <div>
+                                    <p class="p-0 mb-0" style="font-size: 16px; font-weight: 700; color: #000000;">Location<br></p>
+                                    <p class="mt-0 p-0"><%= data.jobLocation %></p>
+                                </div>
                               </div>
                               <div class="col">
-                                <p>
-                                    <strong>Date Posted</strong> <br>
-                                    <span> <%= data.createdAt.toDateString() %></span>
-                                </p>
+                                <div>
+                                    <p class="p-0 mb-0" style="font-size: 16px; font-weight: 700; color: #000000;">Date Posted<br></p>
+                                    <p class="mt-0 p-0"><%= data.createdAt.toDateString() %></p>
+                                </div>
                               </div>
 
                             </div>
                             <div class=" mx-3  row ">
                               <div class="col">
-                                <p>
-                                    <strong><%= data.companyName %></strong> <br>
-                                    <span><%= data.salaryRange %></span>
-                                </p>
+                                <div>
+                                    <p class="p-0 mb-0" style="font-size: 16px; font-weight: 700; color: #000000;">Salary Range<br></p>
+                                    <p class="mt-0 p-0"><%= data.salaryRange %></p>
+                                </div>
                               </div>
 
                             </div>
@@ -220,13 +208,13 @@
                                 <button type="button" class="btn btn-outline-dark butt my-2"><%= data.workType %></button>
                                 <button type="button" class="btn btn-outline-dark butt my-2"><%= data.jobLocation %></button>
                             </div>
-                           <div class="mx-4 pt-3">                            
+                           <div class="mx-5 pt-3">                            
                             <% if (data.jobCategory === 'Premium' && user.userCategory === 'Regular') { %>
                                 <button type="button" class="m-2 btn btn-primary filter col-12" style="width: 310px;" disabled>
                                   Upgrade to Premium to Apply
                                 </button>
                               <% } else if (data.jobCategory === 'Premium') { %>
-                                <button id="applyNowBtn" type="button" class="btn btn-primary filter">
+                                <button id="applyNowBtn" type="button" class="btn btn-primary col-12 filter">
                                   Apply Now
                                 </button>
                               <% } %>

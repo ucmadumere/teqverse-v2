@@ -116,17 +116,26 @@ const register = async (req, res) => {
   };
 
 
-const logout = (req, res) => {
+  const logout = (req, res) => {
+    // Clear the user token
     res.cookie('token', 'logout', {
         httpOnly: true,
         expires: new Date(0),
         path: '/',
-        // domain: 'localhost',
         secure: process.env.NODE_ENV === 'production'
     });
-    res.redirect('/?success=logged Out successfully')
 
+    // Clear the admin token
+    res.cookie('admintoken', 'logout', {
+        httpOnly: true,
+        expires: new Date(0),
+        path: '/',
+        secure: process.env.NODE_ENV === 'production'
+    });
+
+    res.redirect('/?success=Logged out successfully');
 };
+
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                           FORGOT PASSWORD                                           **/
 /**--------------------------------------------------------------------------------------------------- **/

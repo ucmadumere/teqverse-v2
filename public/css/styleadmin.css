@@ -11587,7 +11587,7 @@ a.active {
 }
 
 .text-primary {
-  color: var(--primary) !important;
+  color: #007BFF!important;
 }
 
 .fs-12 {
@@ -17232,11 +17232,11 @@ html[dir="rtl"]
 .deznav .metismenu > li:hover > a,
 .deznav .metismenu > li:focus > a {
   /*  background-color: lighten($color: $primary, $amount: 40%); */
-  color: var(--primary);
+  color: #f35a38;
 }
 .deznav .metismenu > li:hover > a g [fill],
 .deznav .metismenu > li:focus > a g [fill] {
-  fill: var(--primary);
+  fill: #f35a38;
 }
 .deznav .metismenu > li:hover > a .menu-icon,
 .deznav .metismenu > li:focus > a .menu-icon {
@@ -17247,7 +17247,7 @@ html[dir="rtl"]
   stroke: black;
 }
 .deznav .metismenu > li.mm-active > a {
-  color: var(--primary);
+  color: #f35a38;
   font-weight: 400;
 }
 .deznav .metismenu > li.mm-active > a i {
@@ -17260,7 +17260,7 @@ html[dir="rtl"]
   stroke: black;
 }
 .deznav .metismenu > li.mm-active > a g [fill] {
-  fill: var(--primary);
+  fill: #f35a38;
 }
 .deznav .metismenu > li.mm-active > a:after {
   border-top: 0.3125rem solid #888888;
@@ -17269,7 +17269,7 @@ html[dir="rtl"]
   border-width: 1px;
 }
 [data-sidebar-style="compact"] .deznav .metismenu > li.mm-active > a i {
-  background: var(--primary);
+  background: #f35a38;
   color: #fff;
 }
 .deznav .metismenu li {

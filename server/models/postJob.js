@@ -42,12 +42,10 @@ const PostJobSchema = new Schema({
         default: 'Regular'
     },
     companyName: { 
-        type: [String], 
-        default: [] 
+        type: String, 
     },
     salaryRange: { 
-        type: [String], 
-        default: [] 
+        type: String, 
     },
     skills: { 
         type: [String], 

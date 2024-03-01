@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/userModel");
 const userLayout = '../views/layouts/userLogin';
 const PostJob = require('../../models/postJob');
+const AdminUser = require('../../models/adminUserModel')
 
 
 
@@ -78,18 +79,79 @@ const requireAuth = async (req, res, next) => {
 //   }
 // };
 
+// const checkUser = async (req, res, next) => {
+//   const token = req.cookies.token;
+
+//   try {
+//     if (token) {
+//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+//       const user = await User.findById(decodedToken.userId);
+//       if (!user) {
+//         res.locals.user = null;
+//       } else {
+//         const additionalDetails = await fetchAdditionalDetails(user);
+//         const mergedUser = { ...user._doc, ...additionalDetails };
+//         res.locals.user = mergedUser;
+//       }
+//     } else {
+//       res.locals.user = null;
+//     }
+//     next();
+//   } catch (error) {
+//     console.error(error);
+//     res.locals.user = null;
+//     next();
+//   }
+// };
+
+// const checkUser = async (req, res, next) => {
+//   const token = req.cookies.admintoken || req.cookies.token;
+
+//   try {
+//     if (token) {
+//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+//       const user = await User.findById(decodedToken.userId);
+//       if (!user) {
+//         res.locals.user = null;
+//       } else {
+//         const additionalDetails = await fetchAdditionalDetails(user);
+//         const mergedUser = { ...user._doc, ...additionalDetails };
+//         // Check if the user is an admin or superuser
+//         mergedUser.isAdmin = mergedUser.role === 'admin' || mergedUser.role === 'superuser';
+//         res.locals.user = mergedUser;
+//       }
+//     } else {
+//       res.locals.user = null;
+//     }
+//     next();
+//   } catch (error) {
+//     console.error(error);
+//     res.locals.user = null;
+//     next();
+//   }
+// };
+
+
 const checkUser = async (req, res, next) => {
-  const token = req.cookies.token;
+  const token = req.cookies.admintoken || req.cookies.token;
 
   try {
     if (token) {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findById(decodedToken.userId);
+      let user = await User.findById(decodedToken.userId);
+      if (!user) {
+        user = await AdminUser.findById(decodedToken.userId); // Check in AdminUser model
+      }
       if (!user) {
         res.locals.user = null;
       } else {
         const additionalDetails = await fetchAdditionalDetails(user);
         const mergedUser = { ...user._doc, ...additionalDetails };
+        // Check if the user is an admin or superuser
+        mergedUser.isAdmin = mergedUser.role === 'admin' || mergedUser.role === 'superuser';
+        if (mergedUser.isAdmin && !mergedUser.first_name && mergedUser.name) {
+          mergedUser.first_name = mergedUser.name;
+        }
         res.locals.user = mergedUser;
       }
     } else {
@@ -102,6 +164,9 @@ const checkUser = async (req, res, next) => {
     next();
   }
 };
+
+
+
 
 
 // Function to fetch additional details from the database
