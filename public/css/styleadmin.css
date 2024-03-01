@@ -48346,8 +48346,8 @@ button:focus {
 }
 
 .light.btn-primary {
-  background-color: #0554f2;
-  border-color: #0554f2;
+  background-color: #F35A38;
+  border-color: #F35A38;
   /* color: var(--text-dark); */
 }
 .light.btn-primary g [fill] {
@@ -48359,8 +48359,8 @@ button:focus {
   color: black !important;
 }
 .light.btn-primary:hover {
-  background-color: #0554f2;
-  border-color: #0554f2;
+  background-color: #F35A38;
+  border-color: #F35A38;
   color: #fff;
 }
 
@@ -48556,8 +48556,8 @@ button:focus {
   fill: var(--primary);
 }
 .btn.tp-btn-light.btn-primary:hover {
-  background-color: var(--primary-light);
-  border-color: var(--primary-light);
+  background-color: #F35A38;
+  border-color: #F35A38;
   color: var(--text-dark);
 }
 .btn.tp-btn-light.btn-secondary {

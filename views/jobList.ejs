@@ -21,18 +21,15 @@
 <!-- Search And Filter Starts Here  -->
 <div class="container mt-5">
     <form action="/joblist" method="get">
-        <div class="input-group mb-3">
-            <input type="text" name="q" id="searchTerm" class="form-control" placeholder="Search for jobs"
-                value="<%= searchTerm %>">
-            <button class="btn btn-outline-secondary" type="submit" style="border-right: none;"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                </svg></button>
-            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#exampleModal"><i
-                    class="fas fa-filter"></i>
-            </button>
+        <div class="p-2 search-form">
+            <div class="input-group">
+                <input type="text" name="q" id="searchTerm" class="form-control" placeholder="Search for jobs"
+                    value="<%= searchTerm %>" style="border: none;">
+                <button class="btn find-job" type="submit" style="border-right: none;">Find Job</button>
+                <button class="btn filter-job" type="button" data-toggle="modal" data-target="#exampleModal"><i
+                        class="fas fa-filter px-1"></i>Filters
+                </button>
+            </div>
         </div>
     </form>
 </div>
@@ -109,7 +106,6 @@
                     <div class="modal-body">
 
                         <div class="row">
-                            <!-- <form action="/joblist" method="get" class="mb-4"> -->
                             <div class="form-group col-6">
                                 <label for="location">Location:</label>
                                 <input type="text" name="jobLocation" id="jobLocation" class="form-control"
@@ -170,11 +166,11 @@
                             </div>
 
                         </div>
-                        <div class="d-flex row justify-content-around m-auto">
-                            <div class="form-group col-6 ">
+                        <div class="d-flex row justify-content-around mx-auto">
+                            <div class="form-group col-lg-6 col-md-12 ">
                                 <button class="filter" type="submit">Apply Filters</button>
                             </div>
-                            <div class="form-group col-6">
+                            <div class="form-group col-lg-6 col-md-12">
                                 <a href="/resetfilters" class="btn btn-secondary mt-1 filter">Reset
                                     Filters</a>
                             </div>
