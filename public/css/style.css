@@ -333,14 +333,16 @@ button:hover {
   }
 
   .butt {
-    border-radius: 5px !important;
+    border-radius: 7px !important;
     transition: all 0.35s ease-in-out;
+    background-color: #E4E5E8;
+    border-color: #E4E5E8;
   }
  
   
   .butt:hover {
     background: #466fdf;
-    border-color: #466fdf;
+    border-color: #E4E5E8;
   }
   .but {
     text-transform: none !important;
@@ -14626,7 +14628,7 @@ footer.demo p {
 
 .custom-card .jobCategory-span{
   border-radius: 10px;
-  background-color: #f35a38;
+  background-color: #007BFF;
   color: #ffffff;
   padding: 2px 10px;
   height: 30px;
@@ -14682,4 +14684,34 @@ footer.demo p {
   color: #fff;
   background-color: #007BFF;
   border-color: #fff;
+}
+
+.find-job{
+  background-color: #f35a38;
+  color: #ffffff;
+  border: none;
+  border-radius: 7px;
+}
+
+.find-job:hover{
+  background-color: #007BFF;
+  color: #ffffff;
+  border: none;
+}
+
+.filter-job{
+  background-color: #E4E5E8;
+  color: #18191C;
+  margin: 0 10px;
+  border: 0;
+  border-radius: 7px;
+}
+.filter-job:hover{
+  background-color: #E4E5E8;
+  color: #18191C;
+}
+
+.search-form{
+  border: 1px solid #E4E5E8;
+  border-radius: 5px;
 }
