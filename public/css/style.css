@@ -14629,8 +14629,16 @@ footer.demo p {
   background-color: #f35a38;
   color: #ffffff;
   padding: 2px 10px;
+  height: 30px;
 }
 
+.job-title{
+  padding-right: 0;
+}
+.anchor-title{
+  max-width: 800px;
+  width: 100%;
+}
 .recommended-Job{
   max-height: 1400px;
   height: 95%;
@@ -14657,4 +14665,21 @@ footer.demo p {
   max-width: 50px;
   width: 100%;
   margin-top: 5px;
+}
+
+.custom-link {
+  display: inline-block;
+  padding: 5px 10px;
+  color: #007BFF;
+  background-color: #fff;
+  text-decoration: none;
+  border-radius: 20px;
+  transition: all 0.3s ease-in-out;
+  border: 2px solid #007BFF;
+}
+
+.custom-link:hover {
+  color: #fff;
+  background-color: #007BFF;
+  border-color: #fff;
 }

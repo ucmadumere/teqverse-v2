@@ -63,9 +63,6 @@
                                 <% } %>
                                     
                                 <p>
-                                    <%= data.jobOverview %>
-                                </p>
-                                <p>
                                     <h5 >Job Description</h5>
                                     <span ><%- data.jobDescription %></span>
                                 </p>
@@ -211,25 +208,25 @@
                             <div class=" mx-3  row ">
                               <div class="col">
                                 <p>
-                                    <strong>Salary Range</strong> <br>
-                                    <span>N500,000 - N1,000,000</span>
+                                    <strong><%= data.companyName %></strong> <br>
+                                    <span><%= data.salaryRange %></span>
                                 </p>
                               </div>
 
                             </div>
 
                             <div class="d-grid gap-2 mx-4">
-                                <button type="button" class="btn btn-outline-dark butt"><%= data.jobType %></button>
-                                <button type="button" class="btn btn-outline-dark butt"><%= data.workType %></button>
-                                <button type="button" class="btn btn-outline-dark butt"><%= data.jobLocation %></button>
+                                <button type="button" class="btn btn-outline-dark butt my-2"><%= data.jobType %></button>
+                                <button type="button" class="btn btn-outline-dark butt my-2"><%= data.workType %></button>
+                                <button type="button" class="btn btn-outline-dark butt my-2"><%= data.jobLocation %></button>
                             </div>
                            <div class="mx-4 pt-3">                            
                             <% if (data.jobCategory === 'Premium' && user.userCategory === 'Regular') { %>
-                                <button type="button" class="m-2 btn btn-primary filter" style="width: 310px;" disabled>
+                                <button type="button" class="m-2 btn btn-primary filter col-12" style="width: 310px;" disabled>
                                   Upgrade to Premium to Apply
                                 </button>
                               <% } else if (data.jobCategory === 'Premium') { %>
-                                <button id="applyNowBtn" type="button" class="m-2 btn btn-primary filter">
+                                <button id="applyNowBtn" type="button" class="btn btn-primary filter">
                                   Apply Now
                                 </button>
                               <% } %>

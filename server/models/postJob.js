@@ -12,7 +12,7 @@ const PostJobSchema = new Schema({
     },
     jobOverview: {
         type: String,
-        required: true
+        required: false
     },
     jobType: {
         type: String,
@@ -40,6 +40,14 @@ const PostJobSchema = new Schema({
         type: String,
         enum: ['Regular', 'Premium'],
         default: 'Regular'
+    },
+    companyName: { 
+        type: [String], 
+        default: [] 
+    },
+    salaryRange: { 
+        type: [String], 
+        default: [] 
     },
     skills: { 
         type: [String], 

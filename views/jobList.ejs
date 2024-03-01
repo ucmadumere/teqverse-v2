@@ -16,126 +16,44 @@
 </div>
 <!-- End Breadcrumb -->
 
-<!-- Start Blog
-    ============================================= -->
+<!-- Start Blog -->
+
+<!-- Search And Filter Starts Here  -->
 <div class="container mt-5">
-           <div class="row">
-            <div class="input-group mb-3 col-lg-9 col-md-12 col-sm-12">
-                <div class="input-group-prepend card">
-                    <i><img src="/img/search.jpg" style="width: 20px;" class="mx-3 mt-3" alt=""></i>
-                </div>
-                <input type="text" class="form-control" placeholder="Job title, position, or keyword" aria-label="Search" aria-describedby="basic-addon1">
-            </div>
-            <!-- <form action="/joblist" method="get">
-                <input type="text" name="q" class="form-control" id="searchTerm"
-                    value="<%= searchTerm %>">
-                <button type="submit"><i class="fas fa-search"></i></button>
-            </form> -->
-            <div class="input-group mb-3 col-lg-3 col-md-12 col-sm-12  " style="gap: 8px;">
-                <div class="input-group-prepend">
-                    <button type="button" class="btn but " data-toggle="modal" data-target="#exampleModal">
-                        <div>
-                            <img src="/img/filters.png" class="mb-1 ms-2"  style="width: 17px;" alt="">
-                            <span class="">Filters </span>
-                        </div>
-                        
-                    </button>
+    <form action="/joblist" method="get">
+        <div class="input-group mb-3">
+            <input type="text" name="q" id="searchTerm" class="form-control" placeholder="Search for jobs"
+                value="<%= searchTerm %>">
+            <button class="btn btn-outline-secondary" type="submit" style="border-right: none;"><svg
+                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search"
+                    viewBox="0 0 16 16">
+                    <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                </svg></button>
+            <button class="btn btn-outline-secondary" type="button" data-toggle="modal" data-target="#exampleModal"><i
+                    class="fas fa-filter"></i>
+            </button>
+        </div>
+    </form>
+</div>
+<!-- Search And Filter Ends Here  -->
 
-                    
-                    <!-- Modal -->
-                    <form action="/joblist" method="get">
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-                        aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Filter by</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-
-                                    <div class="row">
-                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                            <label for="location">Location:</label>
-                                            <input type="text" name="jobLocation" id="jobLocation" class="form-control"
-                                                value="<%= jobLocation %>">
-                                        </div>
-                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                            <label for="experience">Experience:</label>
-                                            <input type="number" name="experience" id="experience" class="form-control"
-                                                value="<%= experience %>">
-                                        </div>
-                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                            <label for="workType">Work Type:</label>
-                                            <select name="workType" id="workType" class="form-control">
-                                                <option value="">--Please choose an option--</option>
-                                                <option value="Contract" <%=workType==='Contract' ? 'selected' : '' %>
-                                                    >Contract</option>
-                                                <option value="Full Time" <%=workType==='Full Time' ? 'selected' : '' %>
-                                                    >Full Time</option>
-                                                <option value="Part Time" <%=workType==='Part Time' ? 'selected' : '' %>
-                                                    >Part Time</option>
-                                                <option value="Internship" <%=workType==='Internship' ? 'selected' : '' %>
-                                                    >Internship</option>
-                                            </select>
-                                        </div>
-                                        <!-- First Column -->
-                                        <div class="form-group col-lg-6 col-md-12 col-sm-12">
-                                            <label for="jobType">Job Type:</label>
-                                            <select name="jobType" id="jobType" class="form-control">
-                                                <option value="">--Please choose an option--</option>
-                                                <option value="Hybrid" <%=jobType==='Hybrid' ? 'selected' : '' %>>Hybrid
-                                                </option>
-                                                <option value="Remote" <%=jobType==='Remote' ? 'selected' : '' %>>Remote
-                                                </option>
-                                                <option value="Onsite" <%=jobType==='Onsite' ? 'selected' : '' %>>Onsite
-                                                </option>
-                                            </select>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                                <div class="d-flex row justify-content-end align-items-right" style="gap: 7px;">
-                                            <div class="form-group col-lg-3 col-md-12 col-sm-12 d-flex justify-content-end ">
-                                                <button class="filter" type="submit">Apply Filters</button>
-                                            </div>
-                                            <div class="form-group col-lg-3 col-md-12 col-sm-12 d-flex justify-content-end">
-                                                <a href="/resetfilters" class="btn btn-secondary mt-1 filter ">Reset
-                                                    Filters</a>
-                                            </div>
-                                </div>
-                            </div>
-                        </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="input-group-prepend">
-                    <button type="button" class="btn buty mx-">Find Job</button>
-                </div>
-            </div>
-            
-           </div>
-           
-    
-    
+<div class="container mt-5">
+    <!-- Jobs Card starts here  -->
     <div class="row">
         <% data.forEach(post=> { %>
             <div class="col-lg-4 col-md-12">
                 <div class="card border border-0 custom-card">
                     <div class="card-body">
                         <div class="row d-flex justify-content-around">
-                            <div class="col-6 job-title">
-                                <div>
-                                    <a href="/jobdetails/<%= post._id %>" class="text-truncate">
+                            <div class="col-8 job-title">
+                                <div class="anchor-title text-truncate">
+                                    <a href="/jobdetails/<%= post._id %>">
                                         <%= post.title %>
                                     </a>
                                 </div>
                             </div>
-                            <div class="col-6 d-flex justify-content-end">
+                            <div class="col-4 d-flex justify-content-end">
                                 <span class="jobCategory-span">
                                     <%= post.jobCategory %>
                                 </span>
@@ -152,23 +70,123 @@
                                     </p>
                                     <% } %>
                         </div>
-                        <!-- <h5>
-                            <%= post.jobType %> | <%= post.workType %> | <%= post.jobLocation %>
-                        </h5> -->
                         <div class="d-grid gap-2">
-                            <button type="button" class="btn btn-outline-dark butt">Full-time</button>
-                            <button type="button" class="btn btn-outline-dark butt">Onsite</button>
-                            <button type="button" class="btn btn-outline-dark butt">Lagos, Nigeria</button>
+                            <button class="btn btn-outline-dark butt my-2" style="font-size: 12px;">
+                                <%= post.workType %>
+                            </button>
+                            <button class="btn btn-outline-dark butt my-2" style="font-size: 12px;">
+                                <%= post.jobType %>
+                            </button>
+                            <button class="btn btn-outline-dark butt" style="font-size: 12px;">
+                                <%= post.jobLocation %>
+                            </button>
                         </div>
-                        <h6 class="mt-4">Kappa Limited</h6>
-                        <p>Salary Range 100,000 - 150,000</p>
+                        <h6 class="mt-4">
+                            <%= post.companyName %>
+                        </h6>
+                        <p>
+                            <%= post.salaryRange %>
+                        </p>
                     </div>
                 </div>
             </div>
             <% }) %>
     </div>
+    <!-- Jobs Card Ends here  -->
 
-   
+    <!-- Filter Modal Starts Here -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Job Filter</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/joblist" method="get">
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <!-- <form action="/joblist" method="get" class="mb-4"> -->
+                            <div class="form-group col-6">
+                                <label for="location">Location:</label>
+                                <input type="text" name="jobLocation" id="jobLocation" class="form-control"
+                                    value="<%= jobLocation %>">
+                            </div>
+
+                            <div class="form-group col-6">
+                                <label for="experience">Experience:</label>
+                                <input type="number" name="experience" id="experience" class="form-control"
+                                    value="<%= experience %>">
+                            </div>
+
+                            <div class="form-group col-6">
+                                <div class="mb-1">
+                                    <label for="workType">Work Type:</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="workTypeContract" name="workType"
+                                        value="Contract" <%=workType==='Contract' ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="workTypeContract">Contract</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="workTypeFullTime" name="workType"
+                                        value="Full Time" <%=workType==='Full Time' ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="workTypeFullTime">Full Time</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="workTypePartTime" name="workType"
+                                        value="Part Time" <%=workType==='Part Time' ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="workTypePartTime">Part Time</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="workTypeInternship" name="workType"
+                                        value="Internship" <%=workType==='Internship' ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="workTypeInternship">Internship</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-6">
+                                <div class="mb-1">
+                                    <label for="jobType">Job Type:</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="jobTypeHybrid" name="jobType"
+                                        value="Hybrid" <%=jobType==='Hybrid' ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="jobTypeHybrid">Hybrid</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="jobTypeRemote" name="jobType"
+                                        value="Remote" <%=jobType==='Remote' ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="jobTypeRemote">Remote</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="jobTypeOnsite" name="jobType"
+                                        value="Onsite" <%=jobType==='Onsite' ? 'checked' : '' %>>
+                                    <label class="form-check-label" for="jobTypeOnsite">Onsite</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="d-flex row justify-content-around m-auto">
+                            <div class="form-group col-6 ">
+                                <button class="filter" type="submit">Apply Filters</button>
+                            </div>
+                            <div class="form-group col-6">
+                                <a href="/resetfilters" class="btn btn-secondary mt-1 filter">Reset
+                                    Filters</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+    <!-- Filter Modal Ends Here -->
+
 
     <!-- Pagination -->
     <div class="row">
@@ -193,324 +211,88 @@
 </div>
 
 <!-- RECOMMENDED SECTION -->
-<div class="container-fluid recommended-Job mt-5 mx-auto">
-    <div class="container py-5">
-        <div class="title">
-            <h4>Recommended Jobs
-                <hr>
-            </h4>
-        </div>
-        <div class="row">
-            <% recommendedJobs.slice(0, 3).forEach(recommendedJob=> { %>
-                <div class="col-lg-4 col-md-12">
-                    <div class="card border border-0 custom-card">
-                        <div class="card-body">
-                            <div class="row d-flex justify-content-around">
-                                <div class="col-6 job-title">
-                                    <a href="/jobdetails/<%= recommendedJob._id %>" class="text-truncate">
-                                        <%= recommendedJob.title %>
-                                    </a>
-                                </div>
-                                <div class="col-6 d-flex justify-content-end">
-                                    <span class="jobCategory-span">
-                                        <%= recommendedJob.jobCategory %>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="mt-3">
-                                <% if (recommendedJob.workType !=='Internship' ) { %>
-                                    <h5>
-                                        Experience: <%= recommendedJob.experience %> years
-                                    </h5>
-                                    <% } else { %>
-                                        <h5>
-                                            No Experience Needed
-                                        </h5>
-                                        <% } %>
-                            </div>
-                            <h5>
-                                <%= recommendedJob.jobType %> | <%= recommendedJob.workType %> | <%=
-                                            recommendedJob.jobLocation %>
-                            </h5>
-                            <h6 class="mt-4">Kappa Limited</h6>
-                            <p>Salary Range 100,000 - 150,000</p>
-                        </div>
-                    </div>
-                </div>
-                <% }) %>
-        </div>
-    </div>
-</div>
-
-<!-- FOLLOW & SUBSCRIBE SECTION -->
-<div class="container-fluid follow-us bg-white mt-5">
-    <div class="container py-3">
-        <div class="title">
-            <h4>Follow Us
-                <hr>
-            </h4>
-        </div>
-        <div class="d-flex justify-content-between">
-            <div class="sidebar-item social-sidebar">
-                <div class="sidebar-info">
-                    <ul>
-                        <li class="facebook">
-                            <a href="https://www.facebook.com/profile.php?id=61555619157391&mibextid=ZbWKwL">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                        </li>
-                        <li class="instagram">
-                            <a href="https://www.instagram.com/teqverse?igsh=MjhhZWJ6bWoyazNk"><i
-                                    class="fab fa-instagram"></i></a>
-                        </li>
-                        <li class="">
-                            <a href="https://twitter.com/teqverse56653">
-                                <i class="fab fa-xing"></i>
-                            </a>
-                        </li>
-                        <li class="pinterest">
-                            <a href="https://www.youtube.com/@TEQVERSE-ou4sv">
-                                <i class="fab fa-youtube"></i>
-                            </a>
-                        </li>
-                        <li class="">
-                            <a href="https://www.tiktok.com/@teqverse?_t=8jODJgriF7e&_r=1"> <i
-                                    class="fab fa-tiktok fa-3x" style="color: white;"></i></a>
-                        </li>
-                    </ul>
-                </div>
+<% if (recommendedJobs && recommendedJobs.length> 0) { %>
+    <div class="container-fluid recommended-Job mt-5 mx-auto">
+        <div class="container py-5">
+            <div class="title">
+                <h4>Recommended Jobs
+                    <hr>
+                </h4>
             </div>
-            <!-- <div class="sidebar-item col-5">
-                <form action="/subscribe" method="post">
-                    <input type="email" name="email" class="form-control" id="email"
-                        placeholder="Subscribe to Latest Jobs">
-                     <span class="input-group-addon">
-                        <button type="submit" style="padding: 7px;"><i
-                                class="fas fa-paper-plane"></i>
-                        </button>
-                    </span> 
-
-                </form>
-            </div> -->
-            <!-- <div class="input-group mb-3 col-lg-5 col-md-12 col-sm-12 ">
-                <form action="/subscribe" method="post"></form>
-                    <input type="email" name="email" class="form-control" id="email"
-                        placeholder="Subscribe to Latest Jobs">
-                     <span class="input-group-addon">
-                        <button type="submit" style="padding: 7px;"><i
-                                class="fas fa-paper-plane"></i>
-                        </button>
-                    </span> 
-                </form>
-                
-            </div> -->
-        </div>
-
-    </div>
-</div>
-
-<div class="blog-area full-blog right-sidebar full-blog default-padding">
-    <div class="container">
-        <div class="blog-items">
-            <div class="row ">
-                <div class="blog-content col-lg-8 col-md-12">
-                    <div class="blog-item-box">
-                        <!-- Single Item -->
-                        <% data.forEach(post=> { %>
-                            <div class="single-item">
-                                <div class="item">
-                                    <div class="info">
-                                        <div class="row d-flex justify-content-around">
-                                            <div class="col ">
-                                                <span class="post-date date">
-                                                    <%= post.createdAt.toDateString() %>
-                                                </span>
-                                            </div>
-                                            <div class="col d-flex justify-content-end">
-                                                <span class="post-date date cat-btn">
-                                                    <%= post.jobCategory %>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <h3 class="mt-2">
-                                            <a href="/jobdetails/<%= post._id %>">
-                                                <%= post.title %>
-                                            </a>
-                                        </h3>
-                                        <h5>
-                                            <%= post.jobType %> | <%= post.workType %> | <%= post.jobLocation %>
-                                        </h5>
-
-                                        <% if (post.workType !=='Internship' ) { %>
-                                            <p>
-                                                Experience: <%= post.experience %> years
-                                            </p>
-                                            <% } else { %>
-                                                <p>
-                                                    No Experience Needed
-                                                </p>
-                                                <% } %>
-
-                                                    <p>
-                                                        <%=post.jobOverview %>
-                                                    </p>
-
-
-                                                    <div class="d-flex justify-content-end">
-                                                        <a class="btn circle btn-theme border btn-sm"
-                                                            href="/jobdetails/<%= post._id %>">View More</a>
-                                                    </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <% }) %>
-                                <!-- End Single Item -->
-                    </div>
-
-                    <!-- Pagination -->
-                    <div class="row">
-                        <div class="col-md-12 pagi-area text-center">
-                            <nav aria-label="navigation">
-                                <ul class="pagination">
-                                    <% if (page> 1) { %>
-                                        <li class="page-item"><a class="page-link" href="?page=<%= page - 1 %>"><i
-                                                    class="fas fa-angle-double-left"></i></a></li>
-                                        <% } %>
-                                            <li class="page-item active"><a class="page-link" href="">
-                                                    <%= page %>
-                                                </a></li>
-                                            <% if (page < totalPages) { %>
-                                                <li class="page-item"><a class="page-link"
-                                                        href="?page=<%= page + 1 %>"><i
-                                                            class="fas fa-angle-double-right"></i></a></li>
-                                                <% } %>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-                <!-- Start Sidebar -->
-                <div class="sidebar col-lg-4 col-md-12">
-                    <aside>
-                        <div class="sidebar-item search">
-                            <div class="sidebar-info">
-                                <form action="/joblist" method="get">
-                                    <input type="text" name="q" class="form-control" id="searchTerm"
-                                        value="<%= searchTerm %>">
-                                    <button type="submit"><i class="fas fa-search"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- Sort By Starts Here -->
-                        <div class="sidebar-item category">
-                            <div class="title">
-                                <h4>Job Filter</h4>
-                            </div>
-                            <!-- Filter form -->
-                            <form action="/joblist" method="get" class="mb-4">
-                                <div class="form-row">
-                                    <div class="form-group col-12">
-                                        <label for="location">Location:</label>
-                                        <input type="text" name="jobLocation" id="jobLocation" class="form-control"
-                                            value="<%= jobLocation %>">
-                                    </div>
-
-                                    <div class="form-group col-12">
-                                        <label for="experience">Experience:</label>
-                                        <input type="number" name="experience" id="experience" class="form-control"
-                                            value="<%= experience %>">
-                                    </div>
-
-                                    <div class="form-group col-12">
-                                        <label for="workType">Work Type:</label>
-                                        <select name="workType" id="workType" class="form-control">
-                                            <option value="">--Please choose an option--</option>
-                                            <option value="Contract" <%=workType==='Contract' ? 'selected' : '' %>
-                                                >Contract</option>
-                                            <option value="Full Time" <%=workType==='Full Time' ? 'selected' : '' %>
-                                                >Full Time</option>
-                                            <option value="Part Time" <%=workType==='Part Time' ? 'selected' : '' %>
-                                                >Part Time</option>
-                                            <option value="Internship" <%=workType==='Internship' ? 'selected' : '' %>
-                                                >Internship</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group col-12">
-                                        <label for="jobType">Job Type:</label>
-                                        <select name="jobType" id="jobType" class="form-control">
-                                            <option value="">--Please choose an option--</option>
-                                            <option value="Hybrid" <%=jobType==='Hybrid' ? 'selected' : '' %>>Hybrid
-                                            </option>
-                                            <option value="Remote" <%=jobType==='Remote' ? 'selected' : '' %>>Remote
-                                            </option>
-                                            <option value="Onsite" <%=jobType==='Onsite' ? 'selected' : '' %>>Onsite
-                                            </option>
-                                        </select>
-                                    </div>
-                                    <div class="d-flex row justify-content-around m-auto">
-                                        <div class="form-group col-6 ">
-                                            <button class="filter" type="submit">Apply Filters</button>
-                                        </div>
-                                        <div class="form-group col-6">
-                                            <a href="/resetfilters" class="btn btn-secondary mt-1 filter">Reset
-                                                Filters</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- Sort By Ends HEre -->
-                        <!-- Dynamic Recommended Job Post  -->
-                        <div class="sidebar-item recent-post">
-                            <div class="title">
-                                <h4>Recommended Jobs</h4>
-                            </div>
-                            <ul>
-                                <% recommendedJobs.slice(0, 5).forEach(recommendedJob=> { %>
-                                    <li>
-                                        <div class="info">
-                                            <div class="meta-title">
-                                                <span class="post-date"><i class="fas fa-clock"></i>
-                                                    <%= recommendedJob.createdAt.toDateString() %>
-                                                </span>
-                                            </div>
+            <div class="row">
+                <% recommendedJobs.slice(0, 3).forEach(recommendedJob=> { %>
+                    <div class="col-lg-4 col-md-12">
+                        <div class="card border border-0 custom-card">
+                            <div class="card-body">
+                                <div class="row d-flex justify-content-around">
+                                    <div class="col-8 job-title">
+                                        <div class="anchor-title text-truncate">
                                             <a href="/jobdetails/<%= recommendedJob._id %>">
                                                 <%= recommendedJob.title %>
                                             </a>
                                         </div>
-                                    </li>
-                                    <% }) %>
-                            </ul>
-                            <br>
-                            <div style="text-align: center;">
-                                <a href="/all-recommended-jobs"
-                                    style="display: inline-block; padding: 5px 10px; color: #007BFF; background-color: #fff; 
-                                text-decoration: none; border-radius: 20px; transition: all 0.3s ease-in-out; border: 2px solid #007BFF;"
-                                    onmouseover="this.style.color='#fff'; this.style.backgroundColor='#007BFF'; this.style.borderColor='#fff';"
-                                    onmouseout="this.style.color='#007BFF'; this.style.backgroundColor='#fff'; this.style.borderColor='#007BFF';">View
-                                    all recommended jobs</a>
+                                    </div>
+                                    <div class="col-4 d-flex justify-content-end">
+                                        <span class="jobCategory-span">
+                                            <%= recommendedJob.jobCategory %>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="mt-3">
+                                    <% if (recommendedJob.workType !=='Internship' ) { %>
+                                        <p>
+                                            Experience: <%= recommendedJob.experience %> years
+                                        </p>
+                                        <% } else { %>
+                                            <p>
+                                                No Experience Needed
+                                            </p>
+                                            <% } %>
+                                </div>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-outline-dark butt my-2">
+                                        <%= recommendedJob.workType %>
+                                    </button>
+                                    <button class="btn btn-outline-dark butt my-2">
+                                        <%= recommendedJob.jobType %>
+                                    </button>
+                                    <button class="btn btn-outline-dark butt">
+                                        <%= recommendedJob.jobLocation %>
+                                    </button>
+                                </div>
+                                <h6 class="mt-4">
+                                    <%= recommendedJob.companyName %>
+                                </h6>
+                                <p>
+                                    <%= recommendedJob.salaryRange %>
+                                </p>
                             </div>
                         </div>
+                    </div>
+                    <% }) %>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <a href="/all-recommended-jobs" class="custom-link">View all recommended jobs</a>
+            </div>
+        </div>
+    </div>
+    <% } else { %>
+        <div class="container-fluid recommended-Job mt-5 mx-auto">
+            <p class="text-center">No recommended jobs available. Update your profile to get personalized job
+                recommendations.</p>
+        </div>
+        <% } %>
 
-                        <!-- Dynamic Recommended Job Post Ends Here  -->
-                        <div class="sidebar-item">
-                            <form action="/subscribe" method="post">
-                                <input type="email" name="email" class="form-control" id="email"
-                                    placeholder="Subscribe to Latest Jobs">
-                                <span class="input-group-addon">
-                                    <button type="submit" style="padding: 7px;"><i
-                                            class="fas fa-paper-plane"></i></button>
-                                </span>
-
-                            </form>
-                        </div>
-
-                        <div class="sidebar-item social-sidebar">
-                            <div class="title">
-                                <h4>Follow us</h4>
-                            </div>
+            <!-- FOLLOW & SUBSCRIBE SECTION -->
+            <div class="container-fluid follow-us bg-white mt-5 mx-auto">
+                <div class="container py-3">
+                    <div class="title">
+                        <h4>Follow Us
+                            <hr>
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="sidebar-item col-lg-6 col-md-12 my-3 social-sidebar">
                             <div class="sidebar-info">
                                 <ul>
                                     <li class="facebook">
@@ -533,23 +315,27 @@
                                             <i class="fab fa-youtube"></i>
                                         </a>
                                     </li>
-                                    <li class="">
-                                        <a href="https://www.tiktok.com/@teqverse?_t=8jODJgriF7e&_r=1"> <i
-                                                class="fab fa-tiktok fa-3x" style="color: white;"></i></a>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
-                    </aside>
+                        <div class="col-lg-6 col-md-12 p-0 mb-4">
+                            <form action="/subscribe" method="post">
+                                <div class="input-group col-12 p-0">
+                                    <input type="email" name="email" class="form-control" id="email"
+                                        placeholder="Subscribe to Latest Jobs">
+                                    <button class="btn btn-outline-secondary" type="button" data-toggle="modal"
+                                        data-target="#exampleModal"><i class="fas fa-paper-plane"></i></button>
+    
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
-                <!-- End Start Sidebar -->
             </div>
-        </div>
-    </div>
 
-</div>
 
-<!-- End Blog -->
-<a href="https://wa.me/2349050340306" class="float" target="_blank">
-    <i class="fa fa-whatsapp my-float"></i>
-</a>
+            <!-- End Blog -->
+            <a href="https://wa.me/2349050340306" class="float" target="_blank">
+                <i class="fa fa-whatsapp my-float"></i>
+            </a>
