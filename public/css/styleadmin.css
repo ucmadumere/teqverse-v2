@@ -53158,12 +53158,14 @@ table.dataTable thead .sorting_asc {
 }
 @media only screen and (max-width: 61.9375rem) {
   .login-form {
-    padding: 25px 25px;
+    /* padding: 25px 25px; */
+    padding: 30px 30px;
   }
 }
 @media only screen and (max-width: 35.9375rem) {
   .login-form {
-    padding: 14px 14px;
+    /* padding: 14px 14px; */
+    padding: 30px 30px;
   }
 }
 .login-form .login-title {
