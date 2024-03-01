@@ -7,7 +7,10 @@ const adminLayout = '../views/layouts/adminLogin';
 const { checkAdminUser, requireAdminAuth } = require('../midlewares/adminMiddleWares/requireAdminAuth')
 const { createJob } = require('../controllers/postadminController')
 const Review = require('../models/review');
-
+const { 
+  getUpdateStatusForm, 
+  updateStatus 
+} = require('../controllers/updateJobStatusController');
 
 const { logout,
   deleteJob,
@@ -20,7 +23,7 @@ const { logout,
   postAdmin,
   getAdmin,
   getPremiumList,
-  getGuestList } = require('../controllers/postadminController')
+  getGuestList } = require('../controllers/postadminController');
 
 
 
@@ -130,5 +133,12 @@ router.get('/applications', async (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 router.delete('/delete-job/:id', deleteJob);
 
+
+
+
+router.get('/update-status/:id', checkAdminUser, getUpdateStatusForm);
+
+
+router.post('/update-status/:id', checkAdminUser, updateStatus);
 
 module.exports = router

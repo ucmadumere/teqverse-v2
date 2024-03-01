@@ -2,6 +2,8 @@ const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
+
+
 const joblist = async (req, res) => {
   try {
     const locals = {
