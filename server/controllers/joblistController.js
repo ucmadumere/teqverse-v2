@@ -2,6 +2,8 @@ const Postjob = require('../models/postJob');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
+
+
 const joblist = async (req, res) => {
   try {
     const locals = {
@@ -10,7 +12,7 @@ const joblist = async (req, res) => {
     };
 
     const page = parseInt(req.query.page) || 1;
-    const pageSize = 5; // Number of items per page
+    const pageSize = 6; // Number of items per page
     let query = {};
 
     // Check if a search term is provided in the query parameters
