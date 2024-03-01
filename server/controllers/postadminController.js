@@ -36,6 +36,8 @@ const createJob = async (req, res) => {
       requirements,
       jobCategory, 
       closingDate,
+      salaryRange,
+      companyName,
       methodOfApplication,
       skills
     } = req.body;
@@ -59,6 +61,8 @@ const createJob = async (req, res) => {
       requirements,
       jobCategory, 
       closingDate,
+      salaryRange,
+      companyName,
       methodOfApplication,
       skills: skillsArray
     });
@@ -120,7 +124,7 @@ const getGuestList = async (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 
 const updatejob = async (req, res) => {
-  const { title, experience, jobLocation, jobType, workType, jobDescription, jobOverview, requirements, jobCategory, closingDate, methodOfApplication, skills, updatedAt } = req.body;
+  const { title, experience, jobLocation, jobType, workType, jobDescription, salaryRange, companyName, jobOverview, requirements, jobCategory, closingDate, methodOfApplication, skills, updatedAt } = req.body;
   const skillsArray = skills.split(',').map(skill => skill.trim());
   try {
 
@@ -136,6 +140,8 @@ const updatejob = async (req, res) => {
       requirements: req.body.requirements,
       jobCategory: req.body.jobCategory,
       closingDate: req.body.closingDate,
+      salaryRange: req.body.salaryRange,
+      companyName: req.body.companyName,
       methodOfApplication: req.body.methodOfApplication,
       skills: skillsArray,
       updatedAt: Date.now(),
