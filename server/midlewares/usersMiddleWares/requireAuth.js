@@ -78,10 +78,44 @@ const requireAuth = async (req, res, next) => {
 //   }
 // };
 
+// const checkUser = async (req, res, next) => {
+//   const token = req.cookies.token;
+
+//   try {
+//     if (token) {
+//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+//       const user = await User.findById(decodedToken.userId);
+//       if (!user) {
+//         res.locals.user = null;
+//       } else {
+//         const additionalDetails = await fetchAdditionalDetails(user);
+//         const mergedUser = { ...user._doc, ...additionalDetails };
+//         res.locals.user = mergedUser;
+//       }
+//     } else {
+//       res.locals.user = null;
+//     }
+//     next();
+//   } catch (error) {
+//     console.error(error);
+//     res.locals.user = null;
+//     next();
+//   }
+// };
+
 const checkUser = async (req, res, next) => {
-  const token = req.cookies.token;
+  const userToken = req.cookies.token;
+  const adminToken = req.cookies.admintoken;
 
   try {
+    let token = userToken;
+    let roleToCheck = 'user';
+
+    if (adminToken) {
+      token = adminToken;
+      roleToCheck = 'admin';
+    }
+
     if (token) {
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
       const user = await User.findById(decodedToken.userId);
@@ -90,6 +124,10 @@ const checkUser = async (req, res, next) => {
       } else {
         const additionalDetails = await fetchAdditionalDetails(user);
         const mergedUser = { ...user._doc, ...additionalDetails };
+        // Add a check for admin status
+        if (mergedUser.role === roleToCheck || mergedUser.role === 'superuser') {
+          mergedUser.isAdmin = true;
+        }
         res.locals.user = mergedUser;
       }
     } else {
@@ -102,6 +140,8 @@ const checkUser = async (req, res, next) => {
     next();
   }
 };
+
+
 
 
 // Function to fetch additional details from the database
