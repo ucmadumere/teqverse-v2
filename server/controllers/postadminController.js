@@ -39,8 +39,6 @@ const createJob = async (req, res) => {
       salaryRange,
       companyName,
       methodOfApplication,
-      salaryRange,
-      companyName,
       skills
     } = req.body;
 
@@ -181,7 +179,7 @@ const getEditJob = async (req, res) => {
       jobCategory: req.body.jobCategory,
       closingDate: req.body.closingDate,
       methodOfApplication: req.body.methodOfApplication,
-      
+
       skills: req.body.skills,
     };
 
