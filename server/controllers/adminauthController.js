@@ -39,7 +39,7 @@ const loginAdmin = async (req, res) => {
     })
   
       // Redirect to a dashboard or user profile page
-      res.redirect('dashboard');
+      res.redirect('/');
 
   } catch (error) {
     console.error(error);

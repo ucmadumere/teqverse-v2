@@ -6,50 +6,43 @@ const AdminUser = require('../../models/adminUserModel')
 
 
 
-/**--------------------------------------------------------------------------------------------------- **/
-/**                            Portects Routes from Un-Authenticated users                             **/
-/**--------------------------------------------------------------------------------------------------- **/
-// const requireAuth = (req, res, next) => {
-//   const token = req.cookies.token;
 
-//   if (token) {
-//     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-//       if (err) {
-//         res.redirect("/login");
-//       } else {
-//         req.user = user;
-//       }
-//     });
-//   } else {
-//     res.status(400).render('login', {
-
-//       layout: userLayout,
-//     });
-//   }
-// };
 
 const requireAuth = async (req, res, next) => {
   const token = req.cookies.token;
+  const adminToken = req.cookies.admintoken;
 
-  if (token) {
+  if (token || adminToken) {
     try {
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const user = await User.findById(decodedToken.userId);
+      let user;
+      if (token) {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+        user = await User.findById(decodedToken.userId);
+      } else if (adminToken) {
+        const decodedToken = jwt.verify(adminToken, process.env.JWT_SECRET);
+        user = await AdminUser.findById(decodedToken.userId);
+      }
 
       if (!user) {
-        res.redirect('login?failure= User Not Found, Please Sign In')
+        return res.redirect('login?failure=User Not Found, Please Sign In');
+      }
+
+      // Check if the user has the role of 'admin', 'user', or 'superuser'
+      if (user.role !== 'admin' && user.role !== 'user' && user.role !== 'superuser') {
+        return res.redirect('login?failure=Unauthorized, Please Sign In');
       }
 
       req.user = user; // Attach user information to the request object
       next();
     } catch (error) {
-      res.redirect('login?failure=Unauthorized, Please Sign In')
-
+      return res.redirect('login?failure=Unauthorized, Please Sign In');
     }
   } else {
-    res.redirect('login?failure=Unauthorized, Please Sign In')
+    return res.redirect('login?failure=Unauthorized, Please Sign In');
   }
 };
+
+
 
 
 
@@ -60,76 +53,6 @@ const requireAuth = async (req, res, next) => {
 /**--------------------------------------------------------------------------------------------------- **/
 /**                  Check decodes token and send user details to the front end                        **/
 /**--------------------------------------------------------------------------------------------------- **/
-// const checkUser = async (req, res, next) => {
-//   const token = req.cookies.token;
-
-//   try {
-//     if (token) {
-//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-//       const user = await User.findById(decodedToken.userId);
-//       res.locals.user = user;
-//     } else {
-//       res.locals.user = null;
-//     }
-//     next();
-//   } catch (error) {
-//     console.error(error);
-//     res.locals.user = null;
-//     next();
-//   }
-// };
-
-// const checkUser = async (req, res, next) => {
-//   const token = req.cookies.token;
-
-//   try {
-//     if (token) {
-//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-//       const user = await User.findById(decodedToken.userId);
-//       if (!user) {
-//         res.locals.user = null;
-//       } else {
-//         const additionalDetails = await fetchAdditionalDetails(user);
-//         const mergedUser = { ...user._doc, ...additionalDetails };
-//         res.locals.user = mergedUser;
-//       }
-//     } else {
-//       res.locals.user = null;
-//     }
-//     next();
-//   } catch (error) {
-//     console.error(error);
-//     res.locals.user = null;
-//     next();
-//   }
-// };
-
-// const checkUser = async (req, res, next) => {
-//   const token = req.cookies.admintoken || req.cookies.token;
-
-//   try {
-//     if (token) {
-//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-//       const user = await User.findById(decodedToken.userId);
-//       if (!user) {
-//         res.locals.user = null;
-//       } else {
-//         const additionalDetails = await fetchAdditionalDetails(user);
-//         const mergedUser = { ...user._doc, ...additionalDetails };
-//         // Check if the user is an admin or superuser
-//         mergedUser.isAdmin = mergedUser.role === 'admin' || mergedUser.role === 'superuser';
-//         res.locals.user = mergedUser;
-//       }
-//     } else {
-//       res.locals.user = null;
-//     }
-//     next();
-//   } catch (error) {
-//     console.error(error);
-//     res.locals.user = null;
-//     next();
-//   }
-// };
 
 
 const checkUser = async (req, res, next) => {
@@ -197,7 +120,6 @@ const redirectIfAuthenticated = (req, res, next) => {
 };
 
 
-
 const checkPremiumUser = async (req, res, next) => {
   try {
     const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
@@ -255,49 +177,9 @@ const checkPremiumUser = async (req, res, next) => {
 
 
 
-
-
-// const checkPremiumUser = async (req, res, next) => {
-//   try {
-//     const token = req.cookies.token;
-//     if (!token) {
-//       return res.status(401).send('Authentication required');
-//     }
-
-//     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-//     const userId = decodedToken.userId;
-
-//     const user = await User.findById(userId);
-//     if (!user) {
-//       return res.status(404).send('User not found');
-//     }
-
-//     const jobId = req.params.id;
-//     const job = await PostJob.findById(jobId);
-//     if (!job) {
-//       return res.status(404).send('Job not found');
-//     }
-
-//     if (job.jobCategory === 'Premium' && user.userCategory !== 'Premium User') {
-//       return res.status(403).redirect('/apply-job').send('Premium job requires premium user');
-//     }
-
-//     next();
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send('Internal server error');
-//   }
-// };
-
-
-
-
-
-
-
 module.exports = {
   requireAuth,
   checkUser,
   redirectIfAuthenticated,
-  checkPremiumUser
+  checkPremiumUser,
 };
