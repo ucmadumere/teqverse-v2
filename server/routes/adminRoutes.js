@@ -136,9 +136,9 @@ router.delete('/delete-job/:id', deleteJob);
 
 
 
-router.get('/update-status/:id', getUpdateStatusForm);
+router.get('/update-status/:id', checkAdminUser, getUpdateStatusForm);
 
 
-router.post('/update-status/:id', updateStatus);
+router.post('/update-status/:id', checkAdminUser, updateStatus);
 
 module.exports = router
