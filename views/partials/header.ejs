@@ -60,10 +60,10 @@
                         </ul>
                     </li>
 
-                    <% if (user) {%>
-                        <% var currentHour=new Date().getHours(); var greeting="" ; if (currentHour < 12) {
-                          greeting="Good Morning" ; } else if (currentHour < 16) { greeting="Good Afternoon" ; }
-                          else { greeting="Good Evening" ; } %>
+                    <% if (user) { %>
+                        <% var currentHour = new Date().getHours(); var greeting = ""; if (currentHour < 12) {
+                          greeting = "Good Morning"; } else if (currentHour < 16) { greeting = "Good Afternoon"; }
+                          else { greeting = "Good Evening"; } %>
                         <li class="dropdown" style="margin-left:70px;">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= greeting %>, <%= user.first_name %> </a>
                           <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
@@ -71,13 +71,23 @@
                             <% if (user.isAdmin) { %>
                               <li><a href="/admin-dashboard">View Admin Dashboard</a></li>
                             <% } %>
-                            <% if (user.isSuperUser) { %>
-                              <li><a href="/superuser-dashboard">View Super User Dashboard</a></li>
-                            <% } %>
                             <li><a href="/logout">Log Out</a></li>
                           </ul> 
                         </li>
+
+                
+                        <li>
+                            <% } else { %>
+                                <div class="attr-nav">
+                                    <ul class="button">
+                                        <li style="margin-left:130px;">
+                                            <a href="/login">Get Started</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                        </li>
                       <% } %>
+                      
                       
                       
 
