@@ -18,6 +18,7 @@ const profileImageController = require("../controllers/updateProfileController")
 const {
   applyPremiumjob,
   getApplypremiumJob,
+  viewAllApplications,
 } = require("../controllers/premiumJobController");
 const jobdetail = require("../controllers/jobdetailController");
 
@@ -339,6 +340,9 @@ router.get('/all-recommended-jobs', checkUser,requireAuth,recommendedJoblist);
 router.get('/application-tracking/:id', checkUser, viewApplicationStatus);
 
 
+
+// Route to handle displaying all job applications for a user
+router.get('/user-applications', checkUser, viewAllApplications);
 
 
 module.exports = router;

@@ -63,7 +63,7 @@ const updateStatus = async (req, res) => {
         const jobId = req.params.id;
         
         // Find the job application by ID
-        const jobApplication = await premiumJob.findById({ _id: jobId });
+        const jobApplication = await premiumJob.findById(jobId);
         
         if (!jobApplication) {
             return res.status(404).render('error', { message: "Job application not found" });
@@ -80,6 +80,7 @@ const updateStatus = async (req, res) => {
         return res.status(500).render('error', { message: "Internal server error" });
     }
 };
+
 
 
   
