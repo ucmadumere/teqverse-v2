@@ -3,6 +3,7 @@ const User = require("../models/userModel");
 const userLayout = "../views/layouts/userLogin";
 const jwt = require("jsonwebtoken");
 const postJob = require("../models/postJob");
+const adminLayout = "../views/layouts/adminLogin";
 
 
 
@@ -133,9 +134,101 @@ const applyPremiumjob = async (req, res) => {
 };
 
 
+// Assuming `premiumJob` is your Mongoose model for job applications
+
+
+
+// const viewAllApplications = async (req, res) => {
+//     try {
+//       const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
+//         if (!token) {
+//           // Handle case where token is missing
+//           return res.status(401).send("Authentication required");
+//         }
+  
+//       // Verify the JWT token to extract user details
+//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+//       const userId = decodedToken.userId;
+//         console.log(userId)
+//         // Find all job applications for the user
+//         const jobApplications = await premiumJob.find({ user: userId });
+//         console.log(jobApplications)
+
+//         res.render('all-applications', { jobApplications: jobApplications, layout: adminLayout });
+//     } catch (error) {
+//         console.error("Error retrieving applications:", error);
+//         return res.status(500).render('error', { message: "Internal server error" });
+//     }
+// };
+
+
+// const viewAllApplications = async (req, res) => {
+//   try {
+//       const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
+//       if (!token) {
+//           // Handle case where token is missing
+//           return res.status(401).send("Authentication required");
+//       }
+
+//       // Verify the JWT token to extract user details
+//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+//       const userId = decodedToken.userId;
+
+//       // Find all job applications for the user
+//       const jobApplications = await premiumJob.find({ user: userId });
+
+//       // Fetch the job title for each job application
+//       for (let i = 0; i < jobApplications.length; i++) {
+//           const jobId = jobApplications[i].job;
+//           const job = await postJob.findById(jobId);
+//           jobApplications[i].jobTitle = job.title;
+//       }
+
+//       res.render('all-applications', { jobApplications: jobApplications, layout: adminLayout });
+//   } catch (error) {
+//       console.error("Error retrieving applications:", error);
+//       return res.status(500).render('error', { message: "Internal server error" });
+//   }
+// };
+
+
+const viewAllApplications = async (req, res) => {
+  try {
+      const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
+      if (!token) {
+          // Handle case where token is missing
+          return res.status(401).send("Authentication required");
+      }
+
+      // Verify the JWT token to extract user details
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const userId = decodedToken.userId;
+
+      // Find all job applications for the user
+      const jobApplications = await premiumJob.find({ user: userId });
+
+      // Create an array to store job details for each application
+      const jobDetailsPromises = jobApplications.map(application => {
+          return postJob.findById(application.job);
+      });
+      
+
+      // Fetch job details for all applications
+      const jobDetails = await Promise.all(jobDetailsPromises);
+
+      res.render('all-applications', { jobApplications: jobApplications, jobDetails: jobDetails, layout: adminLayout });
+  } catch (error) {
+      console.error("Error retrieving applications:", error);
+      return res.status(500).render('error', { message: "Internal server error" });
+  }
+};
+
+
+
 
 
 module.exports = {
   applyPremiumjob,
   getApplypremiumJob,
+  viewAllApplications,
 };
