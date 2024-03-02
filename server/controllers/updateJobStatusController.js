@@ -1,5 +1,5 @@
 const premiumJob = require('../models/premiumJobApplication')
-
+const adminLayout = "../views/layouts/adminLogin";
 
 
 const getUpdateStatusForm = async (req, res) => {
@@ -54,8 +54,37 @@ const updateStatus = async (req, res) => {
       return res.status(500).json({ message: "Internal server error" });
     }
   };
+
+
+  
+  
+  const viewApplicationStatus = async (req, res) => {
+    try {
+        const jobId = req.params.id;
+        
+        // Find the job application by ID
+        const jobApplication = await premiumJob.findById({ _id: jobId });
+        
+        if (!jobApplication) {
+            return res.status(404).render('error', { message: "Job application not found" });
+        }
+        
+        // Get the current status of the job application
+        const currentStatus = jobApplication.applicationsStatus[jobApplication.applicationsStatus.length - 1];
+        console.log(currentStatus)
+        
+        // Render the EJS template with the current status
+        res.render('application-tracking', { currentStatus: currentStatus, layout: adminLayout });
+    } catch (error) {
+        console.error("Error retrieving status:", error);
+        return res.status(500).render('error', { message: "Internal server error" });
+    }
+};
+
+
   
   module.exports = {
     getUpdateStatusForm,
     updateStatus,
+    viewApplicationStatus,
   };

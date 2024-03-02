@@ -9,7 +9,7 @@
 					<div class="login-form">
 						<div class="text-center">
 							<h3 class="title">Sign In</h3>
-							<p>Sign in to your account to start using W3Admin</p>
+							<p>SIGN INTO YOUR ADMINISTRATOR ACCOUNT</p>
 						</div>
 						<form action="/login-superuser" method="POST">
 							<div class="mb-4">
@@ -50,8 +50,8 @@
 									<li><a target="_blank" href="https://twitter.com/" class="fab fa-twitter btn-twitter"></a></li>
 								</ul>
 							</div>
-							<p class="text-center">Not registered?  
-								<a class="btn-link text-primary" href="page-register.html">Register</a>
+							<p class="text-center">Not registered?
+								<a class="btn-link" href="/signup" style="color: #F35A38;">Register</a>
 							</p>
 						</form>
 					</div>
@@ -59,18 +59,52 @@
                 <div class="col-xl-6 col-lg-6">
 					<div class="pages-left h-100">
 						<div class="login-content">
-							<a href="index.html"><img src="images/logo-full.png" class="mb-3" alt=""></a>
-							
-							<p>Your true value is determined by how much more you give in value than you take in payment. ...</p>
+							<a href="/"><img src="/img/logo-blue.png" class="logo" class="mb-3"  alt="Logo"></a>
+            
+         				   <p class="mt-2">Your true value is determined by how much more you give in value than you take in payment. ...</p>
 						</div>
 						<div class="login-media text-center">
-							<img src="images/login.png" alt="">
+							<img src="/images/login&signup.png" alt="">
 						</div>
 					</div>
                 </div>
             </div>
         </div>
     </div>
+
+	<!-- <script src="node_modules/notiflix/dist/notiflix-aio-3.2.7.min.js"></script>
+
+	<script>
+
+	  // Initialize Notiflix with custom settings
+	  Notiflix.Notify.Init({
+		position: 'right-top', // Change the position here
+	  });
+  
+	  // Check for login success query parameter in the URL
+	  const urlParams = new URLSearchParams(window.location.search);
+	  if (urlParams.has('login') && urlParams.get('login') === 'success') {
+		console.log('Condition met');
+		Notiflix.Notify.Success('You have logged in successfully.');
+	  }
+
+	</script> -->
+
+
+	<script>
+		function togglePassword() {
+			const passwordInput = document.getElementById("password");
+			const eyeIcon = document.querySelector(".eye");
+	
+			if (passwordInput.type === "password") {
+				passwordInput.type = "text";
+				eyeIcon.innerHTML = '<i class="fa fa-eye"></i>';
+			} else {
+				passwordInput.type = "password";
+				eyeIcon.innerHTML = '<i class="fa fa-eye-slash"></i>';
+			}
+		}
+	</script>
 
 
 </body>
