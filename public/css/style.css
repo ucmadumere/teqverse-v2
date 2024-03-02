@@ -14691,6 +14691,7 @@ footer.demo p {
   color: #ffffff;
   border: none;
   border-radius: 7px;
+  padding: 6px;
 }
 
 .find-job:hover{
@@ -14705,6 +14706,7 @@ footer.demo p {
   margin: 0 10px;
   border: 0;
   border-radius: 7px;
+  padding: 6px;
 }
 .filter-job:hover{
   background-color: #E4E5E8;

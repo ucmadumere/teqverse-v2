@@ -21,7 +21,7 @@ const recommendedJoblist = async (req, res) => {
 
     // Pagination parameters
     const page = parseInt(req.query.page) || 1;
-    const limit = 10; // Limit to 10 jobs per page
+    const limit = 15; // Limit to 10 jobs per page
     const skip = (page - 1) * limit;
 
     // Find recommended jobs with pagination
@@ -36,11 +36,15 @@ const recommendedJoblist = async (req, res) => {
       .limit(limit)
       .exec();
 
+
+      const searchTerm = req.query.q; // Extract the search term from the query
+
     res.render('all-recommended-jobs', {
       locals,
       recommendedJobs,
       currentPage: page,
       totalPages: Math.ceil(recommendedJobs.length / limit),
+      // searchTerm: searchTerm,
     });
   } catch (error) {
     console.error(error);
