@@ -288,7 +288,7 @@
                       <thead class="text-white men-icon">
                         <tr>
                           <th class="align-middle pe-7">Date</th>
-                          <th class="align-middle">ID</th>
+                          <th class="align-middle">Application ID</th>
                           <th>Status</th>
                         </tr>
                       </thead>
@@ -296,13 +296,13 @@
 
                         <tr class="btn-reveal-trigger">
                           <td class="py-2">
-                            10th Feb, 2024
+                            <%= currentStatus.date.toDateString() %>
                           </td>
                           <td class="py-2">
-
+                            <%= currentStatus.id %>
                           </td>
                           <td>
-                            Submitted
+                            <%= currentStatus.status %>
                           </td>
 
                         </tr>

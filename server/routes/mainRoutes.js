@@ -33,7 +33,7 @@ const { subscribeToJobs,
   unsubscribeToJobs
  } = require('../controllers/subscribeController');
 const recommendedJoblist = require('../controllers/recommendedJobs')
-const viewApplicationStatus = require('../controllers/updateJobStatusController')
+const { viewApplicationStatus } = require('../controllers/updateJobStatusController')
 
 
 
@@ -334,6 +334,9 @@ router.get('/verify-email', verifyToken)
 /**                                  RECOMMENDED JOB ROUTE                                                **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get('/all-recommended-jobs', checkUser,requireAuth,recommendedJoblist);
+
+
+router.get('/application-tracking/:id', checkUser, viewApplicationStatus);
 
 
 
