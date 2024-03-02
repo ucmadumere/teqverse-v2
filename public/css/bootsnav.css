@@ -484,7 +484,6 @@ nav.navbar.bootsnav .navbar-toggle {
   font-size: 18px;
   position: relative;
   top: 15px;
-  left: 15px;
   color: #232323;
 }
 
@@ -1458,13 +1457,13 @@ nav.navbar.bootsnav {
   }
 }
 
-@media (min-width: 1024px)  {
+@media (min-width: 1024px) and (max-width: 1200px) {
   nav.navbar.bootsnav ul.nav > li > a {
-    padding: 35px 4px !important;
+    padding: 35px 12px !important;
   }
 
   nav.navbar.bootsnav.sticked ul.nav > li > a {
-    padding: 30px 14px !important;
+    padding: 30px 12px !important;
   }
 }
 
@@ -2339,7 +2338,7 @@ nav.navbar.bootsnav {
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1199px) {
   .attr-nav {
     margin-right: 0;
   }
@@ -2350,7 +2349,7 @@ nav.navbar.bootsnav {
   }
 
   nav.bootsnav.navbar-default.small-pad .top-search {
-    top: 70px;
+    top: 70px; 
   }
 
   nav.navbar.bootsnav {
@@ -2404,8 +2403,7 @@ nav.navbar.bootsnav {
   }
 
   .navbar-brand > img {
-    height: 45px !important;
-    width: 209px;
+    height: 50px !important;
   }
 
   nav.navbar.bootsnav.navbar-transparent.pad-top {
@@ -2467,7 +2465,6 @@ nav.navbar.bootsnav {
     .navbar.navbar-fixed .attr-nav > ul.button > li {
       display: none;
     }
-    
   }
 
   header nav.navbar.border.bootsnav.navbar-fixed.no-background ul li a {
@@ -2982,13 +2979,11 @@ nav.navbar.bootsnav {
   }
 }
 
-
 @media (max-width: 767px) {
   nav.navbar.bootsnav .navbar-header {
     padding-left: 15px;
     padding-right: 15px;
   }
-  
 
   nav.navbar.bootsnav .navbar-nav {
     padding-left: 15px;
@@ -2997,7 +2992,7 @@ nav.navbar.bootsnav {
   }
 
   .attr-nav > ul {
-    margin-right: -90px;
+    margin-right: -25px;
   }
 
   .attr-nav > ul > li > a {
@@ -3203,7 +3198,6 @@ ul.cart-list > li.total > .btn {
   color: #0e2258;
   padding: 10px 25px !important;
 }
-
 
 @media (min-width: 1024px) {
   nav.navbar ul.nav > li > a {
@@ -3625,12 +3619,7 @@ nav.bootsnav.navbar-sidebar ul.nav > li > a i.fas.fa-file-alt {
 }
 
 @media (max-width: 420px) {
-  nav.navbar.attr-border .attr-nav .attr-nav > ul  {
-    display: none;
-  }
-}
-@media (max-width: 437px) {
-  .attr-nav  {
+  nav.navbar.attr-border .attr-nav {
     display: none;
   }
 }
@@ -3638,19 +3627,6 @@ nav.bootsnav.navbar-sidebar ul.nav > li > a i.fas.fa-file-alt {
 @media (max-width: 500px) {
   .navbar.navbar-fixed .attr-nav > ul > li {
     display: none;
-    
-  }
-}
-@media (max-width: 532px) {
-  .attr-nav {
-    display: none;
-    
-  }
-}
-@media (max-width: 600px) {
-  .navbar .attr-nav > ul > li {
-    display: none;
-    
   }
 }
 
