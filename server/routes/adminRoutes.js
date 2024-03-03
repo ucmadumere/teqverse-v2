@@ -43,7 +43,7 @@ router.put('/edit-job/:id', updatejob);
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   DASHBOARD                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/dashboard', checkAdminUser, redirectIfAuthenticated, (req, res) => {
+router.get('/dashboard', checkAdminUser, (req, res) => {
   res.render('admin/dashboard', { layout: adminLayout });
 });
 
