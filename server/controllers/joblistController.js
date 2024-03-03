@@ -12,7 +12,7 @@ const joblist = async (req, res) => {
     };
 
     const page = parseInt(req.query.page) || 1;
-    const pageSize = 20; // Number of items per page
+    const pageSize = 15; // Number of items per page
     let query = {};
 
     // Check if a search term is provided in the query parameters
