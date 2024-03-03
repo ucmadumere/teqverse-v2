@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const adminauthController = require('../controllers/adminauthController')
 const adminLayout = '../views/layouts/adminLogin';
 
-const { checkAdminUser, requireAdminAuth } = require('../midlewares/adminMiddleWares/requireAdminAuth')
+const { checkAdminUser, requireAdminAuth, redirectIfAuthenticated } = require('../midlewares/adminMiddleWares/requireAdminsAuth')
 const { createJob } = require('../controllers/postadminController')
 const Review = require('../models/review');
 const { 
@@ -43,20 +43,8 @@ router.put('/edit-job/:id', updatejob);
 /**--------------------------------------------------------------------------------------------------- **/
 /**                                   DASHBOARD                                                        **/
 /**--------------------------------------------------------------------------------------------------- **/
-router.get('/dashboard', requireAdminAuth, checkAdminUser, (req, res) => {
-  const admintoken = req.cookies.token;
-
-  if (admintoken) {
-    jwt.verify(admintoken, process.env.JWT_SECRET, (err, decodedToken) => {
-      if (err) {
-        res.render('login');
-      } else {
-        res.render('admin/dashboard', { layout: adminLayout });
-      };
-    });
-  } else {
-    res.render('admin/dashboard', { layout: adminLayout });
-  }
+router.get('/dashboard', checkAdminUser, redirectIfAuthenticated, (req, res) => {
+  res.render('admin/dashboard', { layout: adminLayout });
 });
 
 

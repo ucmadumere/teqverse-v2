@@ -76,12 +76,20 @@ const applyPremiumjob = async (req, res) => {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
     const userId = decodedToken.userId;
 
+      // Fetch the user's current data from the database
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      console.log(user)
+
     const jobId = req.params.id;
 
     // Check if the user has already applied for this job
     const existingApplication = await premiumJob.findOne({ job: jobId, user: userId });
     if (existingApplication) {
-      return res.status(400).json({ message: "You have already applied for this job" });
+      return res.redirect('/?failure=Existing Application: This user has already applied for this job. check application status');
     }
 
     let job;
@@ -104,10 +112,10 @@ const applyPremiumjob = async (req, res) => {
     const newJobApplication = new premiumJob({
       job: jobId,
       user: userId,
-      first_name: req.body.first_name,
-      other_names: req.body.other_names,
-      last_name: req.body.last_name,
-      email: req.body.email,
+      first_name: user.first_name,
+      other_name: user.other_name,
+      last_name: user.last_name,
+      email: user.email,
       contact_address: req.body.contact_address,
       phone_no: req.body.phone_no,
       dateOfBirth: req.body.dateOfBirth,
@@ -119,77 +127,22 @@ const applyPremiumjob = async (req, res) => {
       applicationsStatus: [{ status: 'Submitted' }],
     });
 
+    
+
     // Save the new job application
     try {
       await newJobApplication.save();
-      res.status(201).json({ message: "Job application created successfully" });
+      return res.redirect('/?success=Application Created Successfully, Please chech your application status for updates');
     } catch (error) {
       console.error("Error saving job application:", error);
-      return res.status(500).json({ message: "Internal server error" });
+      return res.redirect('/joblist?failure=Something went wrong. Please check and try again');
     }
   } catch (error) {
     console.error("Error processing request:", error);
-    return res.status(500).json({ message: "Internal server error" });
+    return res.redirect('/joblist?failure=Internal Server Error');
   }
 };
 
-
-// Assuming `premiumJob` is your Mongoose model for job applications
-
-
-
-// const viewAllApplications = async (req, res) => {
-//     try {
-//       const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
-//         if (!token) {
-//           // Handle case where token is missing
-//           return res.status(401).send("Authentication required");
-//         }
-  
-//       // Verify the JWT token to extract user details
-//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-//       const userId = decodedToken.userId;
-//         console.log(userId)
-//         // Find all job applications for the user
-//         const jobApplications = await premiumJob.find({ user: userId });
-//         console.log(jobApplications)
-
-//         res.render('all-applications', { jobApplications: jobApplications, layout: adminLayout });
-//     } catch (error) {
-//         console.error("Error retrieving applications:", error);
-//         return res.status(500).render('error', { message: "Internal server error" });
-//     }
-// };
-
-
-// const viewAllApplications = async (req, res) => {
-//   try {
-//       const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
-//       if (!token) {
-//           // Handle case where token is missing
-//           return res.status(401).send("Authentication required");
-//       }
-
-//       // Verify the JWT token to extract user details
-//       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-//       const userId = decodedToken.userId;
-
-//       // Find all job applications for the user
-//       const jobApplications = await premiumJob.find({ user: userId });
-
-//       // Fetch the job title for each job application
-//       for (let i = 0; i < jobApplications.length; i++) {
-//           const jobId = jobApplications[i].job;
-//           const job = await postJob.findById(jobId);
-//           jobApplications[i].jobTitle = job.title;
-//       }
-
-//       res.render('all-applications', { jobApplications: jobApplications, layout: adminLayout });
-//   } catch (error) {
-//       console.error("Error retrieving applications:", error);
-//       return res.status(500).render('error', { message: "Internal server error" });
-//   }
-// };
 
 
 const viewAllApplications = async (req, res) => {
@@ -197,7 +150,7 @@ const viewAllApplications = async (req, res) => {
       const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
       if (!token) {
           // Handle case where token is missing
-          return res.status(401).send("Authentication required");
+          return res.redirect('/?failure=Please log in to view all Applications');
       }
 
       // Verify the JWT token to extract user details

@@ -44,23 +44,32 @@ router.post("/profileimage", checkUser, requireAuth);
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  LANDING ROUTE                                                     **/
 // /--------------------------------------------------------------------------------------------------- **/
-router.get("/", checkUser, async (req, res) => {
+// Fetch reviews function
+async function fetchReviews() {
   try {
-    // Fetch top 4 reviews based on rating in descending order
     const topReviews = await Review.find({ rating: { $gte: 3, $lte: 5 } })
       .sort({ rating: -1 })
       .limit(4);
 
-    // Fetch 4 random reviews based on the same criteria
     const randomReviews = await Review.aggregate([
       { $match: { rating: { $gte: 3, $lte: 5 } } },
       { $sample: { size: 4 } },
     ]);
 
-    res.render("index", { topReviews, randomReviews });
+    return { topReviews, randomReviews };
   } catch (error) {
     console.error("Error fetching reviews:", error);
-    res.status(500).send("Failed to fetch reviews: " + error.message);
+    throw new Error("Failed to fetch reviews: " + error.message);
+  }
+}
+
+// Route handler
+router.get("/", checkUser, async (req, res) => {
+  try {
+    const reviews = await fetchReviews();
+    res.render("index", {reviews});
+  } catch (error) {
+    res.status(500).send(error.message);
   }
 });
 

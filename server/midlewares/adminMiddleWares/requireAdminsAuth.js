@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 const adminUser = require("../../models/adminUserModel");
+const User = require("../../models/userModel")
+
 
 const requireAdminAuth = (req, res, next) => {
   const token = req.cookies.admintoken;
@@ -30,26 +32,39 @@ const redirectIfAuthenticated = (req, res, next) => {
 
 
 
-const checkAdminUser = (req, res, next) => {
-  const token = req.cookies.admintoken;
+const checkAdminUser = async (req, res, next) => {
+  const adminToken = req.cookies.admintoken;
+  const userToken = req.cookies.token;
 
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
-      if (err) {
-        res.locals = null;
-        next();
+  if (adminToken || userToken) {
+    try {
+      const token = adminToken || userToken;
+      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+
+      let user;
+      if (adminToken) {
+        user = await adminUser.findById(decodedToken.userId);
+      } else if (userToken) {
+        user = await User.findById(decodedToken.userId);
       }
-      else {
-        let user = await adminUser.findById(decodedToken.userId);
+
+      if (!user || (user.role !== 'admin' && user.role !== 'superuser')) {
+        res.redirect('/?failure=Unauthorized Access: You are not authorized to view this page.');
+      } else {
         res.locals.user = user;
         next();
       }
-    })
+    } catch (err) {
+      res.status(500).json({ error: 'Server Error' });
+    }
   } else {
-    res.locals.user = null;
-    next();
+    res.status(403).json({ error: 'Unauthorized' });
   }
 };
+
+
+
+
 
 
 module.exports = {
