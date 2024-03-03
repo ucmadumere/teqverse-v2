@@ -37,7 +37,6 @@ const recommendedJoblist = async (req, res) => {
       .exec();
 
 
-      const searchTerm = req.query.q; // Extract the search term from the query
 
     res.render('all-recommended-jobs', {
       locals,
