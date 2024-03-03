@@ -65,7 +65,7 @@ const PremiumJobSchema = new Schema({
 
    additionalInfo: {
     type: String,
-    required: [true, 'This feild is Required']
+    required: [false, 'This feild is Required']
    },
 
    cv: {
