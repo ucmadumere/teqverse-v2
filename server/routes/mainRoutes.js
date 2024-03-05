@@ -179,7 +179,7 @@ router.get("/", checkUser, joblistController);
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/resetfilters", checkUser, requireAuth, (req, res) => {
   // Redirect to the joblist route without any filter parameters
-  res.redirect("/joblist");
+  res.redirect("/");
 });
 
 // /--------------------------------------------------------------------------------------------------- **/
