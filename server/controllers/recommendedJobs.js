@@ -38,7 +38,7 @@ const recommendedJoblist = async (req, res) => {
 
 
 
-    res.render('all-recommended-jobs', {
+    res.render('jobs/all-recommended-jobs', {
       locals,
       recommendedJobs,
       currentPage: page,
