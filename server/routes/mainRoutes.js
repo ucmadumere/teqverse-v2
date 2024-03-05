@@ -89,13 +89,13 @@ router.get("/about-us", checkUser, (req, res) => {
 /**                                  MEDIA ROUTE                                                       **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/media", checkUser, (req, res) => {
-  res.render("media");
+  res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
 });
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  RESOURCES ROUTE                                                   **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/resources", checkUser, requireAuth, (req, res) => {
-  res.render("resources");
+  res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
 });
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  LEARNING ROUTE                                                    **/
@@ -361,6 +361,19 @@ router.get('/application-tracking/:id', checkUser, viewApplicationStatus);
 
 // Route to handle displaying all job applications for a user
 router.get('/user-applications', checkUser, viewAllApplications);
+
+// Team route
+router.get("/team", checkUser, (req, res) => {
+  res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
+});
+// Career Route
+router.get("/career", checkUser, (req, res) => {
+  res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
+});
+// Terms & Conditions
+router.get("/terms", checkUser, (req, res) => {
+  res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
+});
 
 
 module.exports = router;
