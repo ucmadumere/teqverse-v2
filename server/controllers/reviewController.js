@@ -30,7 +30,7 @@ const getUserReview = async (req, res) => {
 
         // Fetch reviews made by the logged-in user
         const reviews = await Review.find({ user: userId }).sort({ createdAt: -1 });
-        res.render('user-review', {
+        res.render('user_dashboard/user-review', {
             locals,
             reviews,
             layout: adminLayout, 

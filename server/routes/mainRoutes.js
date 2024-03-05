@@ -111,7 +111,7 @@ router.get("/learning-mentor", (req, res) => {
 /**                                   LOGIN ROUTE                                                      **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/login", checkUser, redirectIfAuthenticated, (req, res) => {
-  res.render("login", { layout: userLayout });
+  res.render("auth/login", { layout: userLayout });
 });
 router.post("/login", login);
 
@@ -119,7 +119,7 @@ router.post("/login", login);
 /**                                  REGISTER ROUTE                                                    **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/signup", redirectIfAuthenticated, (req, res) => {
-  res.render("signup", { layout: userLayout });
+  res.render("auth/signup", { layout: userLayout });
 });
 router.post("/signup", register);
 
@@ -135,7 +135,7 @@ router.get(
   checkUser,
   redirectIfAuthenticated,
   (req, res) => {
-    res.render("forgot-password", { layout: userLayout });
+    res.render("auth/forgot-password", { layout: userLayout });
   }
 );
 router.post('/forgot-password', forgotPassword)
@@ -148,7 +148,7 @@ router.post('/forgot-password', forgotPassword)
 router.get('/reset-password',checkUser, redirectIfAuthenticated, (req, res) => {
   const token = req.query.token;
   
-  res.render('reset-password', { layout:userLayout, token });
+  res.render('auth/reset-password', { layout:userLayout, token });
 });
 
 router.post('/reset-password/:token', passwordReset)
@@ -259,7 +259,7 @@ router.get("/update-profile", checkUser, requireAuth, async (req, res) => {
     ];
     
 
-    res.render("edit-profile", {
+    res.render("user_dashboard/edit-profile", {
       layout: adminLayout,
       locals,
       cities,
@@ -285,7 +285,7 @@ router.get("/user-profile", checkUser, requireAuth, (req, res) => {
     const locals = {
       title: "TeqVerse - View Profile",
     };
-    res.render("user-profile", { layout: adminLayout, locals });
+    res.render("user_dashboard/user-profile", { layout: adminLayout, locals });
   } catch (error) {
     console.error(error);
     res.status(500).send(error.message);

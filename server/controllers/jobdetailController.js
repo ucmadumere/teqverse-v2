@@ -35,12 +35,12 @@ const jobdetail = async (req, res) => {
  }).collation({ locale: 'en', strength: 2 }).exec(); 
 
 
-    res.render('jobdetails', {
+    res.render('jobs/jobdetails', {
       locals,
       data,
       job,
       recommendedJobs,
-      currentRoute: `/jobdetails/${jobId}`
+      currentRoute: `jobs/jobdetails/${jobId}`
     });
   } catch (error) {
     console.log(error);

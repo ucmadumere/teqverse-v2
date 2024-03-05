@@ -169,7 +169,7 @@ const viewAllApplications = async (req, res) => {
       // Fetch job details for all applications
       const jobDetails = await Promise.all(jobDetailsPromises);
 
-      res.render('all-applications', { jobApplications: jobApplications, jobDetails: jobDetails, layout: adminLayout });
+      res.render('user_dashboard/all-applications', { jobApplications: jobApplications, jobDetails: jobDetails, layout: adminLayout });
   } catch (error) {
       console.error("Error retrieving applications:", error);
       return res.status(500).render('error', { message: "Internal server error" });

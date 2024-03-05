@@ -77,7 +77,7 @@ const joblist = async (req, res) => {
     }).collation({ locale: 'en', strength: 2 }).exec();
 
 
-    res.render('jobList', {
+    res.render('jobs/jobList', {
       data: jobs,
       locals,
       page,
