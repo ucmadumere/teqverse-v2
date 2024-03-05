@@ -64,7 +64,7 @@ async function fetchReviews() {
 }
 
 // Route handler
-router.get("/", checkUser, async (req, res) => {
+router.get("/index", checkUser, async (req, res) => {
   try {
     const reviews = await fetchReviews();
     res.render("index", {reviews});
@@ -163,7 +163,7 @@ router.get("/jobdetails/:id?", checkUser, requireAuth, jobdetailController);
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB LIST ROUTE                                                    **/
 // /--------------------------------------------------------------------------------------------------- **/
-router.get("/joblist", checkUser, requireAuth, joblistController);
+router.get("/", checkUser, requireAuth, joblistController);
 
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB FILTER ROUTE                                                  **/
