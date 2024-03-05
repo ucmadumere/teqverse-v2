@@ -53,7 +53,7 @@ const PostJobSchema = new Schema({
     },
     closingDate: { 
         type: String, 
-        required: true
+        required: false
     },
     methodOfApplication: {
         type: String,
