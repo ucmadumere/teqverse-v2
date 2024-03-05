@@ -15,7 +15,7 @@ const joblist = async (req, res) => {
     const pageSize = 15;
     let query = {};
 
-    // Check if a search term is provided in the query parameters
+    // Check if a search term is provided in theee query parameters
     const searchTerm = req.query.q;
     if (searchTerm) {
       // Use a case-insensitive regex to match the search term in title or body
