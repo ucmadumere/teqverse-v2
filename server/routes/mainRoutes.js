@@ -101,10 +101,19 @@ router.get("/resources", checkUser, requireAuth, (req, res) => {
 /**                                  LEARNING ROUTE                                                    **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/learning", checkUser, requireAuth, (req, res) => {
-  res.render("learning");
+  res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
+  // return res.redirect('login?failure=Incorrect Email or Password'); 
 });
-router.get("/learning-mentor", (req, res) => {
+router.get("/learning-mentor",checkUser, (req, res) => {
   res.render("learning-mentor");
+});
+
+// /--------------------------------------------------------------------------------------------------- **/
+/**                                  COMMUNITY ROUTE                                                    **/
+// /--------------------------------------------------------------------------------------------------- **/
+router.get("/community", checkUser, requireAuth, (req, res) => {
+  res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
+  // return res.redirect('login?failure=Incorrect Email or Password'); 
 });
 
 // /--------------------------------------------------------------------------------------------------- **/
@@ -163,7 +172,7 @@ router.get("/jobdetails/:id?", checkUser, requireAuth, jobdetailController);
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB LIST ROUTE                                                    **/
 // /--------------------------------------------------------------------------------------------------- **/
-router.get("/", checkUser, requireAuth, joblistController);
+router.get("/", checkUser, joblistController);
 
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB FILTER ROUTE                                                  **/

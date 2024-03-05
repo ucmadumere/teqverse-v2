@@ -7,8 +7,8 @@ const jwt = require('jsonwebtoken');
 const joblist = async (req, res) => {
   try {
     const locals = {
-      title: 'TeqVerse - Job List',
-      description: 'Job List',
+      title: 'TeqVerse - Job Hub',
+      description: 'TeqVerse - Job Hub',
     };
 
     const page = parseInt(req.query.page) || 1;
