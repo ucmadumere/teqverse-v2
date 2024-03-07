@@ -38,14 +38,45 @@ app.use(methodOverride('_method'));
 
 
 
-app.use(session ({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
+// app.use(session ({
+//     secret: 'keyboardcat',
+//     resave: false,
+//     saveUninitialized: true,
+//     store: MongoStore.create({
+//         mongoUrl: process.env.MONGO_URI
+//     }),
+// }));
+
+// app.use(
+//     session({
+//       secret: 'keyboard cat',
+//       resave: false,
+//       saveUninitialized: false,
+//       store: MongoStore.create({
+//         clientOptions: { 
+//           useNewUrlParser: true,
+//           useUnifiedTopology: true,
+//           serverSelectionTimeoutMS: 5000 // Timeout after 5s instead of 30s
+//         },
+//         uri: process.env.MONGO_URI
+//       }),
+//       cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 24 hours
+//     })
+//   );
+
+
+app.use(
+    session({
+      secret: 'keyboard cat',
+      resave: false,
+      saveUninitialized: false,
+      store: MongoStore.create({
         mongoUrl: process.env.MONGO_URI
-    }),
-}));
+      }),
+      cookie: { maxAge: 1000 * 60 * 60 * 24 }, // 24 hours
+    })
+);
+
 
 
 
