@@ -58,7 +58,7 @@ const requireAuth = async (req, res, next) => {
       }
 
       if (!user || (user.role !== 'admin' && user.role !== 'user' && user.role !== 'superuser')) {
-        return res.redirect('/login?failure=Unauthorized, Please Sign In1');
+        return res.redirect('/login?failure=Unauthorized, Please Sign In 1');
       }
 
       req.user = user; // Attach user information to the request object
