@@ -22,7 +22,8 @@ const subscribeToJobs = async (req, res) => {
       user.interests = interests;
       await user.save();
     } else {
-      return res.status(400).json({ message: 'Email is already subscribed.' });
+      // return res.status(400).json({ message: 'Email iss already subscribed.' });
+      return res.redirect('/?failure=Email is already subscribed.'); 
     }
 
     const transporter = nodemailer.createTransport({
@@ -46,7 +47,8 @@ const subscribeToJobs = async (req, res) => {
 
     await transporter.sendMail(emailOptions);
 
-    res.status(200).json({ message: 'Successfully subscribed to latest jobs.' });
+    // res.status(200).json({ message: 'Successfully subscribed to latest jobs.' });
+    return res.redirect('/?success=Successfully subscribed to latest jobs.'); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });
@@ -156,19 +158,22 @@ const unsubscribeToJobs = async (req, res) => {
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(404).json({ message: 'User not found.' });
+      // return res.status(404).json({ message: 'User not found.' });
+      return res.redirect('/?failure=User not found.'); 
     }
 
     // Check if the user is already unsubscribed
     if (!user.subscribed) {
-      return res.status(200).json({ message: 'User is already unsubscribed.' });
+      // return res.status(200).json({ message: 'User is already unsubscribed.' });
+      return res.redirect('/?success=User is already unsubscribed.'); 
     }
 
     // Update the subscribed field to false
     user.subscribed = false;
     await user.save();
 
-    res.status(200).json({ message: 'Successfully unsubscribed.' });
+    // res.status(200).json({ message: 'Successfully unsubscribed.' });
+    return res.redirect('/?success=Successfully unsubscribed.'); 
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal Server Error' });

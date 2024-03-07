@@ -297,30 +297,26 @@
                       </thead>
                       <tbody id="orders">
                         <% jobApplications.forEach(function(application, index) { %>
-                            <tr class="btn-reveal-trigger">
-                                <td class="py-2">
-                                    <%= new Date(application.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %>
-                                </td>
-                                <td class="py-2">
-                                    <%= application.id %>
-                                </td>
-                                <td>
-                                    <%= jobDetails[index].title %> <!-- Replace 'title' with the actual property name for the job title -->
-                                </td>
-                                <td>
-                                    <select>
-                                        <% application.applicationsStatus.forEach(function(status) { %>
-                                            <option><%= status.status %> - <%= new Date(status.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %></option>
-                                        <% }); %>
-                                    </select>
-                                </td>
-                            </tr>
+                          <tr class="btn-reveal-trigger">
+                            <td class="py-2">
+                              <%= new Date(application.createdAt).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %>
+                            </td>
+                            <td class="py-2">
+                              <%= application.id %>
+                            </td>
+                            <td>
+                              <% const jobDetail = jobDetails[index]; %>
+                              <%= jobDetail ? jobDetail.title : 'N/A' %>
+                            </td>
+                            <td>
+                              <select>
+                                <% application.applicationsStatus.forEach(function(status) { %>
+                                  <option><%= status.status %> - <%= new Date(status.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %></option>
+                                <% }); %>
+                              </select>
+                            </td>
+                          </tr>
                         <% }); %>
-                    </tbody>
-                    
-                    
-                        
-          
                       </tbody>
 
                     </table>

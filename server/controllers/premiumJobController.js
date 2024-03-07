@@ -132,14 +132,14 @@ const applyPremiumjob = async (req, res) => {
     // Save the new job application
     try {
       await newJobApplication.save();
-      return res.redirect('/?success=Application Created Successfully, Please chech your application status for updates');
+      return res.redirect('/?success=Application Created Successfully, Please check your application status for updates');
     } catch (error) {
       console.error("Error saving job application:", error);
-      return res.redirect('/joblist?failure=Something went wrong. Please check and try again');
+      return res.redirect('/?failure=Something went wrong. Please check and try again');
     }
   } catch (error) {
     console.error("Error processing request:", error);
-    return res.redirect('/joblist?failure=Internal Server Error');
+    return res.redirect('/?failure=Internal Server Error');
   }
 };
 
