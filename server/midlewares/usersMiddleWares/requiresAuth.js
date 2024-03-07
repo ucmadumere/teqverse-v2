@@ -32,7 +32,7 @@ const AdminUser = require('../../models/adminUserModel')
 //         return res.redirect('login?failure=Unauthorized, Please Sign In');
 //       }
 
-//       req.user = user; // Attach user information to the request object
+//       req.user = user; // Attach user information to the request objet
 //       next();
 //     } catch (error) {
 //       return res.redirect('login?failure=Unauthorized, Please Sign In');
