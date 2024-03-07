@@ -8,6 +8,40 @@ const AdminUser = require('../../models/adminUserModel')
 
 
 
+// const requireAuth = async (req, res, next) => {
+//   const token = req.cookies.token;
+//   const adminToken = req.cookies.admintoken;
+
+//   if (token || adminToken) {
+//     try {
+//       let user;
+//       if (token) {
+//         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+//         user = await User.findById(decodedToken.userId);
+//       } else if (adminToken) {
+//         const decodedToken = jwt.verify(adminToken, process.env.JWT_SECRET);
+//         user = await AdminUser.findById(decodedToken.userId);
+//       }
+
+//       if (!user) {
+//         return res.redirect('login?failure=User Not Found, Please Sign In');
+//       }
+
+//       // Check if the user has the role of 'admin', 'user', or 'superuser'
+//       if (user.role !== 'admin' && user.role !== 'user' && user.role !== 'superuser') {
+//         return res.redirect('login?failure=Unauthorized, Please Sign In');
+//       }
+
+//       req.user = user; // Attach user information to the request object
+//       next();
+//     } catch (error) {
+//       return res.redirect('login?failure=Unauthorized, Please Sign In');
+//     }
+//   } else {
+//     return res.redirect('login?failure=Unauthorized, Please Sign In');
+//   }
+// };
+
 const requireAuth = async (req, res, next) => {
   const token = req.cookies.token;
   const adminToken = req.cookies.admintoken;
@@ -23,24 +57,21 @@ const requireAuth = async (req, res, next) => {
         user = await AdminUser.findById(decodedToken.userId);
       }
 
-      if (!user) {
-        return res.redirect('login?failure=User Not Found, Please Sign In');
-      }
-
-      // Check if the user has the role of 'admin', 'user', or 'superuser'
-      if (user.role !== 'admin' && user.role !== 'user' && user.role !== 'superuser') {
-        return res.redirect('login?failure=Unauthorized, Please Sign In');
+      if (!user || (user.role !== 'admin' && user.role !== 'user' && user.role !== 'superuser')) {
+        return res.redirect('/login?failure=Unauthorized, Please Sign In1');
       }
 
       req.user = user; // Attach user information to the request object
-      next();
+      return next();
     } catch (error) {
-      return res.redirect('login?failure=Unauthorized, Please Sign In');
+      console.error(error);
+      return res.redirect('/login?failure=Unauthorized, Please Sign In2');
     }
   } else {
-    return res.redirect('login?failure=Unauthorized, Please Sign In');
+    return res.redirect('/login?failure=Unauthorized, Please Sign In To View Job Details');
   }
 };
+
 
 
 
