@@ -33,8 +33,8 @@ const updateUser = require("../controllers/userController");
 const { subscribeToJobs,
   unsubscribeToJobs
  } = require('../controllers/subscribeController');
-const recommendedJoblist = require('../controllers/recommendedJobs')
-const { viewApplicationStatus } = require('../controllers/updateJobStatusController')
+const recommendedJoblist = require('../controllers/recommendedJobs');
+const { viewApplicationStatus } = require('../controllers/updateJobStatusController');
 
 
 
