@@ -16,7 +16,7 @@ function decodeToken(req, res, next) {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET); // Replace 'your_secret_key' with your actual JWT secret key
     req.userId = decoded.userId; // Attach the user ID from the decoded token to the request object
-    console.log(decoded)
+    // console.log(decoded)
     next();
   } catch (err) {
     return res.status(401).json({ message: 'Unauthorized' });
