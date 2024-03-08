@@ -19,7 +19,7 @@ const jobdetail = require("../controllers/jobdetailController");
 const Review = require("../models/review");
 const {getUserReview, postUserReview} = require("../controllers/reviewController");
 const {upload, imageUpload} = require("../multerConfig");
-const update = require("../controllers/updateProfileController");
+const { update } = require("../controllers/updateProfileController");
 const updateUser = require("../controllers/userController");
 const { subscribeToJobs, unsubscribeToJobs} = require('../controllers/subscribeController');
 const recommendedJoblist = require('../controllers/recommendedJobs');
@@ -28,7 +28,10 @@ const { viewApplicationStatus } = require('../controllers/updateJobStatusControl
 
 
 
-router.post("/profileimage", checkUser, requireAuth);
+router.post("/upload_image", checkUser, requireAuth, update, (req, res) => {
+  // The file has been uploaded at this point
+  res.send('File uploaded successfully');
+});
 
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  LANDING ROUTE                                                      **/
@@ -159,12 +162,12 @@ router.post('/reset-password/:token', passwordReset)
 router.get("/jobdetails/:id?", checkUser, requireAuth, jobdetailController);
 
 // /--------------------------------------------------------------------------------------------------- **/
-/**                                  JOB LIST ROUTE                                                    **/
+/**                                  JOB LIST ROUTE                                                     **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/", checkUser, joblistController);
 
 // /--------------------------------------------------------------------------------------------------- **/
-/**                                  JOB FILTER ROUTE                                                  **/
+/**                                  JOB FILTER ROUTE                                                   **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/resetfilters", checkUser, requireAuth, (req, res) => {
   // Redirect to the joblist route without any filter parameters
@@ -172,14 +175,14 @@ router.get("/resetfilters", checkUser, requireAuth, (req, res) => {
 });
 
 // /--------------------------------------------------------------------------------------------------- **/
-/**                                  APPLICATION TRACKING ROUTE                                                  **/
+/**                                  APPLICATION TRACKING ROUTE                                         **/
 // /--------------------------------------------------------------------------------------------------- **/
-router.get("/application-tracking", checkUser, requireAuth, (req, res) => {
-  res.render("application-tracking", { layout:adminLayout});
-});
+// router.get("/application-tracking", checkUser, requireAuth, (req, res) => {
+//   res.render("application-tracking", { layout:adminLayout});
+// });
 
 // /--------------------------------------------------------------------------------------------------- **/
-/**                                  EDIT PROFILE ROUTE                                                **/
+/**                                  EDIT PROFILE ROUTE                                                 **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/update-profile", checkUser, requireAuth, async (req, res) => {
   try {

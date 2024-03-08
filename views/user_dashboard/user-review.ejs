@@ -88,7 +88,11 @@
                                                     (currentHour < 18) { greeting="Good Afternoon" ; } else {
                                                     greeting="Good Evening" ; } %>
                                                     <div class="header-media">
-                                                        <img src="images/user.jpg" class="avatar avatar-lg" alt="" />
+                                                        <% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
+                                                            <img src="uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="lululululululu">
+                                                          <% } else { %>
+                                                            <img src="<%= user.profileimage %>" class="avatar avatar-lg" alt="Profile Image">
+                                                          <% } %>
                                                     </div>
                                                     <div class="header-info">
                                                         <h6>
@@ -108,7 +112,11 @@
                                                 <div class="profile-box">
                                                     <div class="products">
                                                         <div class="border-img">
-                                                            <img src="images/user.jpg" class="avatar" alt="" />
+                                                            <% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
+                                                                <img src="uploads/defaultprofileimage/avatar.jpg" class="avatar" alt="lululululululu">
+                                                              <% } else { %>
+                                                                <img src="<%= user.profileimage %>" class="avatar" alt="Profile Image">
+                                                              <% } %>
                                                         </div>
                                                         <div class="ms-3">
                                                             <h6 class="mb-0">

@@ -23,7 +23,7 @@ const update = multer({
   fileFilter: function (req, file, cb) {
     checkFileType(file, cb);
   }
-}).single('profileImage');
+}).single('image');
 
 // Check file type
 function checkFileType(file, cb) {
@@ -41,4 +41,6 @@ function checkFileType(file, cb) {
 
 
 
-module.exports = update;
+module.exports = {
+  update
+};

@@ -70,7 +70,11 @@
                         greeting="Good Morning" ; } else if (currentHour < 18) { greeting="Good Afternoon" ; } else {
                         greeting="Good Evening" ; } %>
                         <div class="header-media">
-                          <img src="images/user.jpg" class="avatar avatar-lg" alt="" />
+                          <% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
+                            <img src="uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="lululululululu">
+                          <% } else { %>
+                            <img src="<%= user.profileimage %>" class="avatar avatar-lg" alt="Profile Image">
+                          <% } %>
                         </div>
                         <div class="header-info">
                           <h6>
@@ -90,7 +94,11 @@
                       <div class="profile-box">
                         <div class="products">
                           <div class="border-img">
-                            <img src="images/user.jpg" class="avatar" alt="" />
+                            <% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
+                              <img src="uploads/defaultprofileimage/avatar.jpg" class="avatar" alt="lululululululu">
+                            <% } else { %>
+                              <img src="<%= user.profileimage %>" class="avatar" alt="Profile Image">
+                            <% } %>
                           </div>
                           <div class="ms-3">
                             <h6 class="mb-0">
@@ -233,11 +241,11 @@
         </li>
         <% if (user.userCategory==='Premium' ) { %>
           <li>
-            <a href="/application-tracking" class="" aria-expanded="false">
+            <a href="/user-applications" class="" aria-expanded="false">
               <div class="menu-icon men-icon">
                 <i class="fas fa-laptop"></i>
               </div>
-              <span class="nav-text nav-txt">Application Tracking</span>
+              <span class="nav-text nav-txt">View All Applications</span>
             </a>
           </li>
           <% } %> 

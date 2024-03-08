@@ -85,7 +85,11 @@
 												< 12) { greeting="Good Morning" ; } else if (currentHour < 18) {
 												greeting="Good Afternoon" ; } else { greeting="Good Evening" ; } %>
 												<div class="header-media">
-													<img src="images/user.jpg" class="avatar avatar-lg" alt="" />
+													<% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
+														<img src="uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="lululululululu">
+													<% } else { %>
+														<img src="<%= user.profileimage %>" class="avatar avatar-lg" alt="Profile Image">
+													<% } %>
 												</div>
 												<div class="header-info">
 													<h6>
@@ -105,7 +109,11 @@
 											<div class="profile-box">
 												<div class="products">
 													<div class="border-img">
-														<img src="images/user.jpg" class="avatar" alt="" />
+														<% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
+															<img src="uploads/defaultprofileimage/avatar.jpg" alt="lululululululu">
+														<% } else { %>
+															<img src="<%= user.profileimage %>" alt="Profile Image">
+														<% } %>
 													</div>
 													<div class="ms-3">
 														<h6 class="mb-0">
@@ -318,14 +326,22 @@
 									<div class="card-body">
 										<div class="p-5">
 											<div class="author-profile">
-												<div class="author-media">
-													<img src="images/user.jpg" alt="">
-													<div class="upload-link" title="" data-toggle="tooltip"
-														data-placement="right" data-original-title="update">
-														<input type="file" class="update-flie">
-														<i class="fa fa-camera"></i>
+												<form action="/upload_image" method="post" enctype="multipart/form-data">
+													<div class="author-media">
+														<% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
+															<img src="uploads/defaultprofileimage/avatar.jpg" alt="lululululululu">
+														<% } else { %>
+															<img src="<%= user.profileimage %>" alt="Profile Image">
+														<% } %>
+														
+														<div class="upload-link" title="" data-toggle="tooltip" data-placement="right" data-original-title="update">
+															<input type="file" name="image" class="update-flie">
+															<i class="fa fa-camera"></i>
+														</div>
 													</div>
-												</div>
+													<input type="submit" value="Upload Image" name="submit">
+												</form>
+												
 												<div class="author-info">
 													<h6 class="title">
 														<%= user.first_name %>
