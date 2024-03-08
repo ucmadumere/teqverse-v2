@@ -80,17 +80,17 @@
 								<a class="nav-link" href="javascript:void(0);" role="button" data-bs-toggle="dropdown"
 									aria-expanded="false">
 									<div class="header-info2 d-flex align-items-center">
-										<% if (user) {%>
-											<% var currentHour=new Date().getHours(); var greeting="" ; if (currentHour
-												< 12) { greeting="Good Morning" ; } else if (currentHour < 18) {
-												greeting="Good Afternoon" ; } else { greeting="Good Evening" ; } %>
-												<div class="header-media">
-													<% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
-														<img src="uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="lululululululu">
-													<% } else { %>
-														<img src="<%= user.profileimage %>" class="avatar avatar-lg" alt="Profile Image">
-													<% } %>
-												</div>
+										<% if (user) { %>
+										  <% var currentHour = new Date().getHours(); var greeting = ""; if (currentHour < 12) { greeting = "Good Morning"; } else if (currentHour < 18) { greeting = "Good Afternoon"; } else { greeting = "Good Evening"; } %>
+										  <div class="header-media">
+											<% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
+											  <img src="/uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="Default Avatar">
+											<% } else { %>
+											  <% var baseUrl = 'http://localhost:5250'; // Replace with your actual base URL %>
+											  <% var profileImageUrl = `${baseUrl}/uploads/profiles/${user._id}/${user.profileimage}`; %>
+											  <img src="<%= profileImageUrl %>" class="avatar avatar-lg" alt="User Profile Image">
+											<% } %>
+										  </div>
 												<div class="header-info">
 													<h6>
 														<%= greeting %>, <%= user.first_name %>
@@ -98,7 +98,7 @@
 													<p>
 														<%= user.email %>
 													</p>
-												</div>
+											</div>
 									</div>
 								</a>
 								<% } else { %>
@@ -109,11 +109,14 @@
 											<div class="profile-box">
 												<div class="products">
 													<div class="border-img">
+													
 														<% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
-															<img src="uploads/defaultprofileimage/avatar.jpg" alt="lululululululu">
-														<% } else { %>
-															<img src="<%= user.profileimage %>" alt="Profile Image">
-														<% } %>
+															<img src="/uploads/defaultprofileimage/avatar.jpg" alt="Default Avatar">
+														  <% } else { %>
+															<% var baseUrl = 'http://localhost:5250'; // Replace with your actual base URL %>
+															<% var profileImageUrl = `${baseUrl}/uploads/profiles/${user._id}/${user.profileimage}`; %>
+															<img src="<%= profileImageUrl %>" alt="User Profile Image">
+														  <% } %>
 													</div>
 													<div class="ms-3">
 														<h6 class="mb-0">
@@ -271,7 +274,7 @@
 				</li>
 				<% if (user.userCategory==='Premium' ) { %>
 					<li>
-						<a href="/application-tracking" class="" aria-expanded="false">
+						<a href="/user-applications" class="" aria-expanded="false">
 							<div class="menu-icon men-icon">
 								<i class="fas fa-laptop"></i>
 							</div>
@@ -328,11 +331,14 @@
 											<div class="author-profile">
 												<form action="/upload_image" method="post" enctype="multipart/form-data">
 													<div class="author-media">
+												
 														<% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
-															<img src="uploads/defaultprofileimage/avatar.jpg" alt="lululululululu">
-														<% } else { %>
-															<img src="<%= user.profileimage %>" alt="Profile Image">
-														<% } %>
+															<img src="/uploads/defaultprofileimage/avatar.jpg" alt="Default Avatar">
+														  <% } else { %>
+															<% var baseUrl = 'http://localhost:5250'; // Replace with your actual base URL %>
+															<% var profileImageUrl = `${baseUrl}/uploads/profiles/${user._id}/${user.profileimage}`; %>
+															<img src="<%= profileImageUrl %>" alt="User Profile Image">
+														  <% } %>
 														
 														<div class="upload-link" title="" data-toggle="tooltip" data-placement="right" data-original-title="update">
 															<input type="file" name="image" class="update-flie">

@@ -19,7 +19,7 @@ const jobdetail = require("../controllers/jobdetailController");
 const Review = require("../models/review");
 const {getUserReview, postUserReview} = require("../controllers/reviewController");
 const {upload, imageUpload} = require("../multerConfig");
-const { update } = require("../controllers/updateProfileController");
+const { update, decodeToken, updateProfileImage } = require("../controllers/updateProfileController");
 const updateUser = require("../controllers/userController");
 const { subscribeToJobs, unsubscribeToJobs} = require('../controllers/subscribeController');
 const recommendedJoblist = require('../controllers/recommendedJobs');
@@ -28,7 +28,7 @@ const { viewApplicationStatus } = require('../controllers/updateJobStatusControl
 
 
 
-router.post("/upload_image", checkUser, requireAuth, update, (req, res) => {
+router.post("/upload_image", checkUser, requireAuth, decodeToken, update, updateProfileImage, (req, res) => {
   // The file has been uploaded at this point
   res.send('File uploaded successfully');
 });

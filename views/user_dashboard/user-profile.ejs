@@ -83,10 +83,12 @@
                         greeting="Good Evening" ; } %>
                         <div class="header-media">
                           <% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
-														<img src="uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="lululululululu">
-													<% } else { %>
-														<img src="<%= user.profileimage %>" class="avatar avatar-lg" alt="Profile Image">
-													<% } %>
+                            <img src="/uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="Default Avatar">
+                            <% } else { %>
+                            <% var baseUrl = 'http://localhost:5250'; // Replace with your actual base URL %>
+                            <% var profileImageUrl = `${baseUrl}/uploads/profiles/${user._id}/${user.profileimage}`; %>
+                            <img src="<%= profileImageUrl %>" class="avatar avatar-lg" alt="User Profile Image">
+                            <% } %>
                         </div>
                         <div class="header-info">
                           <h6>
@@ -107,10 +109,12 @@
                         <div class="products">
                           <div class="border-img">
                             <% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
-                              <img src="uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="lululululululu">
-                            <% } else { %>
-                              <img src="<%= user.profileimage %>" class="avatar avatar-lg" alt="Profile Image">
-                            <% } %>
+                              <img src="/uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="Default Avatar">
+                              <% } else { %>
+                              <% var baseUrl = 'http://localhost:5250'; // Replace with your actual base URL %>
+                              <% var profileImageUrl = `${baseUrl}/uploads/profiles/${user._id}/${user.profileimage}`; %>
+                              <img src="<%= profileImageUrl %>" class="avatar avatar-lg" alt="User Profile Image">
+                              <% } %>
                           </div>
                           <div class="ms-3">
                             <h6 class="mb-0">
@@ -317,13 +321,14 @@
                   </div>
                   <div class="profile-info">
                     <div class="profile-photo">
-        
-
+                      
                       <% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
-                        <img src="uploads/defaultprofileimage/avatar.jpg" class="img-fluid rounded-circle" alt="lululululululu">
-                      <% } else { %>
-                        <img src="<%= user.profileimage %>" class="img-fluid rounded-circle" alt="Profile Image">
-                      <% } %>
+                        <img src="/uploads/defaultprofileimage/avatar.jpg" class="img-fluid rounded-circle" alt="Default Avatar">
+                        <% } else { %>
+                        <% var baseUrl = 'http://localhost:5250'; // Replace with your actual base URL %>
+                        <% var profileImageUrl = `${baseUrl}/uploads/profiles/${user._id}/${user.profileimage}`; %>
+                        <img src="<%= profileImageUrl %>" class="img-fluid rounded-circle" alt="User Profile Image">
+                        <% } %>
                     </div>
 
                     <% if (user) {%>
