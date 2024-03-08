@@ -1,3 +1,6 @@
+//----------------------------------------------------------------------------------------------------- **/
+/**                                          ALL USER ROUTES                                            **/
+// /--------------------------------------------------------------------------------------------------- **/
 const express = require("express");
 const router = express.Router();
 const User = require("../models/userModel");
@@ -7,32 +10,18 @@ const joblistController = require("../controllers/joblistController");
 const userLayout = "../views/layouts/userLogin";
 const adminLayout = "../views/layouts/adminLogin";
 const jwt = require("jsonwebtoken");
-const {
-  requireAuth,
-  checkUser,
-  redirectIfAuthenticated,
-  checkPremiumUser,
-} = require("../midlewares/usersMiddleWares/requiresAuth");
+const {requireAuth, checkUser, redirectIfAuthenticated, checkPremiumUser} = require("../midlewares/usersMiddleWares/requiresAuth");
 const profileImageController = require("../controllers/updateProfileController");
 
-const {
-  applyPremiumjob,
-  getApplypremiumJob,
-  viewAllApplications,
-} = require("../controllers/premiumJobController");
+const {applyPremiumjob, getApplypremiumJob, viewAllApplications} = require("../controllers/premiumJobController");
 const jobdetail = require("../controllers/jobdetailController");
 
 const Review = require("../models/review");
-const {
-  getUserReview,
-  postUserReview,
-} = require("../controllers/reviewController");
+const {getUserReview, postUserReview} = require("../controllers/reviewController");
 const {upload, imageUpload} = require("../multerConfig");
 const update = require("../controllers/updateProfileController");
 const updateUser = require("../controllers/userController");
-const { subscribeToJobs,
-  unsubscribeToJobs
- } = require('../controllers/subscribeController');
+const { subscribeToJobs, unsubscribeToJobs} = require('../controllers/subscribeController');
 const recommendedJoblist = require('../controllers/recommendedJobs');
 const { viewApplicationStatus } = require('../controllers/updateJobStatusController');
 
@@ -42,7 +31,7 @@ const { viewApplicationStatus } = require('../controllers/updateJobStatusControl
 router.post("/profileimage", checkUser, requireAuth);
 
 // /--------------------------------------------------------------------------------------------------- **/
-/**                                  LANDING ROUTE                                                     **/
+/**                                  LANDING ROUTE                                                      **/
 // /--------------------------------------------------------------------------------------------------- **/
 // Fetch reviews function
 async function fetchReviews() {
@@ -167,7 +156,7 @@ router.post('/reset-password/:token', passwordReset)
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB DETAILS ROUTE                                                 **/
 // /--------------------------------------------------------------------------------------------------- **/
-router.get("/jobdetails/:id?", checkUser, requireAuth, jobdetailController);
+router.get("/jobdetails/:id?", checkUser, jobdetailController);
 
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  JOB LIST ROUTE                                                    **/
