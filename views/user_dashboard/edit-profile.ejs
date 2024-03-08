@@ -335,10 +335,12 @@
 														<% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
 															<img src="/uploads/defaultprofileimage/avatar.jpg" alt="Default Avatar">
 														  <% } else { %>
-															<% var baseUrl = `${process.env.BASE_URL}`; // Replace with your actual base URL %>
-															<% var profileImageUrl = `${baseUrl}/uploads/profiles/${user._id}/${user.profileimage}`; %>
+															<% var baseUrl = `${process.env.BASE_URL}`; %>
+															<% var profileImageUrl = `${baseUrl}/uploads/profiles/${user.userId}/${user.profileimage}`; %>
 															<img src="<%= profileImageUrl %>" alt="User Profile Image">
 														  <% } %>
+														  
+														
 														
 														<div class="upload-link" title="" data-toggle="tooltip" data-placement="right" data-original-title="update">
 															<input type="file" name="image" class="update-flie">
