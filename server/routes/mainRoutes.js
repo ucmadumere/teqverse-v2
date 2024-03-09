@@ -28,7 +28,7 @@ const { viewApplicationStatus } = require('../controllers/updateJobStatusControl
 
 
 
-router.post("/upload_image", checkUser, requireAuth, decodeToken, update, updateProfileImage, (req, res) => {
+router.post("/upload_image", checkUser, requireAuth, decodeToken, updateProfileImage, (req, res) => {
 });
 
 // /--------------------------------------------------------------------------------------------------- **/
