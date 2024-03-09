@@ -275,7 +275,6 @@ router.post(
   checkUser,
   requireAuth,
   updateUser,
-  update,
   (req, res) => { }
 );
 
