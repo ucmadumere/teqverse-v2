@@ -29,8 +29,6 @@ const { viewApplicationStatus } = require('../controllers/updateJobStatusControl
 
 
 router.post("/upload_image", checkUser, requireAuth, decodeToken, update, updateProfileImage, (req, res) => {
-  // The file has been uploaded at this point
-  res.send('File uploaded successfully');
 });
 
 // /--------------------------------------------------------------------------------------------------- **/
