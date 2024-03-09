@@ -91,7 +91,7 @@
                                                           <% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
                                                             <img src="/uploads/defaultprofileimage/avatar.jpg" class="avatar avatar-lg" alt="Default Avatar">
                                                             <% } else { %>
-                                                            <% var baseUrl = 'http://localhost:5250'; // Replace with your actual base URL %>
+                                                            <% var baseUrl = `${process.env.BASE_URL}`; // Replace with your actual base URL %>
                                                             <% var profileImageUrl = `${baseUrl}/uploads/profiles/${user._id}/${user.profileimage}`; %>
                                                             <img src="<%= profileImageUrl %>" class="avatar avatar-lg" alt="User Profile Image">
                                                             <% } %>
@@ -117,7 +117,7 @@
                                                             <% if (user.profileimage === 'avatar.jpg' || user.profileimage === '') { %>
                                                                 <img src="/uploads/defaultprofileimage/avatar.jpg" class="avatar" alt="Default Avatar">
                                                                 <% } else { %>
-                                                                <% var baseUrl = 'http://localhost:5250'; // Replace with your actual base URL %>
+                                                                <% var baseUrl = `${process.env.BASE_URL}`; // Replace with your actual base URL %>
                                                                 <% var profileImageUrl = `${baseUrl}/uploads/profiles/${user._id}/${user.profileimage}`; %>
                                                                 <img src="<%= profileImageUrl %>" class="avatar" alt="User Profile Image">
                                                                 <% } %>
@@ -281,7 +281,7 @@
                         <div class="menu-icon men-icon">
                           <i class="fas fa-laptop"></i>
                         </div>
-                        <span class="nav-text nav-txt">Application Tracking</span>
+                        <span class="nav-text nav-txt">View All Application</span>
                       </a>
                     </li>
                   <% } %>
