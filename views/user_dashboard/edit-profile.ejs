@@ -580,7 +580,7 @@
 						success: function (data) {
 							Notiflix.Loading.remove();
 							Notiflix.Report.success("Notification", data.message);
-							setTimeout(function(){  window.location.reload()  },2000)
+							setTimeout(function(){  window.location.reload()  },1000)
 						},
 						error: function (err) {
 							Notiflix.Loading.remove();

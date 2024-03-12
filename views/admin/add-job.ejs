@@ -362,15 +362,33 @@
 
 </div>
 
-<script>
+<!-- <script>
   // Replace textarea of job description with CKEditor
   CKEDITOR.replace('jobDescription');
+</script> -->
+<script>
+  // Initialize TinyMCE
+  tinymce.init({
+      selector: '#jobDescription',
+      plugins: 'autoresize lists',
+      autoresize_bottom_margin: 16,
+      toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+  });
+</script>
+<script>
+  // Initialize TinyMCE
+  tinymce.init({
+      selector: '#methodOfApplication',
+      plugins: 'autoresize lists',
+      autoresize_bottom_margin: 16,
+      toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+  });
 </script>
 
-<script>
+<!-- <script>
   // Replace textarea of method of application with CKEditor
   CKEDITOR.replace('methodOfApplication');
-</script>
+</script> -->
 
 <!--**********************************
       Main wrapper end

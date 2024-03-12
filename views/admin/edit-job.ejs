@@ -297,7 +297,7 @@
                     </div>
                     <div class="form-group">
                       <label for="methodOfApplication">Method Of Application</label>
-                      <textarea class="form-control" id="methodOfApplication" name="methodOfApplication" required><%- data.methodOfApplication %></textarea>
+                      <textarea class="form-control" id="methodOfApplication" name="methodOfApplication"><%- data.methodOfApplication %></textarea>
                   </div>
 
                       <!-- Job category section -->
@@ -342,12 +342,31 @@
           Main wrapper end
       ***********************************-->
 
-      <script>
+      <!-- <script>
         // Replace textarea of job description with CKEditor
         CKEDITOR.replace('jobDescription');
+      </script> -->
+      <script>
+        // Initialize TinyMCE
+        tinymce.init({
+            selector: '#jobDescription',
+            plugins: 'autoresize lists',
+            autoresize_bottom_margin: 16,
+            toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+        });
       </script>
+     <script>
+      // Initialize TinyMCE
+      tinymce.init({
+        selector: '#methodOfApplication',
+        plugins: 'autoresize lists',
+        autoresize_bottom_margin: 16,
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat',
+      });
+    </script>
+    
 
-<script>
+<!-- <script>
   // Replace textarea of method of application with CKEditor
   CKEDITOR.replace('methodOfApplication');
-</script>
+</script> -->
