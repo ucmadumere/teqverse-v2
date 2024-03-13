@@ -77,8 +77,8 @@
                                         </div>
 
                                         <!-- Modal Body -->
-                                        <div class="modal-body">
-                                            <form class="mb-1" action="/apply-job/<%= job._id %> " method="POST"
+                                        <div class="modal-body">apply
+                                            <form class="mb-1" action="/-job/<%= job._id %> " method="POST"
                                                 enctype="multipart/form-data">
                                                 <div class="mb-3">
                                                     <label for="first_name" class="form-label">First Name:</label>
@@ -159,7 +159,7 @@
                                                         ></textarea>
                                                 </div>
 
-                                                <button type="submit">Submit Application</button>
+                                                <button id="uploadcv" type="button" class="btn btn-primary">Submit Application</button>
                                                 <!-- <a href="/apply-job/<%= data._id %>">Submit Application</a> -->
                                             </form>
                                         </div> 
@@ -317,3 +317,69 @@
 <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOQM8DRcZl3/JzzAFeWHrH/6Y6U7WsCj" crossorigin="anonymous"></script> -->
 
 
+
+
+
+<script>
+	var base64String = "";
+	async function Uploaded() {
+		var file = document.querySelector(
+			'input[type=file][id=cv][name=cv]')['files'][0];
+		var reader = new FileReader();
+		reader.onload = function () {
+			base64String = reader.result;
+			console.log(base64String)
+
+			var myHeaders = new Headers();
+			myHeaders.append("Content-Type", "application/json");
+
+			var raw = JSON.stringify({ pdffile: base64String });
+
+			var requestOptions = {
+				method: 'POST',
+				headers: myHeaders,
+				body: raw,
+				// redirect: 'follow'
+			};
+
+			fetch("https://file.teqverse.com.ng", requestOptions)
+				.then(response => response.json())
+				.then(result => {
+					 console.log(result)
+
+					if (result.error == false) {
+						$.ajax({
+							url: "/apply-job/:id",
+							type: 'post',
+							data: { "secure_url": result.data },
+							success: function (data) {
+								Notiflix.Loading.remove();
+								Notiflix.Report.success("Notification", data.message);
+								setTimeout(function () { window.location.reload() }, 2000)
+							},
+							error: function (err) {
+								Notiflix.Loading.remove();
+								Notiflix.Report.failure("Notification", err);
+							}
+						})
+
+
+					}
+					else {
+						Notiflix.Loading.remove();
+						Notiflix.Report.warning("Notification", result.message);
+					}
+				})
+				.catch(error => {
+					Notiflix.Loading.remove();
+					Notiflix.Report.failure("Notification", error.toString());
+				});
+		}
+		reader.readAsDataURL(file);
+	}
+
+	document.querySelector("#uploadcv").addEventListener("click", async function () {
+		Notiflix.Loading.standard("Submitting Application")
+		await Uploaded();
+	})
+</script>

@@ -151,6 +151,8 @@ const redirectIfAuthenticated = (req, res, next) => {
 };
 
 
+
+
 const checkPremiumUser = async (req, res, next) => {
   try {
     const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
@@ -208,9 +210,47 @@ const checkPremiumUser = async (req, res, next) => {
 
 
 
+
+const userCategory = async (req, res, next) => {
+  try {
+    const token = req.cookies.token; // Assuming the JWT token is stored in a cookie
+    if (!token) {
+      // Handle case where token is missing
+      return res.status(401).send('Authentication required');
+    };
+
+    // Verify the JWT token to extract user details
+    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+    const userId = decodedToken.userId;
+
+    const user = await User.findById(userId).exec();
+
+    if (!user) {
+      // Handle case where user is not found
+      return res.status(404).send('User not found');
+    };
+
+    if (user.userCategory === 'Regular') {
+        return res.status(403).send('This User Is not allowed to Upload a CV...')
+    } else if (user.userCategory === 'Premium') {
+      return next();
+    } else {
+      return res.status(403).send('User is not Allowed to Use this route')
+    };
+
+  } catch (error) {
+    console.error('Error processing request:', error);
+    return res.status(500).send('Internal server error');
+  }
+
+};
+
+
+
 module.exports = {
   requireAuth,
   checkUser,
   redirectIfAuthenticated,
   checkPremiumUser,
+  userCategory,
 };
