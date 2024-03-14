@@ -10,15 +10,14 @@ const joblistController = require("../controllers/joblistController");
 const userLayout = "../views/layouts/userLogin";
 const adminLayout = "../views/layouts/adminLogin";
 const jwt = require("jsonwebtoken");
-const {requireAuth, checkUser, redirectIfAuthenticated, checkPremiumUser} = require("../midlewares/usersMiddleWares/requiresAuth");
+const {requireAuth, checkUser, redirectIfAuthenticated, checkPremiumUser, userCategory} = require("../midlewares/usersMiddleWares/requiresAuth");
 const profileImageController = require("../controllers/updateProfileController");
 
-const {applyPremiumjob, getApplypremiumJob, viewAllApplications} = require("../controllers/premiumJobController");
+const {applyPremiumjob, getApplypremiumJob, viewAllApplications, uploadUserCv, decodedToken} = require("../controllers/premiumJobController");
 const jobdetail = require("../controllers/jobdetailController");
 
 const Review = require("../models/review");
 const {getUserReview, postUserReview} = require("../controllers/reviewController");
-const {upload, imageUpload} = require("../multerConfig");
 const { update, decodeToken, updateProfileImage } = require("../controllers/updateProfileController");
 const updateUser = require("../controllers/userController");
 const { subscribeToJobs, unsubscribeToJobs} = require('../controllers/subscribeController');
@@ -26,14 +25,27 @@ const recommendedJoblist = require('../controllers/recommendedJobs');
 const { viewApplicationStatus } = require('../controllers/updateJobStatusController');
 
 
+// /--------------------------------------------------------------------------------------------------- **/
+/**                                 ROUTE FOR UPLOADING CV                                              **/
+// /--------------------------------------------------------------------------------------------------- **/
+router.get("/upload-cv", checkUser, userCategory, (req, res) => {
+  res.render('uploadcv')
+})
+router.post("/upload-cv", checkUser, userCategory, decodeToken, uploadUserCv)
 
 
+
+// /--------------------------------------------------------------------------------------------------- **/
+/**                              ROUTE FOR UPLOADING PROFILE IMAGE                                      **/
+// /--------------------------------------------------------------------------------------------------- **/
 router.post("/upload_image", checkUser, requireAuth, decodeToken, updateProfileImage, (req, res) => {
 });
 
-// /--------------------------------------------------------------------------------------------------- **/
+
+
+//----------------------------------------------------------------------------------------------------- **/
 /**                                  LANDING ROUTE                                                      **/
-// /--------------------------------------------------------------------------------------------------- **/
+//----------------------------------------------------------------------------------------------------- **/
 // Fetch reviews function
 async function fetchReviews() {
   try {
@@ -313,7 +325,6 @@ router.post(
   checkPremiumUser,
   requireAuth,
   checkUser,
-  upload.single("cv"),
   applyPremiumjob
 );
 

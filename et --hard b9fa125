@@ -1,0 +1,23 @@
+[33m9a33322[m[33m ([m[1;36mHEAD -> [m[1;32msandbox[m[33m, [m[1;31morigin/sandbox[m[33m)[m HEAD@{0}: pull: Fast-forward
+[33m3df52ab[m HEAD@{1}: checkout: moving from main to sandbox
+[33mb9fa125[m[33m ([m[1;32mmain[m[33m)[m HEAD@{2}: commit: CV Upload
+[33m7b64b88[m HEAD@{3}: pull: Fast-forward
+[33m2cffb5f[m HEAD@{4}: commit: profile image preview
+[33m77ef6ae[m HEAD@{5}: commit: fixed profile image upload to cloudinary
+[33m43b71e7[m HEAD@{6}: pull origin sandbox: Merge made by the 'ort' strategy.
+[33m98bc2ab[m HEAD@{7}: commit: cloudinary for dp upload
+[33m265ce56[m HEAD@{8}: commit: Profile Images
+[33m4b2af55[m HEAD@{9}: commit: Profile Image
+[33mda92cb3[m HEAD@{10}: commit: fixed avatar image
+[33m6a212f6[m HEAD@{11}: commit: fixed avatar images
+[33m7b8c52b[m HEAD@{12}: commit: Fixing jobdetail routes
+[33m914c72e[m HEAD@{13}: commit: Fixing jobdetail route
+[33m2158ed8[m HEAD@{14}: commit: changes for new update
+[33mdc5e1e9[m HEAD@{15}: pull: Merge made by the 'ort' strategy.
+[33mc793f59[m HEAD@{16}: checkout: moving from sandbox to main
+[33m3df52ab[m HEAD@{17}: checkout: moving from main to sandbox
+[33mc793f59[m HEAD@{18}: commit: fixes
+[33mb615ab2[m HEAD@{19}: checkout: moving from sandbox to main
+[33m3df52ab[m HEAD@{20}: checkout: moving from main to sandbox
+[33mb615ab2[m HEAD@{21}: pull: Fast-forward
+[33m5571bdf[m HEAD@{22}: clone: from https://github.com/ucmadumere/teqverse-v2.git

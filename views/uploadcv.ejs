@@ -1,0 +1,101 @@
+
+
+<!-- updateStatusForm.ejs -->
+<form action="/upload_cv" method="post" enctype="multipart/form-data">
+    <input type="file" id="cv" name="cv" >
+    <button id="uploadcv" type="button" class="btn btn-primary"> Upload Image </button>
+  </form>
+  
+
+
+  <script>
+	// function previewImage() {
+	// 	var preview = document.getElementById("preview");
+	// 	var file = document.querySelector('input[type=file]').files[0];
+	// 	var reader = new FileReader();
+
+	// 	reader.onloadend = function () {
+	// 		preview.src = reader.result;
+	// 	}
+
+	// 	if (file) {
+	// 		reader.readAsDataURL(file);
+	// 	} else {
+	// 		preview.src = "";
+	// 	}
+	// }
+
+	var base64String = "";
+	async function Uploaded() {
+		var file = document.querySelector(
+			'input[type=file][id=cv][name=cv]')['files'][0];
+		var reader = new FileReader();
+		reader.onload = function () {
+			base64String = reader.result;
+			console.log(base64String)
+			imageBase64Stringsep = base64String;
+
+			var myHeaders = new Headers();
+		myHeaders.append("Content-Type", "application/json");
+
+		console.log(base64String)
+		var raw = JSON.stringify({ imagefile: base64String });
+		console.log(raw)
+
+		var requestOptions = {
+			method: 'POST',
+			headers: myHeaders,
+			body: raw,
+			// redirect: 'follow'
+		};
+
+		fetch("https://pdf.teqverse.com.ng", requestOptions)
+			.then(response => response.json())
+			.then(result => {
+				console.log(result)
+
+				if (result.error == false) {
+					$.ajax({
+						url: "/upload-cv",
+						type: 'post',
+						data: { "secure_url": result.data },
+						success: function (data) {
+							Notiflix.Loading.remove();
+							Notiflix.Report.success("Notification", data.message);
+							setTimeout(function(){  window.location.reload()  },5000)
+						},
+						error: function (err) {
+							Notiflix.Loading.remove();
+							Notiflix.Report.failure("Notification", err);
+						}
+					})
+
+
+				}
+				else {
+					Notiflix.Loading.remove();
+					Notiflix.Report.warning("Notification", result.message);
+				}
+
+
+			})
+			.catch(error => {
+				Notiflix.Loading.remove();
+				Notiflix.Report.failure("Notification", error.toString());
+
+			});
+
+		}
+		reader.readAsDataURL(file);
+	}
+
+	document.querySelector("#uploadcv").addEventListener("click", async function () {
+		Notiflix.Loading.standard("Uploading CV")
+		await Uploaded();
+		// 
+
+		// 
+
+			})
+
+</script>

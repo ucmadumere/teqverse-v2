@@ -51,6 +51,11 @@ const userSchema = mongoose.Schema(
             default: 'avatar.jpg'
         },
 
+        cv: {
+            type: String,
+            default: 'cv.pdf'
+          },
+
         interest: {
             type: [String],
             default: [],
