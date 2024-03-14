@@ -97,20 +97,7 @@ const applyPremiumjob = async (req, res) => {
       return res.status(500).json({ message: 'Internal server error' })
     }
 
-    // Check if the request contains the base64-encoded PDF data
-    const pdfData = req.body.pdffile
-    if (!pdfData) {
-      return res.status(400).json({ message: 'PDF file is required' })
-    }
-
-    // Process the base64-encoded PDF data (save to a file, database, etc.)
-    // For example, if you want to save the PDF data to a file
-    const pdfBuffer = Buffer.from(pdfData, 'base64')
-    const pdfFilename = `cv_${userId}_${Date.now()}.pdf`
-    fs.writeFileSync(
-      path.join(__dirname, '', pdfFilename),
-      pdfBuffer
-    )
+ 
 
     // Create a new job application with the user's _id
     const newJobApplication = new premiumJob({
@@ -126,7 +113,6 @@ const applyPremiumjob = async (req, res) => {
       gender: req.body.gender,
       genderSpecify: req.body.genderSpecify,
       additionalInfo: req.body.additionalInfo,
-      cv: pdfFilename,
       coverLetter: req.body.coverLetter,
       applicationsStatus: [{ status: 'Submitted' }]
     })
