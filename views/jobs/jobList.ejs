@@ -1,19 +1,18 @@
 <!-- Start Breadcrumb 
     ============================================= -->
-<div class="breadcrumb-area bg-gray text-center shadow dark text-light bg-cover"
-    style="background-image: url(/img/banner/12.jpg);">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2">
-                <h1>Teqverse Job Hub</h1>
-                <ul class="breadcrumb">
-                    <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
-                    <li class="active">Job Hub</li>
-                </ul>
+    <div class="breadcrumb-area bg-gray text-center shadow dark text-light bg-cover" style="max-height: 3000px; height: 100%; background-size: cover;">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                    <h1>Teqverse Job Hub</h1>
+                    <ul class="breadcrumb">
+                        <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                        <li class="active">Job Hub</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
 <!-- End Breadcrumb -->
 
 <!-- Start Blog -->
@@ -334,3 +333,29 @@
             <a href="https://wa.me/2349050340306" class="float" target="_blank">
                 <i class="fa fa-whatsapp my-float"></i>
             </a>
+
+
+
+            <script>
+                // Define an array of background images
+                const backgroundImageUrls = [
+                    '/img/banner/25.jpg',
+                    '/img/banner/26.jpg',
+                    // Add more image URLs as needed
+                ];
+            
+                // Get the element with the class 'breadcrumb-area'
+                const breadcrumbArea = document.querySelector('.breadcrumb-area');
+            
+                // Set initial index and background image
+                let index = 0;
+                breadcrumbArea.style.backgroundImage = `url(${backgroundImageUrls[index]})`;
+            
+                // Function to change background image every 10 seconds
+                setInterval(() => {
+                    // Increment index or loop back to 0 if end is reached
+                    index = (index + 1) % backgroundImageUrls.length;
+                    // Update background image
+                    breadcrumbArea.style.backgroundImage = `url(${backgroundImageUrls[index]})`;
+                }, 10000); // 10 seconds in milliseconds
+            </script>
