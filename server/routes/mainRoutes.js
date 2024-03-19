@@ -91,7 +91,8 @@ router.get("/about-us", checkUser, (req, res) => {
 /**                                  MEDIA ROUTE                                                       **/
 // /--------------------------------------------------------------------------------------------------- **/
 router.get("/media", checkUser, (req, res) => {
-  res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
+  // res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
+  res.render("media_section/media");
 });
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  RESOURCES ROUTE                                                   **/
