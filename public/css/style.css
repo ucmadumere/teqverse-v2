@@ -14770,10 +14770,11 @@ footer.demo p {
 .media-card{
   max-width: 255px;
   width: 100%;
-  max-height: 400px;
-  height: 100%;
+  /* max-height: 400px;
+  height: 100%; */
   border: 1px solid #E4E5E8;
   /* padding: 9px, 6px; */
+  margin-bottom: 19px;
 }
 
 .blog-image{
@@ -14817,4 +14818,43 @@ footer.demo p {
   border: 1px solid #999;
   text-align: center;
   margin: 0 5px;
+}
+
+.industry-disc hr{
+  border-bottom: 3px solid #f35a38;
+  max-width: 50px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.fun-fact h2{
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #18191C;
+}
+
+.fun-fact p{
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  color: #767F8C;
+}
+
+.fun-fact a{
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #F35A38;
+}
+
+.fun-fact .bi-arrow-right{
+  color: #F35A38;
+}
+
+.tech-news hr{
+  border-bottom: 3px solid #f35a38;
+  max-width: 50px;
+  width: 100%;
+  margin-top: 5px;
 }
