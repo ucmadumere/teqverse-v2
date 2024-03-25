@@ -26,6 +26,12 @@
     if (searchParams.has("failure")) {
         Notiflix.Report.failure("Notification", searchParams.get("failure"))
     }
+
+    if (searchParams.has("warning")) {
+        Notiflix.Report.warning("Notification", searchParams.get("warning"))
+
+    }
+
     if (searchParams.has("success")) {
         Notiflix.Report.success("Notification", searchParams.get("success"))
 

@@ -76,7 +76,7 @@ const PremiumJobSchema = new Schema({
     {
       status: {
         type: String,
-        enum: ['Submitted', 'Processing', 'Approved', 'Rejected'],
+        enum: ['Submitted', 'Processing', 'On Hold', 'Approved', 'Rejected'],
         default: 'Submitted', // Default status when a new application is created
       },
       date: {

@@ -358,18 +358,19 @@
                                   <% } else if (currentStatus === 'Rejected') { %>
                                       <% progressWidth = 100; %>
                                   <% } %>
-                                  <div class="progress-bar bg-warning" style="width: <%= currentStatus === 'Submitted' ? progressWidth : 0 %>%;">
-                                      Submitted
-                                  </div>
-                                  <div class="progress-bar bg-warning" style="width: <%= currentStatus === 'Processing' ? progressWidth : 0 %>%;">
-                                      Processing
-                                  </div>
-                                  <div class="progress-bar bg-success" style="width: <%= currentStatus === 'Approved' ? progressWidth : 0 %>%;">
-                                      Approved
-                                  </div>
-                                  <div class="progress-bar bg-danger" style="width: <%= currentStatus === 'Rejected' ? progressWidth : 0 %>%;">
-                                      Rejected
-                                  </div>
+                                  <div class="progress-bar bg-info" style="width: <%= currentStatus === 'Submitted' ? progressWidth : 0 %>%">
+                                    Submitted
+                                </div>
+                                <div class="progress-bar bg-warning" style="width: <%= currentStatus === 'Processing' ? progressWidth : 0 %>%">
+                                    Processing
+                                </div>
+                                <div class="progress-bar bg-success" style="width: <%= currentStatus === 'Approved' ? progressWidth : 0 %>%">
+                                    Approved
+                                </div>
+                                <div class="progress-bar bg-danger" style="width: <%= currentStatus === 'Rejected' ? progressWidth : 0 %>%">
+                                    Rejected
+                                </div>
+                                
                               </div>
                           </td>
                           
@@ -384,8 +385,13 @@
 
                     
                 
-
-                    <a href="<%= user.cv %>" download="CV.pdf">Download/View Your CV</a>
+                    <% if (user.cv === 'cv.pdf') { %>
+                      Please upload Your Resume...
+                    <% } else { %>
+                      <a href="<%= user.cv %>" download="CV.pdf">Download/View Your CV</a>
+                    <% } %>
+                    
+                    <!-- <a href="<%= user.cv %>" download="CV.pdf">Download/View Your CV</a> -->
                     
 
 
