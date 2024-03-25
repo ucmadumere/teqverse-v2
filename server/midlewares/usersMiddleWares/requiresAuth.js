@@ -68,7 +68,7 @@ const requireAuth = async (req, res, next) => {
       return res.redirect('/login?failure=Unauthorized, Please Sign In2');
     }
   } else {
-    return res.redirect('/login?failure=Unauthorized, Please Sign In To View Job Details');
+    return res.redirect('/login?warning=Please Sign In To View Job Details');
   }
 };
 

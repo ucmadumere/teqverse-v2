@@ -3,7 +3,6 @@
 <head>
     <title>All Applied Jobs</title>
 </head>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
 
 <body>
@@ -319,8 +318,8 @@
                               <th class="align-middle pe-7">Application Date</th>
                               <th class="align-middle">Applicant Name</th>
                               <th class="align-middle" style="min-width: 12.5rem;">Job Title</th>
-                              <th class="align-middle text-end">Status</th>
-                              <th class="align-middle text-end">Amount</th>
+                              <th class="align-middle text-end">Current Status</th>
+                              <!-- <th class="align-middle text-end">Amount</th> -->
                               <th class="no-sort">Update Application Status</th>
                           </tr>
                       </thead>
@@ -353,48 +352,60 @@
                                     <% badgeClass = 'badge-primary' %>
                                 <% } else if (status === 'Processing') { %>
                                     <% badgeClass = 'badge-info' %>
-                                    <% icon = '<span class="ms-1 fa fa-spinner"></span>' %>
+                                    <% icon = 'fa fa-spinner' %>
                                 <% } else if (status === 'On Hold') { %>
                                     <% badgeClass = 'badge-warning' %>
-                                    <% icon = '<span class="ms-1 fa fa-pause"></span>' %>
+                                    <% icon = 'fa fa-pause' %>
                                 <% } else if (status === 'Approved') { %>
                                     <% badgeClass = 'badge-success' %>
-                                    <% icon = '<span class="ms-1 fa fa-check"></span>' %>
+                                    <% icon = 'fa fa-check' %>
+                                <% } else if (status === 'Rejected') { %>
+                                    <% badgeClass = 'badge-danger' %>
+                                    <% icon = 'fa fa-times' %>
                                 <% } else { %>
                                     <% badgeClass = 'badge-dark' %>
                                 <% } %>
-                                <span class="badge badge-sm <%= badgeClass %> light"><%= status %><%= icon %></span>
+                                <span class="badge badge-sm <%= badgeClass %> light"><%= status %><% if (icon) { %><span class="ms-1 <%= icon %>"></span><% } %></span>
                               </td>
                               
                               
+                              
+                              
                             
                             
                             
-                              <td class="py-2 text-end font-w600">$<%= jobApplication.amount %>5666</td>
+                              <!-- <td class="py-2 text-end font-w600">$<%= jobApplication.amount %>5666</td> -->
                               <td class="py-2 text-end">
-                                  <div class="dropdown text-sans-serif">
-                                      <button class="btn btn-primary light tp-btn-light sharp dropdown-toggle" type="button" id="order-dropdown-<%= jobApplication._id %>" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
-                                          <span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="12" cy="5" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="19" r="2"></circle></g></svg></span>
-                                      </button>
-                                      <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-<%= jobApplication._id %>">
-                                          <div class="py-2">
-                                              <a class="dropdown-item" href="javascript:void(0);" onclick="updateStatus('<%= jobApplication._id %>', 'Completed')">Completed</a>
-                                              <a class="dropdown-item" href="javascript:void(0);" onclick="updateStatus('<%= jobApplication._id %>', 'Processing')">Processing</a>
-                                              <a class="dropdown-item" href="javascript:void(0);" onclick="updateStatus('<%= jobApplication._id %>', 'On Hold')">On Hold</a>
-                                              <a class="dropdown-item" href="javascript:void(0);" onclick="updateStatus('<%= jobApplication._id %>', 'Pending')">Pending</a>
-                                              <div class="dropdown-divider"></div>
-                                              <a class="dropdown-item text-danger" href="javascript:void(0);" onclick="deleteOrder('<%= jobApplication._id %>')">Delete</a>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </td>
+                                <div class="dropdown text-sans-serif">
+                                    <button class="btn btn-primary light tp-btn-light sharp dropdown-toggle" type="button" id="order-dropdown-<%= jobApplication._id %>" data-bs-toggle="dropdown" data-boundary="viewport" aria-haspopup="true" aria-expanded="false">
+                                        <span><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="15px" height="15px" viewbox="0 0 24 24" version="1.1"><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><rect x="0" y="0" width="24" height="24"></rect><circle fill="#000000" cx="12" cy="5" r="2"></circle><circle fill="#000000" cx="12" cy="12" r="2"></circle><circle fill="#000000" cx="12" cy="19" r="2"></circle></g></svg></span>
+                                    </button>
+                                    Select one to Update
+                                    <div class="dropdown-menu dropdown-menu-end border py-0" aria-labelledby="order-dropdown-<%= jobApplication._id %>">
+                                        <div class="py-2">
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="updateStatus('<%= jobApplication._id %>', 'Approved')">Approved</a>
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="updateStatus('<%= jobApplication._id %>', 'Processing')">Processing</a>
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="updateStatus('<%= jobApplication._id %>', 'On Hold')">On Hold</a>
+                                            <a class="dropdown-item" href="javascript:void(0);" onclick="updateStatus('<%= jobApplication._id %>', 'Rejected')">Rejected</a>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item text-danger" href="javascript:void(0);" onclick="deleteOrder('<%= jobApplication._id %>')">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            
+                            <form id="update_status_form_<%= jobApplication._id %>" method="POST" action="/update-status/<%= jobApplication._id %>">
+                                <input type="hidden" id="update_status_input_<%= jobApplication._id %>" name="status" value="">
+                                <!-- Add any other hidden inputs needed for the update -->
+                            </form>
+                            
+                            
                           </tr>
-                          <% serialNumber++; %>
                           <% }); %>
                       </tbody>
                   </table>
                   
-                  <script>
+                  <!-- <script>
                       function updateStatus(applicationId, status) {
                           // Send a request to update the status using fetch or AJAX
                           console.log(`Updating status of application ${applicationId} to ${status}`);
@@ -404,7 +415,7 @@
                           // Send a request to delete the order using fetch or AJAX
                           console.log(`Deleting application ${applicationId}`);
                       }
-                  </script>
+                  </script> -->
                   
 
           
@@ -494,13 +505,29 @@
 </a>
 
 
-
-
 <script>
-  function updateStatus(jobId) {
+  function updateStatus(jobId, selectedStatus) {
+      document.getElementById(`update_status_input_${jobId}`).value = selectedStatus;
+      document.getElementById(`update_status_form_${jobId}`).submit();
+  }
+  </script>
+
+
+<!-- <script>
+  function updateStatus(jobId, status) {
     const selectElement = document.getElementById(`status_${jobId}`);
     const selectedStatus = selectElement.value;
-    document.getElementById(`update_status_input_${jobId}`).value = selectedStatus;
+    
+    document.getElementById(`update_status_input_${jobId}`).value = status;
     document.getElementById(`update_status_form_${jobId}`).submit();
-  }
-</script>
+}
+
+    // document.getElementById(`update_status_input_${jobId}`).value = selectedStatus;
+    // document.getElementById(`update_status_form_${jobId}`).submit();
+</script> -->
+
+
+<!-- function updateStatus(jobId, status) {
+  document.getElementById(`update_status_input_${jobId}`).value = status;
+  document.getElementById(`update_status_form_${jobId}`).submit();
+} -->
