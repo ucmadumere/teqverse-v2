@@ -14858,3 +14858,13 @@ footer.demo p {
   width: 100%;
   margin-top: 5px;
 }
+
+/* Card Job List */
+.custom-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 1.8px #aaf;
+}
