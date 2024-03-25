@@ -89,6 +89,7 @@ body {
   overflow-x: hidden;
   background-color: #ffffff;
   color: #666666;
+  zoom: 0.8;
 }
 
 html,
@@ -14716,4 +14717,144 @@ footer.demo p {
 .search-form{
   border: 1px solid #E4E5E8;
   border-radius: 5px;
+}
+
+/* Media Section */
+.media-h1{
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 48px;
+  text-align: center;
+}
+
+.media-h1 span{
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 48px;
+}
+
+.media-search{
+  background-color: #1565D8;
+  color: #FFFFFF;
+  margin: 0 10px;
+  border: 0;
+  border-radius: 7px;
+  padding: 6px 20px;
+  text-transform: capitalize;
+}
+
+.media-search:hover{
+  background-color: #f35a38;
+}
+
+.media-search-form{
+  border: 1px solid #E4E5E8;
+  border-radius: 5px;
+  background-color: #FFFFFF;
+}
+
+.featured-content .title{
+  color: #0E2258;
+  font-size: 20px;
+  font-weight: 900;
+  line-height: 24px;
+}
+
+.featured-content hr{
+  border-bottom: 3px solid #f35a38;
+  max-width: 50px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.media-card{
+  max-width: 255px;
+  width: 100%;
+  /* max-height: 400px;
+  height: 100%; */
+  border: 1px solid #E4E5E8;
+  /* padding: 9px, 6px; */
+  margin-bottom: 19px;
+}
+
+.blog-image{
+  max-height: 151px;
+  height: 100%;
+  /* max-width: 243px;
+  width: 100%; */
+  border-radius: 5px, 3px, 0px, 0px;
+}
+
+.media-card-title{
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 18px;
+  color: #18191C;
+}
+.media-card-button{
+  background-color: #f35a38;
+  color: #FFFFFF;
+  margin-top: 10px;
+  border-radius: 5px;
+}
+
+.bi{
+  color: #000000;
+}
+
+.browse-category hr{
+  border-bottom: 3px solid #f35a38;
+  max-width: 208px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.browse-category-1{
+  /* max-width: 148px; */
+  width: 100%;
+  max-height: 100%;
+  height: 100%;
+  border-radius: 10px;
+  border: 1px solid #999;
+  text-align: center;
+  margin: 0 5px;
+}
+
+.industry-disc hr{
+  border-bottom: 3px solid #f35a38;
+  max-width: 50px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+.fun-fact h2{
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 18px;
+  color: #18191C;
+}
+
+.fun-fact p{
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  color: #767F8C;
+}
+
+.fun-fact a{
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 24px;
+  color: #F35A38;
+}
+
+.fun-fact .bi-arrow-right{
+  color: #F35A38;
+}
+
+.tech-news hr{
+  border-bottom: 3px solid #f35a38;
+  max-width: 50px;
+  width: 100%;
+  margin-top: 5px;
 }
