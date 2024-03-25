@@ -223,89 +223,105 @@
         ***********************************-->
         <div class="deznav">
             <div class="deznav-scroll">
-                <ul class="metismenu" id="menu">
-                  <li><a href="/" class="" aria-expanded="false">
+              <ul class="metismenu" id="menu">
+                <li><a href="/" class="" aria-expanded="false">
                     <div class="menu-icon men-icon">
-                        <svg width="25" height="24" viewbox="0 0 25 24" fill="none"
+                      <svg width="25" height="24" viewbox="0 0 25 24" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M3.29077 9L12.2908 2L21.2908 9V20C21.2908 20.5304 21.0801 21.0391 20.705 21.4142C20.3299 21.7893 19.8212 22 19.2908 22H5.29077C4.76034 22 4.25163 21.7893 3.87656 21.4142C3.50149 21.0391 3.29077 20.5304 3.29077 20V9Z"
-                                stroke="#252525" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            </path>
-                            <path d="M9.29077 22V12H15.2908V22" stroke="#252525" stroke-width="1.5"
-                                stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-          
+                        <path
+                          d="M3.29077 9L12.2908 2L21.2908 9V20C21.2908 20.5304 21.0801 21.0391 20.705 21.4142C20.3299 21.7893 19.8212 22 19.2908 22H5.29077C4.76034 22 4.25163 21.7893 3.87656 21.4142C3.50149 21.0391 3.29077 20.5304 3.29077 20V9Z"
+                          stroke="#252525" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        </path>
+                        <path d="M9.29077 22V12H15.2908V22" stroke="#252525" stroke-width="1.5"
+                          stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+
                     </div>
                     <span class="nav-text nav-txt">Home</span>
                   </a>
                 </li>
+                <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
+                    <div class="menu-icon men-icon">
+                      <i class="fa fa-user"></i>
+
+                    </div>
+                    <span class="nav-text nav-txt">Profile</span>
+                  </a>
+                  <ul aria-expanded="false">
+                    <li><a href="/user-profile" style="color: black !important;">View Profile</a></li>
+                    <li><a href="/update-profile" style="color: black !important;">Edit Profile</a></li>
+                  </ul>
+
+                </li>
+
+                <% if (user.userCategory==='Premium' ) { %>
+                  <li>
+                    <a href="/user-applications" class="" aria-expanded="false">
+                      <div class="menu-icon men-icon">
+                        <i class="fas fa-laptop"></i>
+                      </div>
+                      <span class="nav-text nav-txt">View All Application</span>
+                    </a>
+                  </li>
+                  <% } %>
+
                   <li><a class="has-arrow " href="javascript:void(0);" aria-expanded="false">
-                      <div class="menu-icon men-icon">
-                        <i class="fa fa-user"></i>
-          
-                      </div>
-                      <span class="nav-text nav-txt">Profile</span>
-                    </a>
-                    <ul aria-expanded="false">
-                      <li><a href="/user-profile" style="color: black !important;">View Profile</a></li>
-                      <li><a href="/update-profile" style="color: black !important;">Edit Profile</a></li>
-                    </ul>
-          
-                  </li>
+                    <div class="menu-icon men-icon">
+                      <i class="fa fa-user"></i>
+
+                    </div>
+                    <span class="nav-text nav-txt">Resume</span>
+                  </a>
+                  <ul aria-expanded="false">
+                    <li><a href="#" style="color: black !important;">Add Resume</a></li>
+                    <li><a href="#" style="color: black !important;">View Resume</a></li>
+                  </ul>
+
+                </li>
                   <li><a href="/user-review" class="" aria-expanded="false">
-                      <div class="menu-icon men-icon">
-                        <svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path fill-rule="evenodd" clip-rule="evenodd"
-                            d="M14.7379 2.76181H8.08493C6.00493 2.75381 4.29993 4.41181 4.25093 6.49081V17.2038C4.20493 19.3168 5.87993 21.0678 7.99293 21.1148C8.02393 21.1148 8.05393 21.1158 8.08493 21.1148H16.0739C18.1679 21.0298 19.8179 19.2998 19.8029 17.2038V8.03781L14.7379 2.76181Z"
-                            stroke="#252525" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                          <path d="M14.4751 2.75V5.659C14.4751 7.079 15.6231 8.23 17.0431 8.234H19.7981" stroke="#252525"
-                            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
-                          <path d="M14.2882 15.3585H8.88818" stroke="#252525" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                          <path d="M12.2432 11.606H8.88721" stroke="#252525" stroke-width="1.5" stroke-linecap="round"
-                            stroke-linejoin="round"></path>
-                        </svg>
-          
-                      </div>
-                      <span class="nav-text nav-txt">Review</span>
-                    </a>
-                  </li>
-                  <% if (user.userCategory === 'Premium') { %>
+                              <div class="menu-icon men-icon">
+                                <svg width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                  <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M14.7379 2.76181H8.08493C6.00493 2.75381 4.29993 4.41181 4.25093 6.49081V17.2038C4.20493 19.3168 5.87993 21.0678 7.99293 21.1148C8.02393 21.1148 8.05393 21.1158 8.08493 21.1148H16.0739C18.1679 21.0298 19.8179 19.2998 19.8029 17.2038V8.03781L14.7379 2.76181Z"
+                                    stroke="#252525" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                  <path d="M14.4751 2.75V5.659C14.4751 7.079 15.6231 8.23 17.0431 8.234H19.7981" stroke="#252525"
+                                    stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                                  <path d="M14.2882 15.3585H8.88818" stroke="#252525" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                  <path d="M12.2432 11.606H8.88721" stroke="#252525" stroke-width="1.5" stroke-linecap="round"
+                                    stroke-linejoin="round"></path>
+                                </svg>
+                  
+                              </div>
+                              <span class="nav-text nav-txt">Customer Review</span>
+                            </a>
+                    </li>
                     <li>
-                      <a href="/user-applications" class="" aria-expanded="false">
+                      <a href="tel:+1234567890" class="" aria-expanded="false">
                         <div class="menu-icon men-icon">
-                          <i class="fas fa-laptop"></i>
+                          <i class="fa fa-phone"></i>
                         </div>
-                        <span class="nav-text nav-txt">View All Application</span>
+                        <span class="nav-text nav-txt">Customer Care</span>
                       </a>
                     </li>
-                  <% } %>
-                  
-                  <li>
-                    <a href="tel:+1234567890" class="" aria-expanded="false">
-                      <div class="menu-icon men-icon">
-                        <i class="fa fa-phone"></i>
-                      </div>
-                      <span class="nav-text nav-txt">Customer Care</span>
-                    </a>
-                  </li>
-                </ul>
-                
-                <div class="switch-btn">
-                  <a href="/logout">
-                    <svg class="men-icon menu-icon" style="border-radius: 7px;" width="24" height="24" viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path
-                        d="M18.36 6.63965C19.6184 7.89844 20.4753 9.50209 20.8223 11.2478C21.1693 12.9936 20.9909 14.803 20.3096 16.4474C19.6284 18.0918 18.4748 19.4972 16.9948 20.486C15.5148 21.4748 13.7749 22.0026 11.995 22.0026C10.2151 22.0026 8.47515 21.4748 6.99517 20.486C5.51519 19.4972 4.36164 18.0918 3.68036 16.4474C2.99909 14.803 2.82069 12.9936 3.16772 11.2478C3.51475 9.50209 4.37162 7.89844 5.63 6.63965"
-                        stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
-                      <path d="M12 2V12" stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      </path>
-                    </svg>
-                    <span class="nav-txt">Logout</span>
-                  </a>
-                </div>
+              </ul>
+
+              <div class="switch-btn">
+                <a href="/logout">
+                  <svg class="men-icon menu-icon" style="border-radius: 7px;" width="24" height="24"
+                    viewbox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M18.36 6.63965C19.6184 7.89844 20.4753 9.50209 20.8223 11.2478C21.1693 12.9936 20.9909 14.803 20.3096 16.4474C19.6284 18.0918 18.4748 19.4972 16.9948 20.486C15.5148 21.4748 13.7749 22.0026 11.995 22.0026C10.2151 22.0026 8.47515 21.4748 6.99517 20.486C5.51519 19.4972 4.36164 18.0918 3.68036 16.4474C2.99909 14.803 2.82069 12.9936 3.16772 11.2478C3.51475 9.50209 4.37162 7.89844 5.63 6.63965"
+                      stroke="#252525" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M12 2V12" stroke="#252525" stroke-width="2" stroke-linecap="round"
+                      stroke-linejoin="round">
+                    </path>
+                  </svg>
+                  <span class="nav-txt">Logout</span>
+                </a>
               </div>
-        </div>
+            </div>
+           </div>
         <!--**********************************
             Sidebar end
         ***********************************-->
