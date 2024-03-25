@@ -1,0 +1,38 @@
+<!-- applicationDetail.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Application Detail</title>
+</head>
+<body>
+    <h1>Application Detail</h1>
+
+    <hr>
+    <p>Application ID: <%= application._id %></p>
+    <p>Curent Application Status: <%= getLatestStatus(application.applicationsStatus) %></p>
+    
+    <% function getLatestStatus(statusArray) { %>
+      <% if (statusArray && statusArray.length > 0) { %>
+        <% const latestStatus = statusArray.reduce((prev, current) => (prev.date > current.date) ? prev : current); %>
+        <%= latestStatus.status %> - <%= new Date(latestStatus.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %> <%= new Date(latestStatus.date).toLocaleTimeString('en-US') %>
+      <% } else { %>
+        No status available
+      <% } %>
+    <% } %>
+
+  
+<p>Applicant Name: <%= application.user.first_name %> <%= application.user.last_name %></p>
+<p>Contact Address: <%= application.contact_address %></p>
+<p>Email: <%= application.user.email %></p>
+<p>Phone No: <%= application.phone_no %></p>
+<a href="<%= application.user.cv %>" download="CV.pdf">Download CV</a>
+
+<!-- Display other user details as needed -->
+
+<p>Job Title: <%= application.job.title %></p>
+<p>Job Description: <%= application.job.jobDescription %></p>
+<!-- Display other job details as needed -->
+
+
+</body>
+</html>

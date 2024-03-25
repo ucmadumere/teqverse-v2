@@ -77,9 +77,8 @@
                                         </div>
 
                                         <!-- Modal Body -->
-                                        <div class="modal-body">apply
-                                            <form class="mb-1" action="/-job/<%= job._id %> " method="POST"
-                                                enctype="multipart/form-data">
+                                        <div class="modal-body">
+                                            <form class="mb-1" action="/apply-job/<%= job._id %> " method="POST">
                                                 <div class="mb-3">
                                                     <label for="first_name" class="form-label">First Name:</label>
                                                     <input type="text" class="form-control" id="first_name"
@@ -89,8 +88,8 @@
 
                                                 <div class="mb-3">
                                                     <label for="other_names" class="form-label">Other Names:</label>
-                                                    <input type="text" class="form-control" id="other_names"
-                                                        name="other_names" readonly required>
+                                                    <input type="text" class="form-control" id="other_name"
+                                                        name="other_name" value="<%= user.other_name %>" readonly required>
                                                 </div>
 
                                                 <div class="mb-3">
@@ -147,10 +146,10 @@
                                                     <textarea class="form-control" id="additionalInfo" name="additionalInfo"></textarea>
                                                 </div>
 
-                                                <div class="mb-3">
+                                                <!-- <div class="mb-3">
                                                     <label for="cv" class="form-label">Upload CV</label>
                                                     <input type="file" class="form-control" id="cv" name="cv">
-                                                </div>
+                                                </div> -->
 
 
                                                 <div class="mb-3">
@@ -159,7 +158,7 @@
                                                         ></textarea>
                                                 </div>
 
-                                                <button id="uploadcv" type="button" class="btn btn-primary">Submit Application</button>
+                                                <button type="submit">Submit Application</button>
                                                 <!-- <a href="/apply-job/<%= data._id %>">Submit Application</a> -->
                                             </form>
                                         </div> 

@@ -36,7 +36,7 @@ const updateStatus = async (req, res) => {
       const jobApplication = await premiumJob.findById(jobId);
   
       if (!jobApplication) {
-        return res.status(404).json({ message: "Job application not found" });
+        return res.redirect('/all-application?failure=Job Application not Found..');
       }
   
       // Update the status of the job application
@@ -48,38 +48,28 @@ const updateStatus = async (req, res) => {
       // Save the updated job application
       await jobApplication.save();
   
-      res.status(200).json({ message: "Job application status updated successfully" });
+      return res.redirect('/all-application?success=Job Status has been Updated Successfully..');
     } catch (error) {
       console.error("Error updating status:", error);
-      return res.status(500).json({ message: "Internal server error" });
+      return res.redirect('/all-application?failure=Internal Server Error..');
     }
   };
 
 
-  
-  
-  const viewApplicationStatus = async (req, res) => {
+
+const viewAllAppliedJobs = async (req, res) => {
     try {
-        const jobId = req.params.id;
+        // Find all job applications and populate the 'user' and 'job' fields
+        const jobApplications = await premiumJob.find().populate('user', 'first_name other_name last_name').populate('job', 'title');
         
-        // Find the job application by ID
-        const jobApplication = await premiumJob.findById(jobId);
-        
-        if (!jobApplication) {
-            return res.status(404).render('error', { message: "Job application not found" });
-        }
-        
-        // Get the current status of the job application
-        const currentStatus = jobApplication.applicationsStatus[jobApplication.applicationsStatus.length - 1];
-        console.log(currentStatus)
-        
-        // Render the EJS template with the current status
-        res.render('application-tracking', { currentStatus: currentStatus, layout: adminLayout });
+        // Render the EJS template with the list of job applications
+        res.render('admin/allappliedjobs', { jobApplications: jobApplications, layout: adminLayout });
     } catch (error) {
-        console.error("Error retrieving status:", error);
-        return res.status(500).render('error', { message: "Internal server error" });
+        console.error("Error retrieving job applications:", error);
+        return res.status(500).send("Internal server error");
     }
 };
+
 
 
 
@@ -87,5 +77,5 @@ const updateStatus = async (req, res) => {
   module.exports = {
     getUpdateStatusForm,
     updateStatus,
-    viewApplicationStatus,
+    viewAllAppliedJobs,
   };

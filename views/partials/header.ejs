@@ -66,8 +66,13 @@
                         <% var currentHour = new Date().getHours(); var greeting = ""; if (currentHour < 12) {
                           greeting = "Good Morning"; } else if (currentHour < 16) { greeting = "Good Afternoon"; }
                           else { greeting = "Good Evening"; } %>
+                          
                         <li class="dropdown" style="margin-left:70px;">
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= greeting %>, <%= user.first_name %> </a>
+                        <% if (user.isAdmin) { %>
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= greeting %>, <%= user.name %> </a>
+                        <% } else { %>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= greeting %>, <%= user.first_name %> </a>
+                        <% } %>
                           <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
                             <li><a href="/user-profile">Profile</a></li>
                             <% if (user.isAdmin) { %>

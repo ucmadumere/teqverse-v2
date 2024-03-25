@@ -25,6 +25,9 @@ const { logout,
   getPremiumList,
   getGuestList } = require('../controllers/postadminController');
 
+const { viewAllAppliedJobs } = require('../controllers/updateJobStatusController');
+const { getApplicationDetail, getJobApplicationDetails } = require('../controllers/premiumJobController');
+
 
 
 
@@ -129,4 +132,25 @@ router.get('/update-status/:id', checkAdminUser, getUpdateStatusForm);
 
 router.post('/update-status/:id', checkAdminUser, updateStatus);
 
+
+router.get('/all-application', checkAdminUser, viewAllAppliedJobs)
+
+
+router.get('/application-details/:id', checkAdminUser, getJobApplicationDetails)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 module.exports = router
+
+

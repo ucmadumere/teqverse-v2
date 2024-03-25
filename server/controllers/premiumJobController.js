@@ -56,10 +56,12 @@ const getApplypremiumJob = async (req, res) => {
 
 
 const applyPremiumjob = async (req, res) => {
+
+  
+
   try {
-    const token = req.cookies.token // Assuming the JWT token is stored in a cookie
+    const token = req.cookies.token
     if (!token) {
-      // Handle case where token is missing
       return res.status(401).send('Authentication required')
     }
 
@@ -86,6 +88,8 @@ const applyPremiumjob = async (req, res) => {
       )
     }
 
+    console.log(user)
+
     let job
     try {
       job = await postJob.findById(jobId)
@@ -96,7 +100,6 @@ const applyPremiumjob = async (req, res) => {
       console.error('Error retrieving job:', error)
       return res.status(500).json({ message: 'Internal server error' })
     }
-
  
 
     // Create a new job application with the user's _id
@@ -117,6 +120,8 @@ const applyPremiumjob = async (req, res) => {
       applicationsStatus: [{ status: 'Submitted' }]
     })
 
+    console.log(newJobApplication)
+
     // Save the new job application
     await newJobApplication.save()
     return res.redirect(
@@ -127,6 +132,8 @@ const applyPremiumjob = async (req, res) => {
     return res.redirect('/?failure=Internal Server Error')
   }
 }
+
+
 
 const viewAllApplications = async (req, res) => {
   try {
@@ -166,15 +173,15 @@ const viewAllApplications = async (req, res) => {
 
 
 
-
 const uploadUserCv = async (req, res) => {
   try {
     // Upload image to Cloudinary
     // const result = await cloudinary.uploader.upload(req.file.path, { folder: `profiles/${req.userId}` });
     // console.log('Cloudinary upload result:', result); // Log the result
     // Update user profile image URL in the database
+    
     const user = await User.findByIdAndUpdate(req.userId, { cv: req.body.secure_url }, { new: true });
-
+    console.log(user)
     
 
     // Redirect with success message
@@ -185,12 +192,40 @@ const uploadUserCv = async (req, res) => {
   } catch (err) {
     console.error('Cloudinary upload error:', err); // Log any errors
     res.status(500).json({ message: 'Failed to update profile image', error: err.message });
-  }
+  };
 };
+
+
+const getJobApplicationDetails = async (req, res) => {
+  const applicationId = req.params.id;
+
+  try {
+    const application = await premiumJob.findById(applicationId)
+      .populate('user')
+      .populate('job')
+      .exec();
+
+      console.log(applicationId)
+
+    if (!application) {
+      return res.status(404).json({ message: 'Application not found' });
+    }
+
+    // Access user details
+   
+    return res.render('admin/applicationDetail', {application, layout:adminLayout});
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+
+};
+
 
 module.exports = {
   applyPremiumjob,
   getApplypremiumJob,
   viewAllApplications,
+  getJobApplicationDetails,
   uploadUserCv
 }

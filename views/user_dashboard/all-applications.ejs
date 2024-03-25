@@ -301,6 +301,7 @@
                           <th class="align-middle">Application ID</th>
                           <th class="align-middle">Job Title</th>
                           <th>Status</th>
+                          <th>Curent Job Status</th>
                         </tr>
                       </thead>
                       <tbody id="orders">
@@ -319,15 +320,59 @@
                             <td>
                               <select>
                                 <% application.applicationsStatus.forEach(function(status) { %>
-                                  <option><%= status.status %> - <%= new Date(status.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %></option>
-                                <% }); %>
+                                  <option><%= status.status %> - <%= new Date(status.date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %> <%= new Date(status.date).toLocaleTimeString('en-US') %></option>
+                              <% }); %>
                               </select>
                             </td>
+
+                            <td>
+                              <div>
+                                  <option><%= application.applicationsStatus[application.applicationsStatus.length - 1].status %> - <%= new Date(application.applicationsStatus[application.applicationsStatus.length - 1].date).toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' }) %> <%= new Date(application.applicationsStatus[application.applicationsStatus.length - 1].date).toLocaleTimeString('en-US') %></option>
+                              </div>
+                          
+                              <div class="progress">
+                                  <% let currentStatus = application.applicationsStatus[application.applicationsStatus.length - 1].status; %>
+                                  <% let progressWidth = 0; %>
+                                  <% if (currentStatus === 'Submitted') { %>
+                                      <% progressWidth = 25; %>
+                                  <% } else if (currentStatus === 'Processing') { %>
+                                      <% progressWidth = 50; %>
+                                  <% } else if (currentStatus === 'Approved') { %>
+                                      <% progressWidth = 100; %>
+                                  <% } else if (currentStatus === 'Rejected') { %>
+                                      <% progressWidth = 100; %>
+                                  <% } %>
+                                  <div class="progress-bar bg-warning" style="width: <%= currentStatus === 'Submitted' ? progressWidth : 0 %>%;">
+                                      Submitted
+                                  </div>
+                                  <div class="progress-bar bg-warning" style="width: <%= currentStatus === 'Processing' ? progressWidth : 0 %>%;">
+                                      Processing
+                                  </div>
+                                  <div class="progress-bar bg-success" style="width: <%= currentStatus === 'Approved' ? progressWidth : 0 %>%;">
+                                      Approved
+                                  </div>
+                                  <div class="progress-bar bg-danger" style="width: <%= currentStatus === 'Rejected' ? progressWidth : 0 %>%;">
+                                      Rejected
+                                  </div>
+                              </div>
+                          </td>
+                          
+                        
                           </tr>
                         <% }); %>
-                      </tbody>
 
+                       
+                      </tbody>
+                      
                     </table>
+
+                    
+                
+
+                    <a href="<%= user.cv %>" download="CV.pdf">Download/View Your CV</a>
+                    
+
+
                     <nav class="pt-3 d-flex justify-content-end">
                       <ul class="pagination pagination-xs">
 
@@ -337,8 +382,6 @@
                 </div>
               </div>
             </div>
-          
-      
           </div>
         </div>
       </div>

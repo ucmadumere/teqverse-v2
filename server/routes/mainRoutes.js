@@ -22,7 +22,7 @@ const { update, decodeToken, updateProfileImage } = require("../controllers/upda
 const updateUser = require("../controllers/userController");
 const { subscribeToJobs, unsubscribeToJobs} = require('../controllers/subscribeController');
 const recommendedJoblist = require('../controllers/recommendedJobs');
-const { viewApplicationStatus } = require('../controllers/updateJobStatusController');
+
 
 
 // /--------------------------------------------------------------------------------------------------- **/
@@ -352,15 +352,17 @@ router.get('/verify-email', verifyToken)
 // /--------------------------------------------------------------------------------------------------- **/
 /**                                  RECOMMENDED JOB ROUTE                                                **/
 // /--------------------------------------------------------------------------------------------------- **/
-router.get('/all-recommended-jobs', checkUser,requireAuth,recommendedJoblist);
+// router.get('/all-recommended-jobs', checkUser,requireAuth,recommendedJoblist);
 
 
-router.get('/application-tracking/:id', checkUser, viewApplicationStatus);
+// router.get('/application-tracking/:id', checkUser, viewApplicationStatus);
 
 
 
 // Route to handle displaying all job applications for a user
 router.get('/user-applications', checkUser, viewAllApplications);
+
+
 
 // Team route
 router.get("/team", checkUser, (req, res) => {
@@ -374,6 +376,7 @@ router.get("/career", checkUser, (req, res) => {
 router.get("/terms", checkUser, (req, res) => {
   res.redirect("/?failure=This feature is not yet available to the public. Work-in-progress." );
 });
+
 
 
 module.exports = router;
