@@ -9686,7 +9686,7 @@ footer.bg-dark .footer-bottom p {
   text-align: center;
   text-shadow: 0 0 10px white;
   text-transform: uppercase;
-  font-size: 30px;
+  font-size: 20px;
 }
 
 @-webkit-keyframes rotation {
@@ -14859,30 +14859,12 @@ footer.demo p {
   margin-top: 5px;
 }
 
-.card-pro-image{
-  width: 50px;
-  height: 50px;
-  border-radius: 50px;
+/* Card Job List */
+.custom-card {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.top-contri {
-  max-height: 1400px;
-  height: 95%;
-  background: linear-gradient(97.5deg, #4D76E4 0%, #182854 96.55%);
-  margin: 0;
-  padding: 20px;
-}
-
-.top-contri-p p{
-  font-weight: 700;
-  font-size: 14px;
-  line-height: 20px;
-  color: #1E1E1E;
-}
-
-.top-contri-h4 p{
-  font-weight: 900;
-  font-size: 22px;
-  line-height: 24px;
-  color: #FDFDFD;
+.custom-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 0 1.8px #aaf;
 }
