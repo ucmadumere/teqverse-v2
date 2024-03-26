@@ -38,54 +38,55 @@
     <!-- Jobs Card starts here  -->
     <div class="row">
         <% data.forEach(post=> { %>
-            <div class="col-lg-4 col-md-12">
-                <div class="card border border-0 custom-card">
-                    <div class="card-body">
-                        <div class="row d-flex justify-content-around">
-                            <div class="col-8 job-title">
-                                <div class="anchor-title text-truncate">
-                                    <a href="/jobdetails/<%= post._id %>">
+            <div class="col-lg-4 col-md-12 mt-3">
+                <a href="/jobdetails/<%= post._id %>" class="card-link">
+                    <div class="card border border-0 custom-card">
+                        <div class="card-body">
+                            <div class="row d-flex justify-content-around">
+                                <div class="col-8 job-title">
+                                    <div class="anchor-title text-truncate">
                                         <%= post.title %>
-                                    </a>
+                                    </div>
+                                </div>
+                                <div class="col-4 d-flex justify-content-end">
+                                    <span class="jobCategory-span">
+                                        <%= post.jobCategory %>
+                                    </span>
                                 </div>
                             </div>
-                            <div class="col-4 d-flex justify-content-end">
-                                <span class="jobCategory-span">
-                                    <%= post.jobCategory %>
-                                </span>
-                            </div>
-                        </div>
-                        <div class="mt-3">
-                            <% if (post.workType !=='Internship' ) { %>
-                                <p>
-                                    Experience: <%= post.experience %> years
-                                </p>
+                            <div class="mt-3">
+                                <% if (post.workType !=='Internship' ) { %>
+                                    <p>
+                                        Experience: <%= post.experience %> years
+                                    </p>
                                 <% } else { %>
                                     <p>
                                         No Experience Needed
                                     </p>
-                                    <% } %>
+                                <% } %>
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-outline-dark butt my-2" style="font-size: 12px;">
+                                    <%= post.workType %>
+                                </button>
+                                <button class="btn btn-outline-dark butt my-2" style="font-size: 12px;">
+                                    <%= post.jobType %>
+                                </button>
+                                <button class="btn btn-outline-dark butt" style="font-size: 12px;">
+                                    <%= post.jobLocation %>
+                                </button>
+                            </div>
+                            <p class="mt-2" style="color: #18191C; font-size: 16px; font-weight: 500; line-height: 24px;">
+                                <%= post.companyName %>
+                            </p>
+                            <p class="mt-1">
+                                Salary Range: <%= post.salaryRange %>
+                            </p>
                         </div>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-outline-dark butt my-2" style="font-size: 12px;">
-                                <%= post.workType %>
-                            </button>
-                            <button class="btn btn-outline-dark butt my-2" style="font-size: 12px;">
-                                <%= post.jobType %>
-                            </button>
-                            <button class="btn btn-outline-dark butt" style="font-size: 12px;">
-                                <%= post.jobLocation %>
-                            </button>
-                        </div>
-                        <p class="mt-4" style="color: #18191C; font-size: 16px; font-weight: 500; line-height: 24px;">
-                           <%= post.companyName %>
-                        </p>
-                        <p class="mt-4">
-                            Salary Range:   <%= post.salaryRange %>
-                        </p>
                     </div>
-                </div>
+                </a>
             </div>
+            
             <% }) %>
     </div>
     <!-- Jobs Card Ends here  -->
@@ -340,7 +341,7 @@
                 // Define an array of background images
                 const backgroundImageUrls = [
                     '/img/banner/25.jpg',
-                    '/img/banner/26.jpg',
+                    // '/img/banner/26.jpg',
                     // Add more image URLs as needed
                 ];
             
