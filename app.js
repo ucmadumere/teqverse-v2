@@ -96,6 +96,8 @@ app.set('view engine', 'ejs');
 /**--------------------------------------------------------------------------------------------------- **/
 app.use('/', require('./server/routes/mainRoutes'));
 app.use('/', require('./server/routes/adminRoutes'));
+app.use('/', require('./server/routes/mediaRoutes'))
+app.use('/', require('./server/routes/authRoutes'))
 
 
 /**--------------------------------------------------------------------------------------------------- **/
