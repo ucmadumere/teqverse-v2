@@ -1,31 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>All Applied Jobs</title>
-</head>
-
-
-<body>
-    <h1>All Applied Jobs</h1>
-    <br>
-    <br>
-    <hr>
-    <ul>
-        <% jobApplications.forEach(function(jobApplication) { %>
-            
-            <li>
-                <h2><Strong>Job Title: </Strong> <%= jobApplication.job.title %></h2>
-                <p>User ID: </Strong> <%= jobApplication.user._id %></p>
-                <p><strong>Applicant Name:</strong> <a href="/update-status/<%= jobApplication._id %>"><%= jobApplication.user.first_name %> <%= jobApplication.user.other_name %> <%= jobApplication.user.last_name %></a></p>
-            </li>
-            <hr>
-        <% }); %>
-    </ul>
-</body>
-</html>
-
-
- -->
 
 
 <!--**********************************
@@ -511,6 +483,34 @@
       document.getElementById(`update_status_form_${jobId}`).submit();
   }
   </script>
+
+  <script>
+function deleteOrder(jobApplicationId) {
+    if (confirm('Are you sure you want to delete this job application?')) {
+        fetch(`/delete-job-application/${jobApplicationId}`, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to delete job application');
+            }
+            // Remove the row from the table
+            const row = document.getElementById(`jobApplicationRow_${jobApplicationId}`);
+            if (row) {
+                row.remove();
+            }
+            // Reload the page after a short delay
+            setTimeout(() => {
+                location.reload();
+            }, 100); // 100 milliseconds delay
+        })
+        .catch(error => {
+            console.error('Error deleting job application:', error);
+        });
+    }
+}
+
+</script>
 
 
 <!-- <script>

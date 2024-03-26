@@ -86,11 +86,6 @@ const PremiumJobSchema = new Schema({
     },
   ],
 
-  submittedCv: { 
-    type: Boolean, 
-    default: false 
-  },
-
    createdAt: {
     type: Date,
     default: Date.now

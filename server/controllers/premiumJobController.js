@@ -171,8 +171,6 @@ const viewAllApplications = async (req, res) => {
 
 
 
-
-
 const uploadUserCv = async (req, res) => {
   try {
     // Upload image to Cloudinary
@@ -180,9 +178,8 @@ const uploadUserCv = async (req, res) => {
     // console.log('Cloudinary upload result:', result); // Log the result
     // Update user profile image URL in the database
     
-    const user = await User.findByIdAndUpdate(req.userId, { cv: req.body.secure_url }, { new: true });
-    console.log(user)
-    
+    const user = await User.findByIdAndUpdate(req.userId, { cv: req.body.secure_url, submittedCv: true }, { new: true });
+    console.log(user);
 
     // Redirect with success message
     // return res.redirect('update-profile?success=Profile Image Uploaded Successfully...');
@@ -194,6 +191,32 @@ const uploadUserCv = async (req, res) => {
     res.status(500).json({ message: 'Failed to update profile image', error: err.message });
   };
 };
+
+
+
+// const uploadUserCv = async (req, res) => {
+//   try {
+//     // Upload image to Cloudinary
+//     // const result = await cloudinary.uploader.upload(req.file.path, { folder: `profiles/${req.userId}` });
+//     // console.log('Cloudinary upload result:', result); // Log the result
+//     // Update user profile image URL in the database
+    
+//     const user = await User.findByIdAndUpdate(req.userId, { cv: req.body.secure_url }, { new: true });
+//     console.log(user)
+
+//     await User.findOneAndUpdate({ user: req.userId }, { submittedCv: true });
+    
+
+//     // Redirect with success message
+//     // return res.redirect('update-profile?success=Profile Image Uploaded Successfully...');
+//     res.status(200).json({
+//       error: false, message: "CV Uploaded successfully"
+//     });
+//   } catch (err) {
+//     console.error('Cloudinary upload error:', err); // Log any errors
+//     res.status(500).json({ message: 'Failed to update profile image', error: err.message });
+//   };
+// };
 
 
 const getJobApplicationDetails = async (req, res) => {

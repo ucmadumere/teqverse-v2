@@ -9,7 +9,8 @@ const { createJob } = require('../controllers/postadminController')
 const Review = require('../models/review');
 const { 
   getUpdateStatusForm, 
-  updateStatus 
+  updateStatus, 
+  deleteJobApplication
 } = require('../controllers/updateJobStatusController');
 
 const { logout,
@@ -124,7 +125,10 @@ router.get('/applications', async (req, res) => {
 /**--------------------------------------------------------------------------------------------------- **/
 router.delete('/delete-job/:id', deleteJob);
 
-
+/**--------------------------------------------------------------------------------------------------- **/
+/**                                  Delete Job Application                                            **/
+/**--------------------------------------------------------------------------------------------------- **/
+router.delete('/delete-job-application/:id', deleteJobApplication);
 
 
 router.get('/update-status/:id', checkAdminUser, getUpdateStatusForm);

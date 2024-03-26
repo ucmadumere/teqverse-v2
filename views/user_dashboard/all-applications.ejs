@@ -385,10 +385,10 @@
 
                     
                 
-                    <% if (user.cv === 'cv.pdf') { %>
-                      Please upload Your Resume...
-                    <% } else { %>
+                    <% if (user.submittedCv === 'true') { %>
                       <a href="<%= user.cv %>" download="CV.pdf">Download/View Your CV</a>
+                    <% } else { %>
+                      Please upload Your Resume...
                     <% } %>
                     
                     <!-- <a href="<%= user.cv %>" download="CV.pdf">Download/View Your CV</a> -->

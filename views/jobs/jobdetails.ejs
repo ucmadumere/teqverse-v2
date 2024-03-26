@@ -85,7 +85,7 @@
                                                         name="first_name" value="<%= user.first_name %>" readonly
                                                         required>
                                                 </div>
-
+                                            
                                                 <div class="mb-3">
                                                     <label for="other_names" class="form-label">Other Names:</label>
                                                     <input type="text" class="form-control" id="other_name"
@@ -157,8 +157,14 @@
                                                     <textarea class="form-control" id="coverLetter" name="coverLetter"
                                                         ></textarea>
                                                 </div>
+                                                <% if (user.submittedCv === true) { %>
+                                                    <button type="submit" id="submitBtn">Submit Application</button>
+                                                <% } else { %>
+                                                    <button type="submit" id="submitBtn" style="background-color: #767F8C;" disabled>Please Upload Your CV</button>
+                                                <% } %>
 
-                                                <button type="submit">Submit Application</button>
+
+                                                
                                                 <!-- <a href="/apply-job/<%= data._id %>">Submit Application</a> -->
                                             </form>
                                         </div> 
@@ -316,6 +322,7 @@
 <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyOQM8DRcZl3/JzzAFeWHrH/6Y6U7WsCj" crossorigin="anonymous"></script> -->
 
 
+  
 
 
 
@@ -382,3 +389,4 @@
 		await Uploaded();
 	})
 </script>
+

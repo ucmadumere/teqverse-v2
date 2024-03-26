@@ -72,10 +72,30 @@ const viewAllAppliedJobs = async (req, res) => {
 
 
 
+const deleteJobApplication = async (req, res) => {
+  const jobId = req.params.id;
+
+  try {
+      // Perform the deletion operation (e.g., using Mongoose)
+      const deletedJobApplication = await premiumJob.findByIdAndDelete(jobId);
+      if (!deletedJobApplication) {
+          return res.status(404).json({ message: 'Job application not found' });
+      }
+      res.status(200).json({ message: 'Job application deleted successfully' });
+  } catch (err) {
+      console.error('Error deleting job application:', err);
+      res.status(500).json({ message: 'Failed to delete job application' });
+  }
+};
+
+
+
+
 
   
   module.exports = {
     getUpdateStatusForm,
     updateStatus,
     viewAllAppliedJobs,
+    deleteJobApplication,
   };
