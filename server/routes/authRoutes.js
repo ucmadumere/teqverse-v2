@@ -2,6 +2,8 @@ const express = require("express");
 const { checkUser, redirectIfAuthenticated } = require("../midlewares/usersMiddleWares/requiresAuth");
 const { register, logout, login, forgotPassword, passwordReset, verifyToken } = require("../controllers/authController");
 const router = express.Router();
+const userLayout = "../views/layouts/userLogin";
+const adminLayout = "../views/layouts/adminLogin";
 
 
 
