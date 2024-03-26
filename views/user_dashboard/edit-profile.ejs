@@ -463,14 +463,17 @@
 
 									<div class="col-sm-6 m-b30">
 										<label class="form-label">Date of Birth</label>
-										<input type="date" class="form-control" name="date_of_birth"
-											value="<%= user.date_of_birth %>">
+										<input type="date" class="form-control" name="date_of_birth" id="dateOfBirth"
+											   <% if (user.date_of_birth) { %>value="<%= user.date_of_birth.toISOString().split('T')[0] %>"<% } %>>
 									</div>
+									
+								
 									<div class="col-sm-6 m-b30">
 										<label class="form-label">Phone</label>
 										<input type="text" class="form-control" name="phone" value="<%= user.phone %>"
 											placeholder="+234 xxx xxxx">
 									</div>
+									
 									<div class="col-sm-6 m-b30">
 										<label class="form-label">Email address</label>
 										<input type="text" class="form-control" value="<%= user.email %>" readonly>
@@ -628,4 +631,14 @@
 
 			})
 
+</script>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dateOfBirthInput = document.getElementById('dateOfBirth');
+        if (dateOfBirthInput && !dateOfBirthInput.value && '<%= user.date_of_birth %>') {
+            dateOfBirthInput.value = '<%= user.date_of_birth.toISOString().split('T')[0] %>';
+        }
+    });
 </script>
