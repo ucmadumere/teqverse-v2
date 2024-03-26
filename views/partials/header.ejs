@@ -67,9 +67,9 @@
                           
                         <li class="dropdown" style="margin-left:70px;">
                         <% if (user.isAdmin) { %>
-                          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= greeting %>, <%= user.name %> </a>
+                          <a href="#" class="dropdown-toggle" style="text-transform: capitalize;" data-toggle="dropdown"> <%= greeting %>, <%= user.name %> </a>
                         <% } else { %>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= greeting %>, <%= user.first_name %> </a>
+                            <a href="#" class="dropdown-toggle" style="text-transform: capitalize;" data-toggle="dropdown"> <%= greeting %>, <%= user.first_name %> </a>
                         <% } %>
                           <ul class="dropdown-menu animated fadeOutUp" style="display: none; opacity: 1;">
                             <li><a href="/user-profile">Profile</a></li>
