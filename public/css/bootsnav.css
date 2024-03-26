@@ -2403,7 +2403,7 @@ nav.navbar.bootsnav {
   }
 
   .navbar-brand > img {
-    height: 50px !important;
+    /* height: 50px !important; */
   }
 
   nav.navbar.bootsnav.navbar-transparent.pad-top {
@@ -3077,7 +3077,7 @@ nav.navbar.bootsnav {
 
 .navbar-brand > img {
   display: initial;
-  height: 50px;
+  height: 22px;
 }
 
 .attr-nav > ul > li {
@@ -3317,7 +3317,7 @@ ul.cart-list > li.total > .btn {
   }
 
   nav.navbar .navbar-brand img.logo {
-    height: 30px;
+    height: 22px;
   }
 
   .attr-nav > ul > li > a {
