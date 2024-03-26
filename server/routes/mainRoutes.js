@@ -158,13 +158,8 @@ router.get("/update-profile", checkUser, requireAuth, async (req, res) => {
   }
 });
 
-router.post(
-  "/update-profile",
-  checkUser,
-  requireAuth,
-  updateUser,
-  (req, res) => { }
-);
+router.post("/update-profile", checkUser, requireAuth, updateUser, (req, res) => { 
+});
 
 router.get("/user-profile", checkUser, requireAuth, (req, res) => {
   try {
